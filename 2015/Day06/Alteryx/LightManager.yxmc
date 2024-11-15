@@ -1,0 +1,3265 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="246" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="534" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Switch([Command],[LightValue],&#xA;'turn on',[LightValue]+1,&#xA;'turn off',[LightValue]-1,&#xA;'toggle', if [maxValue]==1 then abs(not([LightValue])) else [LightValue]+2 endif&#xA;)" field="LightValue" size="8" type="Int64" enabled="true" />
+            <FormulaField expression="if [LightValue]&gt; [maxValue] and [maxValue] == 1&#xA;//this is the constraint for part 1&#xA;then [maxValue]&#xA;elseif [LightValue] &lt; [minValue] &#xA;//this stops lights going dimmer than zero&#xA;then [minValue]&#xA;else [LightValue]&#xA;endif" field="LightValue" size="8" type="Int64" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>LightValue = Switch([Command],[LightValue],
+'turn on',[LightValue]+1,
+'turn off'...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="330" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_Command" selected="True" rename="Source_Command" input="Source_" />
+                <SelectField field="Source_X1" selected="True" rename="Source_X1" input="Source_" />
+                <SelectField field="Source_Y1" selected="True" rename="Source_Y1" input="Source_" />
+                <SelectField field="Source_X2" selected="True" rename="Source_X2" input="Source_" />
+                <SelectField field="Source_Y2" selected="True" rename="Source_Y2" input="Source_" />
+                <SelectField field="Source_minValue" selected="True" rename="Source_minValue" input="Source_" />
+                <SelectField field="Source_maxValue" selected="True" rename="Source_maxValue" input="Source_" />
+                <SelectField field="Source_Source_Command" selected="True" rename="Source_Source_Command" input="Source_" />
+                <SelectField field="Source_Source_X1" selected="True" rename="Source_Source_X1" input="Source_" />
+                <SelectField field="Source_Source_Y1" selected="True" rename="Source_Source_Y1" input="Source_" />
+                <SelectField field="Source_Source_X2" selected="True" rename="Source_Source_X2" input="Source_" />
+                <SelectField field="Source_Source_Y2" selected="True" rename="Source_Source_Y2" input="Source_" />
+                <SelectField field="Source_Source_minValue" selected="True" rename="Source_Source_minValue" input="Source_" />
+                <SelectField field="Source_Source_maxValue" selected="True" rename="Source_Source_maxValue" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Command" size="99999" source="RegEx: Parsed from Field_1" type="V_WString" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X2" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y2" source="RegEx: Parsed from Field_1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="246" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Skip</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Skip 1st 1 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="438" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Row] &gt;= [X1] 
+and [Row] &lt;= [X2]
+and [Col] &gt;= [Y1]
+and [Col] &lt;= [Y2]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Row] &gt;= [X1] 
+and [Row] &lt;= [X2]
+and [Col] &gt;= [Y1]
+and [Col] &lt;= [Y2]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Command" size="99999" source="RegEx: Parsed from Field_1" type="V_WString" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X2" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y2" source="RegEx: Parsed from Field_1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Command" size="99999" source="RegEx: Parsed from Field_1" type="V_WString" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_X2" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Source_Y2" source="RegEx: Parsed from Field_1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="798" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="LightValue" source="Formula: (Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input10</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="300" />
+              <Fields>
+                <Field name="Command" />
+                <Field name="X1" />
+                <Field name="Y1" />
+                <Field name="X2" />
+                <Field name="Y2" />
+                <Field name="minValue" />
+                <Field name="maxValue" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>turn on</c>
+                  <c>489</c>
+                  <c>959</c>
+                  <c>759</c>
+                  <c>964</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>820</c>
+                  <c>516</c>
+                  <c>871</c>
+                  <c>914</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>427</c>
+                  <c>423</c>
+                  <c>929</c>
+                  <c>502</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>774</c>
+                  <c>14</c>
+                  <c>977</c>
+                  <c>877</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>410</c>
+                  <c>146</c>
+                  <c>864</c>
+                  <c>337</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>931</c>
+                  <c>331</c>
+                  <c>939</c>
+                  <c>812</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>756</c>
+                  <c>53</c>
+                  <c>923</c>
+                  <c>339</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>313</c>
+                  <c>787</c>
+                  <c>545</c>
+                  <c>979</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>12</c>
+                  <c>823</c>
+                  <c>102</c>
+                  <c>934</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>756</c>
+                  <c>965</c>
+                  <c>812</c>
+                  <c>992</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>743</c>
+                  <c>684</c>
+                  <c>789</c>
+                  <c>958</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>120</c>
+                  <c>314</c>
+                  <c>745</c>
+                  <c>489</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>692</c>
+                  <c>845</c>
+                  <c>866</c>
+                  <c>994</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>587</c>
+                  <c>176</c>
+                  <c>850</c>
+                  <c>273</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>674</c>
+                  <c>321</c>
+                  <c>793</c>
+                  <c>388</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>749</c>
+                  <c>672</c>
+                  <c>973</c>
+                  <c>965</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>943</c>
+                  <c>30</c>
+                  <c>990</c>
+                  <c>907</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>296</c>
+                  <c>50</c>
+                  <c>729</c>
+                  <c>664</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>212</c>
+                  <c>957</c>
+                  <c>490</c>
+                  <c>987</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>171</c>
+                  <c>31</c>
+                  <c>688</c>
+                  <c>88</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>991</c>
+                  <c>989</c>
+                  <c>994</c>
+                  <c>998</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>913</c>
+                  <c>943</c>
+                  <c>958</c>
+                  <c>953</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>278</c>
+                  <c>258</c>
+                  <c>367</c>
+                  <c>386</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>275</c>
+                  <c>796</c>
+                  <c>493</c>
+                  <c>971</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>70</c>
+                  <c>873</c>
+                  <c>798</c>
+                  <c>923</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>258</c>
+                  <c>985</c>
+                  <c>663</c>
+                  <c>998</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>601</c>
+                  <c>259</c>
+                  <c>831</c>
+                  <c>486</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>914</c>
+                  <c>94</c>
+                  <c>941</c>
+                  <c>102</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>558</c>
+                  <c>161</c>
+                  <c>994</c>
+                  <c>647</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>119</c>
+                  <c>662</c>
+                  <c>760</c>
+                  <c>838</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>378</c>
+                  <c>775</c>
+                  <c>526</c>
+                  <c>852</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>384</c>
+                  <c>670</c>
+                  <c>674</c>
+                  <c>972</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>249</c>
+                  <c>41</c>
+                  <c>270</c>
+                  <c>936</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>614</c>
+                  <c>742</c>
+                  <c>769</c>
+                  <c>780</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>427</c>
+                  <c>70</c>
+                  <c>575</c>
+                  <c>441</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>410</c>
+                  <c>478</c>
+                  <c>985</c>
+                  <c>753</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>619</c>
+                  <c>46</c>
+                  <c>931</c>
+                  <c>342</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>284</c>
+                  <c>55</c>
+                  <c>768</c>
+                  <c>922</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>40</c>
+                  <c>592</c>
+                  <c>728</c>
+                  <c>685</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>825</c>
+                  <c>291</c>
+                  <c>956</c>
+                  <c>950</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>147</c>
+                  <c>843</c>
+                  <c>592</c>
+                  <c>909</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>218</c>
+                  <c>675</c>
+                  <c>972</c>
+                  <c>911</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>249</c>
+                  <c>291</c>
+                  <c>350</c>
+                  <c>960</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>556</c>
+                  <c>80</c>
+                  <c>967</c>
+                  <c>675</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>609</c>
+                  <c>148</c>
+                  <c>968</c>
+                  <c>279</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>217</c>
+                  <c>605</c>
+                  <c>961</c>
+                  <c>862</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>407</c>
+                  <c>177</c>
+                  <c>548</c>
+                  <c>910</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>400</c>
+                  <c>936</c>
+                  <c>599</c>
+                  <c>938</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>721</c>
+                  <c>101</c>
+                  <c>925</c>
+                  <c>455</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>268</c>
+                  <c>631</c>
+                  <c>735</c>
+                  <c>814</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>549</c>
+                  <c>969</c>
+                  <c>612</c>
+                  <c>991</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>553</c>
+                  <c>268</c>
+                  <c>689</c>
+                  <c>432</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>817</c>
+                  <c>668</c>
+                  <c>889</c>
+                  <c>897</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>801</c>
+                  <c>544</c>
+                  <c>858</c>
+                  <c>556</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>615</c>
+                  <c>729</c>
+                  <c>832</c>
+                  <c>951</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>427</c>
+                  <c>477</c>
+                  <c>958</c>
+                  <c>948</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>164</c>
+                  <c>49</c>
+                  <c>852</c>
+                  <c>946</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>542</c>
+                  <c>449</c>
+                  <c>774</c>
+                  <c>776</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>923</c>
+                  <c>196</c>
+                  <c>980</c>
+                  <c>446</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>90</c>
+                  <c>310</c>
+                  <c>718</c>
+                  <c>846</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>657</c>
+                  <c>215</c>
+                  <c>744</c>
+                  <c>252</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>800</c>
+                  <c>239</c>
+                  <c>811</c>
+                  <c>712</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>502</c>
+                  <c>90</c>
+                  <c>619</c>
+                  <c>760</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>649</c>
+                  <c>512</c>
+                  <c>862</c>
+                  <c>844</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>334</c>
+                  <c>903</c>
+                  <c>823</c>
+                  <c>935</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>630</c>
+                  <c>233</c>
+                  <c>839</c>
+                  <c>445</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>713</c>
+                  <c>67</c>
+                  <c>839</c>
+                  <c>865</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>932</c>
+                  <c>50</c>
+                  <c>982</c>
+                  <c>411</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>480</c>
+                  <c>729</c>
+                  <c>984</c>
+                  <c>910</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>100</c>
+                  <c>219</c>
+                  <c>796</c>
+                  <c>395</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>758</c>
+                  <c>108</c>
+                  <c>850</c>
+                  <c>950</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>427</c>
+                  <c>276</c>
+                  <c>439</c>
+                  <c>938</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>178</c>
+                  <c>284</c>
+                  <c>670</c>
+                  <c>536</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>540</c>
+                  <c>27</c>
+                  <c>625</c>
+                  <c>102</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>906</c>
+                  <c>722</c>
+                  <c>936</c>
+                  <c>948</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>345</c>
+                  <c>418</c>
+                  <c>859</c>
+                  <c>627</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>175</c>
+                  <c>775</c>
+                  <c>580</c>
+                  <c>781</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>863</c>
+                  <c>28</c>
+                  <c>929</c>
+                  <c>735</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>824</c>
+                  <c>858</c>
+                  <c>905</c>
+                  <c>973</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>752</c>
+                  <c>312</c>
+                  <c>863</c>
+                  <c>425</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>985</c>
+                  <c>716</c>
+                  <c>988</c>
+                  <c>852</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>68</c>
+                  <c>504</c>
+                  <c>763</c>
+                  <c>745</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>76</c>
+                  <c>209</c>
+                  <c>810</c>
+                  <c>720</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>657</c>
+                  <c>607</c>
+                  <c>676</c>
+                  <c>664</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>596</c>
+                  <c>869</c>
+                  <c>896</c>
+                  <c>921</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>915</c>
+                  <c>411</c>
+                  <c>968</c>
+                  <c>945</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>368</c>
+                  <c>39</c>
+                  <c>902</c>
+                  <c>986</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>11</c>
+                  <c>549</c>
+                  <c>393</c>
+                  <c>597</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>842</c>
+                  <c>893</c>
+                  <c>976</c>
+                  <c>911</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>274</c>
+                  <c>106</c>
+                  <c>581</c>
+                  <c>329</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>406</c>
+                  <c>403</c>
+                  <c>780</c>
+                  <c>950</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>408</c>
+                  <c>988</c>
+                  <c>500</c>
+                  <c>994</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>217</c>
+                  <c>73</c>
+                  <c>826</c>
+                  <c>951</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>917</c>
+                  <c>872</c>
+                  <c>961</c>
+                  <c>911</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>394</c>
+                  <c>34</c>
+                  <c>510</c>
+                  <c>572</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>424</c>
+                  <c>603</c>
+                  <c>583</c>
+                  <c>626</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>106</c>
+                  <c>159</c>
+                  <c>755</c>
+                  <c>738</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>244</c>
+                  <c>610</c>
+                  <c>472</c>
+                  <c>709</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>350</c>
+                  <c>265</c>
+                  <c>884</c>
+                  <c>690</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>688</c>
+                  <c>184</c>
+                  <c>928</c>
+                  <c>280</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>279</c>
+                  <c>443</c>
+                  <c>720</c>
+                  <c>797</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>615</c>
+                  <c>493</c>
+                  <c>888</c>
+                  <c>610</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>118</c>
+                  <c>413</c>
+                  <c>736</c>
+                  <c>632</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>798</c>
+                  <c>782</c>
+                  <c>829</c>
+                  <c>813</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>250</c>
+                  <c>934</c>
+                  <c>442</c>
+                  <c>972</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>68</c>
+                  <c>503</c>
+                  <c>400</c>
+                  <c>949</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>297</c>
+                  <c>482</c>
+                  <c>313</c>
+                  <c>871</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>710</c>
+                  <c>3</c>
+                  <c>839</c>
+                  <c>859</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>125</c>
+                  <c>300</c>
+                  <c>546</c>
+                  <c>888</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>482</c>
+                  <c>39</c>
+                  <c>584</c>
+                  <c>159</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>536</c>
+                  <c>89</c>
+                  <c>765</c>
+                  <c>962</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>530</c>
+                  <c>518</c>
+                  <c>843</c>
+                  <c>676</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>994</c>
+                  <c>467</c>
+                  <c>994</c>
+                  <c>676</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>623</c>
+                  <c>628</c>
+                  <c>744</c>
+                  <c>927</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>704</c>
+                  <c>912</c>
+                  <c>837</c>
+                  <c>983</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>154</c>
+                  <c>364</c>
+                  <c>517</c>
+                  <c>412</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>344</c>
+                  <c>409</c>
+                  <c>780</c>
+                  <c>524</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>578</c>
+                  <c>740</c>
+                  <c>725</c>
+                  <c>879</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>251</c>
+                  <c>933</c>
+                  <c>632</c>
+                  <c>957</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>827</c>
+                  <c>705</c>
+                  <c>971</c>
+                  <c>789</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>191</c>
+                  <c>282</c>
+                  <c>470</c>
+                  <c>929</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>324</c>
+                  <c>525</c>
+                  <c>446</c>
+                  <c>867</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>534</c>
+                  <c>343</c>
+                  <c>874</c>
+                  <c>971</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>550</c>
+                  <c>650</c>
+                  <c>633</c>
+                  <c>980</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>837</c>
+                  <c>404</c>
+                  <c>881</c>
+                  <c>915</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>338</c>
+                  <c>881</c>
+                  <c>845</c>
+                  <c>905</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>469</c>
+                  <c>462</c>
+                  <c>750</c>
+                  <c>696</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>741</c>
+                  <c>703</c>
+                  <c>892</c>
+                  <c>870</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>570</c>
+                  <c>215</c>
+                  <c>733</c>
+                  <c>562</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>445</c>
+                  <c>576</c>
+                  <c>870</c>
+                  <c>775</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>466</c>
+                  <c>747</c>
+                  <c>554</c>
+                  <c>878</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>820</c>
+                  <c>453</c>
+                  <c>868</c>
+                  <c>712</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>892</c>
+                  <c>706</c>
+                  <c>938</c>
+                  <c>792</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>300</c>
+                  <c>238</c>
+                  <c>894</c>
+                  <c>746</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>306</c>
+                  <c>44</c>
+                  <c>457</c>
+                  <c>444</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>912</c>
+                  <c>569</c>
+                  <c>967</c>
+                  <c>963</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>109</c>
+                  <c>756</c>
+                  <c>297</c>
+                  <c>867</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>37</c>
+                  <c>546</c>
+                  <c>41</c>
+                  <c>951</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>321</c>
+                  <c>637</c>
+                  <c>790</c>
+                  <c>910</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>66</c>
+                  <c>50</c>
+                  <c>579</c>
+                  <c>301</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>933</c>
+                  <c>221</c>
+                  <c>933</c>
+                  <c>791</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>486</c>
+                  <c>676</c>
+                  <c>878</c>
+                  <c>797</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>417</c>
+                  <c>231</c>
+                  <c>556</c>
+                  <c>317</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>904</c>
+                  <c>468</c>
+                  <c>981</c>
+                  <c>873</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>417</c>
+                  <c>675</c>
+                  <c>749</c>
+                  <c>712</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>692</c>
+                  <c>371</c>
+                  <c>821</c>
+                  <c>842</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>324</c>
+                  <c>73</c>
+                  <c>830</c>
+                  <c>543</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>912</c>
+                  <c>490</c>
+                  <c>977</c>
+                  <c>757</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>634</c>
+                  <c>872</c>
+                  <c>902</c>
+                  <c>949</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>266</c>
+                  <c>779</c>
+                  <c>870</c>
+                  <c>798</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>772</c>
+                  <c>982</c>
+                  <c>990</c>
+                  <c>996</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>607</c>
+                  <c>46</c>
+                  <c>798</c>
+                  <c>559</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>295</c>
+                  <c>602</c>
+                  <c>963</c>
+                  <c>987</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>657</c>
+                  <c>86</c>
+                  <c>944</c>
+                  <c>742</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>334</c>
+                  <c>639</c>
+                  <c>456</c>
+                  <c>821</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>997</c>
+                  <c>667</c>
+                  <c>997</c>
+                  <c>670</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>725</c>
+                  <c>832</c>
+                  <c>951</c>
+                  <c>945</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>30</c>
+                  <c>120</c>
+                  <c>952</c>
+                  <c>984</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>860</c>
+                  <c>965</c>
+                  <c>917</c>
+                  <c>976</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>471</c>
+                  <c>997</c>
+                  <c>840</c>
+                  <c>998</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>319</c>
+                  <c>307</c>
+                  <c>928</c>
+                  <c>504</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>823</c>
+                  <c>631</c>
+                  <c>940</c>
+                  <c>908</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>969</c>
+                  <c>984</c>
+                  <c>981</c>
+                  <c>993</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>691</c>
+                  <c>319</c>
+                  <c>865</c>
+                  <c>954</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>911</c>
+                  <c>926</c>
+                  <c>938</c>
+                  <c>929</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>953</c>
+                  <c>937</c>
+                  <c>968</c>
+                  <c>991</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>914</c>
+                  <c>643</c>
+                  <c>975</c>
+                  <c>840</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>266</c>
+                  <c>982</c>
+                  <c>436</c>
+                  <c>996</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>101</c>
+                  <c>896</c>
+                  <c>321</c>
+                  <c>932</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>193</c>
+                  <c>852</c>
+                  <c>751</c>
+                  <c>885</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>576</c>
+                  <c>532</c>
+                  <c>863</c>
+                  <c>684</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>761</c>
+                  <c>456</c>
+                  <c>940</c>
+                  <c>783</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>20</c>
+                  <c>290</c>
+                  <c>398</c>
+                  <c>933</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>435</c>
+                  <c>335</c>
+                  <c>644</c>
+                  <c>652</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>830</c>
+                  <c>569</c>
+                  <c>905</c>
+                  <c>770</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>630</c>
+                  <c>517</c>
+                  <c>905</c>
+                  <c>654</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>664</c>
+                  <c>53</c>
+                  <c>886</c>
+                  <c>976</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>275</c>
+                  <c>416</c>
+                  <c>408</c>
+                  <c>719</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>370</c>
+                  <c>621</c>
+                  <c>515</c>
+                  <c>793</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>483</c>
+                  <c>373</c>
+                  <c>654</c>
+                  <c>749</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>656</c>
+                  <c>786</c>
+                  <c>847</c>
+                  <c>928</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>532</c>
+                  <c>752</c>
+                  <c>945</c>
+                  <c>974</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>301</c>
+                  <c>150</c>
+                  <c>880</c>
+                  <c>792</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>951</c>
+                  <c>488</c>
+                  <c>958</c>
+                  <c>952</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>207</c>
+                  <c>729</c>
+                  <c>882</c>
+                  <c>828</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>694</c>
+                  <c>532</c>
+                  <c>973</c>
+                  <c>961</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>676</c>
+                  <c>639</c>
+                  <c>891</c>
+                  <c>802</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>653</c>
+                  <c>6</c>
+                  <c>905</c>
+                  <c>519</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>391</c>
+                  <c>109</c>
+                  <c>418</c>
+                  <c>312</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>877</c>
+                  <c>423</c>
+                  <c>957</c>
+                  <c>932</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>340</c>
+                  <c>145</c>
+                  <c>563</c>
+                  <c>522</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>978</c>
+                  <c>467</c>
+                  <c>988</c>
+                  <c>895</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>396</c>
+                  <c>418</c>
+                  <c>420</c>
+                  <c>885</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>31</c>
+                  <c>308</c>
+                  <c>816</c>
+                  <c>316</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>107</c>
+                  <c>675</c>
+                  <c>758</c>
+                  <c>824</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>61</c>
+                  <c>82</c>
+                  <c>789</c>
+                  <c>876</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>750</c>
+                  <c>743</c>
+                  <c>754</c>
+                  <c>760</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>88</c>
+                  <c>733</c>
+                  <c>736</c>
+                  <c>968</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>754</c>
+                  <c>349</c>
+                  <c>849</c>
+                  <c>897</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>157</c>
+                  <c>50</c>
+                  <c>975</c>
+                  <c>781</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>230</c>
+                  <c>231</c>
+                  <c>865</c>
+                  <c>842</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>516</c>
+                  <c>317</c>
+                  <c>630</c>
+                  <c>329</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>697</c>
+                  <c>820</c>
+                  <c>829</c>
+                  <c>903</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>218</c>
+                  <c>250</c>
+                  <c>271</c>
+                  <c>732</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>56</c>
+                  <c>167</c>
+                  <c>404</c>
+                  <c>431</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>626</c>
+                  <c>891</c>
+                  <c>680</c>
+                  <c>927</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>370</c>
+                  <c>207</c>
+                  <c>791</c>
+                  <c>514</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>860</c>
+                  <c>74</c>
+                  <c>949</c>
+                  <c>888</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>416</c>
+                  <c>527</c>
+                  <c>616</c>
+                  <c>541</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>745</c>
+                  <c>449</c>
+                  <c>786</c>
+                  <c>908</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>485</c>
+                  <c>554</c>
+                  <c>689</c>
+                  <c>689</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>586</c>
+                  <c>62</c>
+                  <c>693</c>
+                  <c>141</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>506</c>
+                  <c>759</c>
+                  <c>768</c>
+                  <c>829</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>473</c>
+                  <c>109</c>
+                  <c>929</c>
+                  <c>166</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>760</c>
+                  <c>617</c>
+                  <c>773</c>
+                  <c>789</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>595</c>
+                  <c>683</c>
+                  <c>618</c>
+                  <c>789</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>210</c>
+                  <c>775</c>
+                  <c>825</c>
+                  <c>972</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>12</c>
+                  <c>426</c>
+                  <c>179</c>
+                  <c>982</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>774</c>
+                  <c>539</c>
+                  <c>778</c>
+                  <c>786</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>102</c>
+                  <c>498</c>
+                  <c>121</c>
+                  <c>807</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>706</c>
+                  <c>897</c>
+                  <c>834</c>
+                  <c>965</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>678</c>
+                  <c>529</c>
+                  <c>824</c>
+                  <c>627</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>7</c>
+                  <c>765</c>
+                  <c>615</c>
+                  <c>870</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>730</c>
+                  <c>872</c>
+                  <c>974</c>
+                  <c>943</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>595</c>
+                  <c>626</c>
+                  <c>836</c>
+                  <c>711</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>215</c>
+                  <c>424</c>
+                  <c>841</c>
+                  <c>959</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>341</c>
+                  <c>780</c>
+                  <c>861</c>
+                  <c>813</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>507</c>
+                  <c>503</c>
+                  <c>568</c>
+                  <c>822</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>252</c>
+                  <c>603</c>
+                  <c>349</c>
+                  <c>655</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>93</c>
+                  <c>521</c>
+                  <c>154</c>
+                  <c>834</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>565</c>
+                  <c>682</c>
+                  <c>951</c>
+                  <c>954</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>544</c>
+                  <c>318</c>
+                  <c>703</c>
+                  <c>418</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>756</c>
+                  <c>953</c>
+                  <c>891</c>
+                  <c>964</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>531</c>
+                  <c>123</c>
+                  <c>856</c>
+                  <c>991</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>148</c>
+                  <c>315</c>
+                  <c>776</c>
+                  <c>559</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>925</c>
+                  <c>835</c>
+                  <c>963</c>
+                  <c>971</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>895</c>
+                  <c>944</c>
+                  <c>967</c>
+                  <c>964</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>102</c>
+                  <c>527</c>
+                  <c>650</c>
+                  <c>747</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>626</c>
+                  <c>105</c>
+                  <c>738</c>
+                  <c>720</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>160</c>
+                  <c>75</c>
+                  <c>384</c>
+                  <c>922</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>813</c>
+                  <c>724</c>
+                  <c>903</c>
+                  <c>941</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>207</c>
+                  <c>107</c>
+                  <c>982</c>
+                  <c>849</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>750</c>
+                  <c>505</c>
+                  <c>961</c>
+                  <c>697</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>105</c>
+                  <c>410</c>
+                  <c>885</c>
+                  <c>819</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>226</c>
+                  <c>104</c>
+                  <c>298</c>
+                  <c>283</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>224</c>
+                  <c>604</c>
+                  <c>508</c>
+                  <c>762</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>477</c>
+                  <c>368</c>
+                  <c>523</c>
+                  <c>506</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>477</c>
+                  <c>901</c>
+                  <c>627</c>
+                  <c>936</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>887</c>
+                  <c>131</c>
+                  <c>889</c>
+                  <c>670</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>896</c>
+                  <c>994</c>
+                  <c>938</c>
+                  <c>999</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>401</c>
+                  <c>580</c>
+                  <c>493</c>
+                  <c>728</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>987</c>
+                  <c>184</c>
+                  <c>991</c>
+                  <c>205</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>821</c>
+                  <c>643</c>
+                  <c>882</c>
+                  <c>674</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>784</c>
+                  <c>940</c>
+                  <c>968</c>
+                  <c>959</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>251</c>
+                  <c>293</c>
+                  <c>274</c>
+                  <c>632</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>339</c>
+                  <c>840</c>
+                  <c>341</c>
+                  <c>844</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>675</c>
+                  <c>351</c>
+                  <c>675</c>
+                  <c>836</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>918</c>
+                  <c>857</c>
+                  <c>944</c>
+                  <c>886</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>70</c>
+                  <c>253</c>
+                  <c>918</c>
+                  <c>736</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>612</c>
+                  <c>604</c>
+                  <c>772</c>
+                  <c>680</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>277</c>
+                  <c>40</c>
+                  <c>828</c>
+                  <c>348</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>692</c>
+                  <c>139</c>
+                  <c>698</c>
+                  <c>880</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>124</c>
+                  <c>446</c>
+                  <c>883</c>
+                  <c>453</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>969</c>
+                  <c>932</c>
+                  <c>990</c>
+                  <c>945</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>855</c>
+                  <c>692</c>
+                  <c>993</c>
+                  <c>693</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>722</c>
+                  <c>472</c>
+                  <c>887</c>
+                  <c>899</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>978</c>
+                  <c>149</c>
+                  <c>985</c>
+                  <c>442</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>837</c>
+                  <c>540</c>
+                  <c>916</c>
+                  <c>889</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>612</c>
+                  <c>2</c>
+                  <c>835</c>
+                  <c>82</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>560</c>
+                  <c>767</c>
+                  <c>878</c>
+                  <c>856</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>461</c>
+                  <c>734</c>
+                  <c>524</c>
+                  <c>991</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>206</c>
+                  <c>824</c>
+                  <c>976</c>
+                  <c>912</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>826</c>
+                  <c>610</c>
+                  <c>879</c>
+                  <c>892</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>577</c>
+                  <c>699</c>
+                  <c>956</c>
+                  <c>933</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>9</c>
+                  <c>250</c>
+                  <c>50</c>
+                  <c>529</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>77</c>
+                  <c>657</c>
+                  <c>817</c>
+                  <c>677</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>68</c>
+                  <c>419</c>
+                  <c>86</c>
+                  <c>426</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>991</c>
+                  <c>720</c>
+                  <c>992</c>
+                  <c>784</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>668</c>
+                  <c>20</c>
+                  <c>935</c>
+                  <c>470</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>133</c>
+                  <c>418</c>
+                  <c>613</c>
+                  <c>458</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>487</c>
+                  <c>286</c>
+                  <c>540</c>
+                  <c>328</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>247</c>
+                  <c>874</c>
+                  <c>840</c>
+                  <c>955</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>301</c>
+                  <c>808</c>
+                  <c>754</c>
+                  <c>970</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>34</c>
+                  <c>194</c>
+                  <c>578</c>
+                  <c>203</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>451</c>
+                  <c>49</c>
+                  <c>492</c>
+                  <c>921</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>907</c>
+                  <c>256</c>
+                  <c>912</c>
+                  <c>737</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>479</c>
+                  <c>305</c>
+                  <c>702</c>
+                  <c>587</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>545</c>
+                  <c>583</c>
+                  <c>732</c>
+                  <c>749</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>11</c>
+                  <c>16</c>
+                  <c>725</c>
+                  <c>868</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>965</c>
+                  <c>343</c>
+                  <c>986</c>
+                  <c>908</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>674</c>
+                  <c>953</c>
+                  <c>820</c>
+                  <c>965</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>398</c>
+                  <c>147</c>
+                  <c>504</c>
+                  <c>583</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>778</c>
+                  <c>194</c>
+                  <c>898</c>
+                  <c>298</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>179</c>
+                  <c>140</c>
+                  <c>350</c>
+                  <c>852</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>241</c>
+                  <c>118</c>
+                  <c>530</c>
+                  <c>832</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>41</c>
+                  <c>447</c>
+                  <c>932</c>
+                  <c>737</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn off</c>
+                  <c>820</c>
+                  <c>663</c>
+                  <c>832</c>
+                  <c>982</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>550</c>
+                  <c>460</c>
+                  <c>964</c>
+                  <c>782</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>turn on</c>
+                  <c>31</c>
+                  <c>760</c>
+                  <c>655</c>
+                  <c>892</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+                <r>
+                  <c>toggle</c>
+                  <c>628</c>
+                  <c>958</c>
+                  <c>811</c>
+                  <c>992</c>
+                  <c>0</c>
+                  <c>999999999</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Command" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="X1" source="TextInput:" type="Int32" />
+            <Field name="Y1" source="TextInput:" type="Int32" />
+            <Field name="X2" source="TextInput:" type="Int32" />
+            <Field name="Y2" source="TextInput:" type="Int32" />
+            <Field name="minValue" source="TextInput:" type="Int32" />
+            <Field name="maxValue" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\tmpGrid.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>tmpGrid.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Command" size="99999" source="RegEx: Parsed from Field_1" type="V_WString" />
+            <Field description="RegEx: Parsed from Field_1" name="X1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Y1" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="X2" source="RegEx: Parsed from Field_1" type="Int64" />
+            <Field description="RegEx: Parsed from Field_1" name="Y2" source="RegEx: Parsed from Field_1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="954" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">.\tmpGrid.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>tmpGrid.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="930" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="870" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Row" selected="True" />
+            <SelectField field="Col" selected="True" />
+            <SelectField field="LightValue" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="12" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="12" Connection="Source" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="14" Connection="False" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="True" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (21)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>LightManager</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="32635a0f-daa1-4984-b294-e4cd2a59d71c" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="32635a0f-daa1-4984-b294-e4cd2a59d71c" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (16)</Name>
+          <ToolId value="16" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (18)</Name>
+              <ToolId value="18" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (21)</Description>
+              <Name>Macro Output (21)</Name>
+              <ToolId value="21" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input10</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="18" Selected="True" />
+        <Tool ToolId="20" Selected="True" />
+        <Tool ToolId="21" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
