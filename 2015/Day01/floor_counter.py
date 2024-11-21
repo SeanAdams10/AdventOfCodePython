@@ -1,6 +1,7 @@
 """
 Floor Counter for advent of code day 1 2015
 """
+from typing import Optional
 
 
 class FloorCounter:
@@ -20,7 +21,7 @@ class FloorCounter:
         param: instructions: str: The instructions to process
         return: int: The floor the elevator stops at
         """
-        self.floor
+
         for char in instructions:
             if char == '(':
                 self.floor += 1
@@ -28,7 +29,7 @@ class FloorCounter:
                 self.floor -= 1
         return self.floor
 
-    def basement(self, instructions: str) -> int:
+    def basement(self, instructions: str) -> Optional[int]:
         """
         Find the position of the first character that causes the elevator to
         enter the basement (floor -1)
