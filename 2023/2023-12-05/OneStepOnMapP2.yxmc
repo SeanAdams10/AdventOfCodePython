@@ -1,0 +1,1197 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="139" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Iterations</Name>
+          <Abbrev>I</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\TestMacroP2.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>TestMacroP2.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from data" name="Start" source="TextToColumns: Parsed from data" type="Int64" />
+            <Field name="End" source="Formula: [Start]+[Size]-1" type="Int64" />
+            <Field name="BlockID" source="Formula: 2" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Maps</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\MapInputP2.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>MapInputP2.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\MapInputP2.yxdb" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+            <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+            <Field name="MapDelta" source="Formula: [InputStart] - [OutputStart]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2132" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+            <Field name="BlockID" source="Formula: [BlockID]+1" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2240" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2252" y="339" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="162" y="200" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="BlockID" action="Min" rename="CurrentBlockID" />
+            <SummarizeField field="MaxBlockID" action="Max" rename="MaxBlockID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentBlockID" source="Formula: 2" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="258" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentBlockID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="BlockID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CurrentBlockID" selected="False" input="Left_" />
+                <SelectField field="Right_BlockID" selected="False" rename="Right_BlockID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Just this block</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentBlockID" source="Formula: 2" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+            <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+            <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\MapInputP2.yxdb" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+            <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+            <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="415" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Splits</Name>
+          <Abbrev>S</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P2Splits.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P2Splits.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\P2Splits.yxdb" type="Int32" />
+            <Field name="Value" source="(Multiple Sources)" type="Int64" />
+            <Field name="BreakID" source="Tile" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="354" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="InputStart" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>InputStart - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+            <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+            <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="258" y="403" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentBlockID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="BlockID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CurrentBlockID" selected="False" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Just this block</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentBlockID" source="Formula: 2" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\P2Splits.yxdb" type="Int32" />
+            <Field name="Value" source="(Multiple Sources)" type="Int64" />
+            <Field name="BreakID" source="Tile" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\P2Splits.yxdb" type="Int32" />
+            <Field name="Value" source="(Multiple Sources)" type="Int64" />
+            <Field name="BreakID" source="Tile" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="354" y="403" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Value" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Value - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+            <Field name="BlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\P2Splits.yxdb" type="Int32" />
+            <Field name="Value" source="(Multiple Sources)" type="Int64" />
+            <Field name="BreakID" source="Tile" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings>
+        <Position x="1506" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Ranges"><![CDATA[Start=Start
+End=End
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Compress</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output11">
+          <RecordInfo>
+            <Field name="GroupID" source="Summarize: GroupBy - GroupID" type="Int64" />
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CompressThisGroup.yxmc" />
+    </Node>
+    <Node ToolID="79">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1638" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_Start" selected="True" input="Target_" />
+                <SelectField field="Target_End" selected="True" input="Target_" />
+                <SelectField field="Source_CurrentBlockID" selected="True" rename="BlockID" input="Source_" />
+                <SelectField field="Target_GroupID" selected="False" input="Target_" />
+                <SelectField field="Source_MaxBlockID" selected="True" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+            <Field name="BlockID" source="Formula: 2" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="80">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1722" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[BlockID]+1" field="BlockID" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[BlockID = [BlockID]+1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+            <Field name="BlockID" source="Formula: [BlockID]+1" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1830" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[BlockID] &lt;= [MaxBlockID]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[BlockID] &lt;= [MaxBlockID]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+            <Field name="BlockID" source="Formula: [BlockID]+1" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Start" source="Summarize: GroupBy - Start" type="Int64" />
+            <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+            <Field name="BlockID" source="Formula: [BlockID]+1" type="Int64" />
+            <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="77">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="917" y="170" width="553" height="255" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Score this translation</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Score this translation</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="71">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+            <Position x="942" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <CartesianMode>Allow</CartesianMode>
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+        </Node>
+        <Node ToolID="72">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1038" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression><![CDATA[[start] >= [InputStart] AND
+[start] <= [InputEndIncl] ]]></Expression>
+              <Mode>Custom</Mode>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[[start] >= [InputStart] AND
+[start] <= [InputEndIncl] ]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="73">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1122" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="True" />
+              <OutputOrder>
+                <Connection>#1</Connection>
+                <Connection>#2</Connection>
+              </OutputOrder>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="74">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="1218" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="Start" />
+                <Field field="End" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Unique">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Duplicates">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: [OutputStart] - [InputStart]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="75">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1302" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="if isnull([MapDelta]) then 0&#xA;else [MapDelta]&#xA;endif" field="MapDelta" size="8" type="Int64" />
+                <FormulaField expression="[Start]+[MapDelta]" field="Start" size="8" type="Int64" />
+                <FormulaField expression="[End]+ [MapDelta]" field="End" size="8" type="Int64" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>MapDelta = if isnull([MapDelta]) then 0
+else [MapDelta]
+endif
+Start = [Start]+[M...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Start" source="Formula: [Start]+[MapDelta]" type="Int64" />
+                <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="InputStart" source="RegEx: Parsed from data" type="Int64" />
+                <Field name="InputEndIncl" source="Formula: [InputStart] + [RangeSize]-1" type="Int64" />
+                <Field name="MapDelta" source="Formula: if isnull([MapDelta]) then 0&#xA;else [MapDelta]&#xA;endif" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="76">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1386" y="219" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Start" selected="True" />
+                <SelectField field="End" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Start" source="Formula: [Start]+[MapDelta]" type="Int64" />
+                <Field name="End" source="Formula: [End]+ [MapDelta]" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="461" y="89" width="447" height="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption><![CDATA[Split ]]></Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText><![CDATA[Split ]]></AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="58">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="486" y="138" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from data" name="Start" source="TextToColumns: Parsed from data" type="Int64" />
+                <Field name="End" source="Formula: [Start]+[Size]-1" type="Int64" />
+                <Field name="BlockID" source="Formula: 2" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="59">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="498" y="270" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Value" selected="True" />
+                <SelectField field="BreakID" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Value" source="(Multiple Sources)" type="Int64" />
+                <Field name="BreakID" source="Tile" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="65">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="594" y="211" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="BreakID" action="Min" rename="BreakID" />
+                <SummarizeField field="BreakID" action="Max" rename="MaxBreakID" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="BreakID" source="Tile" type="Int32" />
+                <Field name="MaxBreakID" source="Tile" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="66">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+            <Position x="654" y="139" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <CartesianMode>Allow</CartesianMode>
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from data" name="Start" source="TextToColumns: Parsed from data" type="Int64" />
+                <Field name="End" source="Formula: [Start]+[Size]-1" type="Int64" />
+                <Field name="BlockID" source="Formula: 2" type="Int64" />
+                <Field name="MaxBlockID" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2023\2023-12-05\TestMacroP2.yxdb" type="Int32" />
+                <Field name="BreakID" source="Tile" type="Int32" />
+                <Field name="MaxBreakID" source="Tile" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+        </Node>
+        <Node ToolID="82">
+          <GuiSettings>
+            <Position x="786" y="139" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Seeds"><![CDATA[Start=Start
+End=End
+BreakID=BreakID
+MaxBreakID=MaxBreakID
+]]></Value>
+              <Value name="Input.Breaks"><![CDATA[BreakID=BreakID
+Value=Value
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>SplitThisGroup (61)</Name>
+              <AnnotationText>Split the current ranges</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Answer">
+              <RecordInfo>
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Rework">
+              <RecordInfo>
+                <Field name="BreakID" source="Formula: [BreakID]+1" type="Int32" />
+                <Field name="MaxBreakID" source="Tile" type="Int32" />
+                <Field name="Start" source="Formula: (Multiple Sources)" type="Int64" />
+                <Field name="End" source="Formula: (Multiple Sources)" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro="SplitThisGroup.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2225" y="54" width="152" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 27</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2250" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\TestMacroP2.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>TestMacroP2.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="58" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="32" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="56" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="56" Connection="Right" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="79" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="Output11" />
+      <Destination ToolID="79" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Join" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="71" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="82" Connection="Answer" />
+      <Destination ToolID="71" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Join" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="57" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="79" Connection="Output" />
+      <Destination ToolID="80" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="80" Connection="Output" />
+      <Destination ToolID="81" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="81" Connection="True" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="81" Connection="False" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="71" Connection="Output" />
+      <Destination ToolID="72" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="72" Connection="True" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="82" Connection="Answer" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="74" Connection="Unique" />
+      <Destination ToolID="75" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="75" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="76" Connection="Output" />
+      <Destination ToolID="78" Connection="Ranges" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="66" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="66" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="82" Connection="Breaks" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="82" Connection="Seeds" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (54)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>OneStepOnMapP2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="8da9c5e8-baf6-4255-a19e-51d331e54323" />
+      <Telemetry>
+        <PreviousWorkflowId value="0bc79a93-d096-4d8b-978e-83b69b02f60d" />
+        <OriginWorkflowId value="464b3f1a-0b48-4e12-855e-3a49266be1fc" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (22)</Name>
+          <ToolId value="22" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (13)</Name>
+              <ToolId value="13" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (5)</Name>
+              <ToolId value="5" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (23)</Description>
+              <Name>Macro Output (23)</Name>
+              <ToolId value="23" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (24)</Description>
+              <Name>Macro Output (24)</Name>
+              <ToolId value="24" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (54)</Description>
+              <Name>Macro Input (54)</Name>
+              <ToolId value="54" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Iterations</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="5" Selected="True" />
+        <Tool ToolId="13" Selected="True" />
+        <Tool ToolId="23" Selected="True" />
+        <Tool ToolId="24" Selected="True" />
+        <Tool ToolId="54" Selected="True" />
+        <Tool ToolId="78" Selected="True" />
+        <Tool ToolId="82" Selected="True" />
+        <Tool ToolId="26" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

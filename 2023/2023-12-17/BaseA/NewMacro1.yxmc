@@ -1,0 +1,2699 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="690" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="4" />
+          <Fields>
+            <Field name="NewDir" />
+            <Field name="RowDelta" />
+            <Field name="ColDelta" />
+          </Fields>
+          <Data>
+            <r>
+              <c>N</c>
+              <c>-1</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>S</c>
+              <c>1</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>E</c>
+              <c>0</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>W</c>
+              <c>0</c>
+              <c>-1</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="582" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="786" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Create new moves</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="882" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[RowID] + [RowDelta]" field="NewRowID" size="4" type="Int32" />
+            <FormulaField expression="[ColID] + [ColDelta]" field="NewColID" size="4" type="Int32" />
+            <FormulaField expression="if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" field="NewDirectionCount" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText><![CDATA[Process these moves
+]]></AnnotationText>
+          <DefaultAnnotationText>NewRowID = [RowID] + [RowDelta]
+NewColID = [ColID] + [ColDelta]
+NewDirectionCoun...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1086" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[CurrentDirCount] &lt;= 3</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>get rid of moves which are more than 3 moves long</AnnotationText>
+          <DefaultAnnotationText>[CurrentDirCount] &lt;= 3</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="582" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Min_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Min_ColID" source="Tile" type="Int32" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="978" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="NewRowID" />
+            <Field field="NewColID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RowID" />
+            <Field field="ColID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CurrentDir" selected="True" input="Left_" />
+                <SelectField field="Left_CurrentDirCount" selected="True" input="Left_" />
+                <SelectField field="Left_CurrentActualCost" selected="True" input="Left_" />
+                <SelectField field="Left_CurrentEstCost" selected="True" input="Left_" />
+                <SelectField field="Left_RowID" selected="True" input="Left_" />
+                <SelectField field="Left_ColID" selected="True" input="Left_" />
+                <SelectField field="Left_NewDir" selected="True" input="Left_" />
+                <SelectField field="Left_RowDelta" selected="True" input="Left_" />
+                <SelectField field="Left_ColDelta" selected="True" input="Left_" />
+                <SelectField field="Left_NewRowID" selected="True" input="Left_" />
+                <SelectField field="Left_NewColID" selected="True" input="Left_" />
+                <SelectField field="Left_NewDirectionCount" selected="True" input="Left_" />
+                <SelectField field="Right_RowID" selected="False" rename="Right_RowID" input="Right_" />
+                <SelectField field="Right_ColID" selected="False" rename="Right_ColID" input="Right_" />
+                <SelectField field="Right_data" selected="True" input="Right_" />
+                <SelectField field="Right_Max_RowID" selected="True" input="Right_" />
+                <SelectField field="Right_Max_ColID" selected="True" input="Right_" />
+                <SelectField field="Right_Avg_data" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Bring in target cell</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Min_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Min_ColID" source="Tile" type="Int32" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1182" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[CurrentActualCost] + [data]" field="NewActualCost" size="4" type="Int32" />
+            <FormulaField expression="[Max_RowID]-[NewRowID] + [Max_ColID]-[NewColID]" field="ManhattanDistToTarget" size="4" type="Int32" />
+            <FormulaField expression="[NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" field="NewEstCost" size="4" type="Int32" />
+            <FormulaField expression="[NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" field="isTargetCell" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Costs</AnnotationText>
+          <DefaultAnnotationText>NewActualCost = [CurrentActualCost] + [data]
+ManhattanDistToTarget = [Max_RowID]...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="NewActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="ManhattanDistToTarget" source="Formula: [Max_RowID]-[NewRowID] + [Max_ColID]-[NewColID]" type="Int32" />
+            <Field name="NewEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1302" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="NewActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="ManhattanDistToTarget" source="Formula: [Max_RowID]-[NewRowID] + [Max_ColID]-[NewColID]" type="Int32" />
+            <Field name="NewEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1386" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="1" field="IterNo" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = 1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="NewActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="ManhattanDistToTarget" source="Formula: [Max_RowID]-[NewRowID] + [Max_ColID]-[NewColID]" type="Int32" />
+            <Field name="NewEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+            <Field name="IterNo" source="Formula: 1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1458" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirectionCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="NewActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="ManhattanDistToTarget" source="Formula: [Max_RowID]-[NewRowID] + [Max_ColID]-[NewColID]" type="Int32" />
+            <Field name="NewEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+            <Field name="IterNo" source="Formula: 1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1302" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="NewDir" selected="True" rename="CurrentDir" />
+            <SelectField field="NewDirectionCount" selected="True" rename="CurrentDirCount" />
+            <SelectField field="NewRowID" selected="True" rename="RowID" />
+            <SelectField field="NewColID" selected="True" rename="ColID" />
+            <SelectField field="NewActualCost" selected="True" rename="CurrentActualCost" />
+            <SelectField field="NewEstCost" selected="True" rename="CurrentEstCost" />
+            <SelectField field="CurrentDir" selected="False" />
+            <SelectField field="CurrentDirCount" selected="False" />
+            <SelectField field="CurrentActualCost" selected="False" />
+            <SelectField field="CurrentEstCost" selected="False" />
+            <SelectField field="RowID" selected="False" />
+            <SelectField field="ColID" selected="False" />
+            <SelectField field="RowDelta" selected="False" />
+            <SelectField field="ColDelta" selected="False" />
+            <SelectField field="data" selected="False" />
+            <SelectField field="Max_RowID" selected="False" />
+            <SelectField field="Max_ColID" selected="False" />
+            <SelectField field="Avg_data" selected="False" />
+            <SelectField field="ManhattanDistToTarget" selected="False" />
+            <SelectField field="isTargetCell" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="ColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="CurrentActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="CurrentEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1386" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="isTargetCell" action="Sum" rename="Sum_isTargetCell" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1470" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="ColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="CurrentActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="CurrentEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1566" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>Sum_isTargetCell</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-20 13:45:19</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2023-12-20 13:45:19</StartDate>
+              <EndDate>2023-12-20 13:45:19</EndDate>
+              <Operand>0</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Sum_isTargetCell] &gt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="ColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="CurrentActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="CurrentEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="Formula: if [NewDir] = [CurrentDir] then &#xA;    [CurrentDirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="ColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="CurrentActualCost" source="Formula: [CurrentActualCost] + [data]" type="Int32" />
+            <Field name="CurrentEstCost" source="Formula: [NewActualCost] + floor([ManhattanDistToTarget]*[Avg_data])" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [NewColID] = [Max_ColID] AND&#xA;[NewRowID] = [Max_RowID]" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1686" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_41060_4d6d2d2715b0b248a52b6b80cd804da7_\Engine_41060_0a0625de7ae8bc499e963dac5fa5e63b~.yxdb</TempFile>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>rework</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1686" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_41060_4d6d2d2715b0b248a52b6b80cd804da7_\Engine_41060_0a0625de7ae8bc499e963dac5fa5e63b~.yxdb</TempFile>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Answer</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="450" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input116</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>5</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>6</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>7</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>8</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>10</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>11</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>12</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>6</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>7</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>8</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>9</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>11</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>12</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>5</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>6</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>7</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>8</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>9</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>10</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>11</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>13</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>4</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>5</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>6</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>7</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>9</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>11</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>13</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>4</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>7</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>9</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>10</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>11</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>12</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>13</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>4</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>5</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>6</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>8</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>9</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>10</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>11</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>13</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>3</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>4</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>5</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>7</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>10</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>11</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>12</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>13</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>2</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>4</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>5</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>7</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>10</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>11</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>2</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>3</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>4</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>5</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>6</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>7</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>10</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>11</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>12</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>13</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>3</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>4</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>7</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>10</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>11</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>3</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>4</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>6</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>7</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>9</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>11</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>12</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>4</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>6</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>7</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>10</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>11</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>12</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>13</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>2</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>4</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>7</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>8</c>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>9</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>11</c>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>12</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>5.07100591715976</c>
+                </r>
+              </Data>
+              <NumRows value="169" />
+              <Fields>
+                <Field name="RowID" />
+                <Field name="ColID" />
+                <Field name="data" />
+                <Field name="Min_RowID" />
+                <Field name="Min_ColID" />
+                <Field name="Max_RowID" />
+                <Field name="Max_ColID" />
+                <Field name="Avg_data" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field name="data" source="TextInput:" type="Int16" />
+            <Field name="Min_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Min_ColID" source="Tile" type="Int32" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="474" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input119</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>W</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+              </Data>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="CurrentDir" />
+                <Field name="CurrentDirCount" />
+                <Field name="CurrentActualCost" />
+                <Field name="CurrentEstCost" />
+                <Field name="RowID" />
+                <Field name="ColID" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentDirCount" source="TextInput:" type="Int32" />
+            <Field name="CurrentActualCost" source="TextInput:" type="Int32" />
+            <Field name="CurrentEstCost" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="112" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="121" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="121" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="True" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Join" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="128" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="128" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="False" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="True" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="0" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name />
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="00000000-0000-0000-0000-000000000000" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="00000000-0000-0000-0000-000000000000" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (132)</Name>
+          <ToolId value="132" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (133)</Name>
+              <ToolId value="133" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (134)</Name>
+              <ToolId value="134" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

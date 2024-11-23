@@ -1,0 +1,551 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="176">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="184">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.ControlParam.ControlParam">
+        <Position x="318" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>CircuitIter</Name>
+          <AnnotationText>Circuit Iteration Count</AnnotationText>
+          <DefaultAnnotationText>CircuitIter</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="193">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="79" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>MapOuter</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1MoveMap.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1MoveMap.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="TargetNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="195">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="79" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>ConjMapOuter</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1ConvIncoming.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1ConvIncoming.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="213">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="79" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>MoveQueue</Name>
+          <Abbrev>Q</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1MoveQueue.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1MoveQueue.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="215">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="547" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if isnull([#1]) then 0 &#xA;else&#xA;tonumber([#1])&#xA;endif" field="MacroLoop" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[MacroLoop = if isnull([#1]) then 0 
+else
+tonumber([#1])
+endif
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionString" size="1073741823" source="Formula: [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" type="V_WString" />
+            <Field name="InnerLoop" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="MacroLoop" source="Formula: if isnull([#1]) then 0 &#xA;else&#xA;tonumber([#1])&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="216">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="643" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MacroLoop" selected="True" />
+            <SelectField field="InnerLoop" selected="True" />
+            <SelectField field="ActionString" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+            <SelectField field="CurrentNode" selected="True" />
+            <SelectField field="ActionID" selected="True" />
+            <SelectField field="StepID" selected="True" />
+            <SelectField field="IncomingPulse" selected="True" />
+            <SelectField field="IncomingFromNode" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroLoop" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="InnerLoop" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="ActionString" size="1073741823" source="Formula: [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" type="V_WString" />
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="221">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="763" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Debug</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="223">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="774" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Moves</Name>
+          <Abbrev>M</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="219">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ControlContainer.ControlContainer">
+        <Position x="54" y="421" width="203" height="149" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Control Container 219</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Log">
+          <RecordInfo>
+            <Field name="ToolID" source="CtrlContainer:219" type="Int32" />
+            <Field name="MessageType" size="64000" source="CtrlContainer:219" type="V_WString" />
+            <Field name="Message" size="64000" source="CtrlContainer:219" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="218">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+            <Position x="79" y="486" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1NodeList.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Input</AnnotationText>
+              <DefaultAnnotationText>P1NodeList.yxdb</DefaultAnnotationText>
+              <Left value="True" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+                <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+                <Field name="FlipFlopStatus" source="Formula: if [ActionType] = 'FlipFlop' then 0 else null() endif" type="Int16" />
+                <Field name="ConjunctionMemory" source="Formula: 0" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+        </Node>
+      </ChildNodes>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCtrlContainer" />
+    </Node>
+    <Node ToolID="220">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ControlContainer.ControlContainer">
+        <Position x="330" y="197" width="203" height="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Control Container 220</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Log">
+          <RecordInfo>
+            <Field name="ToolID" source="CtrlContainer:220" type="Int32" />
+            <Field name="MessageType" size="64000" source="CtrlContainer:220" type="V_WString" />
+            <Field name="Message" size="64000" source="CtrlContainer:220" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="214">
+          <GuiSettings>
+            <Position x="355" y="246" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Moves">
+              <RecordInfo>
+                <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+                <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+                <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+                <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+                <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+                <Field name="ActionString" size="1073741823" source="Formula: [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" type="V_WString" />
+                <Field name="InnerLoop" source="Formula: [Engine.IterationNumber]" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Rework">
+              <RecordInfo>
+                <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+                <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+                <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro="doOneCircuitStep_v2.yxmc" />
+        </Node>
+      </ChildNodes>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCtrlContainer" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#1">
+      <Origin ToolID="184" Connection="Question" />
+      <Destination ToolID="215" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="214" Connection="Moves" />
+      <Destination ToolID="215" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="193" Connection="Output" />
+      <Destination ToolID="214" Connection="Main Map" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="195" Connection="Output" />
+      <Destination ToolID="214" Connection="ConjMap" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="213" Connection="Output" />
+      <Destination ToolID="214" Connection="MoveQueue" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="215" Connection="Output" />
+      <Destination ToolID="216" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="216" Connection="Output" />
+      <Destination ToolID="223" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="219" Connection="Log" />
+      <Destination ToolID="220" Connection="Control" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="218" Connection="Output" />
+      <Destination ToolID="221" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>ControlParam.CircuitIter</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (223)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>CircuitOutsideLoopV3</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="52147293-611a-4fc0-9ba3-f2c40e1bc23e" />
+      <Telemetry>
+        <PreviousWorkflowId value="84304703-2af9-4697-8891-4df25d0661ec" />
+        <OriginWorkflowId value="d32e50f2-8094-4334-b805-8eaaf81b934f" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (176)</Name>
+          <ToolId value="176" />
+          <Questions>
+            <Question>
+              <Type>ControlParam</Type>
+              <Description>Circuit Iteration Count</Description>
+              <Name>CircuitIter</Name>
+              <ToolId value="184" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (193)</Name>
+              <ToolId value="193" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (195)</Name>
+              <ToolId value="195" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (264)</Description>
+              <Name>Macro Input (213)</Name>
+              <ToolId value="213" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>MacroInput (215)</Name>
+              <ToolId value="215" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>MacroInput (218)</Name>
+              <ToolId value="218" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (221)</Description>
+              <Name>Macro Output (221)</Name>
+              <ToolId value="221" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (223)</Description>
+              <Name>Macro Output (223)</Name>
+              <ToolId value="223" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <BatchMacro>
+        <OutputMode>AllSame</OutputMode>
+        <ControlParams>
+          <ControlParam>
+            <Name>CircuitIter</Name>
+            <Description>Circuit Iteration Count</Description>
+          </ControlParam>
+        </ControlParams>
+      </BatchMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="193" Selected="True" />
+        <Tool ToolId="195" Selected="True" />
+        <Tool ToolId="213" Selected="True" />
+        <Tool ToolId="221" Selected="True" />
+        <Tool ToolId="223" Selected="True" />
+        <Tool ToolId="214" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

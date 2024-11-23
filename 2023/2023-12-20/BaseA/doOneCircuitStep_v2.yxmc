@@ -1,0 +1,2085 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="202">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="834" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsNotNull</Operator>
+            <Field>IncomingPulse</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 12:37:34</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2023-12-27 12:37:34</StartDate>
+              <EndDate>2023-12-27 12:37:34</EndDate>
+              <Operand>
+              </Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!IsNull([IncomingPulse])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="203">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1122" y="199" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [IncomingPulse] == 1 //high&#xA;then&#xA;    null()&#xA;else&#xA;    [FlipFlopStatus]&#xA;endif" field="OutboundPulse" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>OutboundPulse = if [IncomingPulse] == 1 //high
+then
+    null()
+else
+    [FlipFlo...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: if [IncomingPulse] == 1 //high&#xA;then&#xA;    null()&#xA;else&#xA;    [FlipFlopStatus]&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="204">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="978" y="211" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>ActionType</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 08:30:21</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>FlipFlop</Operand>
+              <StartDate>2023-12-27 08:30:21</StartDate>
+              <EndDate>2023-12-27 08:30:21</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ActionType] = "FlipFlop"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="205">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="978" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>ActionType</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 08:30:33</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>button</Operand>
+              <StartDate>2023-12-27 08:30:33</StartDate>
+              <EndDate>2023-12-27 08:30:33</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ActionType] = "button"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="206">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="978" y="379" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>ActionType</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 08:30:54</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>Broadcast</Operand>
+              <StartDate>2023-12-27 08:30:54</StartDate>
+              <EndDate>2023-12-27 08:30:54</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ActionType] = "Broadcast"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="207">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1110" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="0" field="OutboundPulse" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[OutboundPulse = 0
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: 0" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="209">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1110" y="379" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[IncomingPulse]" field="OutboundPulse" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[OutboundPulse = [IncomingPulse]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: [IncomingPulse]" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="210">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="978" y="499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>ActionType</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 08:30:54</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>Conjunction</Operand>
+              <StartDate>2023-12-27 08:30:54</StartDate>
+              <EndDate>2023-12-27 08:30:54</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ActionType] = "Conjunction"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="214">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="726" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="222">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="223">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>ConjMap</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1ConvIncoming.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1ConvIncoming.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="224">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1NodeList.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1NodeList.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if [ActionType] = 'FlipFlop' then 0 else null() endif" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: 0" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="230">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1110" y="499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ConjunctionNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ConjunctionNode" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Avg_ConjunctionMemory" source="Summarize: Avg - ConjunctionMemory" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ConjunctionNode" size="20" source="Summarize: GroupBy - ConjunctionNode" type="V_String" />
+            <Field name="Avg_ConjunctionMemory" source="Summarize: Avg - ConjunctionMemory" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="259">
+      <GuiSettings>
+        <Position x="426" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Nodes"><![CDATA[CurrentNode=CurrentNode
+ActionType=ActionType
+FlipFlopStatus=FlipFlopStatus
+ConjunctionMemory=ConjunctionMemory
+IncomingPulse=IncomingPulse
+IncomingFromNode=IncomingFromNode
+]]></Value>
+          <Value name="Input.ConMap"><![CDATA[CurrentNode=CurrentNode
+IncomingNode=IncomingNode
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>DoConjunction (228)</Name>
+          <AnnotationText>Do Conjunctions</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="ConAnswer">
+          <RecordInfo>
+            <Field name="ConjunctionNode" size="20" source="Summarize: GroupBy - ConjunctionNode" type="V_String" />
+            <Field name="Avg_ConjunctionMemory" source="Summarize: Avg - ConjunctionMemory" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Nodes">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if [ActionType] = 'FlipFlop' then 0 else null() endif" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\DoConjunction.yxmc" />
+    </Node>
+    <Node ToolID="233">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1206" y="499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [Avg_ConjunctionMemory] == 1.0 &#xA;then &#xA;  0 //Low&#xA;else&#xA;  1&#xA;endif" field="OutboundPulse" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>OutboundPulse = if [Avg_ConjunctionMemory] == 1.0 
+then 
+  0 //Low
+else
+  1
+endi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Avg_ConjunctionMemory" source="Summarize: Avg - ConjunctionMemory" type="Double" />
+            <Field name="OutboundPulse" source="Formula: if [Avg_ConjunctionMemory] == 1.0 &#xA;then &#xA;  0 //Low&#xA;else&#xA;  1&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="234">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" field="FlipFlopStatus" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>set flipflop status</AnnotationText>
+          <DefaultAnnotationText>FlipFlopStatus = if ([IncomingPulse]) = 0 //low
+   and [ActionType] = 'FlipFlop'...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="235">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1398" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="236">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1038" y="751" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CurrentNode" selected="True" />
+            <SelectField field="ActionType" selected="True" />
+            <SelectField field="FlipFlopStatus" selected="True" />
+            <SelectField field="ConjunctionMemory" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="237">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1686" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_TargetNode" selected="True" rename="CurrentNode" input="Left_" />
+                <SelectField field="Left_ActionID" selected="True" input="Left_" />
+                <SelectField field="Left_StepID" selected="True" input="Left_" />
+                <SelectField field="Left_ActionType" selected="False" input="Left_" />
+                <SelectField field="Right_CurrentNode" selected="False" rename="Right_CurrentNode" input="Right_" />
+                <SelectField field="Right_OutboundPulse" selected="True" rename="IncomingPulse" input="Right_" />
+                <SelectField field="Left_CurrentNode" selected="True" rename="IncomingFromNode" input="Left_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Figure out next node</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="TargetNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="OutboundPulse" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="238">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1590" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CurrentNode" selected="True" />
+            <SelectField field="OutboundPulse" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="TextInput:" type="V_String" />
+            <Field name="OutboundPulse" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="241">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1494" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsNotNull</Operator>
+            <Field>OutboundPulse</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-27 11:05:48</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2023-12-27 11:05:48</StartDate>
+              <EndDate>2023-12-27 11:05:48</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Remove Null moves</AnnotationText>
+          <DefaultAnnotationText>!IsNull([OutboundPulse])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="246">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2478" y="978" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="253">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="2010" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" field="ActionString" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ActionString = [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') +...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionString" size="1073741823" source="Formula: [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="254">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1890" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ActionID" order="Ascending" />
+            <Field field="StepID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ActionID - Ascending
+StepID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="255">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2226" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Moves</Name>
+          <Abbrev>M</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="256">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="2094" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="InnerLoop" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[InnerLoop = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionString" size="1073741823" source="Formula: [IncomingFromNode] +' -' + iif([IncomingPulse]==1,'high','low') + '-&gt; ' + [CurrentNode]" type="V_WString" />
+            <Field name="InnerLoop" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="260">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1302" y="499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Avg_ConjunctionMemory" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="OutboundPulse" source="Formula: if [Avg_ConjunctionMemory] == 1.0 &#xA;then &#xA;  0 //Low&#xA;else&#xA;  1&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="262">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="2466" y="750" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">.\P1NodeList.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P1NodeList.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="264">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>MoveQueue</Name>
+          <Abbrev>Q</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1MoveQueue.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1MoveQueue.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="265">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="150" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="266">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1242" y="1086" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Skip</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Skip 1st 1 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: if [ActionType] = 'button' then 0 else null() endif" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="Formula: 'none'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="267">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="234" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CurrentNode" selected="True" input="Left_" />
+                <SelectField field="Left_IncomingPulse" selected="True" input="Left_" />
+                <SelectField field="Left_IncomingFromNode" selected="True" input="Left_" />
+                <SelectField field="Right_CurrentNode" selected="False" rename="Right_CurrentNode" input="Right_" />
+                <SelectField field="Right_ActionType" selected="True" input="Right_" />
+                <SelectField field="Right_FlipFlopStatus" selected="True" input="Right_" />
+                <SelectField field="Right_ConjunctionMemory" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="268">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2214" y="978" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CurrentNode" selected="True" />
+            <SelectField field="IncomingPulse" selected="True" />
+            <SelectField field="IncomingFromNode" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="269">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="2082" y="978" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="StepID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>StepID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="270">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="2346" y="978" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#2</Connection>
+            <Connection>#1</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="272">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="330" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="IncomingPulse" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="IncomingFromNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="FlipFlopStatus" source="Formula: if ([IncomingPulse]) = 0 //low&#xA;   and [ActionType] = 'FlipFlop'&#xA;then iif([FlipFlopStatus] = 1,0,1)&#xA;else [FlipFlopStatus]&#xA;endif&#xA;//flip the status of the flipflop if you get a low input" type="Int16" />
+            <Field name="ConjunctionMemory" source="Formula: (Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="273">
+      <GuiSettings>
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="274">
+      <GuiSettings>
+        <Position x="462" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="275">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="558" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_Count" selected="True" rename="Source_Count" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="Source_Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="276">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="666" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[Count] != [Source_Count]</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Losing Records in conjunction"</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="Source_Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="279">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1866" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ActionID" action="GroupBy" rename="ActionID" />
+            <SummarizeField field="IncomingFromNode" action="GroupBy" rename="IncomingFromNode" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ActionID" source="Summarize: GroupBy - ActionID" type="Int32" />
+            <Field name="IncomingFromNode" size="20" source="Summarize: GroupBy - IncomingFromNode" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="291">
+      <GuiSettings>
+        <Position x="1950" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="292">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="2034" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[Count]&gt;1</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>'Too Many Source Nodes'</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="293">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Main Map</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\P1MoveMap.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>P1MoveMap.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="TargetNode" size="20" source="(Multiple Sources)" type="V_String" />
+            <Field name="ActionID" source="(Multiple Sources)" type="Int32" />
+            <Field name="StepID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ActionType" size="20" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="271">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2453" y="1037" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 271</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="261">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2478" y="1086" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\P1MoveQueue.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>P1MoveQueue.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="289">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="353" y="869" width="306" height="231" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Check for changes in schema inbound</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Check for changes in schema inbound</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="281">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.FieldInfo.FieldInfo">
+            <Position x="378" y="918" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Name" size="17" source="FieldInfo" type="V_String" />
+                <Field name="Type" size="8" source="FieldInfo" type="String" />
+                <Field name="Size" source="FieldInfo" type="Int32" />
+                <Field name="Scale" source="FieldInfo" type="Int32" />
+                <Field name="Source" size="62" source="FieldInfo" type="V_WString" />
+                <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFieldInfo" />
+        </Node>
+        <Node ToolID="284">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="378" y="1002" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="4" />
+              <Fields>
+                <Field name="Name" />
+                <Field name="Type" />
+                <Field name="Size" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>CurrentNode</c>
+                  <c>V_String</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>ActionType</c>
+                  <c>V_String</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>FlipFlopStatus</c>
+                  <c>Int16</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>ConjunctionMemory</c>
+                  <c>Int16</c>
+                  <c>2</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Name" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Type" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Size" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="285">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="462" y="954" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Name" />
+                <Field field="Type" />
+                <Field field="Size" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="Name" />
+                <Field field="Type" />
+                <Field field="Size" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_Name" selected="True" rename="Right_Name" input="Right_" />
+                    <SelectField field="Right_Type" selected="True" rename="Right_Type" input="Right_" />
+                    <SelectField field="Right_Size" selected="True" rename="Right_Size" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Name" size="17" source="FieldInfo" type="V_String" />
+                <Field name="Type" size="8" source="FieldInfo" type="String" />
+                <Field name="Size" source="FieldInfo" type="Int32" />
+                <Field name="Scale" source="FieldInfo" type="Int32" />
+                <Field name="Source" size="62" source="FieldInfo" type="V_WString" />
+                <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Name" size="17" source="FieldInfo" type="V_String" />
+                <Field name="Type" size="8" source="FieldInfo" type="String" />
+                <Field name="Size" source="FieldInfo" type="Int32" />
+                <Field name="Scale" source="FieldInfo" type="Int32" />
+                <Field name="Source" size="62" source="FieldInfo" type="V_WString" />
+                <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+                <Field name="Right_Name" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Right_Type" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Right_Size" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Name" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Type" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Size" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="288">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Test.Test">
+            <Position x="570" y="954" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Tests>
+                <Test>
+                  <Name>No Rows Expected</Name>
+                  <Connection>#1</Connection>
+                  <Type>RecCountValue</Type>
+                  <Value>0</Value>
+                </Test>
+                <Test>
+                  <Name>No Rows Expected2</Name>
+                  <Connection>#2</Connection>
+                  <Type>RecCountValue</Type>
+                  <Value>0</Value>
+                </Test>
+              </Tests>
+              <DontReportSubsequent value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>No Rows Expected
+No Rows Expected2</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTest" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="202" Connection="True" />
+      <Destination ToolID="204" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="True" />
+      <Destination ToolID="205" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="True" />
+      <Destination ToolID="206" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="True" />
+      <Destination ToolID="210" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="203" Connection="Output" />
+      <Destination ToolID="235" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="207" Connection="Output" />
+      <Destination ToolID="235" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="209" Connection="Output" />
+      <Destination ToolID="235" Connection="Input" />
+    </Connection>
+    <Connection name="#4">
+      <Origin ToolID="260" Connection="Output" />
+      <Destination ToolID="235" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="204" Connection="True" />
+      <Destination ToolID="203" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="205" Connection="True" />
+      <Destination ToolID="207" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="206" Connection="True" />
+      <Destination ToolID="209" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="210" Connection="True" />
+      <Destination ToolID="230" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="259" Connection="ConAnswer" />
+      <Destination ToolID="230" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="214" Connection="Output" />
+      <Destination ToolID="202" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="223" Connection="Output" />
+      <Destination ToolID="259" Connection="ConMap" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="272" Connection="Output" />
+      <Destination ToolID="259" Connection="Nodes" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="224" Connection="Output" />
+      <Destination ToolID="267" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="265" Connection="Output" />
+      <Destination ToolID="267" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="224" Connection="Output" />
+      <Destination ToolID="273" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="224" Connection="Output" />
+      <Destination ToolID="281" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="230" Connection="Join" />
+      <Destination ToolID="233" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="259" Connection="Nodes" />
+      <Destination ToolID="234" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="259" Connection="Nodes" />
+      <Destination ToolID="274" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="233" Connection="Output" />
+      <Destination ToolID="260" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="234" Connection="Output" />
+      <Destination ToolID="214" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="234" Connection="Output" />
+      <Destination ToolID="236" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="235" Connection="Output" />
+      <Destination ToolID="241" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="236" Connection="Output" />
+      <Destination ToolID="262" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="237" Connection="Join" />
+      <Destination ToolID="254" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="237" Connection="Join" />
+      <Destination ToolID="269" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="237" Connection="Join" />
+      <Destination ToolID="279" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="238" Connection="Output" />
+      <Destination ToolID="237" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="293" Connection="Output" />
+      <Destination ToolID="237" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="241" Connection="True" />
+      <Destination ToolID="238" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="253" Connection="Output" />
+      <Destination ToolID="256" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="254" Connection="Output" />
+      <Destination ToolID="253" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="256" Connection="Output" />
+      <Destination ToolID="255" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="264" Connection="Output" />
+      <Destination ToolID="265" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="264" Connection="Output" />
+      <Destination ToolID="266" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="266" Connection="Output" />
+      <Destination ToolID="270" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="268" Connection="Output" />
+      <Destination ToolID="270" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="267" Connection="Join" />
+      <Destination ToolID="272" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="267" Connection="Right" />
+      <Destination ToolID="272" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="269" Connection="Output" />
+      <Destination ToolID="268" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="270" Connection="Output" />
+      <Destination ToolID="246" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="270" Connection="Output" />
+      <Destination ToolID="261" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="273" Connection="Output9" />
+      <Destination ToolID="275" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="274" Connection="Output9" />
+      <Destination ToolID="275" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="275" Connection="Output" />
+      <Destination ToolID="276" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="279" Connection="Output" />
+      <Destination ToolID="291" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="291" Connection="Output9" />
+      <Destination ToolID="292" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="281" Connection="Output" />
+      <Destination ToolID="285" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="284" Connection="Output" />
+      <Destination ToolID="285" Connection="Right" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="285" Connection="Left" />
+      <Destination ToolID="288" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="285" Connection="Right" />
+      <Destination ToolID="288" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (255)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (264)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (293)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>doOneCircuitStep_v2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="ebc349b1-7642-4f86-ac26-cd2a543972ab" />
+      <Telemetry>
+        <PreviousWorkflowId value="1d34b469-9be7-4b82-9338-3dd9fa0dbe52" />
+        <OriginWorkflowId value="1d34b469-9be7-4b82-9338-3dd9fa0dbe52" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (222)</Name>
+          <ToolId value="222" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (223)</Name>
+              <ToolId value="223" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (224)</Name>
+              <ToolId value="224" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (246)</Description>
+              <Name>Macro Output (246)</Name>
+              <ToolId value="246" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (255)</Description>
+              <Name>Macro Output (255)</Name>
+              <ToolId value="255" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (264)</Description>
+              <Name>Macro Input (264)</Name>
+              <ToolId value="264" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (293)</Description>
+              <Name>Macro Input (293)</Name>
+              <ToolId value="293" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>MoveQueue</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="223" Selected="True" />
+        <Tool ToolId="259" Selected="True" />
+        <Tool ToolId="246" Selected="True" />
+        <Tool ToolId="255" Selected="True" />
+        <Tool ToolId="262" Selected="True" />
+        <Tool ToolId="264" Selected="True" />
+        <Tool ToolId="273" Selected="True" />
+        <Tool ToolId="274" Selected="True" />
+        <Tool ToolId="291" Selected="True" />
+        <Tool ToolId="261" Selected="True" />
+        <Tool ToolId="293" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

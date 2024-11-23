@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="198" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_FlipFlopStatus" selected="False" input="Left_" />
+                <SelectField field="Left_ConjunctionMemory" selected="False" input="Left_" />
+                <SelectField field="Right_CurrentNode" selected="False" input="Right_" />
+                <SelectField field="Right_IncomingNode" selected="True" rename="ConSourceNode" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="TextInput:" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="294" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>!IsNull([IncomingPulse])
+and [ActionType] = 'Conjunction'</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!IsNull([IncomingPulse])
+and [ActionType] = 'Conjunction'</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="594" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if([ConIncomingFromNode] == [ConSourceNode]) then&#xA;    [ConIncomingPulse]&#xA;else&#xA;    [ConjunctionMemory]&#xA;endif" field="ConjunctionMemory" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ConjunctionMemory = if([ConIncomingFromNode] == [ConSourceNode]) then
+    [ConIn...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ConjunctionNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConIncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="ConIncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="Formula: if([ConIncomingFromNode] == [ConSourceNode]) then&#xA;    [ConIncomingPulse]&#xA;else&#xA;    [ConjunctionMemory]&#xA;endif" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="498" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ConSourceNode" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CurrentNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CurrentNode" selected="True" rename="ConjunctionNode" input="Left_" />
+                <SelectField field="Left_ActionType" selected="False" input="Left_" />
+                <SelectField field="Left_IncomingPulse" selected="True" rename="ConIncomingPulse" input="Left_" />
+                <SelectField field="Left_IncomingFromNode" selected="True" rename="ConIncomingFromNode" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ConjunctionNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConIncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="ConIncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ConSourceNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="TextInput:" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="TextInput:" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="930" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ConjunctionNode" action="GroupBy" rename="ConjunctionNode" />
+            <SummarizeField field="ConjunctionMemory" action="Avg" rename="Avg_ConjunctionMemory" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ConjunctionNode" size="2147483647" source="Summarize: GroupBy - ConjunctionNode" type="V_String" />
+            <Field name="Avg_ConjunctionMemory" source="Summarize: Avg - ConjunctionMemory" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="798" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="702" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ConjunctionNode" selected="False" />
+            <SelectField field="ConIncomingPulse" selected="False" />
+            <SelectField field="ConIncomingFromNode" selected="False" />
+            <SelectField field="ConSourceNode" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="Formula: if([ConIncomingFromNode] == [ConSourceNode]) then&#xA;    [ConIncomingPulse]&#xA;else&#xA;    [ConjunctionMemory]&#xA;endif" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="882" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="CurrentNode" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="(Multiple Sources)" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Nodes</Name>
+          <Abbrev>N</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="7" />
+              <Fields>
+                <Field name="CurrentNode" />
+                <Field name="ActionType" />
+                <Field name="FlipFlopStatus" />
+                <Field name="ConjunctionMemory" />
+                <Field name="IncomingPulse" />
+                <Field name="IncomingFromNode" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>a</c>
+                  <c>FlipFlop</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+                <r>
+                  <c>b</c>
+                  <c>FlipFlop</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+                <r>
+                  <c>broadcaster</c>
+                  <c>Broadcast</c>
+                  <c />
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+                <r>
+                  <c>button</c>
+                  <c>Button</c>
+                  <c />
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+                <r>
+                  <c>con</c>
+                  <c>Conjunction</c>
+                  <c />
+                  <c>0</c>
+                  <c>1</c>
+                  <c>a</c>
+                </r>
+                <r>
+                  <c>inv</c>
+                  <c>Conjunction</c>
+                  <c />
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+                <r>
+                  <c>output</c>
+                  <c />
+                  <c />
+                  <c>0</c>
+                  <c />
+                  <c />
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ActionType" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FlipFlopStatus" source="TextInput:" type="Int32" />
+            <Field name="ConjunctionMemory" source="TextInput:" type="Int32" />
+            <Field name="IncomingPulse" source="TextInput:" type="Int32" />
+            <Field name="IncomingFromNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>ConMap</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="3" />
+              <Fields>
+                <Field name="CurrentNode" />
+                <Field name="IncomingNode" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>inv</c>
+                  <c>a</c>
+                </r>
+                <r>
+                  <c>con</c>
+                  <c>a</c>
+                </r>
+                <r>
+                  <c>con</c>
+                  <c>b</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentNode" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IncomingNode" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1026" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Nodes</Name>
+          <Abbrev>N</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1026" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>ConAnswer</Name>
+          <Abbrev>C</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="7" Connection="Join" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="True" />
+      <Destination ToolID="11" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="11" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Join" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Unique" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="7" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="7" Connection="Right" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (23)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DoConjunction</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="ed77bd22-b6d6-491d-9fef-2387bb2f6982" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="ed77bd22-b6d6-491d-9fef-2387bb2f6982" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (18)</Name>
+          <ToolId value="18" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (19)</Name>
+              <ToolId value="19" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (20)</Name>
+              <ToolId value="20" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (22)</Name>
+              <ToolId value="22" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (23)</Description>
+              <Name>Macro Output (23)</Name>
+              <ToolId value="23" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="19" Selected="True" />
+        <Tool ToolId="20" Selected="True" />
+        <Tool ToolId="22" Selected="True" />
+        <Tool ToolId="23" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

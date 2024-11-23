@@ -1,0 +1,1840 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="354" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="4" />
+          <Fields>
+            <Field name="NewDir" />
+            <Field name="RowDelta" />
+            <Field name="ColDelta" />
+          </Fields>
+          <Data>
+            <r>
+              <c>N</c>
+              <c>-1</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>S</c>
+              <c>1</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>E</c>
+              <c>0</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>W</c>
+              <c>0</c>
+              <c>-1</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="438" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Create new moves</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="522" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[RowID] + [RowDelta]" field="NewRowID" size="4" type="Int32" />
+            <FormulaField expression="[ColID] + [ColDelta]" field="NewColID" size="4" type="Int32" />
+            <FormulaField expression="if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" field="NewDirCount" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText><![CDATA[Process these moves
+]]></AnnotationText>
+          <DefaultAnnotationText>NewRowID = [RowID] + [RowDelta]
+NewColID = [ColID] + [ColDelta]
+NewDirCount = if...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="870" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="NewRowID" />
+            <Field field="NewColID" />
+            <Field field="NewDir" />
+            <Field field="NewDirCount" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RowID" />
+            <Field field="ColID" />
+            <Field field="Dir" />
+            <Field field="DirCount" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Avg_data" selected="True" input="Left_" />
+                <SelectField field="Left_isCurrent" selected="True" input="Left_" />
+                <SelectField field="Left_Cost" selected="True" input="Left_" />
+                <SelectField field="Left_NewDir" selected="True" rename="Dir" input="Left_" />
+                <SelectField field="Left_NewRowID" selected="False" rename="RowID" input="Left_" />
+                <SelectField field="Left_NewColID" selected="False" rename="ColID" input="Left_" />
+                <SelectField field="Left_NewDirCount" selected="True" rename="DirCount" input="Left_" />
+                <SelectField field="Right_RowID" selected="True" input="Right_" />
+                <SelectField field="Right_ColID" selected="True" input="Right_" />
+                <SelectField field="Right_data" selected="True" input="Right_" />
+                <SelectField field="Right_Dir" selected="False" rename="Right_Dir" input="Right_" />
+                <SelectField field="Right_DirCount" selected="False" rename="Right_DirCount" input="Right_" />
+                <SelectField field="Right_Cost" selected="True" rename="PrevCost" input="Right_" />
+                <SelectField field="Right_isTargetCell" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Bring in target cell and Cost</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="990" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Cost]+[data]" field="Cost" size="4" type="Int32" />
+            <FormulaField expression="abs([Cost] &lt; [PrevCost])" field="isCurrent" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Costs</AnnotationText>
+          <DefaultAnnotationText><![CDATA[Cost = [Cost]+[data]
+isCurrent = abs([Cost] < [PrevCost])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1374" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="data" selected="True" />
+            <SelectField field="Avg_data" selected="True" />
+            <SelectField field="isTargetCell" selected="True" />
+            <SelectField field="isCurrent" selected="True" />
+            <SelectField field="Cost" selected="True" />
+            <SelectField field="Dir" selected="True" />
+            <SelectField field="DirCount" selected="True" />
+            <SelectField field="PrevCost" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1758" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="isTargetCell" action="Sum" rename="Sum_isTargetCell" />
+            <SummarizeField field="isCurrent" action="Sum" rename="Sum_isCurrent" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1854" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1950" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Sum_isCurrent] = 0
+or [Engine.IterationNumber] &gt;= 1000</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Sum_isCurrent] = 0
+or [Engine.IterationNumber] &gt;= 1000</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2562" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>rework</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2346" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Answer</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Map</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\MacroIterP1V2.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>MacroIterP1V2.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="139">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2466" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="data" selected="True" />
+            <SelectField field="Avg_data" selected="True" />
+            <SelectField field="Dir" selected="True" />
+            <SelectField field="DirCount" selected="True" />
+            <SelectField field="isCurrent" selected="True" />
+            <SelectField field="Cost" selected="True" />
+            <SelectField field="isTargetCell" selected="True" />
+            <SelectField field="Sum_isTargetCell" selected="False" />
+            <SelectField field="Sum_isCurrent" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="144">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="2370" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="isCurrent" order="Descending" />
+            <Field field="Cost" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>isCurrent - Descending
+Cost - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="1914" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Numeric Up Down (147)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="1914" y="150" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="138" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="234" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>isCurrent</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-12-20 15:28:51</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2023-12-20 15:28:51</StartDate>
+              <EndDate>2023-12-20 15:28:51</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[isCurrent] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="151">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="822" y="474" width="300" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>We don't need to check for items outside the grid or &gt; 3 moves because the join takes care of that</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="152">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1278" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[isCurrent] = 1</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[isCurrent] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="153">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1566" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RowID" />
+            <Field field="ColID" />
+            <Field field="Dir" />
+            <Field field="DirCount" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RowID" />
+            <Field field="ColID" />
+            <Field field="Dir" />
+            <Field field="DirCount" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_RowID" selected="True" input="Left_" />
+                <SelectField field="Left_ColID" selected="True" input="Left_" />
+                <SelectField field="Left_data" selected="True" input="Left_" />
+                <SelectField field="Left_Avg_data" selected="True" input="Left_" />
+                <SelectField field="Left_isTargetCell" selected="True" input="Left_" />
+                <SelectField field="Left_isCurrent" selected="True" input="Left_" />
+                <SelectField field="Left_Cost" selected="True" input="Left_" />
+                <SelectField field="Left_Dir" selected="True" input="Left_" />
+                <SelectField field="Left_DirCount" selected="True" input="Left_" />
+                <SelectField field="Right_RowID" selected="False" rename="Right_RowID" input="Right_" />
+                <SelectField field="Right_ColID" selected="False" rename="Right_ColID" input="Right_" />
+                <SelectField field="Right_data" selected="False" rename="Right_data" input="Right_" />
+                <SelectField field="Right_Avg_data" selected="False" rename="Right_Avg_data" input="Right_" />
+                <SelectField field="Right_Dir" selected="False" rename="Right_Dir" input="Right_" />
+                <SelectField field="Right_DirCount" selected="False" rename="Right_DirCount" input="Right_" />
+                <SelectField field="Right_isCurrent" selected="False" rename="Right_isCurrent" input="Right_" />
+                <SelectField field="Right_Cost" selected="False" rename="Right_Cost" input="Right_" />
+                <SelectField field="Left_RowDelta" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>bring back all the other records</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="534" y="522" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="156">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1662" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Error</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="157">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="330" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>10000</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 10000 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="858" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="0" field="isCurrent" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[isCurrent = 0
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: 0" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1470" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="162" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="abs([Cost] &lt; 9999999)" field="isTouched" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[isTouched = abs([Cost] < 9999999)
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isTouched" source="Formula: abs([Cost] &lt; 9999999)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="161">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="258" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="isCurrent" action="Sum" rename="Sum_isCurrent" />
+            <SummarizeField field="isTouched" action="Sum" rename="Sum_isTouched" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+            <Field name="Sum_isTouched" source="Summarize: Sum - isTouched" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="390" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Debug1</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1086" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="RowID" order="Ascending" />
+            <Field field="ColID" order="Ascending" />
+            <Field field="Dir" order="Ascending" />
+            <Field field="DirCount" order="Ascending" />
+            <Field field="Cost" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RowID - Ascending
+ColID - Ascending
+Dir - Ascending
+DirCount - Ascending
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1182" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RowID" />
+            <Field field="ColID" />
+            <Field field="Dir" />
+            <Field field="DirCount" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isCurrent" source="Formula: abs([Cost] &lt; [PrevCost])" type="Int16" />
+            <Field name="Cost" source="Formula: [Cost]+[data]" type="Int32" />
+            <Field name="Dir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="PrevCost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="2094" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="RowID" order="Ascending" />
+            <Field field="ColID" order="Ascending" />
+            <Field field="Dir" order="Ascending" />
+            <Field field="DirCount" order="Ascending" />
+            <Field field="Cost" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RowID - Ascending
+ColID - Ascending
+Dir - Ascending
+DirCount - Ascending
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="2190" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RowID" />
+            <Field field="ColID" />
+            <Field field="Dir" />
+            <Field field="DirCount" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Dir" size="2147483647" source="(Multiple Sources)" type="V_String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="Sum_isTargetCell" source="Summarize: Sum - isTargetCell" type="Int64" />
+            <Field name="Sum_isCurrent" source="Summarize: Sum - isCurrent" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="618" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[([Dir] ='N' and [NewDir] in ('E','W','N')) OR
+([Dir] ='S' and [NewDir] in ('E','W','S')) OR
+([Dir] = 'E' and [NewDir] in ('N','S','E')) OR
+([Dir] = 'W' and [NewDir] in ('N','S','W'))
+]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>No Reversals of direction</AnnotationText>
+          <DefaultAnnotationText>([Dir] ='N' and [NewDir] in ('E','W','N')) OR
+([Dir] ='S' and [NewDir] in ('E','...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="702" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Dir] = [NewDir] OR
+(
+    [Dir]!= [NewDir]
+    and [DirCount]&gt;=4
+)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>The minimum distance on the ultra crucible</AnnotationText>
+          <DefaultAnnotationText>[Dir] = [NewDir] OR
+(
+    [Dir]!= [NewDir]
+    and [DirCount]&gt;=4
+)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="TextToColumns: Parsed from data" type="Byte" />
+            <Field name="Avg_data" source="Summarize: Avg - data" type="Double" />
+            <Field name="Dir" size="1" source="(Multiple Sources)" type="String" />
+            <Field name="DirCount" source="(Multiple Sources)" type="Int32" />
+            <Field name="isCurrent" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Cost" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="isTargetCell" source="Formula: [ColID] = [Max_ColID] AND&#xA;[RowID] = [Max_RowID]" type="Int32" />
+            <Field name="NewDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [RowDelta]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [ColDelta]" type="Int32" />
+            <Field name="NewDirCount" source="Formula: if [NewDir] = [Dir] then &#xA;    [DirCount] +1 &#xA;else&#xA;    1&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="169">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="702" y="42" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Numeric Up Down (169)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="696" y="210" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2537" y="509" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 143</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="142">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2562" y="558" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\MacroIterP1V2.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>MacroIterP1V2.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="112" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="112" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Join" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="163" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="158" Connection="Output" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="128" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="128" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="148" Connection="Action" />
+      <Destination ToolID="129" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="True" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="False" />
+      <Destination ToolID="165" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="149" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="154" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="160" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="144" Connection="Output" />
+      <Destination ToolID="139" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="147" Connection="Question" />
+      <Destination ToolID="148" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="Output" />
+      <Destination ToolID="121" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="True" />
+      <Destination ToolID="121" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="Output" />
+      <Destination ToolID="150" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="150" Connection="True" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="152" Connection="True" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="153" Connection="Join" />
+      <Destination ToolID="156" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="153" Connection="Right" />
+      <Destination ToolID="156" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="154" Connection="Output" />
+      <Destination ToolID="153" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="159" Connection="Output" />
+      <Destination ToolID="153" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="158" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="161" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="161" Connection="Output" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="163" Connection="Output" />
+      <Destination ToolID="164" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="164" Connection="Unique" />
+      <Destination ToolID="152" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="166" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="166" Connection="Unique" />
+      <Destination ToolID="144" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="167" Connection="True" />
+      <Destination ToolID="168" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="170" Connection="Action" />
+      <Destination ToolID="168" Connection="Action" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="169" Connection="Question" />
+      <Destination ToolID="170" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (147)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (162)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (169)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>SearchGridV2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="0d722105-52f2-4db0-b578-3b7b19c8ab4c" />
+      <Telemetry>
+        <PreviousWorkflowId value="47077d51-e61d-4dbb-bef2-165d3ecaab77" />
+        <OriginWorkflowId value="36a395c0-1a01-4ea1-a14d-0aae78b4aa59" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="148" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>1000</ReplaceText>
+              <Destination>129/Expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="170" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText><![CDATA[4
+]]></ReplaceText>
+              <Destination>168/Expression</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (132)</Name>
+          <ToolId value="132" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (133)</Name>
+              <ToolId value="133" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (130)</Name>
+              <ToolId value="130" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (131)</Name>
+              <ToolId value="131" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Numeric Up Down (147)</Description>
+              <Name>Numeric Up Down (147)</Name>
+              <ToolId value="147" />
+              <Minimum value="10" />
+              <Maximum value="100000" />
+              <Increment value="1" />
+              <Default value="100" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (162)</Description>
+              <Name>Macro Output (162)</Name>
+              <ToolId value="162" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Minimum Crucible Travel</Description>
+              <Name>Numeric Up Down (169)</Name>
+              <ToolId value="169" />
+              <Minimum value="0" />
+              <Maximum value="4" />
+              <Increment value="1" />
+              <Default value="0" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Map</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="10000000" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="130" Selected="True" />
+        <Tool ToolId="131" Selected="True" />
+        <Tool ToolId="133" Selected="True" />
+        <Tool ToolId="162" Selected="True" />
+        <Tool ToolId="142" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
