@@ -1,44 +1,39 @@
+# pylint: disable=missing-docstring
 import pytest
-# from pydantic import ValidationError
 
-from day_08 import SpecificString, StringChecker
-
-
-# def test_specific_string():
-#     test = SpecificString('""', '""', 2, 0)
-#     assert test.original == '""'
-#     assert test.cleaned == '""'
-#     assert test.original_length == 2
-#     assert test.cleaned_length == 0
+from day_08 import StringChecker
 
 
-# def test_specific_string_fail1():
-#     with pytest.raises(ValidationError):
-#         SpecificString(1, '""', 2, 0)
+def test_part1_sample():
+    data = [r'""', r'"abc"', r'"aaa\"aaa"', r'"\x27"']
+    test = StringChecker(data)
 
-
-# def test_specific_string_fail2():
-#     with pytest.raises(ValidationError):
-#         SpecificString('""', 1, 2, 0)
-
-
-# def test_specific_string_fail3():
-#     with pytest.raises(ValidationError):
-#         SpecificString('""', '""', 'a', 0)
-
-
-# def test_specific_string_fail4():
-#     with pytest.raises(ValidationError):
-#         SpecificString('""', '""', 1, 'a')
-
-
-# def test_string_checker():
-#     test = StringChecker(['""','"abc"', '"aaa\"aaa"', '"\x27"'])
-#     assert test.data == ['""','"abc"', '"aaa\"aaa"', '"\x27"']
-
-def test_clean_all_string():
-    test = StringChecker(['""','"abc"', '"aaa\"aaa"', '"\x27"'])
     assert test.part_1() == 12
+
+
+def test_part2_sample():
+    data = [r'""', r'"abc"', r'"aaa\"aaa"', r'"\x27"']
+    test = StringChecker(data)
+
+    assert test.part_2() == 19
+
+
+def test_part1_actual():
+    with open(r'2015\Day08\Part1Input.txt', encoding="ASCII") as f:
+        data = f.read().splitlines()
+    # data = [r'""',r'"abc"', r'"aaa\"aaa"', r'"\x27"']
+
+    test = StringChecker(data)
+    assert test.part_1() == 1342
+
+
+def test_part2_actual():
+    with open(r'2015\Day08\Part1Input.txt', encoding="ASCII") as f:
+        data = f.read().splitlines()
+    # data = [r'""',r'"abc"', r'"aaa\"aaa"', r'"\x27"']
+
+    test = StringChecker(data)
+    assert test.part_2() == 2074
 
 
 if __name__ == '__main__':
