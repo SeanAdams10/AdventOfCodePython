@@ -1,0 +1,646 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2019.1">
+  <Nodes>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="174" y="184" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByPos</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="642" y="160" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="True">
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Part" source="TextInput:" type="Int32" />
+            <Field name="Answer" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Part" source="TextInput:" type="Int32" />
+            <Field name="Answer" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Test.Test">
+        <Position x="738" y="292" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Tests>
+            <Test>
+              <Name>Results Match Expectation</Name>
+              <Connection>#2</Connection>
+              <Type>ExpAll</Type>
+              <Value>[Answer] = [AnswerActual]</Value>
+            </Test>
+          </Tests>
+          <DontReportSubsequent value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Results Match Expectation</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTest" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="930" y="160" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output63</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="738" y="160" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [Answer] = [AnswerActual] then 'Pass' else 'Fail' endif" field="TestResult" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[TestResult = if [Answer] = [AnswerActual] then 'Pass' else 'Fail' endif
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Part" source="TextInput:" type="Int32" />
+            <Field name="Answer" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="TestResult" size="1073741823" source="Formula: if [Answer] = [AnswerActual] then 'Pass' else 'Fail' endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Transpose.Transpose">
+        <Position x="270" y="184" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ErrorWarn>Warn</ErrorWarn>
+          <KeyFields />
+          <DataFields>
+            <Field field="Sum_OverallScore" selected="True" />
+            <Field field="*Unknown" selected="True" />
+          </DataFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Name" size="12" source="Transpose:" type="String" />
+            <Field name="Value" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTranspose" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings>
+        <Position x="366" y="148" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="450" y="172" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="366" y="184" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Name" selected="False" />
+            <SelectField field="Value" selected="True" rename="AnswerActual" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="546" y="172" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[Count]&gt;2</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Only one field is allowed per answer"</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="258" y="256" width="324" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[clean up field names and ]]></Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="834" y="160" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>not([Answer] = [AnswerActual])</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>'Wrong answer on part ' + tostring([Part]) + ": Expected=" + tostring([Answer]) + " Received=" + tostring([AnswerActual])</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Part" source="TextInput:" type="Int32" />
+            <Field name="Answer" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="TestResult" size="1073741823" source="Formula: if [Answer] = [AnswerActual] then 'Pass' else 'Fail' endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="75">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="42" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Expected Answers</Name>
+          <Abbrev>E</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="Part" />
+                <Field name="Answer" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>15A</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>12B</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>E Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Part" source="TextInput:" type="Int32" />
+            <Field name="Answer" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Part 1 Answer</Name>
+          <Abbrev>1</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="AnswerActual" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>15A</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>1 Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="77">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Part 2 Answer</Name>
+          <Abbrev>2</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="AnswerActual" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>12B</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>2 Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="AnswerActual" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="55" Connection="Join" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Join" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="71" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="66" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output9" />
+      <Destination ToolID="67" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="68" Connection="Output" />
+      <Destination ToolID="67" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="55" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="75" Connection="Output" />
+      <Destination ToolID="55" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="71" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="76" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="77" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (63)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (75)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (76)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (77)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>TestAssert</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="9f08f881-4ef6-49cf-b032-9623b75b481a" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="9f08f881-4ef6-49cf-b032-9623b75b481a" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (59)</Name>
+          <ToolId value="59" />
+          <Questions>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (63)</Description>
+              <Name>Macro Output (63)</Name>
+              <ToolId value="63" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (75)</Name>
+              <ToolId value="75" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (76)</Name>
+              <ToolId value="76" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (77)</Name>
+              <ToolId value="77" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="63" Selected="True" />
+        <Tool ToolId="66" Selected="True" />
+        <Tool ToolId="76" Selected="True" />
+        <Tool ToolId="75" Selected="True" />
+        <Tool ToolId="77" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

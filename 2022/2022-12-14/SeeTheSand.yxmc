@@ -1,0 +1,1150 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="426" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Row" action="Min" rename="Min_Row" />
+            <SummarizeField field="Row" action="Max" rename="Max_Row" />
+            <SummarizeField field="Col" action="Min" rename="Min_Col" />
+            <SummarizeField field="Col" action="Max" rename="Max_Col" />
+            <SummarizeField field="Filename" action="GroupBy" rename="Filename" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="TextInput:" type="Int32" />
+            <Field name="Max_Row" source="TextInput:" type="Int32" />
+            <Field name="Min_Col" source="TextInput:" type="Int32" />
+            <Field name="Max_Col" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="522" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Min_Col] - 1" field="Min_Col" size="4" type="Int32" />
+            <FormulaField expression="[Max_Col] + 1" field="Max_Col" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Min_Col = [Min_Col] - 1
+Max_Col = [Max_Col] + 1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="TextInput:" type="Int32" />
+            <Field name="Max_Row" source="TextInput:" type="Int32" />
+            <Field name="Min_Col" source="Formula: [Min_Col] - 1" type="Int32" />
+            <Field name="Max_Col" source="Formula: [Max_Col] + 1" type="Int32" />
+            <Field name="Filename" size="2147483647" source="Summarize: GroupBy - Filename" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="330" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="TextInput:" type="Int32" />
+            <Field name="Col" source="TextInput:" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="618" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Row</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>Row &lt;= [max_Row]</Expression_Cond>
+          <Expression_Loop>Row + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="Formula: 0" type="Int32" />
+            <Field name="Max_Row" source="TextInput:" type="Int32" />
+            <Field name="Min_Col" source="Formula: [Min_Col] - 1" type="Int32" />
+            <Field name="Max_Col" source="Formula: [Max_Col] + 1" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="714" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Col</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>[Min_Col]</Expression_Init>
+          <Expression_Cond>Col &lt;= [Max_Col]</Expression_Cond>
+          <Expression_Loop>Col + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="Formula: 0" type="Int32" />
+            <Field name="Max_Row" source="TextInput:" type="Int32" />
+            <Field name="Min_Col" source="Formula: [Min_Col] - 1" type="Int32" />
+            <Field name="Max_Col" source="Formula: [Max_Col] + 1" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JoinMultiple.JoinMultiple">
+        <Position x="810" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JoinByRecPos value="False" />
+          <JoinFields>
+            <JoinInfo connection="#1">
+              <Field field="Row" />
+              <Field field="Col" />
+            </JoinInfo>
+            <JoinInfo connection="#2">
+              <Field field="Row" />
+              <Field field="Col" />
+            </JoinInfo>
+          </JoinFields>
+          <CartesianMode>Error</CartesianMode>
+          <OutputJoinOnly value="False" />
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Input_#2_Row" selected="False" rename="Input_#2_Row" />
+                <SelectField field="Input_#2_Col" selected="False" rename="Input_#2_Col" />
+                <SelectField field="Input_#2_TypeID" selected="True" />
+                <SelectField field="Input_#1_Filename" selected="True" />
+                <SelectField field="Input_#1_Row" selected="True" />
+                <SelectField field="Input_#1_Col" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoinMultiple" />
+    </Node>
+    <Node ToolID="145">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1686" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>2</Name>
+          <Abbrev>2</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+2 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="146">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+        <Position x="1590" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupingMode>PerGroup</GroupingMode>
+          <GroupingFields orderChanged="False">
+            <Field name="Filename" />
+          </GroupingFields>
+          <Orientation>V</Orientation>
+          <Separator>Continuous</Separator>
+          <Width>100%</Width>
+          <Height />
+          <BorderStyle Enabled="false" Color="#000000" Width="2" />
+          <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+          <Padding>0</Padding>
+          <LayoutFields orderChanged="False">
+            <Field name="Text" selected="True" Alignment="Center" Width="" />
+          </LayoutFields>
+          <MergeIntoTable value="False" />
+          <SectionNameForGroup />
+          <SectionNameForAllRecords />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Vertical Layout
+Each Group Of Records</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="Summarize: GroupBy - Filename" type="V_String" />
+            <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input124</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="20" />
+              <Fields>
+                <Field name="Row" />
+                <Field name="Col" />
+                <Field name="TypeID" />
+                <Field name="Filename" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>-4</c>
+                  <c>498</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-4</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-4</c>
+                  <c>503</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-5</c>
+                  <c>498</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-5</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-6</c>
+                  <c>496</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-6</c>
+                  <c>497</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-6</c>
+                  <c>498</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-6</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-7</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-8</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>494</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>495</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>496</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>497</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>498</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>499</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>500</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>501</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+                <r>
+                  <c>-9</c>
+                  <c>502</c>
+                  <c>1</c>
+                  <c>.\EasyShadow.html</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>Input
+Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="TextInput:" type="Int32" />
+            <Field name="Col" source="TextInput:" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+        <Position x="1686" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileType />
+          <OutputFile>.\test.html</OutputFile>
+          <BatchMode value="True" />
+          <GroupField>Filename</GroupField>
+          <FilenameModifier>ReplacePath</FilenameModifier>
+          <DataField>Layout</DataField>
+          <Separator>Continuous</Separator>
+          <EmbedDependencies value="False" />
+          <ShowHeader value="False" />
+          <ShowFooter value="False" />
+          <PortraitMode value="True" />
+          <PaperType Width="71999928" Height="71999928" Left="0" Right="0" Top="0" Bottom="0" />
+          <DefaultStyles>
+            <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+          </DefaultStyles>
+          <PNGResolution>1</PNGResolution>
+          <PNGLargerAction>squeeze</PNGLargerAction>
+          <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+          <PNGTransparentBG value="False" />
+          <PNGBackColor value="#ffffff" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+    </Node>
+    <Node ToolID="152">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="906" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[TypeID] = 0
+or isnull([TypeID])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[TypeID] = 0
+or isnull([TypeID])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="153">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="1098" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}{\f1\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs24 [ShowText:A]\f1\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" BackColor="#ffffff" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ShowText:A]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1002" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" field="ShowText" size="1" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ShowText = Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="155">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="906" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>TypeID</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-12-29 23:29:14</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>1</Operand>
+              <StartDate>2022-12-29 23:29:14</StartDate>
+              <EndDate>2022-12-29 23:29:14</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[TypeID] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="156">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="1098" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}{\f1\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs24 [ShowText:A]\f1\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" BackColor="#a9a9a9" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ShowText:A]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="157">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1002" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" field="ShowText" size="1" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ShowText = Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="906" y="510" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[TypeID] in (2,3)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[TypeID] in (2,3)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="1098" y="510" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}{\f1\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs24 [ShowText:A]\f1\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" BackColor="#ffff00" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ShowText:A]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1002" y="510" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" field="ShowText" size="1" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ShowText = Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="161">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1194" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1374" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Row" action="GroupBy" rename="Row" />
+            <SummarizeField field="Filename" action="GroupBy" rename="Filename" />
+            <SummarizeField field="Text" action="RptHorizontal" rename="Text" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="Summarize: GroupBy - Row" type="Int32" />
+            <Field name="Filename" size="2147483647" source="Summarize: GroupBy - Filename" type="V_String" />
+            <Field name="Text" size="1073741823" source="Report:Layout:Summarize:RptHorizontal" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Row" order="Asc" />
+            <Field field="Filename" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1290" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Row" order="Ascending" />
+            <Field field="Col" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Row - Ascending
+Col - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="Row" source="GenerateRows" type="Int32" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="ShowText" size="1" source="Formula: Switch([TypeID],'~',null(),'.',1,'#',2,'o',3,'O',4,'Z')" type="String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="186" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="Row" />
+            <Field field="Col" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Row" source="TextInput:" type="Int32" />
+            <Field name="Col" source="TextInput:" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Row" source="TextInput:" type="Int32" />
+            <Field name="Col" source="TextInput:" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1458" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Filename" order="Ascending" />
+            <Field field="Row" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Filename - Ascending
+Row - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="Summarize: GroupBy - Row" type="Int32" />
+            <Field name="Filename" size="2147483647" source="Summarize: GroupBy - Filename" type="V_String" />
+            <Field name="Text" size="1073741823" source="Report:Layout:Summarize:RptHorizontal" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="Output" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="152" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="155" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="158" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="146" Connection="Output" />
+      <Destination ToolID="145" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="146" Connection="Output" />
+      <Destination ToolID="149" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="Output" />
+      <Destination ToolID="164" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="152" Connection="True" />
+      <Destination ToolID="154" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="153" Connection="Output" />
+      <Destination ToolID="161" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="161" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="159" Connection="Output" />
+      <Destination ToolID="161" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="154" Connection="Output" />
+      <Destination ToolID="153" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="155" Connection="True" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="156" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="158" Connection="True" />
+      <Destination ToolID="160" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="161" Connection="Output" />
+      <Destination ToolID="163" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="162" Connection="Output" />
+      <Destination ToolID="165" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="163" Connection="Output" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="164" Connection="Unique" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="146" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (145)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>SeeTheSand</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="5f4fb3bf-9e8e-444b-8918-11c494477b19" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="5f4fb3bf-9e8e-444b-8918-11c494477b19" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (147)</Name>
+          <ToolId value="147" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (148)</Name>
+              <ToolId value="148" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (145)</Name>
+              <ToolId value="145" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="145" Selected="True" />
+        <Tool ToolId="148" Selected="True" />
+        <Tool ToolId="149" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

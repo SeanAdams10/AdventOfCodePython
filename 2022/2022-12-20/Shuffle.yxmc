@@ -1,0 +1,734 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="282" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[OriginalRecordID] = mod([MoveNumber]-1,[RecordCount])+1</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[OriginalRecordID] = mod([MoveNumber]-1,[RecordCount])+1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="450" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="DeparturePoint" selected="True" />
+            <SelectField field="NewSortOrder" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="90">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="534" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="91">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([MoveNumber]-1,[RecordCount])+1" field="ModMoveNumber" size="8" type="Int64" />
+            <FormulaField expression="if [OriginalRecordID] = [ModMoveNumber]&#xA;//this is the record being moved&#xA;then &#xA;	if [NewSortOrder] &gt; [DeparturePoint] then&#xA;		[NewSortOrder]+0.1&#xA;	else&#xA;		[NewSortOrder] - 0.1&#xA;	endif&#xA;else [SortOrder]&#xA;endif" field="RevisedSortOrder" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ModMoveNumber = mod([MoveNumber]-1,[RecordCount])+1
+RevisedSortOrder = if [Origi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+            <Field name="ModMoveNumber" source="Formula: mod([MoveNumber]-1,[RecordCount])+1" type="Int64" />
+            <Field name="RevisedSortOrder" source="Formula: if [OriginalRecordID] = [ModMoveNumber]&#xA;//this is the record being moved&#xA;then &#xA; if [NewSortOrder] &gt; [DeparturePoint] then&#xA;  [NewSortOrder]+0.1&#xA; else&#xA;  [NewSortOrder] - 0.1&#xA; endif&#xA;else [SortOrder]&#xA;endif" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1002" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="SortOrder" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>SortOrder - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int64" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="918" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveNumber" selected="True" />
+            <SelectField field="RecordCount" selected="True" />
+            <SelectField field="data" selected="True" />
+            <SelectField field="SortOrder" selected="False" />
+            <SelectField field="OriginalRecordID" selected="True" />
+            <SelectField field="RevisedSortOrder" selected="False" rename="SortOrder" />
+            <SelectField field="DeparturePoint" selected="False" />
+            <SelectField field="NS0" selected="False" />
+            <SelectField field="NewSortOrder" selected="False" />
+            <SelectField field="SortOrderNew" selected="True" rename="SortOrder" type="Int64" size="8" />
+            <SelectField field="ModMoveNumber" selected="False" />
+            <SelectField field="MoveLimit" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int64" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="101">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="198" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[MoveNumber]+1" field="MoveNumber" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[MoveNumber = [MoveNumber]+1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="102">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input100</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\Part1Input.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>Part1Input.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: 0" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1098" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[[MoveNumber] < [moveLimit]
+]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[[MoveNumber] < [moveLimit]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int64" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int64" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1194" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1194" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>r</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>r Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1194" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Debug 1</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>1 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="109">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1098" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int64" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="378" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[SortOrder]" field="DeparturePoint" size="8" type="Int64" />
+            <FormulaField expression="mod([SortOrder] + [data]-1,[RecordCount]-1) +1" field="NS0" size="8" type="Int64" />
+            <FormulaField expression="if [NS0]&lt;1 then&#xA;	[ns0] + [RecordCount]-1&#xA;else&#xA;	[NS0]&#xA;endif" field="NewSortOrder" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>DeparturePoint = [SortOrder]
+NS0 = mod([SortOrder] + [data]-1,[RecordCount]-1) +...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NS0" source="Formula: mod([SortOrder] + [data]-1,[RecordCount]-1) +1" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="726" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="RevisedSortOrder" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RevisedSortOrder - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+            <Field name="ModMoveNumber" source="Formula: mod([MoveNumber]-1,[RecordCount])+1" type="Int64" />
+            <Field name="RevisedSortOrder" source="Formula: if [OriginalRecordID] = [ModMoveNumber]&#xA;//this is the record being moved&#xA;then &#xA; if [NewSortOrder] &gt; [DeparturePoint] then&#xA;  [NewSortOrder]+0.1&#xA; else&#xA;  [NewSortOrder] - 0.1&#xA; endif&#xA;else [SortOrder]&#xA;endif" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="822" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>SortOrderNew</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="SortOrderNew" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DeparturePoint" source="Formula: [SortOrder]" type="Int64" />
+            <Field name="NewSortOrder" source="Formula: if [NS0]&lt;1 then&#xA; [ns0] + [RecordCount]-1&#xA;else&#xA; [NS0]&#xA;endif" type="Int64" />
+            <Field name="RecordCount" source="Summarize: Count - SortOrder" type="Int64" />
+            <Field name="SortOrder" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="OriginalRecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="data" source="Formula: [data] * 1" type="Int64" />
+            <Field name="MoveNumber" source="Formula: [MoveNumber]+1" type="Int32" />
+            <Field name="MoveLimit" source="Formula: [RecordCount]" type="Int64" />
+            <Field name="ModMoveNumber" source="Formula: mod([MoveNumber]-1,[RecordCount])+1" type="Int64" />
+            <Field name="RevisedSortOrder" source="Formula: if [OriginalRecordID] = [ModMoveNumber]&#xA;//this is the record being moved&#xA;then &#xA; if [NewSortOrder] &gt; [DeparturePoint] then&#xA;  [NewSortOrder]+0.1&#xA; else&#xA;  [NewSortOrder] - 0.1&#xA; endif&#xA;else [SortOrder]&#xA;endif" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1325" y="113" width="158" height="149" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 117</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="116">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="1350" y="162" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\Part1Input.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Part1Input.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="87" Connection="True" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="Output" />
+      <Destination ToolID="90" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="101" Connection="Output" />
+      <Destination ToolID="90" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="90" Connection="Output" />
+      <Destination ToolID="91" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="91" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="92" Connection="Output" />
+      <Destination ToolID="105" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="92" Connection="Output" />
+      <Destination ToolID="109" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="92" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="101" Connection="Output" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="103" Connection="Output" />
+      <Destination ToolID="101" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="False" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="True" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="True" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="113" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="93" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Shuffle</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="cabf0a6b-97e5-4419-9838-fdc457b30416" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="cabf0a6b-97e5-4419-9838-fdc457b30416" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (102)</Name>
+          <ToolId value="102" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (103)</Name>
+              <ToolId value="103" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (106)</Description>
+              <Name>Macro Output (106)</Name>
+              <ToolId value="106" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (107)</Description>
+              <Name>Macro Output (107)</Name>
+              <ToolId value="107" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (108)</Description>
+              <Name>Macro Output (108)</Name>
+              <ToolId value="108" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input100</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="103" Selected="True" />
+        <Tool ToolId="106" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="108" Selected="True" />
+        <Tool ToolId="116" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

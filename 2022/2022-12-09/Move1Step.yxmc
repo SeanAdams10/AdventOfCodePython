@@ -1,0 +1,808 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.1">
+  <Nodes>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="342" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" field="MoveSize" size="1" type="Byte" />
+            <FormulaField expression="if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" field="MoveRow" size="2" type="Int16" />
+            <FormulaField expression="if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" field="MoveCol" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MoveSize = if [MoveDir] in ('D','L') then [MoveSize]*-1
+else [MoveSize]
+endif
+Mo...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="H_Row" source="TextInput:" type="Byte" />
+            <Field name="H_Col" source="TextInput:" type="Byte" />
+            <Field name="T_Row" source="TextInput:" type="Byte" />
+            <Field name="T_Col" source="TextInput:" type="Byte" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="438" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[H_Row]+[MoveRow]" field="H_Row" size="2" type="Int16" />
+            <FormulaField expression="[H_Col] + [MoveCol]" field="H_Col" size="2" type="Int16" />
+            <FormulaField expression="abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" field="HTDistance" size="2" type="Int16" />
+            <FormulaField expression="abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" field="HTDistanceMult" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Move the Head</AnnotationText>
+          <DefaultAnnotationText>H_Row = [H_Row]+[MoveRow]
+H_Col = [H_Col] + [MoveCol]
+HTDistance = abs([H_Row]-[...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Byte" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Byte" />
+            <Field name="T_Row" source="TextInput:" type="Byte" />
+            <Field name="T_Col" source="TextInput:" type="Byte" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="HTDistance" source="Formula: abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" type="Int16" />
+            <Field name="HTDistanceMult" source="Formula: abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="534" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA;	[T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA;	if [MoveDir] in ('U','D') then&#xA;		[H_Row] - [MoveSize]&#xA;	else&#xA;		[H_Row]&#xA;	endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA;	[T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA;	if ([T_Row] = [H_Row]) &#xA;	then &#xA;		[T_Row] //horizontal&#xA;    else&#xA;		[H_Row] + [MoveRow] //vertical&#xA;	endif&#xA;else&#xA;	null()&#xA;endif" field="T_Row" size="2" type="Int16" />
+            <FormulaField expression="if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA;	[T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA;	if [MoveDir] in ('U','D') then&#xA;		[H_Col] &#xA;	else&#xA;		[H_Col] - [MoveSize]&#xA;	endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA;	[T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA;	if ([T_Col] = [H_Col]) &#xA;	then &#xA;		[T_Col] //horizontal&#xA;    else&#xA;		[H_Col] - [MoveSize] //vertical&#xA;	endif&#xA;else&#xA;	null()&#xA;endif" field="T_Col" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Move the Tail</AnnotationText>
+          <DefaultAnnotationText>T_Row = if [HTDistance] in (0,1) then
+//adjacent - no action needed
+	[T_Row]
+els...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Byte" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Byte" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Byte" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Byte" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="HTDistance" source="Formula: abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" type="Int16" />
+            <Field name="HTDistanceMult" source="Formula: abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input5</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="5" />
+              <Fields>
+                <Field name="MoveDir" />
+                <Field name="MoveSize" />
+                <Field name="H_Row" />
+                <Field name="H_Col" />
+                <Field name="T_Row" />
+                <Field name="T_Col" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>R</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c>0</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>R</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>U</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>U</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>R</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>0</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="TextInput:" type="Byte" />
+            <Field name="H_Col" source="TextInput:" type="Byte" />
+            <Field name="T_Row" source="TextInput:" type="Byte" />
+            <Field name="T_Col" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="978" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output26</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings>
+        <Position x="174" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="TextInput:" type="Byte" />
+            <Field name="H_Col" source="TextInput:" type="Byte" />
+            <Field name="T_Row" source="TextInput:" type="Byte" />
+            <Field name="T_Col" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings>
+        <Position x="174" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">2-</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="TextInput:" type="Byte" />
+            <Field name="H_Col" source="TextInput:" type="Byte" />
+            <Field name="T_Row" source="TextInput:" type="Byte" />
+            <Field name="T_Col" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="270" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveDir" selected="True" />
+            <SelectField field="MoveSize" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="714" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_MoveDir" selected="True" input="Target_" />
+                <SelectField field="Target_MoveSize" selected="True" input="Target_" />
+                <SelectField field="Source_MoveDir" selected="False" input="Source_" />
+                <SelectField field="Source_MoveSize" selected="False" input="Source_" />
+                <SelectField field="Source_H_Row" selected="True" input="Source_" type="Int16" forced="True" size="2" />
+                <SelectField field="Source_H_Col" selected="True" input="Source_" type="Int16" forced="True" size="2" />
+                <SelectField field="Source_T_Row" selected="True" input="Source_" type="Int16" forced="True" size="2" />
+                <SelectField field="Source_T_Col" selected="True" input="Source_" type="Int16" forced="True" size="2" />
+                <SelectField field="Source_MoveRow" selected="False" input="Source_" />
+                <SelectField field="Source_MoveCol" selected="False" input="Source_" />
+                <SelectField field="Source_HTDistance" selected="False" input="Source_" />
+                <SelectField field="Source_HTDistanceMult" selected="False" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="618" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveDir" selected="True" />
+            <SelectField field="MoveSize" selected="True" />
+            <SelectField field="H_Row" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="H_Col" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="T_Row" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="T_Col" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="MoveRow" selected="True" />
+            <SelectField field="MoveCol" selected="True" />
+            <SelectField field="HTDistance" selected="True" />
+            <SelectField field="HTDistanceMult" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="HTDistance" source="Formula: abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" type="Int16" />
+            <Field name="HTDistanceMult" source="Formula: abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="978" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveDir" selected="False" />
+            <SelectField field="MoveSize" selected="False" />
+            <SelectField field="H_Row" selected="True" rename="Start_H_Row" />
+            <SelectField field="H_Col" selected="True" rename="Start_H_Col" />
+            <SelectField field="T_Row" selected="True" rename="Start_T_Row" />
+            <SelectField field="T_Col" selected="True" rename="Start_T_Col" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start_H_Row" source="TextInput:" type="Byte" />
+            <Field name="Start_H_Col" source="TextInput:" type="Byte" />
+            <Field name="Start_T_Row" source="TextInput:" type="Byte" />
+            <Field name="Start_T_Col" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="714" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_Start_H_Row" selected="True" input="Source_" type="Int16" size="2" />
+                <SelectField field="Source_Start_H_Col" selected="True" input="Source_" type="Int16" size="2" />
+                <SelectField field="Source_Start_T_Row" selected="True" input="Source_" type="Int16" size="2" />
+                <SelectField field="Source_Start_T_Col" selected="True" input="Source_" type="Int16" size="2" />
+                <SelectField field="Target_MoveDir" selected="True" input="Target_" />
+                <SelectField field="Target_MoveSize" selected="True" input="Target_" />
+                <SelectField field="Target_H_Row" selected="True" rename="End_H_Row" input="Target_" />
+                <SelectField field="Target_H_Col" selected="True" rename="End_H_Col" input="Target_" />
+                <SelectField field="Target_T_Row" selected="True" rename="End_T_Row" input="Target_" />
+                <SelectField field="Target_T_Col" selected="True" rename="End_T_Col" input="Target_" />
+                <SelectField field="Target_MoveRow" selected="True" input="Target_" />
+                <SelectField field="Target_MoveCol" selected="True" input="Target_" />
+                <SelectField field="Target_HTDistance" selected="True" input="Target_" />
+                <SelectField field="Target_HTDistanceMult" selected="True" input="Target_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start_H_Row" source="TextInput:" type="Int16" />
+            <Field name="Start_H_Col" source="TextInput:" type="Int16" />
+            <Field name="Start_T_Row" source="TextInput:" type="Int16" />
+            <Field name="Start_T_Col" source="TextInput:" type="Int16" />
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="End_H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="End_H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="End_T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="End_T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="HTDistance" source="Formula: abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" type="Int16" />
+            <Field name="HTDistanceMult" source="Formula: abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="810" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsNotNull</Operator>
+            <Field>MoveDir</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-12-09 18:30:51</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2022-12-09 18:30:51</StartDate>
+              <EndDate>2022-12-09 18:30:51</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!IsNull([MoveDir])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="834" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Start_H_Row" source="TextInput:" type="Int16" />
+            <Field name="Start_H_Col" source="TextInput:" type="Int16" />
+            <Field name="Start_T_Row" source="TextInput:" type="Int16" />
+            <Field name="Start_T_Col" source="TextInput:" type="Int16" />
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="Formula: if [MoveDir] in ('D','L') then [MoveSize]*-1&#xA;else [MoveSize]&#xA;endif" type="Byte" />
+            <Field name="End_H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="End_H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="End_T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="End_T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="MoveRow" source="Formula: if [MoveDir] in ('U','D') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="MoveCol" source="Formula: if [MoveDir] in ('L','R') then [MoveSize]&#xA;else 0&#xA;endif" type="Int16" />
+            <Field name="HTDistance" source="Formula: abs([H_Row]-[T_Row])  + &#xA;abs([H_Col]-[T_Col])" type="Int16" />
+            <Field name="HTDistanceMult" source="Formula: abs([H_Row]-[T_Row])  *&#xA;abs([H_Col]-[T_Col])" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="894" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveSize" selected="True" type="Byte" forced="True" size="1" />
+            <SelectField field="H_Row" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="H_Col" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="T_Row" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="T_Col" selected="True" type="Int16" forced="True" size="2" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveDir" size="1" source="TextInput:" type="String" />
+            <Field name="MoveSize" source="TextInput:" type="Byte" />
+            <Field name="H_Row" source="Formula: [H_Row]+[MoveRow]" type="Int16" />
+            <Field name="H_Col" source="Formula: [H_Col] + [MoveCol]" type="Int16" />
+            <Field name="T_Row" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Row] - [MoveSize]&#xA; else&#xA;  [H_Row]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Row]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Row] = [H_Row]) &#xA; then &#xA;  [T_Row] //horizontal&#xA;    else&#xA;  [H_Row] + [MoveRow] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+            <Field name="T_Col" source="Formula: if [HTDistance] in (0,1) then&#xA;//adjacent - no action needed&#xA; [T_Col] &#xA;elseif [HTDistance] = 3 and [HTDistanceMult] = 2 then &#xA;//diagonal correction&#xA; if [MoveDir] in ('U','D') then&#xA;  [H_Col] &#xA; else&#xA;  [H_Col] - [MoveSize]&#xA; endif&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 1 then&#xA;//one space diagonal - no action needed&#xA; [T_Col]&#xA;elseif [HTDistance] =  2 and [HTDistanceMult] = 0 then&#xA;//inline - move one behind the [HeadStart]&#xA; if ([T_Col] = [H_Col]) &#xA; then &#xA;  [T_Col] //horizontal&#xA;    else&#xA;  [H_Col] - [MoveSize] //vertical&#xA; endif&#xA;else&#xA; null()&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="15" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="15" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="19" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="19" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="True" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Move1Step</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="7a2fce71-9c7f-4134-b646-7f4b311b4299" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="7a2fce71-9c7f-4134-b646-7f4b311b4299" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (9)</Name>
+          <ToolId value="9" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (10)</Name>
+              <ToolId value="10" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (11)</Name>
+              <ToolId value="11" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (17)</Description>
+              <Name>Macro Output (17)</Name>
+              <ToolId value="17" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input5</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Warn</LimitBehavior>
+        <OutputMode>AutoByName</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="10" Selected="True" />
+        <Tool ToolId="11" Selected="True" />
+        <Tool ToolId="12" Selected="True" />
+        <Tool ToolId="13" Selected="True" />
+        <Tool ToolId="17" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

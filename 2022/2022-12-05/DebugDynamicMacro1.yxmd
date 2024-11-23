@@ -1,0 +1,801 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="From" selected="True" />
+            <SelectField field="To" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="83">
+      <GuiSettings>
+        <Position x="366" y="380" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">0-1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="84">
+      <GuiSettings>
+        <Position x="366" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">2-</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="86">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="450" y="380" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="'left([' + tostring([from]) + '],1)'" field="MoveValueFormula" size="1073741823" type="V_WString" />
+            <FormulaField expression="'tostring(Substring([' + tostring([From]) + '],1,length([' + tostring([from]) + '])))'" field="SourceFieldFormula" size="1073741823" type="V_WString" />
+            <FormulaField expression="'[MoveValue] + [' + tostring([to]) + ']'" field="TargetFieldFormula" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;-1&quot;" field="BooleanFormula" size="64" type="String" />
+            <FormulaField expression="'MoveValue'" field="MoveValueField" size="1073741823" type="V_WString" />
+            <FormulaField expression="tostring([From])" field="FromField" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MoveValueFormula = 'left([' + tostring([from]) + '],1)'
+SourceFieldFormula = 'to...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicReplace.DynamicReplace">
+        <Position x="666" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field_FieldName>MoveValueField</Field_FieldName>
+          <Field_OutputValue>MoveValueFormula</Field_OutputValue>
+          <Field_Expression>BooleanFormula</Field_Expression>
+          <ValueIsExpression value="True" />
+          <Unmatched_Behavior>Error</Unmatched_Behavior>
+          <FieldTypeMode>Keep</FieldTypeMode>
+          <OutputFieldType type="Double" size="8" scale="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Counts">
+          <RecordInfo>
+            <Field name="FieldName" size="9" source="DynamicReplace:" type="String" />
+            <Field name="OutputValue" size="11" source="DynamicReplace:" type="String" />
+            <Field name="Count" source="DynamicReplace: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="2" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="3" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="4" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="5" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="6" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="7" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="8" source="TextInput:" type="Bool" />
+            <Field name="9" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="TextInput:" type="Int32" />
+            <Field name="MoveValue" size="1" source="Formula: 'Z'" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicReplace" />
+    </Node>
+    <Node ToolID="88">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="570" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="'Z'" field="MoveValue" size="1" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[MoveValue = 'Z'
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="98">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicReplace.DynamicReplace">
+        <Position x="762" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field_FieldName>From</Field_FieldName>
+          <Field_OutputValue>SourceFieldFormula</Field_OutputValue>
+          <Field_Expression>BooleanFormula</Field_Expression>
+          <ValueIsExpression value="True" />
+          <Unmatched_Behavior>Warn</Unmatched_Behavior>
+          <FieldTypeMode>Autofield</FieldTypeMode>
+          <OutputFieldType type="Double" size="8" scale="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Counts">
+          <RecordInfo>
+            <Field name="FieldName" source="DynamicReplace:" type="Byte" />
+            <Field name="OutputValue" size="38" source="DynamicReplace:" type="String" />
+            <Field name="Count" source="DynamicReplace: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" source="DynamicReplace:" type="Bool" />
+            <Field name="2" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="3" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="4" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="5" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="6" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="7" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="8" source="TextInput:" type="Bool" />
+            <Field name="9" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="TextInput:" type="Int32" />
+            <Field name="MoveValue" size="1" source="Formula: 'Z'" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicReplace" />
+    </Node>
+    <Node ToolID="99">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicReplace.DynamicReplace">
+        <Position x="870" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field_FieldName>To</Field_FieldName>
+          <Field_OutputValue>TargetFieldFormula</Field_OutputValue>
+          <Field_Expression>BooleanFormula</Field_Expression>
+          <ValueIsExpression value="True" />
+          <Unmatched_Behavior>Warn</Unmatched_Behavior>
+          <FieldTypeMode>Autofield</FieldTypeMode>
+          <OutputFieldType scale="1" size="8" type="Double" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Counts">
+          <RecordInfo>
+            <Field name="FieldName" source="DynamicReplace:" type="Byte" />
+            <Field name="OutputValue" size="17" source="DynamicReplace:" type="String" />
+            <Field name="Count" source="DynamicReplace: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" source="DynamicReplace:" type="Bool" />
+            <Field name="2" size="27" source="DynamicReplace:" type="String" />
+            <Field name="3" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="4" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="5" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="6" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="7" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="8" source="TextInput:" type="Bool" />
+            <Field name="9" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="TextInput:" type="Int32" />
+            <Field name="MoveValue" size="1" source="Formula: 'Z'" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicReplace" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="966" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="1" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="2" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="3" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="MoveValue" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\DynamicStackerInput.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>DynamicStackerInput.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="2" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="3" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="4" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="5" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="6" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="7" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="8" source="TextInput:" type="Bool" />
+            <Field name="9" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1362" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_28256_0a754fc170a37846b69e0c5d28c73b38_\Engine_28256_b60ef9d86a924b4da3619936b10d607c~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1074" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>MoveOutput</Name>
+          <Abbrev>M</Abbrev>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_28256_0a754fc170a37846b69e0c5d28c73b38_\Engine_28256_0ea6b4e0190fc8498d989f4ed00df16e~.yxdb</TempFile>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>M Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="978" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="From" selected="True" />
+            <SelectField field="To" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings>
+        <Position x="966" y="392" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1086" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1170" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>Count</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-12-05 10:53:49</PeriodDate>
+              <PeriodType />
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2022-12-05 10:53:49</StartDate>
+              <EndDate>2022-12-05 10:53:49</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Count] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1266" y="272" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="1" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="2" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="3" forced="True" selected="True" size="2048" type="V_String" />
+            <SelectField field="Count" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="570" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>([IterNo]+1) &lt; [MaxIter]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>([IterNo]+1) &lt; [MaxIter]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="474" y="476" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+            <FormulaField expression="99999" field="MaxIter" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+MaxIter = 105
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="136">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="18" y="70" width="636" height="32" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This workflow was generated by applying the interface tool changes to the primary workflow.</Text>
+          <Justification Justification="0" />
+          <Shape shape="0" />
+          <FillColor name="White" />
+          <TextColor name="Black" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="135">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="18" y="18" width="636" height="48" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Debug Workflow:
+DynamicStacker.yxmc</Text>
+          <Justification Justification="3" />
+          <Shape shape="0" />
+          <FillColor b="208" g="113" r="10" />
+          <TextColor name="White" />
+          <Font name="Arial" size="14.25" style="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="139">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="462" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\DynamicStackerMovesInput.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>DynamicStackerMovesInput.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="TextInput:" type="Int32" />
+            <Field name="From" source="TextInput:" type="Int32" />
+            <Field name="To" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="140">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="798" y="750" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Substring([1],1,length([1]))" field="TestCol" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[TestCol = Substring([1],1,length([1]))
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="498" y="29" width="141" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Folded value="True" />
+          <Caption>Debug Log</Caption>
+          <Disabled value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="137">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="523" y="78" width="500" height="306" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[Original File: DynamicStacker.yxmc
+
+App Values:
+<WizardValues>
+<Module>d:\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-05\DynamicStacker.yxmc</Module>
+<Value name="Input.FakeInput"><![CDATA[1=
+2=
+3=
+]]><![CDATA[</Value>
+<Value name="Input.MoveInput"><![CDATA[MoveID=
+From=
+To=
+]]><![CDATA[</Value>
+<Value name="Numeric Up Down (124)">99999</Value>
+</WizardValues>
+
+
+Actions Log:
+Started running  at Mon Dec  5 12:28:06 2022
+00:00:00.000 - Alteryx: The Condition Named="(Always Run)", Expression="1" was True
+00:00:00.000 - Alteryx: The Action Named="Tool #127", Type="UpdateValue" was run
+
+]]></Text>
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="76" Connection="Output" />
+      <Destination ToolID="83" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="76" Connection="Output" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="83" Connection="Output" />
+      <Destination ToolID="86" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="87" Connection="Expressions" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="88" Connection="Output" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="98" Connection="Expressions" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="98" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="99" Connection="Expressions" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="Output" />
+      <Destination ToolID="99" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="140" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="104" Connection="Output" />
+      <Destination ToolID="88" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="120" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output9" />
+      <Destination ToolID="120" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="True" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="114" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="True" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="True" />
+      <Destination ToolID="119" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DebugDynamicMacro1</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="077f887f-b98f-4d39-93fc-b5c1da3d4157" />
+      <Telemetry>
+        <PreviousWorkflowId value="37c63f33-d216-4c19-ac1b-751c43cba98c" />
+        <OriginWorkflowId value="37c63f33-d216-4c19-ac1b-751c43cba98c" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer=".\">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="90" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="22" />
+          <Fields>
+            <Field name="PairID" />
+            <Field name="ExpectedOutcome" />
+          </Fields>
+          <Data>
+            <r>
+              <c>-1</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-2</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-3</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>-4</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-5</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>-6</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>1</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>5</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>6</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>7</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>8</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>-7</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-8</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>-9</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-10</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-11</c>
+              <c>Fail</c>
+            </r>
+            <r>
+              <c>-12</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-13</c>
+              <c>Good</c>
+            </r>
+            <r>
+              <c>-14</c>
+              <c>Fail</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="90" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\testResults.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>testResults.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PairID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field name="Check" size="4" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-13\testResults.yxdb" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="378" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="174" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if ([Check] = 'Good') then 'Good' else 'Fail' endif" field="ExpectedOutcome" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ExpectedOutcome = if ([Check] = 'Good') then 'Good' else 'Fail' endif
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="258" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PairID" selected="True" />
+            <SelectField field="ExpectedOutcome" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#1">
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>TestInput</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="cbab7884-aa87-4004-a007-9e7f92d89fc7" />
+      <Telemetry>
+        <PreviousWorkflowId value="dc9661d1-76ca-4e1b-adb9-5bfd25492e0e" />
+        <OriginWorkflowId value="dc9661d1-76ca-4e1b-adb9-5bfd25492e0e" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

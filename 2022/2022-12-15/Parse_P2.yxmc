@@ -1,0 +1,811 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="162" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="^Sensor at x=(\d+), y=(\d+): closest beacon is at x=(-?\d+), y=(-?\d+)$" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>data</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="S_X" type="Int32" size="4" />
+            <Field field="S_Y" type="Int32" size="4" />
+            <Field field="B_X" type="Int32" size="4" />
+            <Field field="B_Y" type="Int32" size="4" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="S_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="S_Y" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_Y" source="RegEx: Parsed from data" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="258" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" field="M_Dist" size="8" type="Int64" />
+            <FormulaField expression="//min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" field="minX" size="8" type="Int64" />
+            <FormulaField expression="//Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" field="maxX" size="8" type="Int64" />
+            <FormulaField expression="//min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" field="MinY" size="8" type="Int64" />
+            <FormulaField expression="//Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" field="MaxY" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>M_Dist = abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])
+minX = //min([S_X],[B_X])
+[S_X]...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="S_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="S_Y" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_Y" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+            <Field name="minX" source="Formula: //min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" type="Int64" />
+            <Field name="maxX" source="Formula: //Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" type="Int64" />
+            <Field name="MinY" source="Formula: //min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" type="Int64" />
+            <Field name="MaxY" source="Formula: //Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="342" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="M_Dist" action="Max" rename="Max_M_Dist" />
+            <SummarizeField field="minX" action="Min" rename="Min_minX" />
+            <SummarizeField field="MinY" action="Min" rename="Min_MinY" />
+            <SummarizeField field="maxX" action="Max" rename="Max_maxX" />
+            <SummarizeField field="MaxY" action="Max" rename="Max_MaxY" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+            <Field name="Min_minX" source="Formula: //min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" type="Int64" />
+            <Field name="Min_MinY" source="Formula: //min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" type="Int64" />
+            <Field name="Max_maxX" source="Formula: //Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" type="Int64" />
+            <Field name="Max_MaxY" source="Formula: //Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="438" y="219" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Meta</Name>
+          <Abbrev>M</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+M Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="438" y="399" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Signals And Beacons</Name>
+          <Abbrev>S</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+S Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="354" y="399" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="S_X" selected="True" />
+            <SelectField field="S_Y" selected="True" />
+            <SelectField field="B_X" selected="True" />
+            <SelectField field="B_Y" selected="True" />
+            <SelectField field="M_Dist" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from data" name="S_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="S_Y" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="B_Y" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="546" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>X</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>[Min_minX]</Expression_Init>
+          <Expression_Cond>X &lt;= [Max_maxX]</Expression_Cond>
+          <Expression_Loop>X + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+            <Field name="Min_minX" source="Formula: //min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" type="Int64" />
+            <Field name="Min_MinY" source="Formula: //min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" type="Int64" />
+            <Field name="Max_maxX" source="Formula: //Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" type="Int64" />
+            <Field name="Max_MaxY" source="Formula: //Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" type="Int64" />
+            <Field name="X" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="630" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Y</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>[Min_minY]</Expression_Init>
+          <Expression_Cond>Y &lt;= [Max_maxY]</Expression_Cond>
+          <Expression_Loop>Y + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+            <Field name="Min_minX" source="Formula: //min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" type="Int64" />
+            <Field name="Min_MinY" source="Formula: //min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" type="Int64" />
+            <Field name="Max_maxX" source="Formula: //Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" type="Int64" />
+            <Field name="Max_MaxY" source="Formula: //Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" type="Int64" />
+            <Field name="X" source="GenerateRows" type="Int32" />
+            <Field name="Y" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Arrange.Arrange">
+        <Position x="438" y="447" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <KeyFields orderChanged="False" />
+          <OutputFields>
+            <Columns>
+              <Column name="Type" type="text" context="Take from Field Names" />
+              <Column name="X" type="combobox" />
+              <Column name="Y" type="combobox" />
+            </Columns>
+            <Data>
+              <r>
+                <c>1</c>
+                <c>S_X</c>
+                <c>S_Y</c>
+              </r>
+              <r>
+                <c>2</c>
+                <c>B_X</c>
+                <c>B_Y</c>
+              </r>
+            </Data>
+          </OutputFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type" size="1" source="Arrange:" type="String" />
+            <Field description="RegEx: Parsed from data" name="X" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Y" source="RegEx: Parsed from data" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxArrange" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="726" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="4 //empty" field="Type" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Type = 4 //empty
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_M_Dist" source="Formula: abs([S_X] - [B_X]) + abs([S_Y] - [B_Y])" type="Int64" />
+            <Field name="Min_minX" source="Formula: //min([S_X],[B_X])&#xA;[S_X] - [M_Dist]-1" type="Int64" />
+            <Field name="Min_MinY" source="Formula: //min([S_Y],[B_Y])&#xA;[S_Y] - [M_Dist] -1" type="Int64" />
+            <Field name="Max_maxX" source="Formula: //Max([S_X],[B_X])&#xA;[S_X] + [M_Dist]+1" type="Int64" />
+            <Field name="Max_MaxY" source="Formula: //Max([S_Y],[B_Y])&#xA;[S_Y] + [M_Dist] +1" type="Int64" />
+            <Field name="X" type="Int32" />
+            <Field name="Y" type="Int32" />
+            <Field name="Type" source="Formula: 4 //empty" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="918" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type" size="10" source="(Multiple Sources)" type="V_String" />
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1110" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="X" order="Ascending" />
+            <Field field="Y" order="Ascending" />
+            <Field field="Type" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>X - Ascending
+Y - Ascending
+Type - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type" source="(Multiple Sources)" type="Int32" />
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="822" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="X" selected="True" />
+            <SelectField field="Y" selected="True" />
+            <SelectField field="Type" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" type="Int32" />
+            <Field name="Y" type="Int32" />
+            <Field name="Type" source="Formula: 4 //empty" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1206" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="X" />
+            <Field field="Y" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Type" source="(Multiple Sources)" type="Int32" />
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Type" source="(Multiple Sources)" type="Int32" />
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input35</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="14" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>Sensor at x=2, y=18: closest beacon is at x=-2, y=15</c>
+                </r>
+                <r>
+                  <c>Sensor at x=9, y=16: closest beacon is at x=10, y=16</c>
+                </r>
+                <r>
+                  <c>Sensor at x=13, y=2: closest beacon is at x=15, y=3</c>
+                </r>
+                <r>
+                  <c>Sensor at x=12, y=14: closest beacon is at x=10, y=16</c>
+                </r>
+                <r>
+                  <c>Sensor at x=10, y=20: closest beacon is at x=10, y=16</c>
+                </r>
+                <r>
+                  <c>Sensor at x=14, y=17: closest beacon is at x=10, y=16</c>
+                </r>
+                <r>
+                  <c>Sensor at x=8, y=7: closest beacon is at x=2, y=10</c>
+                </r>
+                <r>
+                  <c>Sensor at x=2, y=0: closest beacon is at x=2, y=10</c>
+                </r>
+                <r>
+                  <c>Sensor at x=0, y=11: closest beacon is at x=2, y=10</c>
+                </r>
+                <r>
+                  <c>Sensor at x=20, y=14: closest beacon is at x=25, y=17</c>
+                </r>
+                <r>
+                  <c>Sensor at x=17, y=20: closest beacon is at x=21, y=22</c>
+                </r>
+                <r>
+                  <c>Sensor at x=16, y=7: closest beacon is at x=15, y=3</c>
+                </r>
+                <r>
+                  <c>Sensor at x=14, y=3: closest beacon is at x=15, y=3</c>
+                </r>
+                <r>
+                  <c>Sensor at x=20, y=1: closest beacon is at x=15, y=3</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>Input
+Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1302" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Full Board</Name>
+          <Abbrev>F</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+F Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1014" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Type" selected="True" type="Int32" size="4" />
+            <SelectField field="X" selected="True" />
+            <SelectField field="Y" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type" source="(Multiple Sources)" type="Int32" />
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="75">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="450" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="0" field="Min_minX" size="8" type="Int64" />
+            <FormulaField expression="20" field="Max_maxX" size="8" type="Int64" />
+            <FormulaField expression="0" field="Min_MinY" size="8" type="Int64" />
+            <FormulaField expression="20" field="Max_MaxY" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Min_minX = 0
+Max_maxX = 20
+Min_MinY = 0
+Max_MaxY = 20
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="54" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="58" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="75" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Unique" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="68" Connection="Output" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="70" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="75" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (56)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (57)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (69)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Parse_P2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="600e8638-040b-4e7e-ad7f-4054c37ffbad" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="600e8638-040b-4e7e-ad7f-4054c37ffbad" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (67)</Name>
+          <ToolId value="67" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (68)</Name>
+              <ToolId value="68" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (56)</Name>
+              <ToolId value="56" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (57)</Name>
+              <ToolId value="57" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (69)</Description>
+              <Name>Macro Output (69)</Name>
+              <ToolId value="69" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="56" Selected="True" />
+        <Tool ToolId="57" Selected="True" />
+        <Tool ToolId="68" Selected="True" />
+        <Tool ToolId="69" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

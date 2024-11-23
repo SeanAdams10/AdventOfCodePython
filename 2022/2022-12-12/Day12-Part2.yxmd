@@ -1,0 +1,471 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="56">
+      <GuiSettings>
+        <Position x="450" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>ParseInput (53)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro=".\ParseInput.yxmc" />
+    </Node>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1110" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2580_50d6cc878b75704988d9b3fa6856376d_\Engine_2580_f041f820b8d37b4691e1bff565833ba5~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="97">
+      <GuiSettings>
+        <Position x="594" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input56"><![CDATA[CellID=CellID
+RowID=RowID
+data=data
+ColID=ColID
+IsStart=IsStart
+IsEnd=IsEnd
+Height=Height
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>CreateAllStartingPoints (87)</Name>
+          <AnnotationText>Generate all starting points</AnnotationText>
+          <DefaultAnnotationText>Generate all starting points</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\CreateAllStartingPoints.yxmc" />
+    </Node>
+    <Node ToolID="96">
+      <GuiSettings>
+        <Position x="918" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="BatchMacroGroupBy" />
+          <Value name="Input.Input56"><![CDATA[CellID=CellID
+RowID=RowID
+data=data
+ColID=ColID
+IsStart=IsStart
+IsEnd=IsEnd
+Height=Height
+ScenarioID=ScenarioID
+]]></Value>
+          <Value name="ControlParams"><![CDATA[ScenarioID=ScenarioID
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>ScenarioIterator (89)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output76">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="IsStart" source="Formula: [StartCellID] = [cellID]" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="Formula: 1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\ScenarioIterator.yxmc" />
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1014" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="MinDist" action="Min" rename="Min_MinDist" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="94">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="726" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="ScenarioID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="95">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="810" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScenarioID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="54" width="336" height="381" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>The Inputs</Caption>
+          <Style TextColor="#314c4a" FillColor="#c4ff88" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="35">
+          <GuiSettings>
+            <Position x="306" y="213" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Radio Button (10)">True</Value>
+              <Value name="Radio Button (12)">False</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+            <MetaInfo connection="InputData">
+              <RecordInfo>
+                <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Expected Result">
+              <RecordInfo>
+                <Field name="Part" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Answer" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro=".\Input Macro.yxmc" />
+        </Node>
+        <Node ToolID="46">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="79" y="103" width="217" height="123" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Given Test Sample</Caption>
+              <Style TextColor="#314c4a" FillColor="#c4ff88" BorderColor="#314c4a" Transparency="25" Margin="10" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="31">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="89" y="137" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="5" />
+                  <Fields>
+                    <Field name="data" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>Sabqponm</c>
+                    </r>
+                    <r>
+                      <c>abcryxxl</c>
+                    </r>
+                    <r>
+                      <c>accszExk</c>
+                    </r>
+                    <r>
+                      <c>acctuvwj</c>
+                    </r>
+                    <r>
+                      <c>abdefghi</c>
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Test Data</AnnotationText>
+                  <DefaultAnnotationText>Test Data</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+            <Node ToolID="33">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="186" y="141" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="1" />
+                  <Fields>
+                    <Field name="Part1" />
+                    <Field name="Part2" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>31</c>
+                      <c>12</c>
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Expected Results</AnnotationText>
+                  <DefaultAnnotationText>Expected Results</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="47">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="80" y="275" width="216" height="135" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>User Exercise</Caption>
+              <Style TextColor="#314c4a" FillColor="#c4ff88" BorderColor="#314c4a" Transparency="25" Margin="10" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="32">
+              <GuiSettings>
+                <Position x="90" y="309" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Value name="Numeric Up Down (9)">12</Value>
+                  <Value name="Text Box (12)">53616c7465645f5fbc33aa45ecd70118340a55fcad4698e9f6f893736dbf2ac26b9e617c52d11a4029395178f96f5bf18608f29698519f5d76fa2c5bb714afae</Value>
+                  <Value name="Numeric Up Down (15)">2022</Value>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Download Actual Data</AnnotationText>
+                  <DefaultAnnotationText>Download Actual Data</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <Dependencies>
+                  <Implicit />
+                </Dependencies>
+              </Properties>
+              <EngineSettings Macro=".\DownloadInputData.yxmc" />
+            </Node>
+            <Node ToolID="34">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="186" y="309" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="1" />
+                  <Fields>
+                    <Field name="Part1" />
+                    <Field name="Part2" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>14069</c>
+                      <c>12411</c>
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Expected Results</AnnotationText>
+                  <DefaultAnnotationText>Expected Results</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+          </ChildNodes>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="56" Connection="Clean Data" />
+      <Destination ToolID="97" Connection="Input56" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="97" Connection="Output89" />
+      <Destination ToolID="96" Connection="Input56" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="96" Connection="Control" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="97" Connection="Output89" />
+      <Destination ToolID="94" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="96" Connection="Output76" />
+      <Destination ToolID="93" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="94" Connection="Unique" />
+      <Destination ToolID="95" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="InputData" />
+      <Destination ToolID="56" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="35" Connection="Example Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="35" Connection="Example Answer" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output11" />
+      <Destination ToolID="35" Connection="User Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="35" Connection="User Answer" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Day12-Part2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="bb899906-4009-453e-b1b3-065731f421ed" />
+      <Telemetry>
+        <PreviousWorkflowId value="e4b763f2-04a0-4b9e-89b3-1ef240206095" />
+        <OriginWorkflowId value="e4b763f2-04a0-4b9e-89b3-1ef240206095" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

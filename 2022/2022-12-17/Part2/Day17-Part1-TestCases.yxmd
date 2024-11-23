@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="169">
+      <GuiSettings Plugin="JupyterCode">
+        <Position x="198" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <WorkflowName>d:\onedrive\documents\alteryx data\adventofcode\2022\2022-12-17\part1-attempt2-highestpointonly\day17-part1-testcases.yxmd</WorkflowName>
+          <JupyterProduction>false</JupyterProduction>
+          <vEnvName>designerbasetools_venv</vEnvName>
+          <DefaultVenv>1</DefaultVenv>
+          <productionModeScript />
+          <Port>64376</Port>
+          <JupyterGuidDir>bed6109c57ad0e4a8c19d9b02e9894e3</JupyterGuidDir>
+          <JupyterGuidCopy />
+          <LastExecutedByEngineVersion>2022.1.1.42590</LastExecutedByEngineVersion>
+          <Notebook><![CDATA[{"cells":[{"cell_type":"markdown","metadata":{"ayx":{"cell_css":"border: 3px solid #357; margin: 4px; background: #fbffff","contents_keyword":"Alteryx.help()","label":"info"}},"source":["Run `Alteryx.help()` for info about useful functions.  \n","i.e., `Alteryx.read(\"#1\")`, `Alteryx.write(df,1)`, `Alteryx.getWorkflowConstant(\"Engine.WorkflowDirectory\")`"]},{"cell_type":"code","execution_count":1,"metadata":{"ayx":{"cell_css":"border: 1px solid #58a; margin: 2px;","contents_keyword":"installPackages","label":"deps"},"execution":{"iopub.execute_input":"2023-01-09T17:52:23.188954Z","iopub.status.busy":"2023-01-09T17:52:23.188954Z","iopub.status.idle":"2023-01-09T17:52:23.893590Z","shell.execute_reply":"2023-01-09T17:52:23.892588Z"}},"outputs":[],"source":["# List all non-standard packages to be imported by your \n","# script here (only missing packages will be installed)\n","from ayx import Package\n","from ayx import Alteryx\n","#Package.installPackages(['pandas','numpy'])"]},{"cell_type":"code","execution_count":2,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:23.898590Z","iopub.status.busy":"2023-01-09T17:52:23.898590Z","iopub.status.idle":"2023-01-09T17:52:23.908590Z","shell.execute_reply":"2023-01-09T17:52:23.907588Z"}},"outputs":[],"source":["folderName = r\"C:\\Users\\seanb\\OneDrive\\Documents\\Alteryx data\\AdventOfCode\\2022\\2022-12-17\"\n","print(Alteryx.getWorkflowConstant(\"Engine.WorkflowDirectory\"))\n","folderName = Alteryx.getWorkflowConstant(\"Engine.WorkflowDirectory\")"]},{"cell_type":"code","execution_count":3,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:23.938109Z","iopub.status.busy":"2023-01-09T17:52:23.938109Z","iopub.status.idle":"2023-01-09T17:52:23.954110Z","shell.execute_reply":"2023-01-09T17:52:23.953107Z"}},"outputs":[],"source":["from collections import defaultdict"]},{"cell_type":"code","execution_count":4,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:23.959107Z","iopub.status.busy":"2023-01-09T17:52:23.959107Z","iopub.status.idle":"2023-01-09T17:52:23.970111Z","shell.execute_reply":"2023-01-09T17:52:23.969108Z"}},"outputs":[],"source":["def parse17(filename):\n","    with open(filename) as f:\n","        return f.read().strip()"]},{"cell_type":"code","execution_count":5,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:23.975108Z","iopub.status.busy":"2023-01-09T17:52:23.975108Z","iopub.status.idle":"2023-01-09T17:52:23.986108Z","shell.execute_reply":"2023-01-09T17:52:23.985108Z"}},"outputs":[],"source":["def rocks(i,y):\n","    '''returns initial coordinated of each rock, given lowest y coordinate'''\n","    if i ==0:\n","        return ((2,y),(3,y),(4,y),(5,y)) # horizontal slab\n","    elif i==1:\n","        return ((2,y+1),(3,y),(3,y+1),(3,y+2),(4,y+1)) # cross\n","    elif i==2:\n","        return ((2,y),(3,y),(4,y),(4,y+1),(4,y+2)) # inverted L\n","    elif i==3:\n","        return ((2,y),(2,y+1),(2,y+2),(2,y+3)) # vertical slab\n","    elif i==4:\n","        return ((2,y),(2,y+1),(3,y),(3,y+1)) # square\n","    return"]},{"cell_type":"code","execution_count":6,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:23.991108Z","iopub.status.busy":"2023-01-09T17:52:23.991108Z","iopub.status.idle":"2023-01-09T17:52:24.017110Z","shell.execute_reply":"2023-01-09T17:52:24.016108Z"}},"outputs":[],"source":["def pushRock(rock,jet):\n","    rock_new = [ (x+1,y) if jet==\">\" else (x-1,y) for x,y in rock ]\n","    if rock_new[0][0]<0 or rock_new[-1][0]==7:\n","        return rock\n","    else:\n","        return rock_new\n","\n","def collision(rock,space):\n","    for r in rock:\n","        if space[r]:\n","            return True\n","    return False\n","\n","def dropRocks(jets,nrockmax=1,verbose=False):\n","\n","    evolution = [] # PART 2\n","    \n","    space = defaultdict(int)\n","    \n","    # paint floor\n","    for x in range(7):\n","        space[(x,0)] = 6\n","\n","    ymax = 0\n","    ir = 0\n","    iw = 0\n","    nrocks = 0\n","\n","    while True:\n","\n","        # PART 2\n","        ir0 = str(ir)\n","        iw0 = \"\"\n","        x_rock = -1\n","        dy_rock = ymax+4\n","        dy_pile = -99\n","        \n","        # generate rock\n","        rock = rocks(ir,ymax+4)\n","        nrocks += 1\n","\n","        # move rock until rest\n","        while True:\n","            # 1. jet pushes rock avoiding walls \n","            rock_push = pushRock(rock,jets[iw])\n","            iw0 += \"_\"+str(iw) # PART 2\n","            iw = (iw+1)%len(jets) # next jet\n","\n","            # 2. check whethere new position after push is possible\n","            if collision(rock_push,space):\n","                rock_push = rock\n","\n","            # 3. try falling 1 unit\n","            rock_fall = [ (x,y-1) for x,y in rock_push ]\n","            if collision(rock_fall,space): # cannot fall to new position, stop in previous one\n","                for r in rock_push:\n","                    space[r] = ir+1 # or 1. Using iw value is only useful for visualisation\n","                \n","                # compute rock highest level\n","                ymax_rock = max([y for x,y in rock_push])\n","                \n","                # PART 2: store difference between of rock and pile heights (can be negative)\n","                dy_pile = ymax_rock - ymax\n","                \n","                # save pilehighest level\n","                if ymax_rock>ymax:\n","                    ymax = ymax_rock\n","                \n","                # PART 2: store x landing position\n","                x_rock = rock_push[0][0]\n","                \n","                # PART 2: store delta y (drop)\n","                dy_rock -= rock_push[0][1]\n","                \n","                break\n","            else:\n","                rock = rock_fall\n","\n","        # next rock\n","        ir = (ir+1)%5 \n","        \n","        # PART 2: \"hash\" last rock status (rock index, first jet index, x landing position, dy fall)\n","        status = \"{}_{}__{}__{}__{}\".format(ir0,iw0,x_rock,dy_rock,dy_pile)\n","        \n","        if not nrockmax:\n","            prev = [i for i,p in enumerate(evolution) if p==status]\n","            if len(prev)>=3:\n","                if verbose:\n","                    print(\"Found repeating configuration at rocks\",prev)\n","                evolution.append(status) # adding also repeating status to ease later calculation\n","                return space,ymax,evolution,prev\n","        \n","        evolution.append(status)\n","\n","        if nrockmax and nrocks==nrockmax:\n","            return space,ymax,evolution,[]"]},{"cell_type":"code","execution_count":7,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:24.022108Z","iopub.status.busy":"2023-01-09T17:52:24.022108Z","iopub.status.idle":"2023-01-09T17:52:24.997312Z","shell.execute_reply":"2023-01-09T17:52:24.996310Z"}},"outputs":[],"source":["import matplotlib.pyplot as plt\n","import numpy as np\n","\n","#jets0 = parse17(r\"C:\\Users\\seanb\\OneDrive\\Documents\\Alteryx data\\AdventOfCode\\2022\\2022-12-17\\example17.txt\")\n","filename = folderName + r\"\\example17.txt\" \n","jets0 = parse17(filename)\n","\n","space0_test,ymax0_test,_,_ = dropRocks(jets0,9)\n","\n","spacetest = np.zeros((ymax0_test+1,7))\n","for (x,y),v in space0_test.items():\n","    if v:\n","        spacetest[y][x] = v\n","\n","plt.imshow(spacetest,origin='lower',cmap=\"binary\")\n","_ = plt.axis('off')\n","\n"]},{"cell_type":"code","execution_count":8,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:25.002311Z","iopub.status.busy":"2023-01-09T17:52:25.001310Z","iopub.status.idle":"2023-01-09T17:52:25.092829Z","shell.execute_reply":"2023-01-09T17:52:25.091828Z"}},"outputs":[],"source":["space0,ymax0,_,_ = dropRocks(jets0,2022)\n","print(\"Test 1:\",ymax0)"]},{"cell_type":"code","execution_count":9,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:25.097828Z","iopub.status.busy":"2023-01-09T17:52:25.097828Z","iopub.status.idle":"2023-01-09T17:52:25.187348Z","shell.execute_reply":"2023-01-09T17:52:25.186347Z"}},"outputs":[],"source":["#jets = parse17(r\"C:\\Users\\seanb\\OneDrive\\Documents\\Alteryx data\\AdventOfCode\\2022\\2022-12-17\\input17.txt\")\n","filename = folderName + r\"\\input17.txt\" \n","\n","jets = parse17(filename)\n","space,ymax,_,_ = dropRocks(jets,2022)\n","print(\"Part 1:\",ymax)"]},{"cell_type":"code","execution_count":10,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:52:25.192348Z","iopub.status.busy":"2023-01-09T17:52:25.192348Z","iopub.status.idle":"2023-01-09T17:54:20.388204Z","shell.execute_reply":"2023-01-09T17:54:20.387201Z"},"scrolled":true},"outputs":[],"source":["import pandas as pd\n","\n","dfOutput = pd.DataFrame(columns = ['iter','yMax'])\n","print(dfOutput)\n","\n","for iLimit in range(1,2500):\n","    jets = parse17(filename)\n","    space,ymax,_,_ = dropRocks(jets,iLimit)\n","    #print(\"Part 1:\",ymax)\n","    df2 = pd.DataFrame([[iLimit,ymax]], columns = ['iter','yMax'])\n","    dfOutput = pd.concat([df2, dfOutput])\n","    #print(dfOutput)\n","    #pd.concat([df2, dfOutput])\n","    \n","print(dfOutput)\n","    \n","    "]},{"cell_type":"code","execution_count":11,"metadata":{"execution":{"iopub.execute_input":"2023-01-09T17:54:20.393203Z","iopub.status.busy":"2023-01-09T17:54:20.392202Z","iopub.status.idle":"2023-01-09T17:54:20.451204Z","shell.execute_reply":"2023-01-09T17:54:20.450202Z"}},"outputs":[],"source":["Alteryx.write(dfOutput, 1)"]},{"cell_type":"code","execution_count":null,"metadata":{},"outputs":[],"source":[]}],"metadata":{"kernelspec":{"display_name":"designerbasetools_venv","language":"python","name":"designerbasetools_venv"},"language_info":{"codemirror_mode":{"name":"ipython","version":3},"file_extension":".py","mimetype":"text/x-python","name":"python","nbconvert_exporter":"python","pygments_lexer":"ipython3","version":"3.8.5"}},"nbformat":4,"nbformat_minor":2}]]></Notebook>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxJupyterPluginEngine.dll" EngineDllEntryPoint="AlteryxJupyter" />
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="306" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">.\Part1TestCases.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Part1TestCases.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="169" Connection="Output1" />
+      <Destination ToolID="170" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Day17-Part1-TestCases</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="3fc48e8d-1c67-43ef-9556-1cab67056938" />
+      <Telemetry>
+        <PreviousWorkflowId value="e4b763f2-04a0-4b9e-89b3-1ef240206095" />
+        <OriginWorkflowId value="e4b763f2-04a0-4b9e-89b3-1ef240206095" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

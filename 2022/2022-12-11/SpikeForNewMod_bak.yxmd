@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2019.1">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\TestingDataForNewMod.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>TestingDataForNewMod.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ItemID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MonkeyID" source="(Multiple Sources)" type="Int64" />
+            <Field name="WValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="MonkeyItemPriority" source="(Multiple Sources)" type="Int32" />
+            <Field name="WValue2" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-11\TestingDataForNewMod.yxdb" type="Int64" />
+            <Field name="WValue3" source="Formula: [WValue2]" type="Int64" />
+            <Field name="NewMonkeyID" source="DynamicReplace:" type="Byte" />
+            <Field description="RegEx: Parsed from data" name="Input_#2_MonkeyID" source="RegEx: Parsed from data" type="Int64" />
+            <Field description="RegEx: Parsed from data" name="Operation" size="2147483647" source="Formula: //replace([Operation],'old','[_CurrentField_]')&#xA;replace([Operation],'old','[WValue]')&#xA;" type="V_String" />
+            <Field name="FieldName" size="2147483647" source="Formula: 'WValue2'" type="V_String" />
+            <Field name="BooleanExpr" size="64" source="Formula: &quot;1=1&quot;" type="String" />
+            <Field description="RegEx: Parsed from data" name="Input_#3_MonkeyID" source="CrossTab:Group:Sum:" type="Int64" />
+            <Field description="RegEx: Parsed from data" name="Input_#3_Operation" size="2147483647" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="False" source="CrossTab:Header:ResultTest:False:Sum:" type="Int64" />
+            <Field name="True" source="CrossTab:Header:ResultTest:True:Sum:" type="Int64" />
+            <Field name="TurnNumberWithinRound" source="Formula: [Engine.IterationNumber]" type="Int16" />
+            <Field name="RoundNumber" source="Formula: [Engine.IterationNumber] +1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ItemID" selected="False" />
+            <SelectField field="MonkeyItemPriority" selected="False" />
+            <SelectField field="Input_#2_MonkeyID" selected="False" />
+            <SelectField field="FieldName" selected="False" />
+            <SelectField field="BooleanExpr" selected="False" />
+            <SelectField field="Input_#3_MonkeyID" selected="False" />
+            <SelectField field="Input_#3_Operation" selected="True" rename="Divisible" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="234" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>Divisible</Field>
+          <RegExExpression value="divisible by (\d+)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>Divisible</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="Divisor" type="Int64" size="8" />
+          </ParseComplex>
+          <Match>
+            <Field>Operation_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="330" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RoundNumber" selected="True" />
+            <SelectField field="TurnNumberWithinRound" selected="True" />
+            <SelectField field="MonkeyID" selected="True" />
+            <SelectField field="WValue" selected="True" />
+            <SelectField field="WValue2" selected="True" />
+            <SelectField field="WValue3" selected="True" />
+            <SelectField field="NewMonkeyID" selected="True" />
+            <SelectField field="Operation" selected="True" />
+            <SelectField field="Divisible" selected="False" />
+            <SelectField field="Divisor" selected="True" />
+            <SelectField field="False" selected="True" />
+            <SelectField field="True" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="11" />
+          <Fields>
+            <Field name="D_Number" />
+            <Field name="D_Remainder_Init" />
+          </Fields>
+          <Data>
+            <r>
+              <c>2</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>5</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>7</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>9</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>11</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>13</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>17</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>19</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>23</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>29</c>
+              <c>0</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="450" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_Divisor" selected="True" rename="Source_Divisor" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="642" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([WValue],[D_Number])" field="D_Remainder_Init" size="4" type="Int32" />
+            <FormulaField expression="mod([WValue3],[D_Number])" field="D_Remainder_Op1" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>D_Remainder_Init = mod([WValue],[D_Number])
+D_Remainder_Op1 = mod([WValue3],[D_N...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="738" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="replace([Operation], &quot;[WValue]&quot;, &quot;[D_Remainder_Init]&quot;)" field="OperationTest" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;[RecordID] = &quot; + tostring([RecordID])" field="BoolExpr" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;NewPreRemainder&quot;" field="ReplaceFieldName" size="1073741823" type="V_WString" />
+            <FormulaField expression="0" field="NewPreRemainder" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>OperationTest = replace([Operation], "[WValue]", "[D_Remainder_Init]")
+BoolExpr ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicReplace.DynamicReplace">
+        <Position x="834" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field_FieldName>ReplaceFieldName</Field_FieldName>
+          <Field_OutputValue>OperationTest</Field_OutputValue>
+          <Field_Expression>BoolExpr</Field_Expression>
+          <ValueIsExpression value="True" />
+          <Unmatched_Behavior>Warn</Unmatched_Behavior>
+          <FieldTypeMode>Change</FieldTypeMode>
+          <OutputFieldType type="Int64" size="8" scale="1" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Counts">
+          <RecordInfo>
+            <Field name="FieldName" size="15" source="DynamicReplace:" type="String" />
+            <Field name="OutputValue" size="39" source="DynamicReplace:" type="V_String" />
+            <Field name="Count" source="DynamicReplace: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="RoundNumber" source="Formula: [Engine.IterationNumber] +1" type="Int16" />
+            <Field name="TurnNumberWithinRound" source="Formula: [Engine.IterationNumber]" type="Int16" />
+            <Field name="MonkeyID" source="(Multiple Sources)" type="Int64" />
+            <Field name="WValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="WValue2" source="File: C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-11\TestingDataForNewMod.yxdb" type="Int64" />
+            <Field name="WValue3" source="Formula: [WValue2]" type="Int64" />
+            <Field name="NewMonkeyID" source="DynamicReplace:" type="Byte" />
+            <Field description="RegEx: Parsed from data" name="Operation" size="2147483647" source="Formula: //replace([Operation],'old','[_CurrentField_]')&#xA;replace([Operation],'old','[WValue]')&#xA;" type="V_String" />
+            <Field description="RegEx: Parsed from Divisible" name="Divisor" source="RegEx: Parsed from Divisible" type="Int64" />
+            <Field name="False" source="CrossTab:Header:ResultTest:False:Sum:" type="Int64" />
+            <Field name="True" source="CrossTab:Header:ResultTest:True:Sum:" type="Int64" />
+            <Field name="D_Number" source="TextInput:" type="Int32" />
+            <Field name="D_Remainder_Init" source="Formula: mod([WValue],[D_Number])" type="Int32" />
+            <Field name="D_Remainder_Op1" source="Formula: mod([WValue3],[D_Number])" type="Int16" />
+            <Field name="OperationTest" size="1073741823" source="Formula: replace([Operation], &quot;[WValue]&quot;, &quot;[D_Remainder_Init]&quot;)" type="V_WString" />
+            <Field name="BoolExpr" size="1073741823" source="Formula: 1=1" type="V_WString" />
+            <Field name="ReplaceFieldName" size="1073741823" source="Formula: &quot;NewPreRemainder&quot;" type="V_WString" />
+            <Field name="NewPreRemainder" source="Formula: 0" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicReplace" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="930" y="42" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([NewPreRemainder],[D_Number])" field="NewRemainder" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[NewRemainder = mod([NewPreRemainder],[D_Number])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1026" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[D_Remainder_Op1] = [NewRemainder]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[D_Remainder_Op1] = [NewRemainder]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1218" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="WValue" selected="True" rename="StartVal" />
+            <SelectField field="WValue3" selected="True" rename="EndVal" />
+            <SelectField field="Operation" selected="True" />
+            <SelectField field="D_Number" selected="True" />
+            <SelectField field="D_Remainder_Init" selected="True" rename="StartingMod" />
+            <SelectField field="D_Remainder_Op1" selected="True" rename="EndValMod" />
+            <SelectField field="NewPreRemainder" selected="True" rename="StartingMod+Op" />
+            <SelectField field="NewRemainder" selected="True" rename="TestMod" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1122" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[[MonkeyID] = 5
+and [WValue]=909656899
+]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[[MonkeyID] = 5
+and [WValue]=909656899
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="546" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="6" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="12" Connection="Expressions" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="False" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="True" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="True" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>SpikeForNewMod</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="cb36d8bd-fa90-432e-9a04-0f24bd813c75" />
+      <Telemetry>
+        <PreviousWorkflowId value="1268cc16-5135-4ba6-896f-b1a5eeecdb07" />
+        <OriginWorkflowId value="1268cc16-5135-4ba6-896f-b1a5eeecdb07" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

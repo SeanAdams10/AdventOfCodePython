@@ -1,0 +1,1533 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="75">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="392" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="Row" />
+            <Field name="Col" />
+            <Field name="TypeID" />
+          </Fields>
+          <Data>
+            <r>
+              <c>0</c>
+              <c>500</c>
+              <c>2</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="TextInput:" type="Int32" />
+            <Field name="Col" source="TextInput:" type="Int32" />
+            <Field name="TypeID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="246" y="284" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="202">
+      <GuiSettings>
+        <Position x="498" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input89"><![CDATA[Row=Row
+Col=Col
+TypeID=TypeID
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Iterate1Grain (104)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Answer">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\Iterate1Grain.yxmc" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="342" y="284" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="TypeID" selected="True" type="Byte" size="1" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1482" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Row" action="Min" rename="Min_Row" />
+            <SummarizeField field="Row" action="Max" rename="Max_Row" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1674" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1578" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1890" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Min_Row] &gt;0 
+and [Max_Row] &lt; [Max_Rock_Row] + 2
+and [Engine.IterationNumber] &lt; 999999</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Min_Row] &gt;0 
+and [Max_Row] &lt; [Max_Rock_Row] + 2
+and [Engine.IterationNumber] &lt; ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2106" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2190" y="367" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="284" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input71</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\EachNewGrain.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>EachNewGrain.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="Formula: (Multiple Sources)" type="Int16" />
+            <Field name="Col" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2010" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Row" selected="True" />
+            <SelectField field="Col" selected="True" />
+            <SelectField field="TypeID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1362" y="283" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="487" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>MaxRock</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="Max_Rock_Row" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>172</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>Input
+M Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="191">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1782" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Row" />
+            <Field field="Col" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Row" />
+            <Field field="Col" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Row" selected="True" input="Left_" />
+                <SelectField field="Left_TypeID" selected="True" input="Left_" />
+                <SelectField field="Left_Col" selected="True" input="Left_" />
+                <SelectField field="Left_Max_Rock_Row" selected="True" input="Left_" />
+                <SelectField field="Right_Row" selected="False" rename="Right_Row" input="Right_" />
+                <SelectField field="Right_TypeID" selected="False" rename="Right_TypeID" input="Right_" />
+                <SelectField field="Right_Col" selected="False" rename="Right_Col" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Remove grains that are surrounded (not needed for iteration)</AnnotationText>
+          <DefaultAnnotationText>Remove grains that are surrounded (not needed for iteration)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="192">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2118" y="426" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Unnecessary</Name>
+          <Abbrev>U</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+U Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="193">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="1902" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>MaxIter</Name>
+          <AnnotationText>Max Iterations</AnnotationText>
+          <DefaultAnnotationText>MaxIter</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="194">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="1896" y="168" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText>Update Value
+Update Value</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="195">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="2178" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_12264_e778efe751c4c74998663462aa6a8320_\Engine_12264_ebfa9597636f1d4d80402f0290e3b664~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="201">
+      <GuiSettings>
+        <Position x="2082" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input124"><![CDATA[Row=Row
+Col=Col
+TypeID=TypeID
+Filename=Filename
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>SeeTheSand (196)</Name>
+          <AnnotationText>See The Layout</AnnotationText>
+          <DefaultAnnotationText>See The Layout</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="2">
+          <RecordInfo>
+            <Field name="Filename" size="1073741823" source="Formula: &quot;.\Iter&quot; + Padleft(tostring([Engine.IterationNumber]), 5, '0') + &quot;.html&quot;" type="V_WString" />
+            <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="D:\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-14\SeeTheSand.yxmc" />
+    </Node>
+    <Node ToolID="197">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1890" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>mod([Engine.IterationNumber],100) = 0</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>mod([Engine.IterationNumber],100) = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="198">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1986" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;.\Iter&quot; + Padleft(tostring([Engine.IterationNumber]), 5, '0') + &quot;.html&quot;" field="Filename" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Filename = ".\Iter" + Padleft(tostring([Engine.IterationNumber]), 5, '0') + ".ht...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="Row" source="(Multiple Sources)" type="Int32" />
+            <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+            <Field name="Col" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_Rock_Row" source="TextInput:" type="Int32" />
+            <Field name="Filename" size="1073741823" source="Formula: &quot;.\Iter&quot; + Padleft(tostring([Engine.IterationNumber]), 5, '0') + &quot;.html&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="183">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="581" y="424" width="613" height="242" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Check if this cell is fully surrounded - if so, not needed?</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="170">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="606" y="473" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsNotNull</Operator>
+                <Field>TypeID</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-12-29 20:18:38</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>
+                  </Operand>
+                  <StartDate>2022-12-29 20:18:38</StartDate>
+                  <EndDate>2022-12-29 20:18:38</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!IsNull([TypeID])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="171">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="702" y="475" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Row] - 1" field="U_Row" size="2" type="Int16" />
+                <FormulaField expression="[Col]" field="U_Col" size="2" type="Int16" />
+                <FormulaField expression="[Row]-1" field="UL_Row" size="2" type="Int16" />
+                <FormulaField expression="[Col] -1" field="UL_Col" size="2" type="Int16" />
+                <FormulaField expression="[Row]-1" field="UR_Row" size="2" type="Int16" />
+                <FormulaField expression="[Col] +1" field="UR_Col" size="2" type="Int16" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>U_Row = [Row] - 1
+U_Col = [Col]
+UL_Row = [Row]-1
+UL_Col = [Col] -1
+UR_Row = [Row...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="U_Row" source="Formula: [Row] - 1" type="Int16" />
+                <Field name="U_Col" source="Formula: [Col]" type="Int16" />
+                <Field name="UL_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UL_Col" source="Formula: [Col] -1" type="Int16" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="178">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="894" y="474" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Row" />
+                <Field field="Col" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="U_Row" />
+                <Field field="U_Col" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_Row" selected="False" input="Left_" />
+                    <SelectField field="Left_Col" selected="False" input="Left_" />
+                    <SelectField field="Left_TypeID" selected="False" input="Left_" />
+                    <SelectField field="Right_U_Row" selected="False" input="Right_" />
+                    <SelectField field="Right_U_Col" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Up</AnnotationText>
+              <DefaultAnnotationText>Up</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="UL_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UL_Col" source="Formula: [Col] -1" type="Int16" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="U_Row" source="Formula: [Row] - 1" type="Int16" />
+                <Field name="U_Col" source="Formula: [Col]" type="Int16" />
+                <Field name="UL_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UL_Col" source="Formula: [Col] -1" type="Int16" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="186">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1002" y="474" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Row" />
+                <Field field="Col" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="UL_Row" />
+                <Field field="UL_Col" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_Row" selected="False" input="Left_" />
+                    <SelectField field="Left_Col" selected="False" input="Left_" />
+                    <SelectField field="Left_TypeID" selected="False" input="Left_" />
+                    <SelectField field="Right_UL_Row" selected="False" input="Right_" />
+                    <SelectField field="Right_UL_Col" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Up Left</AnnotationText>
+              <DefaultAnnotationText>Up Left</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="UL_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UL_Col" source="Formula: [Col] -1" type="Int16" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="187">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1110" y="474" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Row" />
+                <Field field="Col" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="UR_Row" />
+                <Field field="UR_Col" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_Row" selected="False" input="Left_" />
+                    <SelectField field="Left_Col" selected="False" input="Left_" />
+                    <SelectField field="Left_TypeID" selected="False" input="Left_" />
+                    <SelectField field="Right_UR_Row" selected="False" input="Right_" />
+                    <SelectField field="Right_UR_Col" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Up Right</AnnotationText>
+              <DefaultAnnotationText>Up Right</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Row" source="(Multiple Sources)" type="Int32" />
+                <Field name="TypeID" source="(Multiple Sources)" type="Byte" />
+                <Field name="Col" source="(Multiple Sources)" type="Int32" />
+                <Field name="UR_Row" source="Formula: [Row]-1" type="Int16" />
+                <Field name="UR_Col" source="Formula: [Col] +1" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2249" y="461" width="217" height="149" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 165</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="151">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="2382" y="510" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\seanb\AppData\Local\Temp\Engine_7560_ddd39100843f15489b5042634b4d4928_\Engine_7560_8834fb68d2db8d48a312154c28ab0f34~.yxdb</TempFile>
+              <TempFileDataProfiling />
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="200">
+          <GuiSettings>
+            <Position x="2274" y="510" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input124"><![CDATA[Row=Row
+Col=Col
+TypeID=TypeID
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>SeeTheSand (149)</Name>
+              <AnnotationText>See The Layout</AnnotationText>
+              <DefaultAnnotationText>See The Layout</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="2">
+              <RecordInfo>
+                <Field name="Layout" size="1073741823" source="Report:Layout:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro=".\SeeTheSand.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="293" y="581" width="205" height="149" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 166</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="157">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="414" y="630" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\seanb\AppData\Local\Temp\Engine_7560_ddd39100843f15489b5042634b4d4928_\Engine_7560_b59e2a4388606e40936184985afbbbbe~.yxdb</TempFile>
+              <TempFileDataProfiling />
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="199">
+          <GuiSettings>
+            <Position x="318" y="630" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input124"><![CDATA[Row=Row
+Col=Col
+TypeID=TypeID
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>SeeTheSand (147)</Name>
+              <AnnotationText>See The Layout</AnnotationText>
+              <DefaultAnnotationText>See The Layout</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="2">
+              <RecordInfo>
+                <Field name="Layout" size="1073741823" source="Report:Layout:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro=".\SeeTheSand.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="485" y="65" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 162</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="107">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="510" y="114" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\Iterate1Grain.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Iterate1Grain.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="137">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2141" y="77" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 137</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="126">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2166" y="126" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\EachNewGrain.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>EachNewGrain.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#2">
+      <Origin ToolID="75" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="Answer" />
+      <Destination ToolID="167" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="Answer" />
+      <Destination ToolID="170" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="Answer" />
+      <Destination ToolID="178" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="171" Connection="Output" />
+      <Destination ToolID="178" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="Answer" />
+      <Destination ToolID="186" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="178" Connection="Join" />
+      <Destination ToolID="186" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="202" Connection="Answer" />
+      <Destination ToolID="187" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="186" Connection="Join" />
+      <Destination ToolID="187" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="202" Connection="Input89" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Output" />
+      <Destination ToolID="202" Connection="MaxRock" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="119" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="167" Connection="Output" />
+      <Destination ToolID="119" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="Output" />
+      <Destination ToolID="191" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="187" Connection="Join" />
+      <Destination ToolID="191" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output" />
+      <Destination ToolID="118" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Output" />
+      <Destination ToolID="118" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="False" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="True" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="199" Connection="Input124" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Output" />
+      <Destination ToolID="200" Connection="Input124" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="167" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="191" Connection="Left" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="194" Connection="Action" />
+      <Destination ToolID="120" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="191" Connection="Join" />
+      <Destination ToolID="192" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="191" Connection="Left" />
+      <Destination ToolID="197" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="193" Connection="Question" />
+      <Destination ToolID="194" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="201" Connection="2" />
+      <Destination ToolID="195" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="197" Connection="True" />
+      <Destination ToolID="198" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="198" Connection="Output" />
+      <Destination ToolID="201" Connection="Input124" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="True" />
+      <Destination ToolID="171" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="200" Connection="2" />
+      <Destination ToolID="151" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="199" Connection="2" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (192)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>MaxIter</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>EachNewGrain</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="ed45824a-7b97-456a-b5d2-d6d8ee244250" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="ed45824a-7b97-456a-b5d2-d6d8ee244250" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="194" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>999999</ReplaceText>
+              <Destination>120/Expression</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (123)</Name>
+          <ToolId value="123" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (124)</Name>
+              <ToolId value="124" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (121)</Name>
+              <ToolId value="121" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (122)</Name>
+              <ToolId value="122" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (168)</Name>
+              <ToolId value="168" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (192)</Description>
+              <Name>Macro Output (192)</Name>
+              <ToolId value="192" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Max Iterations</Description>
+              <Name>MaxIter</Name>
+              <ToolId value="193" />
+              <Minimum value="1" />
+              <Maximum value="999999" />
+              <Increment value="1" />
+              <Default value="100" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input71</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="9999999" />
+        <LimitBehavior>Ignore</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="121" Selected="True" />
+        <Tool ToolId="122" Selected="True" />
+        <Tool ToolId="124" Selected="True" />
+        <Tool ToolId="168" Selected="True" />
+        <Tool ToolId="192" Selected="True" />
+        <Tool ToolId="195" Selected="False" />
+        <Tool ToolId="201" Selected="True" />
+        <Tool ToolId="151" Selected="False" />
+        <Tool ToolId="200" Selected="True" />
+        <Tool ToolId="157" Selected="False" />
+        <Tool ToolId="199" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="126" Selected="True" />
+        <Tool ToolId="202" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

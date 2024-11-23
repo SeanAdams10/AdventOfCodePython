@@ -1,0 +1,2345 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="79">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1422" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\seanb\AppData\Local\Temp\Engine_3948_01760b14b44fb44ca192d484fe5f5e4d_\Engine_3948_8bbb7c82d3dfa74b97609d6107f6b82d~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>NoMove List</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="100">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="2622" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="CheckRowID" action="GroupBy" rename="CheckRowID" />
+            <SummarizeField field="CheckColID" action="GroupBy" rename="CheckColID" />
+            <SummarizeField field="ElfID" action="CountDistinct" rename="CountDistinct_ElfID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CheckRowID" source="Summarize: GroupBy - CheckRowID" type="Int16" />
+            <Field name="CheckColID" source="Summarize: GroupBy - CheckColID" type="Int16" />
+            <Field name="CountDistinct_ElfID" source="Summarize: CountDistinct - ElfID" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="CheckRowID" order="Asc" />
+            <Field field="CheckColID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="101">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="2718" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="CheckRowID" />
+            <Field field="CheckColID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CheckRowID" />
+            <Field field="CheckColID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_CheckRowID" selected="False" input="Right_" />
+                <SelectField field="Right_CheckColID" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="CheckRowID" source="Summarize: GroupBy - CheckRowID" type="Int16" />
+            <Field name="CheckColID" source="Summarize: GroupBy - CheckColID" type="Int16" />
+            <Field name="CountDistinct_ElfID" source="Summarize: CountDistinct - ElfID" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="CheckRowID" />
+            <Field field="CheckColID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CheckRowID" source="Summarize: GroupBy - CheckRowID" type="Int16" />
+            <Field name="CheckColID" source="Summarize: GroupBy - CheckColID" type="Int16" />
+            <Field name="CountDistinct_ElfID" source="Summarize: CountDistinct - ElfID" type="Int64" />
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+            <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="102">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="2814" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [CountDistinct_ElfID] = 1 then&#xA;	[CheckRowID]&#xA;else&#xA;	[RowID]&#xA;endif" field="RowID" size="4" type="Int32" />
+            <FormulaField expression="if [CountDistinct_ElfID] = 1 then&#xA;	[CheckColID]&#xA;else&#xA;	[ColID]&#xA;endif" field="ColID" size="4" type="Int32" />
+            <FormulaField expression="[CountDistinct_ElfID] &gt; 1" field="BlockedMove" size="1" type="Bool" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RowID = if [CountDistinct_ElfID] = 1 then
+	[CheckRowID]
+else
+	[RowID]
+endif
+ColI...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CheckRowID" source="Summarize: GroupBy - CheckRowID" type="Int16" />
+            <Field name="CheckColID" source="Summarize: GroupBy - CheckColID" type="Int16" />
+            <Field name="CountDistinct_ElfID" source="Summarize: CountDistinct - ElfID" type="Int64" />
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="Formula: if [CountDistinct_ElfID] = 1 then&#xA; [CheckRowID]&#xA;else&#xA; [RowID]&#xA;endif" type="Int32" />
+            <Field name="ColID" source="Formula: if [CountDistinct_ElfID] = 1 then&#xA; [CheckColID]&#xA;else&#xA; [ColID]&#xA;endif" type="Int32" />
+            <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="BlockedMove" source="Formula: [CountDistinct_ElfID] &gt; 1" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="3006" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2346" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ElfID" selected="True" />
+            <SelectField field="NoMove" selected="True" />
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2910" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ElfID" selected="True" />
+            <SelectField field="NoMove" selected="True" />
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="Formula: if [CountDistinct_ElfID] = 1 then&#xA; [CheckRowID]&#xA;else&#xA; [RowID]&#xA;endif" type="Int32" />
+            <Field name="ColID" source="Formula: if [CountDistinct_ElfID] = 1 then&#xA; [CheckColID]&#xA;else&#xA; [ColID]&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="109">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="3102" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsFalse</Operator>
+            <Field>NoMove</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-05-17 05:29:10</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2023-05-17 05:29:10</StartDate>
+              <EndDate>2023-05-17 05:29:10</EndDate>
+              <Operand>
+              </Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[NoMove] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="3186" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ElfID" action="Count" rename="CountMoves" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CountMoves" source="Summarize: Count - ElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="3270" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+            <Field name="CountMoves" source="Summarize: Count - ElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="426" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="330" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input61</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\tmpGridInput.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>tmpGridInput.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="3546" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="3462" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>EveryMove</Name>
+          <Abbrev>E</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="3354" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[[CountMoves] > 0
+and [Engine.IterationNumber] < %Question.MaxIterations% ]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[[CountMoves] > 0
+and [Engine.IterationNumber] < %Question.MaxIterations% ]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+            <Field name="CountMoves" source="Summarize: Count - ElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+            <Field name="CountMoves" source="Summarize: Count - ElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="3546" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>final Answer</Name>
+          <Abbrev>F</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="3450" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ElfID" selected="True" />
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="318" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>MaxIterations</Name>
+          <AnnotationText>Numeric Up Down (121)</AnnotationText>
+          <DefaultAnnotationText>MaxIterations</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="3378" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+            <Field name="CountMoves" source="Summarize: Count - ElfID" type="Int64" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="2430" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="ElfID" />
+            <Field field="NoMove" />
+            <Field field="RowID" />
+            <Field field="ColID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+            <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1914" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="(Multiple Sources)" type="Int32" />
+            <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+            <Field name="Right_ElfID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ColID" source="Tile" type="Int32" />
+            <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowOffset" source="TextInput:" type="Int32" />
+            <Field name="ColOffset" source="TextInput:" type="Int32" />
+            <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+            <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+            <Field name="ClashElfID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1518" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ElfID" action="GroupBy" rename="ElfID" />
+            <SummarizeField field="CountClashes" action="Min" rename="Min_CountClashes" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="135">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1602" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>Min_CountClashes</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-05-17 09:16:30</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2023-05-17 09:16:30</StartDate>
+              <EndDate>2023-05-17 09:16:30</EndDate>
+              <Operand>0</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Min_CountClashes] &gt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+            <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1745" y="149" width="247" height="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Nodes which are fully blocked</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="131">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1770" y="198" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ElfID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ElfID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ElfID" selected="False" rename="Right_ElfID" input="Right_" />
+                    <SelectField field="Right_CountClashes" selected="False" input="Right_" />
+                    <SelectField field="Right_NoMove" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ElfID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="ColID" source="Tile" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="ElfID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="ColID" source="Tile" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="Min_CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="3701" y="257" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 124</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="123">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="3726" y="306" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\tmpGridInput.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>tmpGridInput.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="99">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1697" y="281" width="889" height="509" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Propose Move</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="73">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="1806" y="594" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="4" />
+              <Fields>
+                <Field name="DirPriority" />
+                <Field name="Direction" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                  <c>N</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>S</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>W</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>E</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Rotation of Direction Priorities</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="DirPriority" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="74">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="1806" y="690" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="MoveID" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>MoveID</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="MoveID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="82">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1974" y="330" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ElfID" />
+                <Field field="Direction" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ElfID" />
+                <Field field="Direction" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_ElfID" selected="False" input="Left_" />
+                    <SelectField field="Left_Direction" selected="False" input="Left_" />
+                    <SelectField field="Left_CountClashes" selected="False" input="Left_" />
+                    <SelectField field="Right_Right_ElfID" selected="False" input="Right_" />
+                    <SelectField field="Right_SubDir" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>valid proposals</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="Direction" size="2147483647" source="Summarize: GroupBy - Direction" type="V_String" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="83">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1818" y="377" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="ElfID" selected="True" />
+                <SelectField field="NoMove" selected="True" />
+                <SelectField field="Right_ElfID" selected="True" />
+                <SelectField field="RowID" selected="True" />
+                <SelectField field="ColID" selected="True" />
+                <SelectField field="Direction" selected="True" />
+                <SelectField field="CheckRowID" selected="True" />
+                <SelectField field="CheckColID" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="84">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1722" y="377" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression>[Direction] = [SubDir]</Expression>
+              <Mode>Custom</Mode>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>[Direction] = [SubDir]</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="86">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="2214" y="330" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Direction" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="Direction" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_Direction" selected="False" rename="Right_Direction" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="94">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+            <Position x="1914" y="594" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <CartesianMode>Error</CartesianMode>
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="DirPriority" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="MoveID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+        </Node>
+        <Node ToolID="95">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1998" y="594" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Engine.IterationNumber]" field="MoveID" size="1" type="Byte" />
+                <FormulaField expression="mod([MoveID],4)" field="SmallMove" size="2" type="Int16" />
+                <FormulaField expression="mod([DirPriority]+ 4 - [SmallMove],4)" field="MoveResult" size="2" type="Int16" />
+                <FormulaField expression="[MoveResult]" field="DirPriority" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>MoveID = [Engine.IterationNumber]
+SmallMove = mod([MoveID],4)
+MoveResult = mod([...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="96">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="2094" y="594" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="DirPriority" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>DirPriority - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="97">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="2310" y="330" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="ElfID" order="Ascending" />
+                <Field field="DirPriority" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>ElfID - Ascending
+DirPriority - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="98">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="2406" y="330" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="ElfID" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Unique">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Duplicates">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="DirPriority" source="Formula: [MoveResult]" type="Int32" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+                <Field name="SmallMove" source="Formula: mod([MoveID],4)" type="Int16" />
+                <Field name="MoveResult" source="Formula: mod([DirPriority]+ 4 - [SmallMove],4)" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="103">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="2502" y="330" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="ElfID" selected="True" />
+                <SelectField field="NoMove" selected="True" />
+                <SelectField field="RowID" selected="True" />
+                <SelectField field="ColID" selected="True" />
+                <SelectField field="Direction" selected="True" />
+                <SelectField field="CheckRowID" selected="True" />
+                <SelectField field="CheckColID" selected="True" />
+                <SelectField field="MoveID" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="MoveID" source="Formula: [Engine.IterationNumber]" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="533" y="305" width="1099" height="273" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>CheckClashes</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="63">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+            <Position x="642" y="402" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <CartesianMode>Allow</CartesianMode>
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+        </Node>
+        <Node ToolID="64">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="738" y="402" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[RowID]+[RowOffset]" field="CheckRowID" size="2" type="Int16" />
+                <FormulaField expression="[ColID]+[ColOffset]" field="CheckColID" size="2" type="Int16" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[CheckRowID = [RowID]+[RowOffset]
+CheckColID = [ColID]+[ColOffset]
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="65">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="834" y="402" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="CheckRowID" />
+                <Field field="CheckColID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="RowID" />
+                <Field field="ColID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_ElfID" selected="True" input="Left_" />
+                    <SelectField field="Left_RowID" selected="True" input="Left_" />
+                    <SelectField field="Left_ColID" selected="True" input="Left_" />
+                    <SelectField field="Left_Direction" selected="True" input="Left_" />
+                    <SelectField field="Left_SubDir" selected="True" input="Left_" />
+                    <SelectField field="Left_RowOffset" selected="True" input="Left_" />
+                    <SelectField field="Left_ColOffset" selected="True" input="Left_" />
+                    <SelectField field="Left_CheckRowID" selected="True" input="Left_" />
+                    <SelectField field="Left_CheckColID" selected="True" input="Left_" />
+                    <SelectField field="Right_ElfID" selected="True" rename="ClashElfID" input="Right_" />
+                    <SelectField field="*Unknown" selected="False" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="66">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="930" y="402" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="67">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="1410" y="390" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ElfID" action="GroupBy" rename="ElfID" />
+                <SummarizeField field="Direction" action="GroupBy" rename="Direction" />
+                <SummarizeField field="ClashElfID" action="CountNonNull" rename="CountClashes" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="Direction" size="2147483647" source="Summarize: GroupBy - Direction" type="V_String" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="68">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="1026" y="354" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ElfID" action="GroupBy" rename="ElfID" />
+                <SummarizeField field="ClashElfID" action="CountNonNull" rename="CountClashes" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>elves which may not need to move</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="72">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1506" y="390" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>=</Operator>
+                <Field>CountClashes</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2023-05-17 04:45:29</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>0</Operand>
+                  <StartDate>2023-05-17 04:45:29</StartDate>
+                  <EndDate>2023-05-17 04:45:29</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>[CountClashes] = 0</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="Direction" size="2147483647" source="Summarize: GroupBy - Direction" type="V_String" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="Direction" size="2147483647" source="Summarize: GroupBy - Direction" type="V_String" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="75">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1122" y="354" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[CountClashes]=0" field="NoMove" size="1" type="Bool" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[NoMove = [CountClashes]=0
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="77">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1218" y="390" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ElfID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ElfID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_CountClashes" selected="False" input="Left_" />
+                    <SelectField field="Right_ElfID" selected="True" rename="Right_ElfID" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="CountClashes" source="Summarize: CountNonNull - ClashElfID" type="Int64" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="ElfID" source="TextInput:" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Int32" />
+                <Field name="ColID" source="TextInput:" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="78">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1314" y="390" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsTrue</Operator>
+                <Field>NoMove</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2023-05-17 04:56:45</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>
+                  </Operand>
+                  <StartDate>2023-05-17 04:56:45</StartDate>
+                  <EndDate>2023-05-17 04:56:45</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>[NoMove] = 1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+                <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="NoMove" source="Formula: [CountClashes]=0" type="Bool" />
+                <Field name="Right_ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+                <Field name="RowID" source="(Multiple Sources)" type="Int32" />
+                <Field name="ColID" source="(Multiple Sources)" type="Int32" />
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+                <Field name="CheckRowID" source="Formula: [RowID]+[RowOffset]" type="Int16" />
+                <Field name="CheckColID" source="Formula: [ColID]+[ColOffset]" type="Int16" />
+                <Field name="ClashElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="62">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="558" y="486" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="12" />
+              <Fields>
+                <Field name="Direction" />
+                <Field name="SubDir" />
+                <Field name="RowOffset" />
+                <Field name="ColOffset" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>N</c>
+                  <c>NW</c>
+                  <c>-1</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>N</c>
+                  <c>N</c>
+                  <c>-1</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>N</c>
+                  <c>NE</c>
+                  <c>-1</c>
+                  <c>+1</c>
+                </r>
+                <r>
+                  <c>E</c>
+                  <c>NE</c>
+                  <c>-1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>E</c>
+                  <c>E</c>
+                  <c>0</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>E</c>
+                  <c>SE</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>S</c>
+                  <c>SE</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>S</c>
+                  <c>S</c>
+                  <c>1</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>S</c>
+                  <c>SW</c>
+                  <c>1</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>W</c>
+                  <c>SW</c>
+                  <c>1</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>W</c>
+                  <c>W</c>
+                  <c>0</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>W</c>
+                  <c>NW</c>
+                  <c>-1</c>
+                  <c>-1</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Direction" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="SubDir" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="RowOffset" source="TextInput:" type="Int32" />
+                <Field name="ColOffset" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="126">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="1422" y="486" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ElfID" action="GroupBy" rename="ElfID" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ElfID" source="Summarize: GroupBy - ElfID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="100" Connection="Output" />
+      <Destination ToolID="101" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="103" Connection="Output" />
+      <Destination ToolID="101" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="101" Connection="Join" />
+      <Destination ToolID="102" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="104" Connection="Output" />
+      <Destination ToolID="109" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="104" Connection="Output" />
+      <Destination ToolID="111" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="111" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="106" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="125" Connection="Unique" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="True" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="63" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="63" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="65" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="65" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="113" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="False" />
+      <Destination ToolID="119" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="True" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="105" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output" />
+      <Destination ToolID="135" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="135" Connection="True" />
+      <Destination ToolID="131" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="131" Connection="Left" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="131" Connection="Join" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="78" Connection="True" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="94" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="74" Connection="Output" />
+      <Destination ToolID="94" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="82" Connection="Join" />
+      <Destination ToolID="86" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="96" Connection="Output" />
+      <Destination ToolID="86" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="83" Connection="Output" />
+      <Destination ToolID="82" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="True" />
+      <Destination ToolID="82" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="True" />
+      <Destination ToolID="83" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Join" />
+      <Destination ToolID="97" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="94" Connection="Output" />
+      <Destination ToolID="95" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="96" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="97" Connection="Output" />
+      <Destination ToolID="98" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="Unique" />
+      <Destination ToolID="103" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="103" Connection="Output" />
+      <Destination ToolID="100" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="65" Connection="Join" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="65" Connection="Left" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="77" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="75" Connection="Output" />
+      <Destination ToolID="77" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="72" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="134" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="68" Connection="Output" />
+      <Destination ToolID="75" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="77" Connection="Join" />
+      <Destination ToolID="78" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="False" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="True" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="False" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="False" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>MaxIterations</Name>
+        <Value>10</Value>
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Part1Solver</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="17098f5a-529d-4da6-afe4-0e7812d91f9f" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="17098f5a-529d-4da6-afe4-0e7812d91f9f" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (114)</Name>
+          <ToolId value="114" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (115)</Name>
+              <ToolId value="115" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (116)</Name>
+              <ToolId value="116" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (117)</Description>
+              <Name>Macro Output (117)</Name>
+              <ToolId value="117" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (119)</Description>
+              <Name>Macro Output (119)</Name>
+              <ToolId value="119" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>MaxIterations</Description>
+              <Name>MaxIterations</Name>
+              <ToolId value="121" />
+              <Minimum value="0" />
+              <Maximum value="9999999999" />
+              <Increment value="1" />
+              <Default value="10" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input61</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="10000000" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="79" Selected="False" />
+        <Tool ToolId="115" Selected="True" />
+        <Tool ToolId="116" Selected="True" />
+        <Tool ToolId="117" Selected="True" />
+        <Tool ToolId="119" Selected="True" />
+        <Tool ToolId="123" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

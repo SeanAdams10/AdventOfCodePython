@@ -1,0 +1,740 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="750" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>MoveID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="654" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>SubMoveCount</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>1</Expression_Init>
+          <Expression_Cond>SubMoveCount &lt;= [Moves]</Expression_Cond>
+          <Expression_Loop>[SubMoveCount] + 1</Expression_Loop>
+          <RecordCount value="44" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="558" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([DirectionID],4)" field="NewDirID" size="2" type="Int16" />
+            <FormulaField expression="if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" field="NewDirID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>NewDirID = mod([DirectionID],4)
+NewDirID = if [NewDirID]&lt;0 then [NewDirID]+4 els...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>data</UpdateField_Name>
+          <CreateField_Name>DirectionID</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isnull([Row-1:Direction]) 
+then 1 //right
+elseif [Row-1:Direction] = 'R' then [Row-1:DirectionID] + 1
+elseif [Row-1:Direction] = 'L' then [Row-1:DirectionID] - 1
+else 0
+endif</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>if isnull([Row-1:Direction]) 
+then 1 //right
+elseif [Row-1:Di...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="270" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="(\d*)(\w*)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>data</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="Moves" type="Int32" size="4" />
+            <Field field="Direction" type="String" size="1" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="174" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="(\d*\w)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RegExOut1" type="V_String" size="2147483647" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input102</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>10R5L5R10L4R5L5</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1326" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>FullOutput</Name>
+          <Abbrev>F</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1134" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" field="PostMoveRotate" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>PostMoveRotate = if [SubMoveCount] = [Max_SubMoveCount] then [Direction]
+else nu...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="Right_MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="846" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="MacroMoveID" action="GroupBy" rename="MacroMoveID" />
+            <SummarizeField field="SubMoveCount" action="Max" rename="Max_SubMoveCount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="942" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="MacroMoveID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="MacroMoveID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_MacroMoveID" selected="True" rename="Right_MacroMoveID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="Right_MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1038" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="MacroMoveID" order="Ascending" />
+            <Field field="SubMoveCount" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MacroMoveID - Ascending
+SubMoveCount - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="Right_MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1230" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="MoveID" order="Ascending" />
+            <Field field="SubMoveCount" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MoveID - Ascending
+SubMoveCount - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="NewDirID" source="Formula: if [NewDirID]&lt;0 then [NewDirID]+4 else [NewDirID] endif" type="Int16" />
+            <Field name="SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="Right_MacroMoveID" source="Summarize: GroupBy - MacroMoveID" type="Int32" />
+            <Field name="Max_SubMoveCount" source="GenerateRows" type="Int32" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="366" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>MacroMoveID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MacroMoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field description="RegEx: Parsed from data" name="Moves" source="RegEx: Parsed from data" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Direction" size="1" source="RegEx: Parsed from data" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1326" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="MacroMoveID" selected="False" />
+            <SelectField field="data" selected="False" />
+            <SelectField field="Moves" selected="False" />
+            <SelectField field="Direction" selected="False" />
+            <SelectField field="DirectionID" selected="True" />
+            <SelectField field="NewDirID" selected="False" />
+            <SelectField field="SubMoveCount" selected="False" />
+            <SelectField field="Right_MacroMoveID" selected="False" />
+            <SelectField field="Max_SubMoveCount" selected="False" />
+            <SelectField field="PostMoveRotate" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" type="Int32" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1410" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Targeted Output</Name>
+          <Abbrev>T</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="118" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="118" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="106" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="114" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="Join" />
+      <Destination ToolID="119" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (115)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (123)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>PrepMoveList</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="e830b5e7-226d-4fda-b137-4bb7d453366e" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="e830b5e7-226d-4fda-b137-4bb7d453366e" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (113)</Name>
+          <ToolId value="113" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (114)</Name>
+              <ToolId value="114" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (115)</Description>
+              <Name>Macro Output (115)</Name>
+              <ToolId value="115" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (123)</Description>
+              <Name>Macro Output (123)</Name>
+              <ToolId value="123" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="114" Selected="True" />
+        <Tool ToolId="115" Selected="True" />
+        <Tool ToolId="123" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

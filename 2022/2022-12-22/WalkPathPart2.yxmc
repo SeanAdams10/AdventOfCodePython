@@ -1,0 +1,1395 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="86">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>BaseMap</Name>
+          <Abbrev>B</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\tmpGrid.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>tmpGrid.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FaceID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="1073741823" source="Formula: trim([data])" type="V_WString" />
+            <Field name="RowID" source="Formula: if [Min_RowID] &gt; 0 then&#xA; [RowID] - [Min_RowID]&#xA;else&#xA; [RowID]&#xA;endif" type="Int32" />
+            <Field name="ColID" source="Formula: if [Min_ColID] &gt; 0 then&#xA; [ColID] - [Min_ColID]&#xA;else&#xA; [ColID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="Min_RowID" source="Tile" type="Int32" />
+            <Field name="Min_ColID" source="Tile" type="Int32" />
+            <Field name="Max_RowID" source="Tile" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="faceRowID" source="Formula: mod([RowID],[BoardSize])" type="Int32" />
+            <Field name="faceColID" source="Formula: mod([ColID],[BoardSize])" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="88">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Moves</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">D:\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-22\tmpMovesToExecute.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>tmpMovesToExecute.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings>
+        <Position x="342" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="94">
+      <GuiSettings>
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">2-</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="98">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1302" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="CurrFaceID" selected="True" />
+            <SelectField field="CurrRowID" selected="True" />
+            <SelectField field="CurrColID" selected="True" />
+            <SelectField field="DirectionID" selected="True" />
+            <SelectField field="NextFaceID" selected="True" />
+            <SelectField field="NextRowID" selected="True" />
+            <SelectField field="NextColID" selected="True" />
+            <SelectField field="BoardSize" selected="False" />
+            <SelectField field="LeavingFace" selected="False" />
+            <SelectField field="EntryFaceID" selected="False" />
+            <SelectField field="nextDirectionID" selected="False" />
+            <SelectField field="NextData" selected="False" />
+            <SelectField field="FinalFaceID" selected="True" />
+            <SelectField field="FinalRowID" selected="True" />
+            <SelectField field="FinalColID" selected="True" />
+            <SelectField field="FinalDirectionID" selected="True" />
+            <SelectField field="PostMoveRotate" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="FinalFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="FinalRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="FinalColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="FinalDirectionID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [DirectionID]&#xA;else&#xA; [nextDirectionID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1398" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="FinalFaceID" selected="True" rename="CurrFaceID" />
+            <SelectField field="FinalRowID" selected="True" rename="CurrRowID" />
+            <SelectField field="FinalColID" selected="True" rename="CurrColID" />
+            <SelectField field="FinalDirectionID" selected="True" rename="DirectionID" />
+            <SelectField field="PostMoveRotate" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="DirectionID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [DirectionID]&#xA;else&#xA; [nextDirectionID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1710" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Debug1</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1590" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_DirectionID" selected="True" input="Source_" />
+                <SelectField field="Target_MoveID" selected="True" input="Target_" />
+                <SelectField field="Target_DirectionID" selected="False" input="Target_" />
+                <SelectField field="Source_MoveID" selected="False" rename="Source_MoveID" input="Source_" />
+                <SelectField field="Source_CurrFaceID" selected="True" input="Source_" />
+                <SelectField field="Source_CurrRowID" selected="True" input="Source_" />
+                <SelectField field="Source_CurrColID" selected="True" input="Source_" />
+                <SelectField field="Target_PostMoveRotate" selected="True" input="Target_" />
+                <SelectField field="Source_PostMoveRotate" selected="False" rename="Source_PostMoveRotate" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1734" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input107</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\fullTxnMap_Test.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Transformation Map</AnnotationText>
+          <DefaultAnnotationText>fullTxnMap_Test.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Scenario" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FaceID" source="TextInput:" type="Int32" />
+            <Field name="ExitEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="EntryEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="SourceEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="TargetEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirTxnID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="174" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="switch([ExitEdge],-1&#xA;    ,'U',0&#xA;	,'T',0&#xA;	,'R',1&#xA;	,'D',2&#xA;	,'B',2&#xA;	,'L',3&#xA;)" field="DirectionID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>DirectionID = switch([ExitEdge],-1
+    ,'U',0
+	,'T',0
+	,'R',1
+	,'D',2
+	,'B',2
+	,...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Scenario" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FaceID" source="TextInput:" type="Int32" />
+            <Field name="ExitEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="EntryEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="SourceEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="TargetEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirTxnID" source="TextInput:" type="Int32" />
+            <Field name="DirectionID" source="Formula: switch([ExitEdge],-1&#xA;    ,'U',0&#xA; ,'T',0&#xA; ,'R',1&#xA; ,'D',2&#xA; ,'B',2&#xA; ,'L',3&#xA;)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1014" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="NextFaceID" />
+            <Field field="NextRowID" />
+            <Field field="NextColID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="FaceID" />
+            <Field field="faceRowID" />
+            <Field field="faceColID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_FaceID" selected="False" input="Right_" />
+                <SelectField field="Right_data" selected="True" rename="NextData" input="Right_" />
+                <SelectField field="Right_RowID" selected="False" input="Right_" />
+                <SelectField field="Right_ColID" selected="False" input="Right_" />
+                <SelectField field="Right_BoardSize" selected="False" input="Right_" />
+                <SelectField field="Right_Min_RowID" selected="False" input="Right_" />
+                <SelectField field="Right_Min_ColID" selected="False" input="Right_" />
+                <SelectField field="Right_Max_RowID" selected="False" input="Right_" />
+                <SelectField field="Right_Max_ColID" selected="False" input="Right_" />
+                <SelectField field="Right_faceRowID" selected="False" input="Right_" />
+                <SelectField field="Right_faceColID" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Next Spot</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextData" size="1073741823" source="Formula: trim([data])" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="FaceID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="1073741823" source="Formula: trim([data])" type="V_WString" />
+            <Field name="RowID" source="Formula: if [Min_RowID] &gt; 0 then&#xA; [RowID] - [Min_RowID]&#xA;else&#xA; [RowID]&#xA;endif" type="Int32" />
+            <Field name="ColID" source="Formula: if [Min_ColID] &gt; 0 then&#xA; [ColID] - [Min_ColID]&#xA;else&#xA; [ColID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="Min_RowID" source="Tile" type="Int32" />
+            <Field name="Min_ColID" source="Tile" type="Int32" />
+            <Field name="Max_RowID" source="Tile" type="Int32" />
+            <Field name="Max_ColID" source="Tile" type="Int32" />
+            <Field name="faceRowID" source="Formula: mod([RowID],[BoardSize])" type="Int32" />
+            <Field name="faceColID" source="Formula: mod([ColID],[BoardSize])" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="114" width="180" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>0 = North / up
+1 = Right
+2 = South / down
+3 = Left</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="438" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA;	,1,[CurrColID] + 1&#xA;	,2,[CurrColID]&#xA;	,3,[CurrColID]-1&#xA;)" field="NextColID" size="4" type="Int32" />
+            <FormulaField expression="switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA;	,1,[CurrRowID]&#xA;	,2,[CurrRowID]+1&#xA;	,3,[CurrRowID]&#xA;)" field="NextRowID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>NextColID = switch([DirectionID],0
+    ,0,[CurrColID]
+	,1,[CurrColID] + 1
+	,2,[C...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA; ,1,[CurrColID] + 1&#xA; ,2,[CurrColID]&#xA; ,3,[CurrColID]-1&#xA;)" type="Int32" />
+            <Field name="NextRowID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA; ,1,[CurrRowID]&#xA; ,2,[CurrRowID]+1&#xA; ,3,[CurrRowID]&#xA;)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="270" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="BoardSize" action="Max" rename="BoardSize" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="534" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Bring in board size</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA; ,1,[CurrColID] + 1&#xA; ,2,[CurrColID]&#xA; ,3,[CurrColID]-1&#xA;)" type="Int32" />
+            <Field name="NextRowID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA; ,1,[CurrRowID]&#xA; ,2,[CurrRowID]+1&#xA; ,3,[CurrRowID]&#xA;)" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" field="LeavingFace" size="1" type="Bool" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>LeavingFace = [NextColID] &gt;=[BoardSize] or
+[NextColID] &lt; 0 or
+[NextRowID] &gt;= [Bo...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA; ,1,[CurrColID] + 1&#xA; ,2,[CurrColID]&#xA; ,3,[CurrColID]-1&#xA;)" type="Int32" />
+            <Field name="NextRowID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA; ,1,[CurrRowID]&#xA; ,2,[CurrRowID]+1&#xA; ,3,[CurrRowID]&#xA;)" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="726" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="DirectionID" />
+            <Field field="CurrFaceID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="DirectionID" />
+            <Field field="FaceID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_DirectionID" selected="True" input="Left_" />
+                <SelectField field="Left_MoveID" selected="True" input="Left_" />
+                <SelectField field="Left_CurrFaceID" selected="True" input="Left_" />
+                <SelectField field="Left_CurrRowID" selected="True" input="Left_" />
+                <SelectField field="Left_CurrColID" selected="True" input="Left_" />
+                <SelectField field="Left_PostMoveRotate" selected="True" input="Left_" />
+                <SelectField field="Left_NextColID" selected="True" input="Left_" />
+                <SelectField field="Left_NextRowID" selected="True" input="Left_" />
+                <SelectField field="Left_BoardSize" selected="True" input="Left_" />
+                <SelectField field="Left_LeavingFace" selected="True" input="Left_" />
+                <SelectField field="Right_EntryFaceID" selected="True" input="Right_" />
+                <SelectField field="Right_ColTxn" selected="True" input="Right_" />
+                <SelectField field="Right_RowTxn" selected="True" input="Right_" />
+                <SelectField field="Right_DirTxnID" selected="True" input="Right_" />
+                <SelectField field="Right_DirectionID" selected="False" rename="Right_DirectionID" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>get the next face if needed</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA; ,1,[CurrColID] + 1&#xA; ,2,[CurrColID]&#xA; ,3,[CurrColID]-1&#xA;)" type="Int32" />
+            <Field name="NextRowID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA; ,1,[CurrRowID]&#xA; ,2,[CurrRowID]+1&#xA; ,3,[CurrRowID]&#xA;)" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrColID]&#xA; ,1,[CurrColID] + 1&#xA; ,2,[CurrColID]&#xA; ,3,[CurrColID]-1&#xA;)" type="Int32" />
+            <Field name="NextRowID" source="Formula: switch([DirectionID],0&#xA;    ,0,[CurrRowID]-1&#xA; ,1,[CurrRowID]&#xA; ,2,[CurrRowID]+1&#xA; ,3,[CurrRowID]&#xA;)" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="ColTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirTxnID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Scenario" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="FaceID" source="TextInput:" type="Int32" />
+            <Field name="ExitEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="EntryEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="SourceEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="TargetEdge" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirTxnID" source="TextInput:" type="Int32" />
+            <Field name="DirectionID" source="Formula: switch([ExitEdge],-1&#xA;    ,'U',0&#xA; ,'T',0&#xA; ,'R',1&#xA; ,'D',2&#xA; ,'B',2&#xA; ,'L',3&#xA;)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="822" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if not([LeavingFace]) then&#xA;	[NextColID]&#xA;else&#xA;	switch([ColTxn],-1,&#xA;		'n',[BoardSize]-1,&#xA;		'1',0,&#xA;		'invert',[boardsize]-[CurrColID]-1,&#xA;		'swap',[CurrRowID],&#xA;		'same',[CurrColID],&#xA;		'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" field="NextColID" size="4" type="Int32" />
+            <FormulaField expression="if not([LeavingFace]) then&#xA;	[NextRowID]&#xA;else&#xA;	switch([RowTxn],-1,&#xA;		'n',[BoardSize]-1,&#xA;		'1',0,&#xA;		'invert',[boardsize]-[CurrRowID]-1,&#xA;		'swap',[CurrColID],&#xA;		'same',[CurrRowID],&#xA;		'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" field="NextRowID" size="4" type="Int32" />
+            <FormulaField expression="if not([LeavingFace]) then&#xA;	[CurrFaceID]&#xA;else&#xA;	[EntryFaceID]&#xA;endif" field="NextFaceID" size="4" type="Int32" />
+            <FormulaField expression="if not([LeavingFace]) then&#xA;	[DirectionID]&#xA;else&#xA;	[DirTxnID]&#xA;endif" field="nextDirectionID" size="2" type="Int16" />
+            <FormulaField expression="mod([nextDirectionID],4)" field="nextDirectionID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>NextColID = if not([LeavingFace]) then
+	[NextColID]
+else
+	switch([ColTxn],-1,
+		...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="ColTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="RowTxn" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="DirTxnID" source="TextInput:" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="918" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="DirectionID" selected="True" />
+            <SelectField field="CurrFaceID" selected="True" />
+            <SelectField field="CurrRowID" selected="True" />
+            <SelectField field="CurrColID" selected="True" />
+            <SelectField field="NextColID" selected="True" />
+            <SelectField field="NextRowID" selected="True" />
+            <SelectField field="NextFaceID" selected="True" />
+            <SelectField field="BoardSize" selected="True" />
+            <SelectField field="LeavingFace" selected="True" />
+            <SelectField field="EntryFaceID" selected="True" />
+            <SelectField field="nextDirectionID" selected="True" />
+            <SelectField field="ColTxn" selected="False" />
+            <SelectField field="RowTxn" selected="False" />
+            <SelectField field="DirTxn" selected="False" />
+            <SelectField field="PostMoveRotate" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1110" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextData" size="1073741823" source="Formula: trim([data])" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1206" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if isnull([NextData]) or [NextData] = '#' then&#xA;	[CurrFaceID]&#xA;else&#xA;	[NextFaceID]&#xA;endif" field="FinalFaceID" size="2" type="Int16" />
+            <FormulaField expression="if isnull([NextData]) or [NextData] = '#' then&#xA;	[CurrRowID]&#xA;else&#xA;	[NextRowID]&#xA;endif" field="FinalRowID" size="2" type="Int16" />
+            <FormulaField expression="if isnull([NextData]) or [NextData] = '#' then&#xA;	[CurrColID]&#xA;else&#xA;	[NextColID]&#xA;endif" field="FinalColID" size="2" type="Int16" />
+            <FormulaField expression="if isnull([NextData]) or [NextData] = '#' then&#xA;	[DirectionID]&#xA;else&#xA;	[nextDirectionID]&#xA;endif" field="FinalDirectionID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>FinalFaceID = if isnull([NextData]) or [NextData] = '#' then
+	[CurrFaceID]
+else
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="BoardSize" source="Formula: sqrt([CountCells]/6)" type="Int64" />
+            <Field name="LeavingFace" source="Formula: [NextColID] &gt;=[BoardSize] or&#xA;[NextColID] &lt; 0 or&#xA;[NextRowID] &gt;= [BoardSize] OR&#xA;[NextRowID] &lt; 0" type="Bool" />
+            <Field name="EntryFaceID" source="TextInput:" type="Int32" />
+            <Field name="nextDirectionID" source="Formula: mod([nextDirectionID],4)" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="NextData" size="1073741823" source="Formula: trim([data])" type="V_WString" />
+            <Field name="FinalFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="FinalRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="FinalColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="FinalDirectionID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [DirectionID]&#xA;else&#xA; [nextDirectionID]&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="438" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="DirectionID" selected="True" />
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="PostMoveRotate" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1494" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" field="DirectionID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>The post-move rotation</AnnotationText>
+          <DefaultAnnotationText>DirectionID = if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [Dir...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="135">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="1590" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[DirectionID] = -1 or isnull([DirectionID])</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Invalid Direction ID" + tostring([DirectionID])</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="136">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="198" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="MoveID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MoveID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="137">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1614" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_MoveID" selected="True" input="Target_" />
+                <SelectField field="Target_CurrFaceID" selected="True" input="Target_" />
+                <SelectField field="Target_CurrRowID" selected="True" input="Target_" />
+                <SelectField field="Target_CurrColID" selected="True" input="Target_" />
+                <SelectField field="Target_DirectionID" selected="True" input="Target_" />
+                <SelectField field="Target_NextFaceID" selected="True" input="Target_" />
+                <SelectField field="Target_NextRowID" selected="True" input="Target_" />
+                <SelectField field="Target_NextColID" selected="True" input="Target_" />
+                <SelectField field="Target_FinalFaceID" selected="True" input="Target_" />
+                <SelectField field="Target_FinalRowID" selected="True" input="Target_" />
+                <SelectField field="Target_FinalColID" selected="True" input="Target_" />
+                <SelectField field="Target_FinalDirectionID" selected="True" input="Target_" />
+                <SelectField field="Target_PostMoveRotate" selected="True" input="Target_" />
+                <SelectField field="Source_DirectionID" selected="True" rename="FinalDirIDPostRotate" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="CurrRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="CurrColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="DirectionID" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+            <Field name="NextFaceID" source="Formula: if not([LeavingFace]) then&#xA; [CurrFaceID]&#xA;else&#xA; [EntryFaceID]&#xA;endif" type="Int32" />
+            <Field name="NextRowID" source="Formula: if not([LeavingFace]) then&#xA; [NextRowID]&#xA;else&#xA; switch([RowTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrRowID]-1,&#xA;  'swap',[CurrColID],&#xA;  'same',[CurrRowID],&#xA;  'swap + invert',[BoardSize] - [CurrColID]-1)&#xA;endif" type="Int32" />
+            <Field name="NextColID" source="Formula: if not([LeavingFace]) then&#xA; [NextColID]&#xA;else&#xA; switch([ColTxn],-1,&#xA;  'n',[BoardSize]-1,&#xA;  '1',0,&#xA;  'invert',[boardsize]-[CurrColID]-1,&#xA;  'swap',[CurrRowID],&#xA;  'same',[CurrColID],&#xA;  'swap + invert',[BoardSize] - [CurrRowID]-1)&#xA;endif" type="Int32" />
+            <Field name="FinalFaceID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrFaceID]&#xA;else&#xA; [NextFaceID]&#xA;endif" type="Int16" />
+            <Field name="FinalRowID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrRowID]&#xA;else&#xA; [NextRowID]&#xA;endif" type="Int16" />
+            <Field name="FinalColID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [CurrColID]&#xA;else&#xA; [NextColID]&#xA;endif" type="Int16" />
+            <Field name="FinalDirectionID" source="Formula: if isnull([NextData]) or [NextData] = '#' then&#xA; [DirectionID]&#xA;else&#xA; [nextDirectionID]&#xA;endif" type="Int16" />
+            <Field name="PostMoveRotate" size="1073741823" source="Formula: if [SubMoveCount] = [Max_SubMoveCount] then [Direction]&#xA;else null()&#xA;endif" type="V_WString" />
+            <Field name="FinalDirIDPostRotate" source="Formula: if isnull([PostMoveRotate]) or isempty([PostMoveRotate]) then [DirectionID]&#xA;else&#xA;  Switch([PostMoveRotate],-1,&#xA;      '0', [DirectionID],&#xA;      'R',mod([DirectionID]+1,4),&#xA;      'L',mod([DirectionID]+3,4))  //used +3 rather than -1 because alteryx has an odd mod on -ve numbers&#xA;endif" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1901" y="77" width="158" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 134</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="132">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="1926" y="126" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\tmpMovesToExecute.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>tmpMovesToExecute.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="113" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="113" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="88" Connection="Output" />
+      <Destination ToolID="136" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="94" Connection="Output" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="Output" />
+      <Destination ToolID="103" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="Output" />
+      <Destination ToolID="137" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="137" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="103" Connection="Output" />
+      <Destination ToolID="133" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="121" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="121" Connection="Left" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="113" Connection="Join" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="113" Connection="Left" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="Output" />
+      <Destination ToolID="119" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="Output" />
+      <Destination ToolID="119" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Join" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="98" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="Output" />
+      <Destination ToolID="105" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="105" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="135" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="136" Connection="Output" />
+      <Destination ToolID="93" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="136" Connection="Output" />
+      <Destination ToolID="94" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="137" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (107)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>WalkPathPart2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="46774a08-5fcb-4c13-bed3-83473ba71d2e" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="46774a08-5fcb-4c13-bed3-83473ba71d2e" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (86)</Name>
+          <ToolId value="86" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (87)</Name>
+              <ToolId value="87" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (88)</Name>
+              <ToolId value="88" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (104)</Description>
+              <Name>Macro Output (104)</Name>
+              <ToolId value="104" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (106)</Description>
+              <Name>Macro Output (106)</Name>
+              <ToolId value="106" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (107)</Name>
+              <ToolId value="107" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="True" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Moves</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AutoByPos</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="87" Selected="True" />
+        <Tool ToolId="88" Selected="True" />
+        <Tool ToolId="93" Selected="True" />
+        <Tool ToolId="94" Selected="True" />
+        <Tool ToolId="104" Selected="True" />
+        <Tool ToolId="106" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="132" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

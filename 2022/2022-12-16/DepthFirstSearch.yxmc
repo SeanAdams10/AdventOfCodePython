@@ -1,0 +1,1316 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.3">
+  <Nodes>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ValveID" selected="True" />
+            <SelectField field="Flow" selected="True" />
+            <SelectField field="IsActive" selected="True" />
+            <SelectField field="CurrentTotal" selected="True" />
+            <SelectField field="isOpen" selected="True" />
+            <SelectField field="Time" selected="True" />
+            <SelectField field="BoardKey" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FromValveID" source="TextInput:" type="Int32" />
+            <Field name="ToValveID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="73">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="246" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" field="CurrentTotal" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Scores</AnnotationText>
+          <DefaultAnnotationText>CurrentTotal = if [isOpen] then [Flow] + [CurrentTotal]
+else [CurrentTotal]
+endi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="75">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="77">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>ValveList</Name>
+          <Abbrev>V</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">DFS_P1_Iterate.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>DFS_P1_Iterate.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="331" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Tunnels</Name>
+          <Abbrev>T</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">DFS_P1_Tunnels_Static.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>DFS_P1_Tunnels_Static.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FromValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ToValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="82">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="942" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="BoardKey" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="BoardKey" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_BoardKey" selected="False" input="Left_" />
+                <SelectField field="Left_OptionID" selected="True" input="Left_" />
+                <SelectField field="Right_ValveID" selected="True" input="Right_" />
+                <SelectField field="Right_ValveName" selected="True" input="Right_" />
+                <SelectField field="Right_Flow" selected="True" input="Right_" />
+                <SelectField field="Right_IsActive" selected="True" input="Right_" />
+                <SelectField field="Right_CurrentTotal" selected="True" input="Right_" />
+                <SelectField field="Right_isOpen" selected="True" input="Right_" />
+                <SelectField field="Right_Time" selected="True" input="Right_" />
+                <SelectField field="Right_BoardKey" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+                <SelectField field="Left_ValveID" selected="True" rename="NewValveID" input="Left_" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Reset the board for next round</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="OptionID" source="Formula: 1" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="83">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1038" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if ([OptionID] = 1) &#xA;then &#xA;	[BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" field="BoardKey" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Board Key</AnnotationText>
+          <DefaultAnnotationText>BoardKey = if ([OptionID] = 1) 
+then 
+	[BoardKey] + ';(O,' + tostring([NewValveI...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: 0 " type="Bool" />
+            <Field name="Time" source="Formula: 0" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1122" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[ValveID] = [NewValveID]" field="IsActive" size="1" type="Bool" />
+            <FormulaField expression="if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" field="isOpen" size="1" type="Bool" />
+            <FormulaField expression="[Time]+1" field="Time" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Take Action</AnnotationText>
+          <DefaultAnnotationText>IsActive = [ValveID] = [NewValveID]
+isOpen = if [OptionID] = 1 and [ValveID] = [...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+            <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+            <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1566" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&lt;=</Operator>
+            <Field>Time</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2023-01-01 19:38:14</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>30</Operand>
+              <StartDate>2023-01-01 19:38:14</StartDate>
+              <EndDate>2023-01-01 19:38:14</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Time] &lt;= 30</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+            <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+            <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+            <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+            <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="90">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1758" y="247" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="91">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1758" y="343" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1662" y="247" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ValveID" selected="True" />
+            <SelectField field="Flow" selected="True" />
+            <SelectField field="IsActive" selected="True" />
+            <SelectField field="CurrentTotal" selected="True" />
+            <SelectField field="isOpen" selected="True" />
+            <SelectField field="Time" selected="True" />
+            <SelectField field="BoardKey" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+            <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [OptionID]&#xA;endif" type="Bool" />
+            <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1662" y="343" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+            <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+            <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+            <Field name="CurrentTotal" source="Formula: 0" type="Int64" />
+            <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [OptionID]&#xA;endif" type="Bool" />
+            <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+            <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+            <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="97">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="1578" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Numeric Up Down (97)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="98">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="1572" y="174" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1193" y="161" width="361" height="218" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Only keep top 500 boards</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="99">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="1218" y="210" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="BoardKey" action="GroupBy" rename="BoardKey" />
+                <SummarizeField field="CurrentTotal" action="Sum" rename="Sum_CurrentTotal" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Summarize: GroupBy - BoardKey" type="V_WString" />
+                <Field name="Sum_CurrentTotal" source="Summarize: Sum - CurrentTotal" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="100">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="1302" y="210" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="Sum_CurrentTotal" order="Descending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Sum_CurrentTotal - Descending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Summarize: GroupBy - BoardKey" type="V_WString" />
+                <Field name="Sum_CurrentTotal" source="Summarize: Sum - CurrentTotal" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="101">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+            <Position x="1386" y="210" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>First</Mode>
+              <N>5000</N>
+              <GroupFields orderChanged="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>First 5000 rows</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Summarize: GroupBy - BoardKey" type="V_WString" />
+                <Field name="Sum_CurrentTotal" source="Summarize: Sum - CurrentTotal" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+        </Node>
+        <Node ToolID="102">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1470" y="295" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="BoardKey" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="BoardKey" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_OptionID" selected="True" input="Left_" />
+                    <SelectField field="Left_ValveID" selected="True" input="Left_" />
+                    <SelectField field="Left_Flow" selected="True" input="Left_" />
+                    <SelectField field="Left_IsActive" selected="True" input="Left_" />
+                    <SelectField field="Left_CurrentTotal" selected="True" input="Left_" />
+                    <SelectField field="Left_isOpen" selected="True" input="Left_" />
+                    <SelectField field="Left_Time" selected="True" input="Left_" />
+                    <SelectField field="Left_BoardKey" selected="True" input="Left_" />
+                    <SelectField field="Left_NewValveID" selected="True" input="Left_" />
+                    <SelectField field="Right_BoardKey" selected="False" rename="Right_BoardKey" input="Right_" />
+                    <SelectField field="*Unknown" selected="False" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+                <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+                <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+                <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+                <Field name="NewValveID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Summarize: GroupBy - BoardKey" type="V_WString" />
+                <Field name="Sum_CurrentTotal" source="Summarize: Sum - CurrentTotal" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="88">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="317" y="138" width="613" height="237" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Allowed Moves</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="62">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="534" y="259" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ValveID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="FromValveID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_BoardKey" selected="True" input="Left_" />
+                    <SelectField field="Right_ToValveID" selected="True" rename="ValveID" input="Right_" />
+                    <SelectField field="*Unknown" selected="False" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>all the target places</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: 0 " type="Bool" />
+                <Field name="Time" source="Formula: 0" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="FromValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="ToValveID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="67">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="438" y="187" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression>not([isOpen]) 
+and [Flow] &gt; 0</Expression>
+              <Mode>Custom</Mode>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>not([isOpen]) 
+and [Flow] &gt; 0</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+                <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID] = [NewValveID]" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: if [OptionID] = 1 and [ValveID] = [NewValveID] &#xA;then 1&#xA;else [isOpen]&#xA;endif" type="Bool" />
+                <Field name="Time" source="Formula: [Time]+1" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: if ([OptionID] = 1) &#xA;then &#xA; [BoardKey] + ';(O,' + tostring([NewValveID]) + ')'&#xA;else [BoardKey] + ';(M,' + tostring([NewValveID]) + ')'&#xA;endif&#xA;" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="69">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="534" y="187" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="1" field="OptionID" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Option 1 - open valve</AnnotationText>
+              <DefaultAnnotationText><![CDATA[OptionID = 1
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: 0 " type="Bool" />
+                <Field name="Time" source="Formula: 0" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="OptionID" source="Formula: 1" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="74">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="750" y="259" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="OptionID" source="Formula: 1" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="79">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="630" y="187" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="ValveID" selected="True" />
+                <SelectField field="BoardKey" selected="True" />
+                <SelectField field="OptionID" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="OptionID" source="Formula: 1" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="84">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="846" y="259" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="ValveID" />
+                <Field field="BoardKey" />
+                <Field field="OptionID" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Unique">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Duplicates">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="OptionID" source="Formula: (Multiple Sources)" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="85">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="630" y="259" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="2&#xA;//move to a new node" field="OptionID" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Option 1 - open valve</AnnotationText>
+              <DefaultAnnotationText><![CDATA[OptionID = 2
+//move to a new node
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="OptionID" source="Formula: 2&#xA;//move to a new node" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="86">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="342" y="258" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsTrue</Operator>
+                <Field>IsActive</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2023-01-01 19:26:59</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <StartDate>2023-01-01 19:26:59</StartDate>
+                  <EndDate>2023-01-01 19:26:59</EndDate>
+                  <Operand>
+                  </Operand>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>[IsActive] = 1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: 0 " type="Bool" />
+                <Field name="Time" source="Formula: 0" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="ValveID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field description="RegEx: Parsed from data" name="Flow" source="RegEx: Parsed from data" type="Int32" />
+                <Field name="IsActive" source="Formula: [ValveID]=1" type="Bool" />
+                <Field name="CurrentTotal" source="Formula: if [isOpen] then [Flow] + [CurrentTotal]&#xA;else [CurrentTotal]&#xA;endif" type="Int64" />
+                <Field name="isOpen" source="Formula: 0 " type="Bool" />
+                <Field name="Time" source="Formula: 0" type="Int16" />
+                <Field name="BoardKey" size="1073741823" source="Formula: &quot;&quot;" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="96">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1733" y="89" width="154" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 96</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="95">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="1758" y="138" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">DFS_P1_Iterate.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>DFS_P1_Iterate.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="Output" />
+      <Destination ToolID="62" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="True" />
+      <Destination ToolID="62" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="86" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="73" Connection="Output" />
+      <Destination ToolID="82" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="Unique" />
+      <Destination ToolID="82" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="77" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="Output" />
+      <Destination ToolID="72" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="82" Connection="Join" />
+      <Destination ToolID="83" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="83" Connection="Output" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="99" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="102" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="101" Connection="Output" />
+      <Destination ToolID="102" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="True" />
+      <Destination ToolID="92" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="False" />
+      <Destination ToolID="93" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="92" Connection="Output" />
+      <Destination ToolID="90" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="92" Connection="Output" />
+      <Destination ToolID="95" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="91" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="97" Connection="Question" />
+      <Destination ToolID="98" Connection="Question" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="98" Connection="Action" />
+      <Destination ToolID="89" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="Join" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="100" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="100" Connection="Output" />
+      <Destination ToolID="101" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Join" />
+      <Destination ToolID="85" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="True" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="74" Connection="Output" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="79" Connection="Output" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="85" Connection="Output" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="True" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (97)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DepthFirstSearch</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="bb21863c-7101-4d92-b548-3dcdba35f2b5" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="bb21863c-7101-4d92-b548-3dcdba35f2b5" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="98" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="False" />
+              <Destination>89/Simple/Operands/Operand</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (75)</Name>
+          <ToolId value="75" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (77)</Name>
+              <ToolId value="77" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (78)</Name>
+              <ToolId value="78" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (90)</Description>
+              <Name>Macro Output (90)</Name>
+              <ToolId value="90" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (91)</Description>
+              <Name>Macro Output (91)</Name>
+              <ToolId value="91" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>DepthLimit</Description>
+              <Name>Numeric Up Down (97)</Name>
+              <ToolId value="97" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="10" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>ValveList</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="77" Selected="True" />
+        <Tool ToolId="78" Selected="True" />
+        <Tool ToolId="90" Selected="True" />
+        <Tool ToolId="91" Selected="True" />
+        <Tool ToolId="95" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

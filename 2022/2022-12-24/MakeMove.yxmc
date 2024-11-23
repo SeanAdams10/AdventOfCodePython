@@ -1,0 +1,1293 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.1">
+  <Nodes>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="138" y="211" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]+1 + [MoveStartID]" field="MoveID" size="2" type="Int16" />
+            <FormulaField expression="//0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" field="NextRowID" size="2" type="Int16" />
+            <FormulaField expression="//0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" field="NextColID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MoveID = [Engine.IterationNumber]+1 + [MoveStartID]
+NextRowID = //0 is north, wi...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="Formula: [Tile_Num]-1" type="Int16" />
+            <Field name="ColID" source="Formula: [Tile_SequenceNum]-2" type="Int16" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1 + [MoveStartID]" type="Int16" />
+            <Field name="NextRowID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" type="Int16" />
+            <Field name="NextColID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="222" y="211" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RowID" selected="False" />
+            <SelectField field="ColID" selected="False" />
+            <SelectField field="NextRowID" selected="True" rename="RowID" />
+            <SelectField field="NextColID" selected="True" rename="ColID" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+            <Field name="RowID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" type="Int16" />
+            <Field name="ColID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="150" y="379" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="5" />
+          <Fields>
+            <Field name="Direction" />
+            <Field name="RowDelta" />
+            <Field name="ColDelta" />
+            <Field name="Note" />
+          </Fields>
+          <Data>
+            <r>
+              <c>0</c>
+              <c>-1</c>
+              <c>0</c>
+              <c>N</c>
+            </r>
+            <r>
+              <c>1</c>
+              <c>0</c>
+              <c>1</c>
+              <c>E</c>
+            </r>
+            <r>
+              <c>2</c>
+              <c>1</c>
+              <c>0</c>
+              <c>S</c>
+            </r>
+            <r>
+              <c>3</c>
+              <c>0</c>
+              <c>-1</c>
+              <c>W</c>
+            </r>
+            <r>
+              <c>-1</c>
+              <c>0</c>
+              <c>0</c>
+              <c>Wait</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="ERowID" source="TextInput:" type="Int32" />
+            <Field name="EColID" source="TextInput:" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="246" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_ScenarioID" selected="False" input="Target_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Add each move direction</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ERowID" source="TextInput:" type="Int32" />
+            <Field name="EColID" source="TextInput:" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="534" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[(
+     [ERowID]>=0 and 
+     [ERowID]<[RowCount] AND
+     [EColID] >=0 AND
+     [EColID] < [ColCount]
+)   ///regular block
+or
+(
+     [ERowID]=-1
+     and [EColID] = 0
+)  //this is the starting point
+or
+(
+     [ERowID]=[RowCount]
+     and [EColID] = [ColCount] -1
+)  //this is the ending point
+]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Valid Moves</AnnotationText>
+          <DefaultAnnotationText>(
+     [ERowID]&gt;=0 and 
+     [ERowID]&lt;[RowCount] AND
+     [EColID] &gt;=0 AND
+     ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="438" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[ERowID]+[RowDelta]" field="ERowID" size="4" type="Int32" />
+            <FormulaField expression="[EColID] + [ColDelta]" field="EColID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ERowID = [ERowID]+[RowDelta]
+EColID = [EColID] + [ColDelta]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="342" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>ScenarioID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="TextInput:" type="Int32" />
+            <Field name="EColID" source="TextInput:" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="630" y="403" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\seanb\AppData\Local\Temp\Engine_22060_af9d48c07fa37140aef0c12c7742b5d8_\Engine_22060_a82128693bde68429279added231b5b3~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="654" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RowID" />
+            <Field field="ColID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ERowID" />
+            <Field field="EColID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ColCount" selected="False" rename="Right_ColCount" input="Right_" />
+                <SelectField field="Right_RowCount" selected="False" rename="Right_RowCount" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>check for overlaps - looking for a left only join</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+            <Field name="RowID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" type="Int16" />
+            <Field name="ColID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+            <Field name="RowID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" type="Int16" />
+            <Field name="ColID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" type="Int16" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="211" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>MainGrid</Name>
+          <Abbrev>G</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-24\tmpGrid.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>tmpGrid.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="Formula: [Tile_Num]-1" type="Int16" />
+            <Field name="ColID" source="Formula: [Tile_SequenceNum]-2" type="Int16" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>ESpot</Name>
+          <Abbrev>E</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2022\2022-12-24\tmpESpot.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>tmpESpot.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="ERowID" source="TextInput:" type="Int32" />
+            <Field name="EColID" source="TextInput:" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1326" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="137">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="786" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[ERowID] = [TargetRowID] and
+[EColID] = [TargetColID]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ERowID] = [TargetRowID] and
+[EColID] = [TargetColID]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="139">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="942" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_Count" selected="True" rename="WinCount" input="Target_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="WinCount" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="140">
+      <GuiSettings>
+        <Position x="858" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="141">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1038" y="319" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[WinCount] = 0 and [Engine.IterationNumber] &lt;= %Question.MaxIterations%</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[WinCount] = 0 and [Engine.IterationNumber] &lt;= %Question.MaxIterations%</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="WinCount" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="WinCount" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="142">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1326" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Result</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1134" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+            <FormulaField expression="[ERowID] = [TargetRowID] and&#xA;[EColID] = [TargetColID]" field="WinningScenario" size="1" type="Bool" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IterNo = [Engine.IterationNumber]
+WinningScenario = [ERowID] = [TargetRowID] and...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="WinCount" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="WinningScenario" source="Formula: [ERowID] = [TargetRowID] and&#xA;[EColID] = [TargetColID]" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="144">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1134" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScenarioID" selected="True" />
+            <SelectField field="ERowID" selected="True" />
+            <SelectField field="EColID" selected="True" />
+            <SelectField field="ColCount" selected="True" />
+            <SelectField field="RowCount" selected="True" />
+            <SelectField field="TargetRowID" selected="True" />
+            <SelectField field="TargetColID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="145">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="702" y="55" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>MaxIterations</Name>
+          <AnnotationText>MaxIterations</AnnotationText>
+          <DefaultAnnotationText>MaxIterations</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="146">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1230" y="295" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="ERowID" />
+            <Field field="EColID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="510" y="522" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1 rows</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="Formula: [Tile_Num]-1" type="Int16" />
+            <Field name="ColID" source="Formula: [Tile_SequenceNum]-2" type="Int16" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="DirID" source="TextInput:" type="Int32" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1 + [MoveStartID]" type="Int16" />
+            <Field name="NextRowID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, mod([RowID] + [RowCount] - mod([MoveID],[RowCount]),[RowCount]),&#xA;     1, [RowID],&#xA;     2, mod([RowID]+[MoveID],[RowCount]),&#xA;     3, [RowID]&#xA;)&#xA;&#xA;&#xA;" type="Int16" />
+            <Field name="NextColID" source="Formula: //0 is north, with directions clockwise from there&#xA;switch (&#xA;     [DirID],-1,&#xA;     0, [ColID],&#xA;     1, mod([ColID]+[MoveID],[ColCount]),&#xA;     2, [ColID],&#xA;     3, mod([ColID] + [ColCount] - mod([MoveID],[ColCount]),[ColCount])&#xA;)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="606" y="522" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MoveStartID" selected="True" />
+            <SelectField field="MoveID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1 + [MoveStartID]" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1230" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="WinCount" source="(Multiple Sources)" type="Int64" />
+            <Field name="ScenarioID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ERowID" source="Formula: [ERowID]+[RowDelta]" type="Int32" />
+            <Field name="EColID" source="Formula: [EColID] + [ColDelta]" type="Int32" />
+            <Field name="ColCount" source="Formula: [strLen]-2" type="Int16" />
+            <Field name="RowCount" source="Formula: [Max_RecordID]-2" type="Int16" />
+            <Field name="TargetRowID" source="Formula: [RowCount]&#xA;" type="Int32" />
+            <Field name="TargetColID" source="Formula: [ColCount]-1" type="Int32" />
+            <Field name="Direction" source="TextInput:" type="Int32" />
+            <Field name="RowDelta" source="TextInput:" type="Int32" />
+            <Field name="ColDelta" source="TextInput:" type="Int32" />
+            <Field name="Note" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="WinningScenario" source="Formula: [ERowID] = [TargetRowID] and&#xA;[EColID] = [TargetColID]" type="Bool" />
+            <Field name="MoveStartID" source="Formula: 0" type="Int32" />
+            <Field name="MoveID" source="Formula: [Engine.IterationNumber]+1 + [MoveStartID]" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="977" y="54" width="246" height="180" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 147</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="135">
+          <GuiSettings>
+            <Position x="1002" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input77"><![CDATA[RowID=RowID
+ColID=ColID
+ColCount=ColCount
+RowCount=RowCount
+DirID=DirID
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>ShowGrid (118)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output109">
+              <RecordInfo>
+                <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int32" />
+                <Field name="RptVertical_Text" size="1073741823" source="Report:Layout:Summarize:RptVertical" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro=".\ShowGrid.yxmc" />
+        </Node>
+        <Node ToolID="136">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1098" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int32" />
+                <Field name="RptVertical_Text" size="1073741823" source="Report:Layout:Summarize:RptVertical" type="V_WString" />
+                <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="116" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="Output" />
+      <Destination ToolID="148" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="129" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="True" />
+      <Destination ToolID="129" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="135" Connection="Input77" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Right" />
+      <Destination ToolID="135" Connection="Input110" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="123" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="123" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="False" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Right" />
+      <Destination ToolID="137" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Right" />
+      <Destination ToolID="139" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="140" Connection="Output9" />
+      <Destination ToolID="139" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="137" Connection="True" />
+      <Destination ToolID="140" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="141" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="141" Connection="False" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="141" Connection="True" />
+      <Destination ToolID="144" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="150" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="Output" />
+      <Destination ToolID="150" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="144" Connection="Output" />
+      <Destination ToolID="146" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="146" Connection="Unique" />
+      <Destination ToolID="133" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="Output" />
+      <Destination ToolID="149" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="150" Connection="Output" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="135" Connection="Output109" />
+      <Destination ToolID="136" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>MaxIterations</Name>
+        <Value>10</Value>
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>MakeMove</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="0de2929c-ea3f-4ea6-a3e2-df2436b9dbbe" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="0de2929c-ea3f-4ea6-a3e2-df2436b9dbbe" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (130)</Name>
+          <ToolId value="130" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (131)</Name>
+              <ToolId value="131" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (132)</Name>
+              <ToolId value="132" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (133)</Name>
+              <ToolId value="133" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (142)</Description>
+              <Name>Macro Output (142)</Name>
+              <ToolId value="142" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>MaxIterations</Description>
+              <Name>MaxIterations</Name>
+              <ToolId value="145" />
+              <Minimum value="0" />
+              <Maximum value="999999999" />
+              <Increment value="1" />
+              <Default value="10" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>ESpot</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="128" Selected="False" />
+        <Tool ToolId="131" Selected="True" />
+        <Tool ToolId="132" Selected="True" />
+        <Tool ToolId="133" Selected="True" />
+        <Tool ToolId="140" Selected="True" />
+        <Tool ToolId="142" Selected="True" />
+        <Tool ToolId="135" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

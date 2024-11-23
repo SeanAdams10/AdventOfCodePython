@@ -1,0 +1,1058 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1">
+  <Nodes>
+    <Node ToolID="57">
+      <GuiSettings>
+        <Position x="462" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output25">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="NCellID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\FindValidPaths.yxmc" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="342" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CellID" selected="True" />
+            <SelectField field="IsStart" selected="True" />
+            <SelectField field="IsEnd" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="438" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [IsStart] then 0 else null() endif" field="MinDist" size="4" type="Int32" />
+            <FormulaField expression="if [IsStart] then 1 else 0 endif" field="IsInvestigate" size="1" type="Byte" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MinDist = if [IsStart] then 0 else null() endif
+IsInvestigate = if [IsStart] the...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="MinDist" source="Formula: if [IsStart] then 0 else null() endif" type="Int32" />
+            <Field name="IsInvestigate" source="Formula: if [IsStart] then 1 else 0 endif" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings>
+        <Position x="558" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.ValidMoves"><![CDATA[CellID=CellID
+NCellID=NCellID
+]]></Value>
+          <Value name="Input.Nodes"><![CDATA[CellID=CellID
+IsStart=IsStart
+IsEnd=IsEnd
+IsInvestigate=IsInvestigate
+MinDist=MinDist
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>WalkNextStep (68)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Result">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output85">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber] (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\WalkNextStep.yxmc" />
+    </Node>
+    <Node ToolID="79">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="654" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>IsEnd</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-12-23 19:12:08</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2022-12-23 19:12:08</StartDate>
+              <EndDate>2022-12-23 19:12:08</EndDate>
+              <Operand>
+              </Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[IsEnd] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="80">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input56</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="40" />
+              <Fields>
+                <Field name="CellID" />
+                <Field name="RowID" />
+                <Field name="data" />
+                <Field name="ColID" />
+                <Field name="IsStart" />
+                <Field name="IsEnd" />
+                <Field name="Height" />
+                <Field name="ScenarioID" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>a</c>
+                  <c>2</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>2</c>
+                  <c>a</c>
+                  <c>1</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>3</c>
+                  <c>a</c>
+                  <c>1</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>4</c>
+                  <c>a</c>
+                  <c>1</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>33</c>
+                  <c>5</c>
+                  <c>a</c>
+                  <c>1</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>b</c>
+                  <c>3</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>2</c>
+                  <c>b</c>
+                  <c>2</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>34</c>
+                  <c>5</c>
+                  <c>b</c>
+                  <c>2</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>2</c>
+                  <c>c</c>
+                  <c>3</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>3</c>
+                  <c>c</c>
+                  <c>2</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>3</c>
+                  <c>c</c>
+                  <c>3</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>4</c>
+                  <c>c</c>
+                  <c>2</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>4</c>
+                  <c>c</c>
+                  <c>3</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>35</c>
+                  <c>5</c>
+                  <c>d</c>
+                  <c>3</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>4</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>36</c>
+                  <c>5</c>
+                  <c>e</c>
+                  <c>4</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>5</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>3</c>
+                  <c>E</c>
+                  <c>6</c>
+                  <c>False</c>
+                  <c>True</c>
+                  <c>26</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>37</c>
+                  <c>5</c>
+                  <c>f</c>
+                  <c>5</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>6</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>38</c>
+                  <c>5</c>
+                  <c>g</c>
+                  <c>6</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>7</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>39</c>
+                  <c>5</c>
+                  <c>h</c>
+                  <c>7</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>8</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>40</c>
+                  <c>5</c>
+                  <c>i</c>
+                  <c>8</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>9</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>32</c>
+                  <c>4</c>
+                  <c>j</c>
+                  <c>8</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>10</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>3</c>
+                  <c>k</c>
+                  <c>8</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>11</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>2</c>
+                  <c>l</c>
+                  <c>8</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>12</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>m</c>
+                  <c>8</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>13</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>n</c>
+                  <c>7</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>14</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>o</c>
+                  <c>6</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>15</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>p</c>
+                  <c>5</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>16</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>q</c>
+                  <c>4</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>17</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>2</c>
+                  <c>r</c>
+                  <c>4</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>18</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>3</c>
+                  <c>s</c>
+                  <c>4</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>19</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>S</c>
+                  <c>1</c>
+                  <c>True</c>
+                  <c>False</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>28</c>
+                  <c>4</c>
+                  <c>t</c>
+                  <c>4</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>20</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>29</c>
+                  <c>4</c>
+                  <c>u</c>
+                  <c>5</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>21</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>30</c>
+                  <c>4</c>
+                  <c>v</c>
+                  <c>6</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>22</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>31</c>
+                  <c>4</c>
+                  <c>w</c>
+                  <c>7</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>23</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>2</c>
+                  <c>x</c>
+                  <c>6</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>24</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>2</c>
+                  <c>x</c>
+                  <c>7</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>24</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>3</c>
+                  <c>x</c>
+                  <c>7</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>24</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>2</c>
+                  <c>y</c>
+                  <c>5</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>25</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>3</c>
+                  <c>z</c>
+                  <c>5</c>
+                  <c>False</c>
+                  <c>False</c>
+                  <c>26</c>
+                  <c>1</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>Input
+Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="Height" source="TextInput:" type="Int32" />
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="82">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="846" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output76</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText>Output
+Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="83">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.ControlParam.ControlParam">
+        <Position x="174" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>ScenarioID</Name>
+          <AnnotationText>Control Parameter (83)</AnnotationText>
+          <DefaultAnnotationText>ScenarioID</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="84">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="162" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[scenarioID] = 1</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[scenarioID] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="Height" source="TextInput:" type="Int32" />
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="Height" source="TextInput:" type="Int32" />
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="85">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="174" y="150" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText>Update Value
+Update Value</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="86">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="354" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CellID" selected="True" />
+            <SelectField field="RowID" selected="True" />
+            <SelectField field="data" selected="True" />
+            <SelectField field="ColID" selected="True" />
+            <SelectField field="IsStart" selected="True" />
+            <SelectField field="IsEnd" selected="True" />
+            <SelectField field="Height" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="Height" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="750" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="1" field="ScenarioID" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ScenarioID = 1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="RecordID: Starting Value=1 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="IsStart" source="Formula: CharToInt([data]) = 83 (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsEnd" source="Formula: CharToInt([data]) = 69 //capital E (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="IsInvestigate" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Bool" />
+            <Field name="MinDist" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="Count" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field name="ScenarioID" source="Formula: 1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="88">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="630" y="150" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText>Update Value
+Update Value</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="90">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="258" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>First</When>
+          <Filter />
+          <Type>Message</Type>
+          <Priority>High</Priority>
+          <Transient>True</Transient>
+          <MessageExpression>"Secenario ID: " + tostring([ScenarioID])</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CellID" source="TextInput:" type="Int32" />
+            <Field name="RowID" source="TextInput:" type="Int32" />
+            <Field name="data" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="ColID" source="TextInput:" type="Int32" />
+            <Field name="IsStart" source="TextInput:" type="Bool" />
+            <Field name="IsEnd" source="TextInput:" type="Bool" />
+            <Field name="Height" source="TextInput:" type="Int32" />
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="57" Connection="Output25" />
+      <Destination ToolID="78" Connection="ValidMoves" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="78" Connection="Nodes" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="Result" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="79" Connection="True" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="88" Connection="Action" />
+      <Destination ToolID="87" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="81" Connection="Output" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="85" Connection="Action" />
+      <Destination ToolID="84" Connection="Action" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="83" Connection="Question" />
+      <Destination ToolID="85" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="83" Connection="Question" />
+      <Destination ToolID="88" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="True" />
+      <Destination ToolID="58" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="True" />
+      <Destination ToolID="90" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="57" Connection="Input11" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="82" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="90" Connection="Output" />
+      <Destination ToolID="86" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>ControlParam.ScenarioID</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>ScenarioIterator</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="28d7beb0-251d-4fd2-a424-428927c3ff46" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="28d7beb0-251d-4fd2-a424-428927c3ff46" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="85" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>1</ReplaceText>
+              <Destination>84/Expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="88" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="False" />
+              <Destination>87/FormulaFields/FormulaField/@expression</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (80)</Name>
+          <ToolId value="80" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (81)</Name>
+              <ToolId value="81" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (82)</Name>
+              <ToolId value="82" />
+            </Question>
+            <Question>
+              <Type>ControlParam</Type>
+              <Description>ScenarioID</Description>
+              <Name>ScenarioID</Name>
+              <ToolId value="83" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <BatchMacro>
+        <OutputMode>AllSame</OutputMode>
+        <ControlParams>
+          <ControlParam>
+            <Name>ScenarioID</Name>
+            <Description>ScenarioID</Description>
+          </ControlParam>
+        </ControlParams>
+      </BatchMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="57" Selected="True" />
+        <Tool ToolId="78" Selected="True" />
+        <Tool ToolId="81" Selected="True" />
+        <Tool ToolId="82" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
