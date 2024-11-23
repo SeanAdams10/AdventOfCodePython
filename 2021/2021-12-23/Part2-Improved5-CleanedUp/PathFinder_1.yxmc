@@ -1,0 +1,1378 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="142">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="654" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="0" field="MinCostSoFar" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[MinCostSoFar = 0
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="NodeID" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="145">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="750" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="ScenarioID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="NodeID" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="146">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="846" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="NodeID" selected="True" rename="Node" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="AmphiID" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="930" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>FocusAmphiID</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>1</Expression_Init>
+          <Expression_Cond>FocusAmphiID &lt;= 10</Expression_Cond>
+          <Expression_Loop>FocusAmphiID + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1026" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[AmphiID] = [FocusAmphiID]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[AmphiID] = [FocusAmphiID]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1134" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Node" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="FromNode" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Node" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Node" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="FromNode" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1254" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ToNode" />
+            <Field field="FocusAmphiID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Node" />
+            <Field field="FocusAmphiID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Value" selected="True" rename="Right_Value" input="Right_" />
+                <SelectField field="Right_Node" selected="True" rename="Right_Node" input="Right_" />
+                <SelectField field="Right_NumberFingerprint" selected="True" rename="Right_NumberFingerprint" input="Right_" />
+                <SelectField field="Right_MinCostSoFar" selected="True" rename="Right_MinCostSoFar" input="Right_" />
+                <SelectField field="Right_AmphiID" selected="True" rename="Right_AmphiID" input="Right_" />
+                <SelectField field="Right_FocusAmphiID" selected="True" rename="Right_FocusAmphiID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Remove any that are blocked by another amphi</AnnotationText>
+          <DefaultAnnotationText>Remove any that are blocked by another amphi</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ToNode" />
+            <Field field="FocusAmphiID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+            <Field name="Right_ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Right_Node" type="Int32" />
+            <Field name="Right_Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="Right_MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="Right_AmphiID" type="Int32" />
+            <Field name="Right_FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ToNode" order="" />
+            <Field field="FocusAmphiID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Node" />
+            <Field field="FocusAmphiID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="151">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1542" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Node" selected="False" />
+            <SelectField field="NumberFingerprint" selected="False" />
+            <SelectField field="FromNode" selected="False" />
+            <SelectField field="ToNode" selected="True" rename="Node" />
+            <SelectField field="Distance" selected="False" />
+            <SelectField field="UnitCost" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Node" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Value" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="152">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1446" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[MinCostSoFar] + [Distance]*[UnitCost]" field="MinCostSoFar" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[MinCostSoFar = [MinCostSoFar] + [Distance]*[UnitCost]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+            <Field name="UnitCost" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Value" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="153">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="1290" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="4" />
+          <Fields>
+            <Field name="Type" />
+            <Field name="UnitCost" />
+          </Fields>
+          <Data>
+            <r>
+              <c>A</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>B</c>
+              <c>10</c>
+            </r>
+            <r>
+              <c>C</c>
+              <c>100</c>
+            </r>
+            <r>
+              <c>D</c>
+              <c>1000</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Unit Movement Cost</AnnotationText>
+          <DefaultAnnotationText>Unit Movement Cost</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type" size="1" source="TextInput:" type="String" />
+            <Field name="UnitCost" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1350" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Value" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Type" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Type" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Value" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+            <Field name="UnitCost" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Value" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Type" size="1" source="TextInput:" type="String" />
+            <Field name="UnitCost" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Type" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="157">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1698" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Value" selected="False" />
+            <SelectField field="AmphiID" selected="False" />
+            <SelectField field="Node" selected="False" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="FocusAmphiID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1782" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="FocusAmphiID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="FocusAmphiID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_MinCostSoFar" selected="True" input="Left_" />
+                <SelectField field="Left_FocusAmphiID" selected="True" input="Left_" />
+                <SelectField field="Left_Tile_SequenceNum" selected="True" input="Left_" />
+                <SelectField field="Right_Value" selected="True" input="Right_" />
+                <SelectField field="Right_Node" selected="True" input="Right_" />
+                <SelectField field="Right_AmphiID" selected="True" input="Right_" />
+                <SelectField field="Right_FocusAmphiID" selected="True" rename="Right_FocusAmphiID" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="FocusAmphiID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="Right_FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="FocusAmphiID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Node" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: 0" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="FocusAmphiID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1902" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Node" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="Right_FocusAmphiID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1986" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="FocusAmphiID" order="Ascending" />
+            <Field field="Tile_SequenceNum" order="Ascending" />
+            <Field field="AmphiID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>FocusAmphiID - Ascending
+Tile_SequenceNum - Ascending
+AmphiID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Node" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="Right_FocusAmphiID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="156">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="1626" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="FocusAmphiID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Node" source="TextInput:" type="Int16" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="FocusAmphiID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings>
+        <Position x="2178" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input125"><![CDATA[Value=Value
+Node=Node
+ScenarioID=AmphiID
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output136">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int32" />
+            <Field name="FingerPrint" size="2147483647" source="Summarize: Concat - Value" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\EncodeFingerprint.yxmc" />
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2082" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Tile_SequenceNum" selected="True" rename="VariantID" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+            <Field name="MinCostSoFar" source="Formula: [MinCostSoFar] + [Distance]*[UnitCost]" type="Int64" />
+            <Field name="AmphiID" type="Int32" />
+            <Field name="FocusAmphiID" type="Int32" />
+            <Field name="Node" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="VariantID" type="Int32" />
+            <Field name="Right_FocusAmphiID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings>
+        <Position x="558" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output10">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="NodeID" type="Int32" />
+            <Field name="Value" size="16" source="Summarize: Concat - Value" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScenarioID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\DecodeFingerprint.yxmc" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="486" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScenarioID" selected="True" type="Int64" size="8" />
+            <SelectField field="FingerPrint" selected="True" type="String" size="16" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="Summarize: GroupBy - ScenarioID" type="Int64" />
+            <Field name="FingerPrint" size="16" source="Summarize: Concat - Value" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="486" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="169">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="354" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input144</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>3</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>8</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>2</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>8</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>10</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>3</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>5</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>10</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>12</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>4</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>12</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>14</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>5</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>14</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>6</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>2</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>3</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>3</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>4</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>11</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>10</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>4</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>13</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>12</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>5</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>6</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>15</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>14</c>
+                  <c>1</c>
+                </r>
+              </Data>
+              <NumRows value="36" />
+              <Fields>
+                <Field name="FromNode" />
+                <Field name="ToNode" />
+                <Field name="Distance" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FromNode" source="TextInput:" type="Int16" />
+            <Field name="ToNode" source="TextInput:" type="Int16" />
+            <Field name="Distance" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="171">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="354" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input165</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>-------BACDBCDA</c>
+                </r>
+              </Data>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="ScenarioID" />
+                <Field name="FingerPrint" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from data" name="Value" size="13" source="RegEx: Parsed from data" type="String" />
+            <Field name="Node" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="172">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2274" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output161</Name>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="142" Connection="Output" />
+      <Destination ToolID="145" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="145" Connection="Output" />
+      <Destination ToolID="146" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="146" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="147" Connection="Output" />
+      <Destination ToolID="148" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="True" />
+      <Destination ToolID="149" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Output" />
+      <Destination ToolID="149" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="False" />
+      <Destination ToolID="150" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="Join" />
+      <Destination ToolID="150" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="False" />
+      <Destination ToolID="158" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="158" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="150" Connection="Left" />
+      <Destination ToolID="154" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="153" Connection="Output" />
+      <Destination ToolID="154" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="151" Connection="Output" />
+      <Destination ToolID="156" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="152" Connection="Output" />
+      <Destination ToolID="151" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="154" Connection="Join" />
+      <Destination ToolID="152" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="158" Connection="Join" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="159" Connection="Output" />
+      <Destination ToolID="160" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="164" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="164" Connection="Output" />
+      <Destination ToolID="163" Connection="Input125" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="166" Connection="Output10" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="167" Connection="Output" />
+      <Destination ToolID="166" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output" />
+      <Destination ToolID="168" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="171" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="163" Connection="Output136" />
+      <Destination ToolID="172" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="0" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name />
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="00000000-0000-0000-0000-000000000000" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="00000000-0000-0000-0000-000000000000" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (169)</Name>
+          <ToolId value="169" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (170)</Name>
+              <ToolId value="170" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (171)</Name>
+              <ToolId value="171" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (172)</Name>
+              <ToolId value="172" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

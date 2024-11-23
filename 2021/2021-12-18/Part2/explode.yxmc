@@ -1,0 +1,1974 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="138" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="data" selected="True" size="999999" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input113</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="ExperimentID" />
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>[[[[[1,1],[2,2]],[3,3]],[4,4]],[5,5]]</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>[[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]],[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]]</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="77" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2238" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output118</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="414" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>data</UpdateField_Name>
+          <CreateField_Name>depthcount</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isnull([Row-1:depthcount]) then 1
+elseif [data] = '[' then [Row-1:depthcount] + 1
+elseif [data] = ',' then [Row-1:depthcount]
+elseif isnumber([data]) then [Row-1:depthcount]
+elseif [data] = ']' then [Row-1:depthcount] -1
+else [Row-1:depthcount]
+endif</Expression>
+          <GroupByFields>
+            <Field field="ExperimentID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Get bracket depth</AnnotationText>
+          <DefaultAnnotationText>if isnull([Row-1:depthcount]) then 1
+elseif [data] = '[' then...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ',' then [Row-1:depthcount]&#xA;elseif isnumber([data]) then [Row-1:depthcount]&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="depthcount" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ',' then [Row-1:depthcount]&#xA;elseif isnumber([data]) then [Row-1:depthcount]&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="222" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="\w+|\W" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="510" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>depthcount</UpdateField_Name>
+          <CreateField_Name>depthcount</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if [data] = ']' then [depthcount]+1
+else [depthcount]
+endif</Expression>
+          <GroupByFields>
+            <Field field="ExperimentID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Finalise bracket depth</AnnotationText>
+          <DefaultAnnotationText>if [data] = ']' then [depthcount]+1
+else [depthcount]
+endif</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="690" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Data</UpdateField_Name>
+          <CreateField_Name>PreOnPostFlag</CreateField_Name>
+          <CreateField_Type>V_String</CreateField_Type>
+          <CreateField_Size>90</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isnull([Row-1:PreOnPostFlag]) 
+    then 'Pre'
+elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then
+    'Pre'
+elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then
+    'On'
+else 'Post'
+endif</Expression>
+          <GroupByFields>
+            <Field field="ExperimentID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Mark up the first leaf pair which is more than 4 levels deep</AnnotationText>
+          <DefaultAnnotationText>if isnull([Row-1:PreOnPostFlag]) 
+    then 'Pre'
+elseif [Row-...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="894" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>PreOnPostFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 21:52:33</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>Pre</Operand>
+              <StartDate>2021-12-22 21:52:33</StartDate>
+              <EndDate>2021-12-22 21:52:33</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[PreOnPostFlag] = "Pre"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="894" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>PreOnPostFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 21:52:43</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>On</Operand>
+              <StartDate>2021-12-22 21:52:43</StartDate>
+              <EndDate>2021-12-22 21:52:43</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[PreOnPostFlag] = "On"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="894" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>PreOnPostFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 21:52:58</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>Post</Operand>
+              <StartDate>2021-12-22 21:52:58</StartDate>
+              <EndDate>2021-12-22 21:52:58</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[PreOnPostFlag] = "Post"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1170" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RecordID" selected="False" />
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="depthcount" selected="False" />
+            <SelectField field="IsPair" selected="False" />
+            <SelectField field="PreOnPostFlag" selected="False" />
+            <SelectField field="data" selected="True" rename="LeftNo" type="Int32" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="135">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1170" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RecordID" selected="False" />
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="depthcount" selected="False" />
+            <SelectField field="IsPair" selected="False" />
+            <SelectField field="PreOnPostFlag" selected="False" />
+            <SelectField field="data" selected="True" rename="RightNo" type="Int32" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="136">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="330" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="137">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1086" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>IsInteger([data])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IsInteger([data])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="990" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ExperimentID" order="Ascending" />
+            <Field field="RecordID" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ExperimentID - Ascending
+RecordID - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="139">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1194" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="141">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1470" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="tostring(tonumber([data]) + [LeftNo])" field="data" size="999" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[data = tostring(tonumber([data]) + [LeftNo])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="Formula: tostring(tonumber([data]) + [LeftNo])" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="142">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1566" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1662" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RecordID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="144">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1194" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="146">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1470" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="tostring(tonumber([data]) + [RightNo])" field="data" size="999" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[data = tostring(tonumber([data]) + [RightNo])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="Formula: tostring(tonumber([data]) + [RightNo])" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1566" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1662" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RecordID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1086" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>isinteger(trim([data]))</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>isinteger(trim([data]))</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="990" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ExperimentID" order="Ascending" />
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ExperimentID - Ascending
+RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="153">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1854" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ExperimentID" action="GroupBy" rename="ExperimentID" />
+            <SummarizeField field="data" action="Concat" rename="Pre">
+              <Concat_Start />
+              <Separator />
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Pre" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1854" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ExperimentID" action="GroupBy" rename="ExperimentID" />
+            <SummarizeField field="data" action="Concat" rename="Post">
+              <Concat_Start />
+              <Separator />
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Post" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="156">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="2046" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Pre] + '0' + [Post]" field="data" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[data = [Pre] + '0' + [Post]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Pre" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+            <Field name="Post" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+            <Field name="data" size="1073741823" source="Formula: [Pre] + '0' + [Post]" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="157">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2142" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Pre" selected="False" />
+            <SelectField field="Post" selected="False" />
+            <SelectField field="data" selected="True" rename="explodedData" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="explodedData" size="1073741823" source="Formula: [Pre] + '0' + [Post]" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1758" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ExperimentID" order="Ascending" />
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ExperimentID - Ascending
+RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1758" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ExperimentID" order="Ascending" />
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ExperimentID - Ascending
+RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="594" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>RecordID</UpdateField_Name>
+          <CreateField_Name>IsPair</CreateField_Name>
+          <CreateField_Type>Bool</CreateField_Type>
+          <CreateField_Size>1</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="5" />
+          <Expression>(
+    [data] = '[' and
+    isInteger([Row+1:depthcount]) and
+    [Row+2:data] = ',' and
+    isInteger([Row+3:depthcount]) and
+    [Row+4:data] = ']'
+) OR ([Row-1:IsPair] and not([Row-2:IsPair]))
+or ([Row-2:IsPair] and not([Row-3:IsPair]))
+or ([Row-3:IsPair] and not([Row-4:IsPair]))
+or ([Row-4:IsPair] and not([Row-5:IsPair]))</Expression>
+          <GroupByFields>
+            <Field field="ExperimentID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>look for inner pairs (leaf nodes)</AnnotationText>
+          <DefaultAnnotationText>(
+    [data] = '[' and
+    isInteger([Row+1:depthcount]) and
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="161">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="822" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>PreOnPostFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-23 00:39:36</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-12-23 00:39:36</StartDate>
+              <EndDate>2021-12-23 00:39:36</EndDate>
+              <Operand>On</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[PreOnPostFlag] = "On"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1014" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ExperimentID" action="GroupBy" rename="ExperimentID" />
+            <SummarizeField field="data" action="Concat" rename="ExplodePair">
+              <Concat_Start />
+              <Separator />
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="ExplodePair" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1110" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Pair</Name>
+          <Abbrev>P</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="990" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>2</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 2</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1086" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Last</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Last 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="990" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>4</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 4</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1086" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Last</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False">
+            <Field name="ExperimentID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Last 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="918" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ExperimentID" order="Ascending" />
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ExperimentID - Ascending
+RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="169">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1374" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ExperimentID" selected="False" rename="Right_ExperimentID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="LeftNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1362" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ExperimentID" selected="False" rename="Right_ExperimentID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="RightNo" source="TextInput:" type="Int32" />
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" name="depthcount" source="Formula: if [data] = ']' then [depthcount]+1&#xA;else [depthcount]&#xA;endif" type="Int32" />
+            <Field description="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" name="IsPair" source="Formula: (&#xA;    [data] = '[' and&#xA;    isInteger([Row+1:depthcount]) and&#xA;    [Row+2:data] = ',' and&#xA;    isInteger([Row+3:depthcount]) and&#xA;    [Row+4:data] = ']'&#xA;) OR ([Row-1:IsPair] and not([Row-2:IsPair]))&#xA;or ([Row-2:IsPair] and not([Row-3:IsPair]))&#xA;or ([Row-3:IsPair] and not([Row-4:IsPair]))&#xA;or ([Row-4:IsPair] and not([Row-5:IsPair]))" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsPair]) or [depthcount]&lt;=4)  then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] in ('Pre', 'On') and [IsPair] and [depthcount]&gt;4 then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="171">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1974" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ExperimentID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ExperimentID" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Pre" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Pre" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+            <Field name="Post" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="Post" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ExperimentID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="136" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="160" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="161" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="True" />
+      <Destination ToolID="138" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="True" />
+      <Destination ToolID="164" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="True" />
+      <Destination ToolID="166" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="131" Connection="True" />
+      <Destination ToolID="150" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output" />
+      <Destination ToolID="169" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="169" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="135" Connection="Output" />
+      <Destination ToolID="170" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="144" Connection="Output" />
+      <Destination ToolID="170" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="136" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="137" Connection="True" />
+      <Destination ToolID="139" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="138" Connection="Output" />
+      <Destination ToolID="137" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="138" Connection="Output" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="141" Connection="Output" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="142" Connection="Output" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="143" Connection="Unique" />
+      <Destination ToolID="158" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="146" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="150" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="147" Connection="Output" />
+      <Destination ToolID="148" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="Unique" />
+      <Destination ToolID="159" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="True" />
+      <Destination ToolID="144" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="150" Connection="Output" />
+      <Destination ToolID="149" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="153" Connection="Output" />
+      <Destination ToolID="171" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="154" Connection="Output" />
+      <Destination ToolID="171" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="156" Connection="Output" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="158" Connection="Output" />
+      <Destination ToolID="153" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="159" Connection="Output" />
+      <Destination ToolID="154" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="161" Connection="True" />
+      <Destination ToolID="168" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="162" Connection="Output" />
+      <Destination ToolID="163" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="164" Connection="Output" />
+      <Destination ToolID="165" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="134" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="166" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="167" Connection="Output" />
+      <Destination ToolID="135" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Output" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="169" Connection="Join" />
+      <Destination ToolID="141" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Join" />
+      <Destination ToolID="146" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="171" Connection="Join" />
+      <Destination ToolID="156" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (118)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (163)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>explode</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="07a36552-3e89-4d67-8762-6263034a97e7" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="07a36552-3e89-4d67-8762-6263034a97e7" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (116)</Name>
+          <ToolId value="116" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (117)</Name>
+              <ToolId value="117" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (118)</Description>
+              <Name>Macro Output (118)</Name>
+              <ToolId value="118" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (163)</Description>
+              <Name>Macro Output (163)</Name>
+              <ToolId value="163" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="117" Selected="True" />
+        <Tool ToolId="118" Selected="True" />
+        <Tool ToolId="163" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,1289 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="410">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="412">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1285" y="104" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Neighbours</Name>
+          <Abbrev>N</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>N Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="423">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1285" y="212" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>UpdatedPic</Name>
+          <Abbrev>P</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="409">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="54" width="1207" height="292" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 409</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="407">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="228" y="107" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="CellValue" selected="True" type="V_String" size="3" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="data" size="1" source="TextInput:" type="String" />
+                <Field name="CellValue" size="3" source="TextInput:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="408">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1165" y="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="CellID" selected="True" type="Int32" size="4" />
+                <SelectField field="NeighbourCell" selected="True" type="Int32" size="4" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NCellID" source="TextInput:" type="Byte" />
+                <Field name="NCellvalue" size="3" source="Formula: if(IsNull([NCellvalue])) then [CurrentCellValue] else [NCellvalue] endif" type="V_String" />
+                <Field name="CellID" source="TextInput:" type="Int32" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="121">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="565" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="RowID" />
+                <Field field="ColID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="NRowID" />
+                <Field field="NColID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_CellID" selected="True" rename="NCellID" input="Left_" />
+                    <SelectField field="Left_RowID" selected="False" input="Left_" />
+                    <SelectField field="Left_ColID" selected="False" input="Left_" />
+                    <SelectField field="Left_data" selected="False" rename="NCellData" input="Left_" />
+                    <SelectField field="Left_CellValue" selected="True" rename="NCellvalue" input="Left_" />
+                    <SelectField field="Right_RowID" selected="False" input="Right_" />
+                    <SelectField field="Right_ColID" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="data" size="1" source="TextInput:" type="String" />
+                <Field name="CellValue" size="3" source="TextInput:" type="V_String" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="RowID" />
+                <Field field="ColID" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="NCellID" source="TextInput:" type="Byte" />
+                <Field name="NCellvalue" size="3" source="TextInput:" type="V_String" />
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="NRowID" />
+                <Field field="NColID" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="411">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+            <Position x="112" y="107" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UseFileInput value="False" />
+              <Name>Input406</Name>
+              <Abbrev />
+              <ShowFieldMap value="True" />
+              <Optional value="False" />
+              <TextInput>
+                <Configuration>
+                  <NumRows value="77" />
+                  <Fields>
+                    <Field name="CellID" />
+                    <Field name="RowID" />
+                    <Field name="ColID" />
+                    <Field name="data" />
+                    <Field name="CellValue" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>1</c>
+                      <c>1</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>2</c>
+                      <c>1</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>3</c>
+                      <c>1</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>4</c>
+                      <c>1</c>
+                      <c>4</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>5</c>
+                      <c>1</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>6</c>
+                      <c>1</c>
+                      <c>6</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>7</c>
+                      <c>1</c>
+                      <c>7</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>8</c>
+                      <c>1</c>
+                      <c>8</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>9</c>
+                      <c>1</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>10</c>
+                      <c>1</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>11</c>
+                      <c>1</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>12</c>
+                      <c>2</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>13</c>
+                      <c>2</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>14</c>
+                      <c>2</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>15</c>
+                      <c>2</c>
+                      <c>4</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>16</c>
+                      <c>2</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>17</c>
+                      <c>2</c>
+                      <c>6</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>18</c>
+                      <c>2</c>
+                      <c>7</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>19</c>
+                      <c>2</c>
+                      <c>8</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>20</c>
+                      <c>2</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>21</c>
+                      <c>2</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>22</c>
+                      <c>2</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>23</c>
+                      <c>3</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>24</c>
+                      <c>3</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>25</c>
+                      <c>3</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>26</c>
+                      <c>3</c>
+                      <c>4</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>27</c>
+                      <c>3</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>28</c>
+                      <c>3</c>
+                      <c>6</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>29</c>
+                      <c>3</c>
+                      <c>7</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>30</c>
+                      <c>3</c>
+                      <c>8</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>31</c>
+                      <c>3</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>32</c>
+                      <c>3</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>33</c>
+                      <c>3</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>34</c>
+                      <c>4</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>35</c>
+                      <c>4</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>36</c>
+                      <c>4</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>37</c>
+                      <c>4</c>
+                      <c>4</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>38</c>
+                      <c>4</c>
+                      <c>5</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>39</c>
+                      <c>4</c>
+                      <c>6</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>40</c>
+                      <c>4</c>
+                      <c>7</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>41</c>
+                      <c>4</c>
+                      <c>8</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>42</c>
+                      <c>4</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>43</c>
+                      <c>4</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>44</c>
+                      <c>4</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>45</c>
+                      <c>5</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>46</c>
+                      <c>5</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>47</c>
+                      <c>5</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>48</c>
+                      <c>5</c>
+                      <c>4</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>49</c>
+                      <c>5</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>50</c>
+                      <c>5</c>
+                      <c>6</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>51</c>
+                      <c>5</c>
+                      <c>7</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>52</c>
+                      <c>5</c>
+                      <c>8</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>53</c>
+                      <c>5</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>54</c>
+                      <c>5</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>55</c>
+                      <c>5</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>56</c>
+                      <c>6</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>57</c>
+                      <c>6</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>58</c>
+                      <c>6</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>59</c>
+                      <c>6</c>
+                      <c>4</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>60</c>
+                      <c>6</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>61</c>
+                      <c>6</c>
+                      <c>6</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>62</c>
+                      <c>6</c>
+                      <c>7</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>63</c>
+                      <c>6</c>
+                      <c>8</c>
+                      <c>#</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>64</c>
+                      <c>6</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>65</c>
+                      <c>6</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>66</c>
+                      <c>6</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>67</c>
+                      <c>7</c>
+                      <c>1</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>68</c>
+                      <c>7</c>
+                      <c>2</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>69</c>
+                      <c>7</c>
+                      <c>3</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>70</c>
+                      <c>7</c>
+                      <c>4</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>71</c>
+                      <c>7</c>
+                      <c>5</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>72</c>
+                      <c>7</c>
+                      <c>6</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>73</c>
+                      <c>7</c>
+                      <c>7</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>74</c>
+                      <c>7</c>
+                      <c>8</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>75</c>
+                      <c>7</c>
+                      <c>9</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>76</c>
+                      <c>7</c>
+                      <c>10</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                    <r>
+                      <c>77</c>
+                      <c>7</c>
+                      <c>11</c>
+                      <c>.</c>
+                      <c>0</c>
+                    </r>
+                  </Data>
+                </Configuration>
+              </TextInput>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Input</DefaultAnnotationText>
+              <Left value="True" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="data" size="1" source="TextInput:" type="String" />
+                <Field name="CellValue" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+        </Node>
+        <Node ToolID="414">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="385" y="106" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>NRowID</CreateField_Name>
+              <CreateField_Type>Int32</CreateField_Type>
+              <CreateField_Size>4</CreateField_Size>
+              <Expression_Init>[RowID]-1</Expression_Init>
+              <Expression_Cond>NRowID &lt;= [RowID]+1</Expression_Cond>
+              <Expression_Loop>NRowID  + 1</Expression_Loop>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="415">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="469" y="107" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>NColID</CreateField_Name>
+              <CreateField_Type>Int32</CreateField_Type>
+              <CreateField_Size>4</CreateField_Size>
+              <Expression_Init>[ColID] - 1</Expression_Init>
+              <Expression_Cond>NColID &lt;= [ColID]+1</Expression_Cond>
+              <Expression_Loop>NColID + 1</Expression_Loop>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="416">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="312" y="106" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="CellID" selected="True" />
+                <SelectField field="RowID" selected="True" />
+                <SelectField field="ColID" selected="True" />
+                <SelectField field="CellValue" selected="True" rename="CurrentCellValue" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="417">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="757" y="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="CellID" order="Ascending" />
+                <Field field="NRowID" order="Ascending" />
+                <Field field="NColID" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>CellID - Ascending
+NRowID - Ascending
+NColID - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NCellID" source="TextInput:" type="Byte" />
+                <Field name="NCellvalue" size="3" source="TextInput:" type="V_String" />
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="418">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="961" y="200" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="CellID" action="GroupBy" rename="CellID" />
+                <SummarizeField field="NCellvalue" action="Concat" rename="ConcatNCellValue_Bin">
+                  <Concat_Start />
+                  <Separator />
+                  <Concat_End />
+                </SummarizeField>
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="Summarize: GroupBy - CellID" type="Byte" />
+                <Field name="ConcatNCellValue_Bin" size="2147483647" source="Summarize: Concat - NCellvalue" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="CellID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="419">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1057" y="200" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="BinToInt([ConcatNCellValue_Bin])" field="ConcatNCellValue_Int" size="2" type="Int16" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[ConcatNCellValue_Int = BinToInt([ConcatNCellValue_Bin])
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="CellID" source="Summarize: GroupBy - CellID" type="Byte" />
+                <Field name="ConcatNCellValue_Bin" size="2147483647" source="Summarize: Concat - NCellvalue" type="V_String" />
+                <Field name="ConcatNCellValue_Int" source="Formula: BinToInt([ConcatNCellValue_Bin])" type="Int16" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="CellID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="420">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="877" y="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="if(IsNull([NCellvalue])) then [CurrentCellValue] else [NCellvalue] endif" field="NCellvalue" size="3" type="V_String" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>NCellvalue = if(IsNull([NCellvalue])) then [CurrentCellValue] else [NCellvalue] ...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NCellID" source="TextInput:" type="Byte" />
+                <Field name="NCellvalue" size="3" source="Formula: if(IsNull([NCellvalue])) then [CurrentCellValue] else [NCellvalue] endif" type="V_String" />
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="421">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="661" y="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NCellID" source="TextInput:" type="Byte" />
+                <Field name="NCellvalue" size="3" source="TextInput:" type="V_String" />
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="CurrentCellValue" size="3" source="TextInput:" type="V_String" />
+                <Field name="NRowID" type="Int32" />
+                <Field name="NColID" type="Int32" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="422">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1177" y="200" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="CellID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="CellID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_CellID" selected="True" input="Left_" />
+                    <SelectField field="Left_RowID" selected="True" input="Left_" />
+                    <SelectField field="Left_ColID" selected="True" input="Left_" />
+                    <SelectField field="Left_data" selected="True" input="Left_" />
+                    <SelectField field="Left_CellValue" selected="True" input="Left_" />
+                    <SelectField field="Right_CellID" selected="False" rename="Right_CellID" input="Right_" />
+                    <SelectField field="Right_ConcatNCellValue_Int" selected="True" rename="NValInt" input="Right_" />
+                    <SelectField field="*Unknown" selected="False" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="data" size="1" source="TextInput:" type="String" />
+                <Field name="CellValue" source="TextInput:" type="Byte" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="CellID" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="CellID" source="TextInput:" type="Byte" />
+                <Field name="RowID" source="TextInput:" type="Byte" />
+                <Field name="ColID" source="TextInput:" type="Byte" />
+                <Field name="data" size="1" source="TextInput:" type="String" />
+                <Field name="CellValue" source="TextInput:" type="Byte" />
+                <Field name="NValInt" source="Formula: BinToInt([ConcatNCellValue_Bin])" type="Int16" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="CellID" order="" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="CellID" source="Summarize: GroupBy - CellID" type="Byte" />
+                <Field name="ConcatNCellValue_Bin" size="2147483647" source="Summarize: Concat - NCellvalue" type="V_String" />
+                <Field name="ConcatNCellValue_Int" source="Formula: BinToInt([ConcatNCellValue_Bin])" type="Int16" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="CellID" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="407" Connection="Output" />
+      <Destination ToolID="121" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="415" Connection="Output" />
+      <Destination ToolID="121" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="407" Connection="Output" />
+      <Destination ToolID="416" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="408" Connection="Output" />
+      <Destination ToolID="412" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="121" Connection="Join" />
+      <Destination ToolID="421" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="121" Connection="Right" />
+      <Destination ToolID="421" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="411" Connection="Output" />
+      <Destination ToolID="407" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="411" Connection="Output" />
+      <Destination ToolID="422" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="419" Connection="Output" />
+      <Destination ToolID="422" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="414" Connection="Output" />
+      <Destination ToolID="415" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="416" Connection="Output" />
+      <Destination ToolID="414" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="417" Connection="Output" />
+      <Destination ToolID="420" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="418" Connection="Output" />
+      <Destination ToolID="419" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="420" Connection="Output" />
+      <Destination ToolID="418" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="420" Connection="Output" />
+      <Destination ToolID="408" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="421" Connection="Output" />
+      <Destination ToolID="417" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="422" Connection="Join" />
+      <Destination ToolID="423" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (423)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>AddNeighbours</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="14fb1e69-3dd6-40de-ac90-a7fa640309bd" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="14fb1e69-3dd6-40de-ac90-a7fa640309bd" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (410)</Name>
+          <ToolId value="410" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (411)</Name>
+              <ToolId value="411" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (412)</Name>
+              <ToolId value="412" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (423)</Description>
+              <Name>Macro Output (423)</Name>
+              <ToolId value="423" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAKzlJREFUeF7t3QeUJkX1NnD9m3PEnDDnrJhzxIAZxQwqmBBUQFGQKJIRUEBAkRxFBcEASM4gQRRBzIARzGLsb351zvOe2v7e2d2Z3Z15e6l7zj0dKnRV3adv3bpVXX2DrlGjgVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8FQA2ujwVADa6PBUANro8HQ9Q6s//vf/woPnep6LKxOy0NdQ8slWP/73/8WDjn/97//vYDgxgk498bxpJK6jStv7o+jftzwpNNyCdY0fkAbQfQF26dx9yaV6nr85z//GZ3X1L8OTXd/0mm5Buu//vWvAtBQwFqDdshUv4gooO3fX15ouQNrhAWo11xzTff973+/O/7447srrrii+8tf/lLCIkzHkOuFCXhR4XNNynLdddd1P/vZz7pTTjmlO//887vf/OY3BbAodeyXOff690MLC5tvWq7AmoYmsJNOOql78Ytf3K2wwgrdbW5zm+6e97xnt+aaa3YXXXTRKB4OeNm0wPzXv/61+9Of/tT97W9/6/785z+Xo3vCXP/9739fIP1cUJ5THwFz44037h784AeX+t3+9rfvVlpppW6//fbr/vGPf4zKV6dRT/VRP6xO2Hnq7ShO38afBBo0WCOMNCyQEghNc8c73rH7v//7v+6GN7xhd4Mb3KAcb3rTm3YveclLuh/96EcjzeNIuN/+9re7t771rd3rXve6wq9//esLr7LKKuX61a9+dbkW58wzzxw9ey4o5Uw9f/nLX3bveMc7upvd7GbdjW9841I3R/W89a1v3e21114lbl1HfOmll3brrLPOqH6vec1rute+9rWj67rehx566Aj0k0KD16wRhqPG/epXv9o99KEPHQkQaB/5yEeWa+DFT3nKU7qzzz57JNA//OEP3ROf+MQRsAPu6Y5PfepTu9///vdzJsi8hJ53+eWXd29/+9tL3W50oxuV+qy44ordXe9613KujM732GOPoikDcD3CWmuttUBdaq7vOX/I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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="412" Selected="True" />
+        <Tool ToolId="423" Selected="True" />
+        <Tool ToolId="411" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

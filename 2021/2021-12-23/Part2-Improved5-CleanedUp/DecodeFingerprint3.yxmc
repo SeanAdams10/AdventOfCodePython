@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input1</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="ScenarioID" />
+                <Field name="FPrint1" />
+                <Field name="FPrint2" />
+                <Field name="MinCost" />
+                <Field name="Depth" />
+                <Field name="DistanceToGoal" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>27714687500</c>
+                  <c>285164</c>
+                  <c>0</c>
+                  <c>15</c>
+                  <c>42000</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="FPrint1" source="TextInput:" type="Int64" />
+            <Field name="FPrint2" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="654" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output10</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings>
+        <Position x="174" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input2"><![CDATA[ScenarioID=ScenarioID
+Fingerprint=FPrint1
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Base10ToBase5 (14)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Answer">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="Fingerprint" source="Formula: floor([Fingerprint]/5)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Base10ToBase5.yxmc" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>ValueID</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-01-18 22:00:28</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2022-01-18 22:00:28</StartDate>
+              <EndDate>2022-01-18 22:00:28</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ValueID] &gt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="558" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ScenarioID" order="Ascending" />
+            <Field field="Node" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ScenarioID - Ascending
+Node - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings>
+        <Position x="174" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input2"><![CDATA[ScenarioID=ScenarioID
+Fingerprint=FPrint2
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Answer">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="Fingerprint" source="Formula: floor([Fingerprint]/5)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\Base10ToBase5.yxmc" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="366" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Engine.IterationNumber]+1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Node]+ 15" field="Node" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Node = [Node]+ 15
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScenarioID" source="TextInput:" type="Int32" />
+            <Field name="MinCost" source="TextInput:" type="Int32" />
+            <Field name="Depth" source="TextInput:" type="Int32" />
+            <Field name="DistanceToGoal" source="TextInput:" type="Int32" />
+            <Field name="ValueID" source="Formula: mod([Fingerprint],5)" type="Byte" />
+            <Field name="Node" source="Formula: [Node]+ 15" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="24" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="25" Connection="Input2" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="24" Connection="Answer" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="True" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Answer" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DecodeFingerprint3</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="6a8238f5-28e2-4fca-89cf-cd538b8b8501" />
+      <Telemetry>
+        <PreviousWorkflowId value="0dedbcc8-6eb0-4dfb-b1a3-cfa18eeb37ef" />
+        <OriginWorkflowId value="05a4f26b-178c-4491-9074-a635cec4fad1" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (9)</Name>
+          <ToolId value="9" />
+          <Questions>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (10)</Description>
+              <Name>Macro Output (10)</Name>
+              <ToolId value="10" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (1)</Name>
+              <ToolId value="1" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="1" Selected="True" />
+        <Tool ToolId="10" Selected="True" />
+        <Tool ToolId="25" Selected="True" />
+        <Tool ToolId="24" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

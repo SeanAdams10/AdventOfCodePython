@@ -1,0 +1,882 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input6</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]</c>
+                </r>
+                <r>
+                  <c>[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="41" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="95">
+      <GuiSettings>
+        <Position x="342" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">3-</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="41" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings>
+        <Position x="342" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input93"><![CDATA[data=data
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Adder (96)</Name>
+          <AnnotationText>Adder</AnnotationText>
+          <DefaultAnnotationText>Adder</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output98">
+          <RecordInfo>
+            <Field name="PostAdd" size="1073741823" source="Formula: '[' + [data1] + ',' + [data2] + ']'" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\Adder.yxmc" />
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings>
+        <Position x="522" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input103"><![CDATA[data=PostAdd
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>DoReduce (104)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Answer">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="Formula: '[' + [data1] + ',' + [data2] + ']' (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="rwk2">
+          <RecordInfo>
+            <Field name="Starting" size="999999" source="Formula: '[' + [data1] + ',' + [data2] + ']' (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field name="ExplodePair" size="2147483647" source="Summarize: Concat - data (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+            <Field name="Action" size="1073741823" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="V_WString" />
+            <Field name="Ending" size="999999" source="Formula: (Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="data" size="999999" source="Formula: (Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\DoReduce.yxmc" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings>
+        <Position x="714" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="714" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="618" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PostAdd" selected="True" rename="Data" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="Formula: '[' + [data1] + ',' + [data2] + ']' (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="109">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="798" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="882" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>Count</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 19:21:29</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2021-12-22 19:21:29</StartDate>
+              <EndDate>2021-12-22 19:21:29</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Count] &gt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1074" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1074" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="978" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="MaxDepth" selected="False" />
+            <SelectField field="CountSplit" selected="False" />
+            <SelectField field="Count" selected="False" />
+            <SelectField field="Data" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="978" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="222" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>1 - starting</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>1 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="534" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>2 - post adder</Name>
+          <Abbrev>2</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>2 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="162" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field name="iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="438" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PostAdd" size="1073741823" source="Formula: '[' + [data1] + ',' + [data2] + ']'" type="V_WString" />
+            <Field name="iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="822" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>3 - post reduce</Name>
+          <Abbrev>3</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>3 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="726" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="Formula: '[' + [data1] + ',' + [data2] + ']' (BatchMacro) (BatchMacro) (BatchMacro)" type="V_String" />
+            <Field name="iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1050" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>4 - post joinback</Name>
+          <Abbrev>4</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>4 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="954" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="CountSplit" source="(Multiple Sources) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="450" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PostAdd" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PostAdd" size="1073741823" source="Formula: '[' + [data1] + ',' + [data2] + ']'" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="90" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="data" selected="True" type="V_String" size="999999" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="134" Connection="Input93" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="95" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="106" Connection="Input8" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output98" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output98" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="138" Connection="Answer" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="106" Connection="Output9" />
+      <Destination ToolID="109" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="109" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="Output" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="Output" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="True" />
+      <Destination ToolID="114" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="False" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="114" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="126" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="138" Connection="Input103" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (111)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (112)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (120)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (121)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (124)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (126)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>AdderLoop</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="d75d6cb0-2857-4378-8f2a-1645f10eb210" />
+      <Telemetry>
+        <PreviousWorkflowId value="22345eb1-3a73-439b-91c4-142cf0adedb1" />
+        <OriginWorkflowId value="22345eb1-3a73-439b-91c4-142cf0adedb1" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (92)</Name>
+          <ToolId value="92" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (93)</Name>
+              <ToolId value="93" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (111)</Description>
+              <Name>Macro Output (111)</Name>
+              <ToolId value="111" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (112)</Description>
+              <Name>Macro Output (112)</Name>
+              <ToolId value="112" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (120)</Description>
+              <Name>Macro Output (120)</Name>
+              <ToolId value="120" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (121)</Description>
+              <Name>Macro Output (121)</Name>
+              <ToolId value="121" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (121)</Description>
+              <Name>Macro Output (124)</Name>
+              <ToolId value="124" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (121)</Description>
+              <Name>Macro Output (126)</Name>
+              <ToolId value="126" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input6</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="93" Selected="True" />
+        <Tool ToolId="95" Selected="True" />
+        <Tool ToolId="134" Selected="True" />
+        <Tool ToolId="106" Selected="True" />
+        <Tool ToolId="111" Selected="True" />
+        <Tool ToolId="112" Selected="True" />
+        <Tool ToolId="120" Selected="True" />
+        <Tool ToolId="121" Selected="True" />
+        <Tool ToolId="124" Selected="True" />
+        <Tool ToolId="126" Selected="True" />
+        <Tool ToolId="138" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

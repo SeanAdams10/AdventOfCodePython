@@ -1,0 +1,1003 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="307" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>CurrentPath</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="CurrentCave" />
+                <Field name="Path" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>start</c>
+                  <c>start</c>
+                </r>
+                <r>
+                  <c>A</c>
+                  <c>start-A-b-A</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>C Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentCave" size="5" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="149" y="259" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="FromCave" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CurrentCave" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Next Step in caves</AnnotationText>
+          <DefaultAnnotationText>Next Step in caves</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="FromCave" size="5" source="TextInput:" type="String" />
+            <Field name="ToCave" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="FromCave" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="FromCave" size="5" source="TextInput:" type="String" />
+            <Field name="ToCave" size="3" source="TextInput:" type="String" />
+            <Field name="CurrentCave" size="5" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="FromCave" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="CurrentCave" size="5" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="CurrentCave" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="281" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Cave" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ToCave" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_FromCave" selected="False" input="Right_" />
+                <SelectField field="Right_ToCave" selected="True" rename="CurrentCave" input="Right_" />
+                <SelectField field="Right_CurrentCave" selected="False" input="Right_" />
+                <SelectField field="Right_Path" selected="True" input="Right_" />
+                <SelectField field="Left_Cave" selected="False" input="Left_" />
+                <SelectField field="Left_MaxVisit" selected="True" input="Left_" />
+                <SelectField field="Left_CaveType" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Cave" size="5" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cave" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="FromCave" size="5" source="TextInput:" type="String" />
+            <Field name="ToCave" size="3" source="TextInput:" type="String" />
+            <Field name="CurrentCave" size="5" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ToCave" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="120">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="942" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[VisitCount]&lt;=[MaxVisit]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[VisitCount]&lt;=[MaxVisit]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="846" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" field="VisitCount" size="8" type="Int64" />
+            <FormulaField expression="[Path] + '-' + [CurrentCave]" field="Path" size="200" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>VisitCount = if isnull([VisitCount]) then 1 else [VisitCount]+1 endif
+Path = [Pa...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="569" y="199" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="RecordID" action="GroupBy" rename="RecordID" />
+            <SummarizeField field="Path" action="GroupBy" rename="Cave" />
+            <SummarizeField field="CurrentCave" action="Count" rename="VisitCount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field description="TextToColumns: Parsed from Path" name="Cave" size="11" source="Summarize: GroupBy - Path" type="String" />
+            <Field name="VisitCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+            <Field field="Path" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="377" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="124">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="485" y="199" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>Path</Field>
+          <Delimeters value="-" />
+          <NumFields value="1" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field description="TextToColumns: Parsed from Path" name="Path" size="11" source="TextToColumns: Parsed from Path" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="653" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+            <Field field="CurrentCave" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RecordID" />
+            <Field field="Cave" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RecordID" selected="False" rename="Right_RecordID" input="Right_" />
+                <SelectField field="Right_Cave" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+            <Field field="CurrentCave" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+            <Field field="CurrentCave" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field description="TextToColumns: Parsed from Path" name="Cave" size="11" source="Summarize: GroupBy - Path" type="String" />
+            <Field name="VisitCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+            <Field field="Cave" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="762" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1494" y="199" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="CurrentCave" selected="True" />
+            <SelectField field="Path" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1398" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>CurrentCave</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-14 16:02:17</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>end</Operand>
+              <StartDate>2021-12-14 16:02:17</StartDate>
+              <EndDate>2021-12-14 16:02:17</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[CurrentCave] = "end"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+            <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+            <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1590" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="115" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Caves</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="6" />
+              <Fields>
+                <Field name="Cave" />
+                <Field name="MaxVisit" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>A</c>
+                  <c>999</c>
+                </r>
+                <r>
+                  <c>b</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>c</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>d</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>end</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>start</c>
+                  <c>0</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>C Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cave" size="5" source="TextInput:" type="String" />
+            <Field name="MaxVisit" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="201" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Paths</Name>
+          <Abbrev>P</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="7" />
+              <Fields>
+                <Field name="FromCave" />
+                <Field name="ToCave" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>start</c>
+                  <c>A</c>
+                </r>
+                <r>
+                  <c>start</c>
+                  <c>b</c>
+                </r>
+                <r>
+                  <c>A</c>
+                  <c>c</c>
+                </r>
+                <r>
+                  <c>A</c>
+                  <c>b</c>
+                </r>
+                <r>
+                  <c>b</c>
+                  <c>d</c>
+                </r>
+                <r>
+                  <c>A</c>
+                  <c>end</c>
+                </r>
+                <r>
+                  <c>b</c>
+                  <c>end</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FromCave" size="5" source="TextInput:" type="String" />
+            <Field name="ToCave" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1590" y="199" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1025" y="66" width="361" height="180" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Add back cases with one 2x visit to small cave</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="143">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1206" y="115" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+                <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+                <Field name="MaxVisit" source="TextInput:" type="Int16" />
+                <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="144">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="1302" y="115" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="RecordID" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Unique">
+              <RecordInfo>
+                <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+                <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+                <Field name="MaxVisit" source="TextInput:" type="Int16" />
+                <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="RecordID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Duplicates">
+              <RecordInfo>
+                <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+                <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+                <Field name="MaxVisit" source="TextInput:" type="Int16" />
+                <Field name="VisitCount" source="Formula: if isnull([VisitCount]) then 1 else [VisitCount]+1 endif" type="Int64" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="RecordID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="155">
+          <GuiSettings>
+            <Position x="1050" y="162" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Rejected"><![CDATA[RecordID=RecordID
+Path=Path
+CurrentCave=CurrentCave
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>CheckForSingleSmallCaveVisit (145)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output143">
+              <RecordInfo>
+                <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="CurrentCave" size="3" source="TextInput:" type="String" />
+                <Field name="Path" size="11" source="Formula: [Path] + '-' + [CurrentCave]" type="String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="RecordID" order="" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro="d:\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-12\Part2\CheckForSingleSmallCaveVisit.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="116" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="116" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="Join" />
+      <Destination ToolID="118" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="118" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="Join" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="120" Connection="True" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="155" Connection="Output143" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="False" />
+      <Destination ToolID="155" Connection="Rejected" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="126" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="126" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="124" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="124" Connection="Output" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="126" Connection="Left" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="126" Connection="Join" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="134" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="False" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="True" />
+      <Destination ToolID="130" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="144" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="144" Connection="Unique" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>PathWalker</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="ebeab9f1-fca9-4fb3-b6e3-fb6890b209a5" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="ebeab9f1-fca9-4fb3-b6e3-fb6890b209a5" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (131)</Name>
+          <ToolId value="131" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (132)</Name>
+              <ToolId value="132" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (133)</Name>
+              <ToolId value="133" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (130)</Name>
+              <ToolId value="130" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (134)</Description>
+              <Name>Macro Output (134)</Name>
+              <ToolId value="134" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (115)</Name>
+              <ToolId value="115" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>CurrentPath</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="115" Selected="True" />
+        <Tool ToolId="130" Selected="True" />
+        <Tool ToolId="132" Selected="True" />
+        <Tool ToolId="133" Selected="True" />
+        <Tool ToolId="134" Selected="True" />
+        <Tool ToolId="155" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

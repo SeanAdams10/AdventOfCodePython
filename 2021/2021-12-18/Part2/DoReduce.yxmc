@@ -1,0 +1,681 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input103</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="3" />
+              <Fields>
+                <Field name="ExperimentID" />
+                <Field name="PostAdd" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>[[[[[1,1],[2,2]],[3,3]],[4,4]],[5,5]]</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>[[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]],[7,[[[3,7],[4,3]],[[6,3],[8,8]]]]]</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>[1,10]</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="PostAdd" size="77" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="918" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="918" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings>
+        <Position x="470" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input1"><![CDATA[ExperimentID=ExperimentID
+data=data
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Splitter (109)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\Splitter.yxmc" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="282" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>MaxDepth</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 21:28:08</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>4</Operand>
+              <StartDate>2021-12-22 21:28:08</StartDate>
+              <EndDate>2021-12-22 21:28:08</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[MaxDepth] &gt; 4</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="CountSplit" source="Formula: if isnull([CountSplit]) then 0 else [CountSplit] endif" type="Int64" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="CountSplit" source="Formula: if isnull([CountSplit]) then 0 else [CountSplit] endif" type="Int64" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="378" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>CountSplit</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 21:28:14</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2021-12-22 21:28:14</StartDate>
+              <EndDate>2021-12-22 21:28:14</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[CountSplit] &gt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="CountSplit" source="Formula: if isnull([CountSplit]) then 0 else [CountSplit] endif" type="Int64" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="CountSplit" source="Formula: if isnull([CountSplit]) then 0 else [CountSplit] endif" type="Int64" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="750" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="999999" source="(Multiple Sources)" type="V_String" />
+            <Field name="Action" size="40" source="Formula: (Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="122">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="522" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="explodedData" selected="True" rename="data" type="V_String" size="999999" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="999999" source="Formula: [Pre] + '0' + [Post]" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="123">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="562" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="data" selected="True" size="999999" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="999999" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings>
+        <Position x="206" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input1"><![CDATA[ExperimentID=ExperimentID
+data=PostAdd
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>ConfirmReduceNeeded (112)</Name>
+          <AnnotationText>Explode / Split needed?</AnnotationText>
+          <DefaultAnnotationText>Explode / Split needed?</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\ConfirmReduceNeeded.yxmc" />
+    </Node>
+    <Node ToolID="151">
+      <GuiSettings>
+        <Position x="414" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input113"><![CDATA[ExperimentID=ExperimentID
+data=data
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>explode (119)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\explode.yxmc" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="834" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="CountSplit" selected="True" type="Int32" size="4" />
+            <SelectField field="data" selected="True" type="V_String" forced="True" size="999999" />
+            <SelectField field="MaxDepth" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="CountSplit" source="Formula: if isnull([CountSplit]) then 0 else [CountSplit] endif" type="Int32" />
+            <Field name="data" size="999999" source="TextInput:" type="V_String" />
+            <Field description="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" name="MaxDepth" source="Formula: if isnull([Row-1:depthcount]) then 1&#xA;elseif [data] = '[' then [Row-1:depthcount] + 1&#xA;elseif [data] = ']' then [Row-1:depthcount] -1&#xA;else [Row-1:depthcount]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="834" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ExperimentID" selected="True" />
+            <SelectField field="data" selected="True" rename="PostAdd" type="V_String" forced="True" size="999999" />
+            <SelectField field="Action" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="PostAdd" size="999999" source="(Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="135">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="130" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PostAdd" selected="True" size="999999" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="PostAdd" size="999999" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="140">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="'Explode'" field="Action" size="40" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Action = 'Explode'
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="999999" source="Formula: [Pre] + '0' + [Post]" type="V_String" />
+            <Field name="Action" size="40" source="Formula: 'Explode'" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="141">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="654" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="'Split'" field="Action" size="40" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Action = 'Split'
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="999999" source="Summarize: Concat - data" type="V_String" />
+            <Field name="Action" size="40" source="Formula: 'Split'" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="104" Connection="Output" />
+      <Destination ToolID="135" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="159" Connection="Output10" />
+      <Destination ToolID="123" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="True" />
+      <Destination ToolID="151" Connection="Input113" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="False" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="True" />
+      <Destination ToolID="159" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="False" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="133" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="122" Connection="Output" />
+      <Destination ToolID="140" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="123" Connection="Output" />
+      <Destination ToolID="141" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="148" Connection="Output13" />
+      <Destination ToolID="113" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="151" Connection="Output118" />
+      <Destination ToolID="122" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="135" Connection="Output" />
+      <Destination ToolID="148" Connection="Input1" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="140" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="141" Connection="Output" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (106)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (107)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DoReduce</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="c0a98b90-a413-49ed-8157-69110a5eb47f" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="c0a98b90-a413-49ed-8157-69110a5eb47f" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (103)</Name>
+          <ToolId value="103" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (104)</Name>
+              <ToolId value="104" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (106)</Description>
+              <Name>Macro Output (106)</Name>
+              <ToolId value="106" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (107)</Description>
+              <Name>Macro Output (107)</Name>
+              <ToolId value="107" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input103</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="10000000" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="104" Selected="True" />
+        <Tool ToolId="106" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="148" Selected="True" />
+        <Tool ToolId="151" Selected="True" />
+        <Tool ToolId="159" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

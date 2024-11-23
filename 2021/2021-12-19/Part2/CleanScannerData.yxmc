@@ -1,0 +1,918 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="151" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="--- scanner (\d*) ---" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>data</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="ScannerID" type="Int64" size="8" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="TextInput:" type="String" />
+            <Field description="RegEx: Parsed from data" name="ScannerID" source="RegEx: Parsed from data" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="90">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="248" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>ScannerID</UpdateField_Name>
+          <CreateField_Name>New Field</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if not(isnull([ScannerID])) then [ScannerID]
+else [Row-1:ScannerID]
+endif</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>if not(isnull([ScannerID])) then [ScannerID]
+else [Row-1:Scan...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="TextInput:" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="91">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="346" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>NotContains</Operator>
+            <Field>data</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-26 10:10:23</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>---</Operand>
+              <StartDate>2021-12-26 10:10:23</StartDate>
+              <EndDate>2021-12-26 10:10:23</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!Contains([data],"---")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="data" size="17" source="TextInput:" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="data" size="17" source="TextInput:" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="637" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <ErrorHandling>Last</ErrorHandling>
+          <RootName>
+          </RootName>
+          <Delimeters value="," />
+          <NumFields value="3" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="1" size="17" source="TextToColumns: Parsed from data" type="String" />
+            <Field description="TextToColumns: Parsed from data" name="2" size="17" source="TextToColumns: Parsed from data" type="String" />
+            <Field description="TextToColumns: Parsed from data" name="3" size="17" source="TextToColumns: Parsed from data" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="734" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="1" selected="True" rename="x" type="Int32" size="4" />
+            <SelectField field="2" selected="True" rename="y" type="Int32" size="4" />
+            <SelectField field="3" selected="True" rename="z" type="Int32" size="4" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="x" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="y" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="z" source="TextToColumns: Parsed from data" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="94">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="95">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input6</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="132" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>--- scanner 0 ---</c>
+                </r>
+                <r>
+                  <c>404,-588,-901</c>
+                </r>
+                <r>
+                  <c>528,-643,409</c>
+                </r>
+                <r>
+                  <c>-838,591,734</c>
+                </r>
+                <r>
+                  <c>390,-675,-793</c>
+                </r>
+                <r>
+                  <c>-537,-823,-458</c>
+                </r>
+                <r>
+                  <c>-485,-357,347</c>
+                </r>
+                <r>
+                  <c>-345,-311,381</c>
+                </r>
+                <r>
+                  <c>-661,-816,-575</c>
+                </r>
+                <r>
+                  <c>-876,649,763</c>
+                </r>
+                <r>
+                  <c>-618,-824,-621</c>
+                </r>
+                <r>
+                  <c>553,345,-567</c>
+                </r>
+                <r>
+                  <c>474,580,667</c>
+                </r>
+                <r>
+                  <c>-447,-329,318</c>
+                </r>
+                <r>
+                  <c>-584,868,-557</c>
+                </r>
+                <r>
+                  <c>544,-627,-890</c>
+                </r>
+                <r>
+                  <c>564,392,-477</c>
+                </r>
+                <r>
+                  <c>455,729,728</c>
+                </r>
+                <r>
+                  <c>-892,524,684</c>
+                </r>
+                <r>
+                  <c>-689,845,-530</c>
+                </r>
+                <r>
+                  <c>423,-701,434</c>
+                </r>
+                <r>
+                  <c>7,-33,-71</c>
+                </r>
+                <r>
+                  <c>630,319,-379</c>
+                </r>
+                <r>
+                  <c>443,580,662</c>
+                </r>
+                <r>
+                  <c>-789,900,-551</c>
+                </r>
+                <r>
+                  <c>459,-707,401</c>
+                </r>
+                <r>
+                  <c>--- scanner 1 ---</c>
+                </r>
+                <r>
+                  <c>686,422,578</c>
+                </r>
+                <r>
+                  <c>605,423,415</c>
+                </r>
+                <r>
+                  <c>515,917,-361</c>
+                </r>
+                <r>
+                  <c>-336,658,858</c>
+                </r>
+                <r>
+                  <c>95,138,22</c>
+                </r>
+                <r>
+                  <c>-476,619,847</c>
+                </r>
+                <r>
+                  <c>-340,-569,-846</c>
+                </r>
+                <r>
+                  <c>567,-361,727</c>
+                </r>
+                <r>
+                  <c>-460,603,-452</c>
+                </r>
+                <r>
+                  <c>669,-402,600</c>
+                </r>
+                <r>
+                  <c>729,430,532</c>
+                </r>
+                <r>
+                  <c>-500,-761,534</c>
+                </r>
+                <r>
+                  <c>-322,571,750</c>
+                </r>
+                <r>
+                  <c>-466,-666,-811</c>
+                </r>
+                <r>
+                  <c>-429,-592,574</c>
+                </r>
+                <r>
+                  <c>-355,545,-477</c>
+                </r>
+                <r>
+                  <c>703,-491,-529</c>
+                </r>
+                <r>
+                  <c>-328,-685,520</c>
+                </r>
+                <r>
+                  <c>413,935,-424</c>
+                </r>
+                <r>
+                  <c>-391,539,-444</c>
+                </r>
+                <r>
+                  <c>586,-435,557</c>
+                </r>
+                <r>
+                  <c>-364,-763,-893</c>
+                </r>
+                <r>
+                  <c>807,-499,-711</c>
+                </r>
+                <r>
+                  <c>755,-354,-619</c>
+                </r>
+                <r>
+                  <c>553,889,-390</c>
+                </r>
+                <r>
+                  <c>--- scanner 2 ---</c>
+                </r>
+                <r>
+                  <c>649,640,665</c>
+                </r>
+                <r>
+                  <c>682,-795,504</c>
+                </r>
+                <r>
+                  <c>-784,533,-524</c>
+                </r>
+                <r>
+                  <c>-644,584,-595</c>
+                </r>
+                <r>
+                  <c>-588,-843,648</c>
+                </r>
+                <r>
+                  <c>-30,6,44</c>
+                </r>
+                <r>
+                  <c>-674,560,763</c>
+                </r>
+                <r>
+                  <c>500,723,-460</c>
+                </r>
+                <r>
+                  <c>609,671,-379</c>
+                </r>
+                <r>
+                  <c>-555,-800,653</c>
+                </r>
+                <r>
+                  <c>-675,-892,-343</c>
+                </r>
+                <r>
+                  <c>697,-426,-610</c>
+                </r>
+                <r>
+                  <c>578,704,681</c>
+                </r>
+                <r>
+                  <c>493,664,-388</c>
+                </r>
+                <r>
+                  <c>-671,-858,530</c>
+                </r>
+                <r>
+                  <c>-667,343,800</c>
+                </r>
+                <r>
+                  <c>571,-461,-707</c>
+                </r>
+                <r>
+                  <c>-138,-166,112</c>
+                </r>
+                <r>
+                  <c>-889,563,-600</c>
+                </r>
+                <r>
+                  <c>646,-828,498</c>
+                </r>
+                <r>
+                  <c>640,759,510</c>
+                </r>
+                <r>
+                  <c>-630,509,768</c>
+                </r>
+                <r>
+                  <c>-681,-892,-333</c>
+                </r>
+                <r>
+                  <c>673,-379,-804</c>
+                </r>
+                <r>
+                  <c>-742,-814,-386</c>
+                </r>
+                <r>
+                  <c>577,-820,562</c>
+                </r>
+                <r>
+                  <c>--- scanner 3 ---</c>
+                </r>
+                <r>
+                  <c>-589,542,597</c>
+                </r>
+                <r>
+                  <c>605,-692,669</c>
+                </r>
+                <r>
+                  <c>-500,565,-823</c>
+                </r>
+                <r>
+                  <c>-660,373,557</c>
+                </r>
+                <r>
+                  <c>-458,-679,-417</c>
+                </r>
+                <r>
+                  <c>-488,449,543</c>
+                </r>
+                <r>
+                  <c>-626,468,-788</c>
+                </r>
+                <r>
+                  <c>338,-750,-386</c>
+                </r>
+                <r>
+                  <c>528,-832,-391</c>
+                </r>
+                <r>
+                  <c>562,-778,733</c>
+                </r>
+                <r>
+                  <c>-938,-730,414</c>
+                </r>
+                <r>
+                  <c>543,643,-506</c>
+                </r>
+                <r>
+                  <c>-524,371,-870</c>
+                </r>
+                <r>
+                  <c>407,773,750</c>
+                </r>
+                <r>
+                  <c>-104,29,83</c>
+                </r>
+                <r>
+                  <c>378,-903,-323</c>
+                </r>
+                <r>
+                  <c>-778,-728,485</c>
+                </r>
+                <r>
+                  <c>426,699,580</c>
+                </r>
+                <r>
+                  <c>-438,-605,-362</c>
+                </r>
+                <r>
+                  <c>-469,-447,-387</c>
+                </r>
+                <r>
+                  <c>509,732,623</c>
+                </r>
+                <r>
+                  <c>647,635,-688</c>
+                </r>
+                <r>
+                  <c>-868,-804,481</c>
+                </r>
+                <r>
+                  <c>614,-800,639</c>
+                </r>
+                <r>
+                  <c>595,780,-596</c>
+                </r>
+                <r>
+                  <c>--- scanner 4 ---</c>
+                </r>
+                <r>
+                  <c>727,592,562</c>
+                </r>
+                <r>
+                  <c>-293,-554,779</c>
+                </r>
+                <r>
+                  <c>441,611,-461</c>
+                </r>
+                <r>
+                  <c>-714,465,-776</c>
+                </r>
+                <r>
+                  <c>-743,427,-804</c>
+                </r>
+                <r>
+                  <c>-660,-479,-426</c>
+                </r>
+                <r>
+                  <c>832,-632,460</c>
+                </r>
+                <r>
+                  <c>927,-485,-438</c>
+                </r>
+                <r>
+                  <c>408,393,-506</c>
+                </r>
+                <r>
+                  <c>466,436,-512</c>
+                </r>
+                <r>
+                  <c>110,16,151</c>
+                </r>
+                <r>
+                  <c>-258,-428,682</c>
+                </r>
+                <r>
+                  <c>-393,719,612</c>
+                </r>
+                <r>
+                  <c>-211,-452,876</c>
+                </r>
+                <r>
+                  <c>808,-476,-593</c>
+                </r>
+                <r>
+                  <c>-575,615,604</c>
+                </r>
+                <r>
+                  <c>-485,667,467</c>
+                </r>
+                <r>
+                  <c>-680,325,-822</c>
+                </r>
+                <r>
+                  <c>-627,-443,-432</c>
+                </r>
+                <r>
+                  <c>872,-547,-609</c>
+                </r>
+                <r>
+                  <c>833,512,582</c>
+                </r>
+                <r>
+                  <c>807,604,487</c>
+                </r>
+                <r>
+                  <c>839,-516,451</c>
+                </r>
+                <r>
+                  <c>891,-625,532</c>
+                </r>
+                <r>
+                  <c>-652,-548,-490</c>
+                </r>
+                <r>
+                  <c>30,-46,-14</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="96">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1038" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output96</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="97">
+      <GuiSettings>
+        <Position x="443" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"data","ScannerID"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">True</Value>
+          <Value name="Check Box (122)">True</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output26">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="98">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="540" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>not(isempty([data]))</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>not(isempty([data]))</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="99">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="832" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="ScannerID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="17" source="Formula: [_CurrentField_]" type="String" />
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+            <Field description="TextToColumns: Parsed from data" name="x" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="y" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="z" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="100">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="930" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="data" selected="False" />
+            <SelectField field="ScannerID" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="BeaconID" type="Int32" forced="True" size="4" />
+            <SelectField field="x" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="y" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="z" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif" name="ScannerID" source="Formula: if not(isnull([ScannerID])) then [ScannerID]&#xA;else [Row-1:ScannerID]&#xA;endif (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int32" />
+            <Field name="BeaconID" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="x" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="y" source="TextToColumns: Parsed from data" type="Int32" />
+            <Field description="TextToColumns: Parsed from data" name="z" source="TextToColumns: Parsed from data" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="89" Connection="Output" />
+      <Destination ToolID="90" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="90" Connection="Output" />
+      <Destination ToolID="91" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="91" Connection="True" />
+      <Destination ToolID="97" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="92" Connection="Output" />
+      <Destination ToolID="93" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="99" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="97" Connection="Output26" />
+      <Destination ToolID="98" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="True" />
+      <Destination ToolID="92" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="100" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="100" Connection="Output" />
+      <Destination ToolID="96" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (96)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>CleanScannerData</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="6520fddd-0cba-4333-bf5e-c9fc6a05f466" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="6520fddd-0cba-4333-bf5e-c9fc6a05f466" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (94)</Name>
+          <ToolId value="94" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (95)</Name>
+              <ToolId value="95" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (96)</Description>
+              <Name>Macro Output (96)</Name>
+              <ToolId value="96" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="95" Selected="True" />
+        <Tool ToolId="96" Selected="True" />
+        <Tool ToolId="97" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,477 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input1</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="ExperimentID" />
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>[[[[0,7],4],[15,[0,13]]],[1,1]]</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>[10,1]</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="942" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output10</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="210" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="294" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="\w+|\W" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="582" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>data</UpdateField_Name>
+          <CreateField_Name>PreOnPostFlag</CreateField_Name>
+          <CreateField_Type>V_String</CreateField_Type>
+          <CreateField_Size>90</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isnull([Row-1:PreOnPostFlag]) 
+    then 'Pre'
+elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then
+    'Pre'
+elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then
+    'On'
+else 'Post'
+endif</Expression>
+          <GroupByFields>
+            <Field field="ExperimentID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>if isnull([Row-1:PreOnPostFlag]) 
+    then 'Pre'
+elseif [Row-...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+            <Field name="IsSplitElligible" source="Formula: IsInteger([data])&#xA;and tonumber([data])&gt;=10" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="486" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+            <Field name="IsSplitElligible" source="Formula: IsInteger([data])&#xA;and tonumber([data])&gt;=10" type="Bool" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="390" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IsInteger([data])&#xA;and tonumber([data])&gt;=10" field="IsSplitElligible" size="1" type="Bool" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IsSplitElligible = IsInteger([data])
+and tonumber([data])>=10
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="TextInput:" type="V_String" />
+            <Field name="IsSplitElligible" source="Formula: IsInteger([data])&#xA;and tonumber([data])&gt;=10" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="678" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [PreOnPostFlag]='On' &#xA;then&#xA;     '[' + tostring(floor(tonumber([data])/2)) + ',' +  tostring(ceil(tonumber([data])/2)) +  ']'&#xA;else&#xA;    [data]&#xA;endif&#xA;" field="data" size="31" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>data = if [PreOnPostFlag]='On' 
+then
+     '[' + tostring(floor(tonumber([data])/...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="Formula: if [PreOnPostFlag]='On' &#xA;then&#xA;     '[' + tostring(floor(tonumber([data])/2)) + ',' +  tostring(ceil(tonumber([data])/2)) +  ']'&#xA;else&#xA;    [data]&#xA;endif&#xA;" type="V_String" />
+            <Field name="IsSplitElligible" source="Formula: IsInteger([data])&#xA;and tonumber([data])&gt;=10" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="774" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="ExperimentID" source="TextInput:" type="Byte" />
+            <Field name="data" size="31" source="Formula: if [PreOnPostFlag]='On' &#xA;then&#xA;     '[' + tostring(floor(tonumber([data])/2)) + ',' +  tostring(ceil(tonumber([data])/2)) +  ']'&#xA;else&#xA;    [data]&#xA;endif&#xA;" type="V_String" />
+            <Field name="IsSplitElligible" source="Formula: IsInteger([data])&#xA;and tonumber([data])&gt;=10" type="Bool" />
+            <Field description="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" name="PreOnPostFlag" size="90" source="Formula: if isnull([Row-1:PreOnPostFlag]) &#xA;    then 'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and (not([IsSplitElligible]))   then&#xA;    'Pre'&#xA;elseif [Row-1:PreOnPostFlag] = 'Pre' and [isSplitElligible] then&#xA;    'On'&#xA;else 'Post'&#xA;endif" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="858" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ExperimentID" action="GroupBy" rename="ExperimentID" />
+            <SummarizeField field="data" action="Concat" rename="data">
+              <Concat_Start />
+              <Separator />
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ExperimentID" source="Summarize: GroupBy - ExperimentID" type="Byte" />
+            <Field name="data" size="2147483647" source="Summarize: Concat - data" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ExperimentID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (1)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (10)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Splitter</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="0040fa3f-4830-4d3f-a8c6-78ea0191a723" />
+      <Telemetry>
+        <PreviousWorkflowId value="9eb78c2d-9bd3-4076-90ed-83847c38e0e4" />
+        <OriginWorkflowId value="13fcfc81-84b0-4e4d-8023-c9e9f3a8b7f7" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (12)</Name>
+          <ToolId value="12" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (1)</Name>
+              <ToolId value="1" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (10)</Name>
+              <ToolId value="10" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvwAADr8BOAVTJAAAJ0VJREFUeF7tXQlwFVW6pqZevXpVY9V7Nc8ZXEbZSRQdZZ64PIRxRp814xvKqdHnODij7LITERwUBFFUFFBQUdlCICEBQsKSsIYlQAhbSNgSlgBhTUhISMhCNvB/5zvdnfS9t/ve7r69jvev+oYxN8vp7q//7z/n/P9/2pBH7Nq1a3Tr1i3xv9xrzU2NVF9XI/6Xu62uro5u3Lgh/pd77YcffqDr16+T68na1NREFRUV1NzcLH7FWWtsvk3VNxvpek09lV6vpaKSKjp1sYIKzpfTkcIrdCD/PB0+U0pHzpbRsXNllH/+Gp28WE5niyupuLyGKqrr6UZdA9U3Offi4eHX1tZSVVWV+BX3GsZaU1NDDQ0N7iYriIo33ymiglQFRWWUkXOO5q0/Qu/HZ9PIeZn0+uwMemXmJurzcTr9/oM19OzEFPrN+ETq+dYS6jluOT09fiVH73eS6XfvrqJnGJ6fvJr+OC2NXvp8I/39yy009NsdNCEui+asyaW07EI6XHiVkx8Px0qTiAp4weCoQFSYq8lqt0e9WllH6XsLaVLsbnqSEe2OAXF058A4ajc4jrq+uZQeGLqUotm/0fhX9v+jBi2krv2/Y/+9hH+PP1q+H5B+Xvp9DB2GLKG2g+LY31tMD4xJotFzt9Oyrce4N75121zyQvqrq6vF/3Kv4aVC6Cd/eV1JVhAUA7WKqLdu36arzIsdZlIdv62AJizaRX+YlEr3MrLczdCBkVMiUyhED15EUQPm0QMqRDWCToOXtIylF/PQI+duo3kbjlL2iWK6WHaDGpr03xfJo3pF+vFCNTY2il8RzHVklaTf7MkUbkBJRQ2t2nWKxi7Ooj9/up4ef2s5J0Z75tW6MO+mRJxgiGYeVSBqnOLnZqArewnw8gDdRy2jF6aupeHzd9KizcfpzJXrPp5HzSSiekH6MdbKysoW6Zebq8iKgWLWZ6ZHrW1opr35l2nkN1up66hEih4WzyU9SqPnVAMnKpN+Mz2qFmDcGH/00HjqODyB/sTi4LQ9p6my1tcLyQ3Sj0mK2w3PH6EfHJaSuYasZkp/dV0jnbxUQXPT8tgkZyXd2S+WOhvwnGoQpP97xc/sRld2XXch1h26hKYmZNOBUyVUceMmvw94+CCqV6Qfiuov/XJzBVnxJuGGhkvUypoGWpp5ggZ8s41JfBKXTsio0kM2Cjuk3yhwvY+wUOHVmZtoxrrDlH+umMV+3vCoeP719fXiV5TNcbLeZpMdxCjhEBVrnrEbDtOj41ZS1PB47kW1TpD0wCnp1wOsLiD+7sK8/6/HxNPH8XvoUpl7Z/+S9AfzqJI5SlZMooxKP5Z0Sivr2Gw+n3qMXU73s0mSFQSV4CbpD4XoQQuoK/P+uB8dmbdtz/79OGkfnS2poqbm2+IddN7gqCD9ajGqvzlG1nCkH57imw1H6Q+TV9MvB8axSYe1ns7N0u+LJRQFog6c7/N1eNt27GXuOW4FTV5xkI6eK6PmW86SVqv0y80RssKjGiEqvn/VzhPU690UcVZvvRx7QfolgKhRAxcofgZgJaETCxGeHL+SvkjJ0SS9Vpgk/UrLU8HMdrLC9euVfniB/Avl1PezDXyx3Eq5l8Nb0r+QS7/SZ0q4b+Bi6hGTSNvyLtDNRuPzBb0GomKOolX65WYrWTFAPZMpXFhRSSV9sPIgRQ9PYPGXfd6tdWfK5dLPPD6Xfh1ElQBP25Hhze8zefINHImVhueJnSm9HlUy28gKguqV/tXZhTxRpJ2NJAWEGJV5VNfHqKL0Myh9phUd2P19ioUGs1YfoqpaY0QKZZL0hxN62EJWDFSr9LNvpfrGW/SPBTuobX8sdivfYKvQEqMqfOYmIBTiYx2o36OqAZOwV6anU219E93GgzDJ8PzN2Jm0nKyQfq0DvX37B9p6+AL98cM0un+QA0RtkX63T6aMS38oYKnrV6MSKSHzJN0wwcuGK/1ys5SsIKjWfFQE+TOTD9Kjby3ne99KN9JK/NikPxQwR4iZn0kVNeGRDIpqBlFhlpIVA9WSPXWtqo7+79N0nv2kdOOshlekH8BYrfCoSkBGGrw4srv0mhT6mWmWkBXSrzVxOud0CfX5JJ0H+Uo3zGpEpD84EBs/GLOc1rDJrtaNBBBVKkUx00wnK4iqRfpxQalZp+m/2SwUC9VKN8pqeE76gyz4WwmEZY+OSaTZqTn8uYUyIwv+Wsx0smrxqNjX/37TMerEbgS2ApVukNXwlvQHbqHaDTyn+9ikt/9XW+lmg/LzlaRfC6GNmGlkBUG1LE/V3GykOWvzeGaQXTtR/ohIv3Egjh02dztdLvdNPcSGglIpiplmClkl6Q81mbpeXU8xsbs5UcPN1DcKQfpBVLdLv0BUp6RfDVIK4kufbaTL11pTD7E8aYX0yy1sssLla1lHxZrd4O92UCeHSAq0SL8HklIg/W4jqhxwNt0npNCF0huaV33CtbDIqlX6QdR347J4zqnShdsB7ySlsPDIZdKvBpTU9JmSTIWXysUnba0ZJiukX8teP6QfHtVRonpE+tF3wI3Sr4YoNunrPGgRvTh9A12RhQRWmSGyai1FwWQKMWpE+rXBS0TtOgBNPYSXH2VET09aTZctLp/RTVatpShYnpJm/f4Xahe8I/14qbwh/Xzixzxq9Ju+uRuIYfvPzqCyKqGy1grTRVat0o9JF9ZRI7N+LRCk3+l1VK2IGsSIOiRW8TN42HcWZzm/zqqnFAU7U3zB30miRqTfdAjSr54Nh2Wt9oPj6JPEvSITzDVNZNVTioK9fmyhOrYzFZF+SwDp16pS9zPCLs04bnpTuZBkhfRrLUVB9hSSUhzb62/ZmXK59Iuzfs8QlY1VTfqVAEfVY3wy7Tx+WWSGORaUrCCoVulHPirS/BzLnuIxaiQf1Wxw6R+iPxEe85VnJ6ZS9U39hYFqpkpWKSlBC1GR4Y/E6Ug+amhgrJ6Z9fNwyvgzRR5BX+bAzOpRoEhWSL/WUhRM/FCKggx/pQFbjUhSijXQK/1quKv/Ypq9Npcam8Pfjg0gKwiqtRQFVt94i9dMRUpRgsN70h8+USU8/vYKyj5ZIjLGuAWQVW9SAqpQHSnu84j0S1WoXvGoIKrS18MB1l//wsKBhjAP/WghK6RfaykKDDEt6vodKZeOSL8FEMZqpkeV476BcTQzNYcvgxo1TlYQVY/0w9ApBQ0olAZmJbwj/cLD90xSCrunVhFVArq/ZB+/JDJIv3Gy6vGoMMzu0NLHkU4pXpr1e2QLtSuf9Vv/LLH+2nvqOt5P14i10bo8JTc0SUNdudKArEJE+q2AJP32hXLo/oi8ESx36jFwtI3eDG/8ELr52dokjUs/iBqRfjOB1kNWS78/0Kb0uUmpVFapvX28FKYGrAaEMvRHRdtJpYFYgRbpd71HxVi9lZTi1D3F5tH05ftERgU3edmULrKi4zRv5GvTmqp3klJQiuKhnSmk+QXJnrIDcHh5Z0pFZikbCCoPUzWTFRk0aI2OmEPpj5uNiPRbA544bbP0KwG5A32/3KLagwDS75+XopmsOGwCPfwjrdF94SWiCvmo7nn5Hx6dSFtzz4sMazW1sinNZMWpKDhsQumPmglvSb+1s/6HhydQN4bwD5xj3l+hFMVp4LpGzs+kuvrWzKxgZVOayIp1MRzfEzkVRQS7D3x5ysJ1VMwLcPhx3OZj9PLMTRQ1NN5wiZCwPOW89PsD666PMO+ad1aIXZWkX26ayIoD0awupY5Ivy9AzBc/WENlLPyqqK6n1D2F9PT4lfzgCqXvV4PbpN8fWAKduGinprKpkGTFEZM4uc/KFQDvSD9eKnsW/OVklayqtpGmLM2iziw06BLypYb0u1+lwKt7B8TS0VNFQYkKC0lWnIWKIyaV/pAZaN2Zcrn0i7N+u5anlMgKw6pMdsEV6v/NNnpohHo861bp9wd2zzr0+55GsNg1VFVsULLidGkc2ht+gK8MIUb1QlKKKP0MSp9ZATWySoaWTLuPX6ZXPk0P2E0U8lHdNZlSQvSQOP78EaZEjUniyVHBLChZcQw6Tpe2IgRoiVEVPnMbnKhCDUVWyZAjOm/9EfqpuKsojNP9Lz9aJXXt/22Lo4piiNtyXLwqZQtKVpzXj2PB/f9QuIgkpYSGVrJKdqG0ikZ/u4V6vLXMsepirYDXF7x/K7ewfj/wq61Bz+FSJWttQzP1fmel6ZsAEekPDSgZ9s+xCaOFrIj1sIheVV1HewqKafjcbfxMKzs2cPQCRBUclW+YgmWsx2ISKfdMmXhVgaZK1r35l+nOfuYG6N6Sfnv3+oVZ8WL6178tpJ+z+/7KtDT6ctVBPm8IZeXl5QGlSHvyr1D06ETL5htGgGvs2n9uAFElYNNp/qZj4hUEmiJZ8aaO/GarqRcakX5fQObRaufXbGLRhxHzrUW7aV32abpSXqP5dD88p2Ct0Uuv19JnyQfpyX8kcy/rVJccgEs/i1GDTfwwRoQ+aqsCimQtqaihrqMSFX+hEXhH+gWiWr3gDw/y2NjlNDlxH20/cpGuMlJp5GeLSdKvpTX6kbNlNDkhmzoNjXfE06pJvxLa9o+l02xir2SKZF2165Rp2VWek36Lt1D/k0n8u7G7mUOopVthFM/prfBAKVLBxQr63bur6E4bizwF6cesX9vfxIR+ypI94qh9LYCsuIGjY7NM6asakX4BeGAPjkigvjM30bFz6hMILYaMJGTNGz0VBUtdizPy6X8mr2GhiLUn5gjSPzeo9PuDk3t0EhunhkQWSNKfP13PYyqlX6YVgvSDqD9u6cdL351NdBZuPh728eiQfjNORcHvOV9SRbPX5tFv3rFmK12P9Puj0/B4yjkV2BQjgKyHWXzzeJitgFqk3+UeFQ+Jj9UioiL55/lJqXSGEeNWmP2eQLCysjKemWSWxWcc5xM8pbGHA77g77eOqgcPshD0u/VHxFG2WgBZ47cViAfMKv+iUPBOUoq1pSid2Ysw+JttVH4j/LblkH6zDkRDt8ddxy7Tn6el0S/YZEZp7OEABNUToyoBqj7sux38TAq5BZB1wqJdhrsBRqRfQNsBi2nSsr28usIM0zrrD2bwzIfPXOVt1Lszb2rFLpcg/eGv+oCsfT5aF3ACTABZkfBrZHLlFekHrCRqB/aiL9hynOqZBwvXQDAjfR38DRsLH7GXp3tMEieCFeut0YwzaJZhRu4sxvfE2OV0rMj3CHgfsl5lnsBImXVE+gU8zGb8c9DeMcwGZDAQFbN+ozEq+3G6UddAmw8VUc/xK+lunUnbeiBIv/rOlBHgpV+z/5x4NYL5kDV9byHdrZOsnpF+5vH58pRF66iQ/i/W5PrUE4Vjl6+W06kLpdTUbGxituPIRRr0VQZP0jZjGVIN0YORlII+WeY+f4Sin6zYL16NYD5knRS7W1eWVUT6BaBD3pfr8sJu6YjQYffRi9R/xhrqNm4Fvfz5Rrqm81yp81eraODX26jb6ERLSQpwj8ql33yvjbG/PmOjeFWC+ZD1yXeSNa+5eUf6hZfKKunvOGQpTVyaHRZRQdJ9J0vohQ/W0r+9+jV1YQ4DsaXWFEGEDIhL+UoOC0XsaOzMY1STpd8fD41aJl6hYC1kRXxzxwBtXrV1Z8rl0m/xzhTiwKHzMjXnnCrZiUsVNH7RLkb6OGrfv7X3lFayVrPntjKrkFcMQDrxc/7jNBt8ZwqOyuLn/9PXF9G1ylrxSmVkLSgqozs19AUQYlTrB2oGuPQzKH0WLpCM0n9OBlWEsY4Kye/5bgrPNvIvRdFC1iNnS+mNL7fwrVyrJV8CpB/P346K2Z/1i6Wdea1NMFrImpFzjtqFiFdbYlSFz9wGK0tRcHzS67M2GZ71o+hv+Y4T9O9vLOK7PUI45Xvv1ciKWT62xLEU9R/s5+3MovIvRbEaKDufl5YrXrmMrKjjCRbrRJJSBCAD/1U28TlbHLy4Tc1AVGwlRjNviN+HsSpVoSqRFZlacSwuRcvIjjomwmZAkH5Mpq2LUf0BtRgye4t49TKyvh+frfgDQET6BUD6//r5BrpYekO8a/oM26Zz1+bRA8PjZdKvvOUpJyuWr9bvP0svfrqee1K7y1Vak1Lsf/5o7CEZJ2sjuxkj2URBaSUgIv0CMJl6c+42ftOM2terc+lucT8+VGt0kPXlj9PoTHEV/X3GRp6UjK8pfa+V4Cl7Nkq/HPjb3UYso9p6YQePk7X6ZiO9PjsjYBvuxy79uFmoyX8sJoneS9pPlQZ74SPxedHmY9SFt7YXxiqfTKkBTSwecCi7H+DSH6IUxWp0ZCguF7pkc7Ki8dorMzf5kNU70i88fDMX/BErIbhvz8g69JttvPiuKYwUP0ym0N4R8s1n0h7plCI4KueICtzLnMU5cX7AyYrCsj4fp7eEAW6UfqxU/OS1BYH46zz6yctfKX9mAD8fEEu9WZz0+Yr9dPz8NRYvhrcrtSbrFLUdEMccgRCjeqMBhb5SFCvRls0TjoodsjlZi0qq+JlW8Kxulf6npqylSlmmPXZt6uvreec5NxqkP51NijqOXMbGr136nYYg/fpKUawEjq/KPHyB31NO1lMXK+jZiSnshkL6QVT3vf1ysoKotbW1HG61zCMX6Yl3hBJoJ05FMQK3SL8cqLZYl13I7ykna8H5cvrNeBZTuTgpRU7Wuro6qqnRfjSN3YYk518MwYxelH6X3lM5pFIUNxEVQMVFyq6T/L5ysh4pvEI930Klo3tvKsiKiSCI6mbp3553gdq1zPrd1xpdCa35qO5TVJB1xfYCfn/bNDc10oH889RzXHhFglaj9wdr6UrpdVd71DVMrpC5hvVQt5yKEgpulH45sGy3NCOf39829XU1TLZK+U6B0je7AZidPvV+CpVVGNvitMMg/fewWT+IynemXL/kB6JC+s1PnDYTElmbGhvEMOBsmYvJKpSi9H4vyWc1wI0Wu+kodRuK5BQvENX8UhQrALLGbsijhpu1AlnRJaQ3ky+lb3YWwpIPSlH8l67caOXXK2nZ1mPUbRSWq5Suxx2QSlHcv+GzlDoOXEhx63Poh9u3BbLmn7/GeyApfbOTkO9MuZmsUhUqivuwibDx0Hndp6rYBXh9oRTFA96fKWr7N76l5ExxgoX/OXmxnJ5hZLWiRNcoMFD5Xr9byYpMKqxO+FehZuSep4dGLHPXPUWM6gHpB6SyKawGrN1zmt9TTlbkZj4/ebVLbqwg/fxYHNnXezGyomlEfdMtS4HlJz2GcmmlBhRI61u6rYC6MsLKr8Mp8J0pl0+mJMjLpu4fHEcZh4r4PeVkRVbLH6eluYKsnKgM/l9/cOQyembqOur9YZql+O20dHrti830fdphOs0UB55TySTpD9bSB4WA3208Sm1tbDGpBDtLUcKFfwLV3YPiKFds0sbJihPsXvp8I7sY5V9gF/yl30mgIuAeFndOittNNTcbfLpRg6hKB+Gq2XdpeXQf+31Kf8dqCKUoHpF+ENUvgequQUvozJXr/D5ysqKy9e9fbnHQs4qzfpcQVQ5UB6CjSXzmyZZGYWiShiQarYYy7enJB1pKWbQC3fTwr9HKAEH6sYXqJen3vVbks14We15xsiJWG/rtDsc8q5r0uwU8GYUR7cNl2fywCSPd/HDI2kdJ++gujR1v8Cz+Z2IqLdlaQC9MWcNfGj3Pp3VnynvS3/J1dr3RwxP4MaAwTlbYhLgsn2+0C04ciGYUP+v7Fb3+2XrVOFaLfZSQrYmw8hqsmw3N9NnKA3QPCyW0EBbf41Qpil4oSb8cqNKQrIWsc9bk2hwGuFf6AyGMFXv9WD+NmZdpuO8qKg4mLd1DUTzZRelvCZCTVTJs6b4yazM9Oka9NRCXfvbw8a/S525CqNxpVFv3nb5BvHoZWdOyC6mDyg2wAlz6Leo9ZTb8S1Gihi2ldxdnGW6ahpPGZ6bm0F1BVgmUyApDr4KNB4voNTYh9m+i988g/XJgkjtrZWtzthayHi68Sm1tmrFy6bfwVBQzoVaKci+LId9bkCnePf2Gtu0bD5zlLUaVJlBqZIVhYQKTtjV7CnkRYns2Yxak3yOTqRDSLwGduTfvPyNetYysqMO6Q2PwbxS8+4jnpF/9nvyCecZPlu8LaCeux/afKqE+09L575OTNhhZ5YY18pj5O6jHqDjqMnixq3bMlKCnbAq9rs4WC8tWsBayYu3wAQsOQ2iF8PA9I/1aS1FGJNBX6/KoMYzCQhAOp7m8wMj5SxYT40wHrWTFNi/WfPcVXKGYBTup07B4/rOKY3UYgvRrD1NQXQxeStZCVtjoudvDOvwiGCD9XiGqnrVJyG8HhkQxm92oYdPhGpu0rT9wjv722Xr6l9cW8qZt6GulZniQOGpI2pzAjllW/mV6dFSC47tm/miRfg0eFejK5k8vT0vj1yWZD1mR3makTXswCNLvnp2p4BCl38Buzx1MspJ2nKAGE84SgIF4BeevqfZ9BUGDnTcwZ/Uhenw8TjUXXiilMdsFKSlF6TM1oKn1pCVZ4tUI5kNWJLTobdMeHF6T/vBKUZDHumRrvilnCgQzSD8yvYJt96IBHMj+QeI+6j4mMWSHSKugV/oloNds4q5T4tUI5kNWXGAv/jaaEwp4iahCKUp4LyomN9hSXbO3dQZrtmFDQk9eAjzz0aJr9NqMjXyN2E4vq1f6JeA+4lTGnEKhuYVkPmSFjZy7Tde5Amrwzs4U8/7wqCYmetzxxiJamXmCS7mZduvWLcNHDSG+XbXzJPVERYgNkzAj0i8BY/v9lNX8fAS5BZB13oajYZJVkH6vrKPycmkLqlC7MELMYnFjOMtactMi/VrsYlk1P1Wm1z+SeQMJpbGHC6PSLwFk7f/V1oCzbgPImn2imLqHUUP0Y5N+NUBuQdhBczKoOszjhuBRzSCqZFhmO1dSRZMTsulh3t5I+RqMwKj0y4FssxkpOT5pmbAAsl4su0EvTF1rSCYwUO9IP958a5bp5MBS4BNjk+jAqRLdVQgwxKhGpT+YIURBTIi1XLNCgnCkX47OjKw7xP5WcgsgK855Hzpvp85Jlij9niCq4P2tkH41gAzd30qiL1bnUFGJ9t4H0oK/mUTFC3OQvThvL9plahft1p0pE+Y7bHKl1As3gKywhZuOUdRQIfE3FCB3XPoZlD53G7j020hUCdx7MY/R871UPi/AuVXBDAQ1U/ph2GAYu2AndX97BXUxyZsCQowaPClFKzozJRr69VZxxL6mSFaUEXQMkcImwVPSzyXKeukPhXsGxtEjMUmUymbnVTU3A8IDzNzNlP66hmZK2X2KOrCXxeyDM1piVIXPjODOfrG0/8QVceS+pkhW3Kw/TUvjW15Kv1CAIP3+Vahuhd3SHwrIR0USdq93kum9JVmUmn2G8s6UUmlFNVVUVJhCVKxE7Dh6ifrN3kKdUDRoojcF9CSlaAHGh9Ow1ZLbFckKS9tzOmhGe0T6zQEekHRmwFPjkuiZ95Opz4yNNG7hTlq+o8DwwcUnLlZQ/2+20X+NSaKOQZ2OMZgp/RKQv/p58gHxCgJNlayVtY3sFyhfpHekXyCqG6Q/FBD7y6tQcZr1cxNTgyayKBlONlmQnkv3MEdj1amDZku/HFkFxeKVBJoqWWFTE7J9NwjYDYQ3jcz6zYVSKQo8rpYUQcmwgJ6yp5D+d+o6vthv1baq2dIvAasSf/lsQ9DrDUpWrA0+Mqq1BQ6Xfq8kpbAb6ok6JJVSFK1kRU1XxqHzPHTAYXBWeVPACumXEMUwZ20u3QpSjBmUrDhE99WZm/gN+GcoRXEbBOnHbk/gWLWQtb6hicbO28Fr5/D9/r/DTFgp/UDUqEQ6etY3ccXfgpIVNmPdYerCXL9nlqe49HvDowY7EE2NrNiBLK6opfmbjtGvRieaknQUClZJvwQ4w+c/SeerUMEsKFnxw/nniunXY+Iti4HMhPdORVEnmhJZsV6avOsk/emT9dTOQrmXQ5D+4GMNFygMxK5aKAtKVhw2UV1dQx/H77H9FGa94NJv4Q01C62nogQfqz9ZT1wop5eZ9+nEvm615EtokX6LPCoArzpgxoaApBUlUyQrPKr8VJRLZdW8eMudlZOi9FuUPWUmpNboWtpOgpB9Jq+mvMJS+nTVQeo6TDhJW+l7rYBZSSmhgJcv8+glzrNQFkBWEBWHofmfivJx0j6+aKv0B52Et05FwUxa+0v1eEwSPfdeCj+RW+lzq2CH9APwqn+btYk3/dBiAWRVO7nvbEkV9Ry3wjYJ0gK+M+UJjyqeimLg4ds9V7BD+iV0G5FAK3aeDDmxkqyFrP7S729olTN5xUHqZFNgHxxM+k0uRbEKvIc/35lynyr5wy7pB/ASPj1lbUA1QDDjZJWkH31Hg9nRc2X0pAuOILKqFMVstJ6K4oGXyibpl3A/C23S950VmaXNOFnVpN/fkMr2RUqOoyeReEf6vXUqil3SD2BteNjXW3V3sWmj9yxUNNLtEZPoQOwK6bduYdpMtJ6KEpF+f0D+Hx21jC6V6TstEurfBqeN6LVteReoo81k9VRSilekv2Vnyr6XCh1iPl55UFe7UClMDVgN0GI3G5vpze8zmTu3x8sJR+J4Q/rx8L14KopdeGxCChUW6/OqUphqiKwwHE78lOWTLSb9XKI8IP0sPPHyqSh2ADm2KbtOigzSZghTJfU3TFaUHqCJg5UbBd6S/tBbqG6A1UkpaujIVHjgnAzN5TqS9MvDVMNkhWGN7JXp6ZbkDfBZv6eSUjziUR2QfuxUPTsphS6JRwSFMomogNzCIiustqGJfjUqUXGQRsG9lMLX3QYhHzUi/aHQbXgCpR0UjrTUYnLpl1vYZEW2TELmSX5ekdJA9UFMSvGK9AfJR3UTnJJ+AK0rRy/cRbUaCh8lj6q2lBo2WWE4kCxmfmbYXbMhURHpNxdOST8A+cdp69IJgcFMTfrlZgpZYddrGtgAhVNDlAYeCoL0e2CCwqUfB6JFpD8UohkfrlRoq86F9Ifa7jeNrDB0cnkwZjlf+FUavBr+WUpR3AQnpR/oOiKBlvl1rlayUNIvN1PJCluTXchPwNOaqO2tfFQ8fA94fy79zo0VTTU+TNoXMk7VIv1yM52sSHaZnZpD9w0K7X08szaJBX+vjFWSfoc8KrKp3pixge9yhjJIv3+SfzAznawwvDHoXIwJl7KHxazfI/movBTFIzGqzUkp/sCE6oWp61R7VUkGfuhNoIJZQlYYTnIeNnc7vwD/i/JeKUpE+kMBE88XPlhLJy5ViAxQNkn69XhUySwjK+xyeQ299NlGn3RCvjPlCY9qvBTFbjgt/QBapOacvhqySlVPjOpvlpIVhjW27hNSePtMoRTFAw9frEL1hEd1WPrhiO5nRM0vuiY+cWUzKv1ys5yssAulN6jPlGTqPGiR4gW7CZFSFO0AUXtOWEU7Dl8Un7SySdIfah01lNlCVnRxLrxUTi9O39DSi9SNiJSi6AM8KogarJkaLBzpl5ulZMWsEAfh4mgc2BUWEvSatNqBkpjQiJSiaAcmU4hR7ZB+uVlGVgwUbr+hwbfUFjFs/9kZ3MO6pcML35nyivS37Ew581Lx5Sk268dkKphJ0m+kbErNLCMrpB/FhUpWVnWT3lmcRe1d0D9LKEXxkPTzl8qZsWLBH+uoWJ6yctavZqaTFW8UDnDAv8EMn3+SuJfuZ4R1ysMKpShY8PcIUR1MSsEWKnamQi34wyD9ZnpUyUwlKwiIxV5/6Q9mSzOOU4/xyYqbB1ZCkH5MULwk/c5MppCUgr3+UFuoVki/3EwlK6RfD1FhODZ+5/HL9OzE1LDzYbVCSkpBCKD0uZvgpPTDgSDND9lTZielGDFTyIqBgqjhWPXNJur7aTrd1d9aTxcpRdEGZPj/9t1VuvJRrfKokoVNVhBVadZvxHjG1tpcevztlZasx3Lpj+SjBgW8KWqmUIqCpcZQJnlUs5angllYZMVAsY5qBlElQ/+j7JMl9Jfp6XTfQPOkr1X6PeJRHZB+lEujChXFfXpqpqyUfrkZJisGataxjUrW0HSLZqXm8DZF4a4WREpRQgMNKAbMydBcLg2D9Ie7harHDJFVkn61dVSzDMsk2ccvUe+p6yjaYJtyQfrRGj0i/f7gLzFDjwkpvFOK3gYUdki/3HSTFQPFGfhmSn8ou15TT99vOkbPTUrlgb/SjVeCJP2RpJRAoO0kuvmhSZqe3lN2S7/cdJFVkv6mJmOH34Zjt2//QGWVNTR9+T66V8O5pK2lKB6Sfhs8KrwpdqLQHxVtJ/V084NB+o0kTpthmskKSYbbt9OjqhmawvX9MoMeHp2omGPQWopi/9qkXtiVlIKX+6ERCdRrylrecVpvI184KjOTUoyYJrJioFhDq6+vF7/ivKFsZmvueRo5P5MeYaTFTBZeQ5B+5/bP9cAO6QdJcXwPTkXBYRN6evhLJkm/Ux5VspBkdVL6tRjO4887W0YTF+1k4UEsdegXyUcFQFKc3IcD0XDOFI7vwbM0Yk7FqP4WlKy4OLh9q2f9ZhhyZo+eKqIR83dSVEwSDw2weuCWNEQ5rJJ+XC9Ol8ahvTgLFUdMajm5T83w/J2WfrmpkhUDdZv0qxm8Pm4oll4w7qKSSorLOE4Dv9pKj8Uk0i8HshjWhsmLFpgt/Uhkl3rk4rx+HIOO06WNelHJ8PPwpnauo4YyRbJioJB+r3hUiaj+hvgsl4UICzYd4+egtmWyiCUbxLb+D90OmCn9nVmMfme/WHpi7HL6PPkAZRUUU1lVXcgSE63mFumXWwBZQVSso7o1RpUbViiQQKNlMRvXdfpSBU1ZsoceZmFCp+Hx9OCweO6ZAKvDBaPSj3FJY8R4OzNEswnl0K+30v4TV/g9MNNwn9wk/XLzISsGalZSitWGlwkvlZHt3oamZsph8dz364/QsO92UJ+P1nEP1YHJKTYdQq3h6kXrzpQ26UfZOhQAY+nOiPn7Kat5h5sZKTmUefgCmyxZE5rh+cObWp09ZdR8yBqsFMVNBoKqSb9eq7nZyLOLjhVdozX7z9EnK/bT6zM20kOjltFPX19EP2NSi0PqJALrDSGEGDVwKU36PdjuRMz5cxai4O/h9PGXp6XRpCVZlLjrFB0qLKULV6t4SBPOZEmLuVH65cbJijdKSymKGwxj1Cr94dq1ylramXee5qXl0pDZW6jX+JXUbeQy6shIdi+LGdsykrVj/6I0pzMjWRcGbFJI6DhwIbV/41v+WTv2PXez779rEPs6yDo8gU3+kqjv9A00a+V+2rz/DJ0tvu7YM4D0u9WjStYGN0dvKYpTBulHSqIdRFWz2vpmKi6voXPFlXT0TCmX5bTsQp4IsmJ7AS3NyOeI3ZBHcRtyKDmzgNbuOU0Zh4ool4Ue6GGLCt+qWncoGJ6/m6Vfbm3Mzke1ykBQ3FAniarVmhobqOFmLf1g8uTHbJOI6mbpbzWi/wdjJkauXYbXdwAAAABJRU5ErkJggg==</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="1" Selected="True" />
+        <Tool ToolId="10" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

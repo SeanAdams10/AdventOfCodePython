@@ -1,0 +1,835 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="140">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="294" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" source="TextInput:" type="Byte" />
+            <Field name="Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="141">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="390" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="X" action="Max" rename="Max_X" />
+            <SummarizeField field="Y" action="Max" rename="Max_Y" />
+            <SummarizeField field="Iteration" action="GroupBy" rename="Iteration" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_X" source="TextInput:" type="Byte" />
+            <Field name="Max_Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="142">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="486" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>X</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>X &lt;= [Max_X]</Expression_Cond>
+          <Expression_Loop>X + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_X" source="TextInput:" type="Byte" />
+            <Field name="Max_Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="X" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="582" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Y</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>Y &lt;= [Max_Y]</Expression_Cond>
+          <Expression_Loop>Y + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_X" source="TextInput:" type="Byte" />
+            <Field name="Max_Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="X" type="Int32" />
+            <Field name="Y" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="145">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="678" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot; &quot;" field="Filled" size="1" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Filled = " "
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_X" source="TextInput:" type="Byte" />
+            <Field name="Max_Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="X" type="Int32" />
+            <Field name="Y" type="Int32" />
+            <Field name="Filled" size="1" source="Formula: &quot; &quot;" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="870" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+            <Field name="Iteration" source="(Multiple Sources)" type="Int16" />
+            <Field name="Filled" size="64" source="Formula: (Multiple Sources)" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="148">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="402" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;*&quot;" field="Filled" size="64" type="String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Filled = "*"
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" source="TextInput:" type="Byte" />
+            <Field name="Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="TextInput:" type="Int16" />
+            <Field name="Filled" size="64" source="Formula: &quot;*&quot;" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="149">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="966" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="X" />
+            <Field field="Y" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+            <Field name="Iteration" source="(Multiple Sources)" type="Int16" />
+            <Field name="Filled" size="64" source="Formula: (Multiple Sources)" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="X" order="Asc" />
+            <Field field="Y" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="X" source="(Multiple Sources)" type="Int32" />
+            <Field name="Y" source="(Multiple Sources)" type="Int32" />
+            <Field name="Iteration" source="(Multiple Sources)" type="Int16" />
+            <Field name="Filled" size="64" source="Formula: (Multiple Sources)" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="X" order="Asc" />
+            <Field field="Y" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="774" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Max_Y" selected="False" />
+            <SelectField field="Max_X" selected="False" />
+            <SelectField field="X" selected="True" />
+            <SelectField field="Y" selected="True" />
+            <SelectField field="Filled" selected="True" />
+            <SelectField field="Iteration" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" type="Int32" />
+            <Field name="Y" type="Int32" />
+            <Field name="Filled" size="1" source="Formula: &quot; &quot;" type="String" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1062" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Y" action="GroupBy" rename="Y" />
+            <SummarizeField field="Iteration" action="GroupBy" rename="Iteration" />
+            <SummarizeField field="Filled" action="Concat" rename="Concat_Filled">
+              <Concat_Start />
+              <Separator />
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Y" source="Summarize: GroupBy - Y" type="Int32" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="Concat_Filled" size="2147483647" source="Summarize: Concat - Filled" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Y" order="Asc" />
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="155">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1350" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output155</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="157">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="1158" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Text</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}{\f1\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\f0\fs24 [Concat_Filled:A]\f1\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Concat_Filled:A]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Y" source="Summarize: GroupBy - Y" type="Int32" />
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="Concat_Filled" size="2147483647" source="Summarize: Concat - Filled" type="V_String" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Y" order="Asc" />
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1254" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Iteration" action="GroupBy" rename="Iteration" />
+            <SummarizeField field="Text" action="RptVertical" rename="RptVertical_Text" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Iteration" source="Summarize: GroupBy - Iteration" type="Int16" />
+            <Field name="RptVertical_Text" size="1073741823" source="Report:Layout:Summarize:RptVertical" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Iteration" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="159">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input153</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>6</c>
+                  <c>10</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>14</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>10</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>3</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>4</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>11</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>0</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>12</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>13</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>12</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>0</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>4</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>10</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>14</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>10</c>
+                  <c>-1</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>0</c>
+                  <c>-1</c>
+                </r>
+              </Data>
+              <NumRows value="18" />
+              <Fields>
+                <Field name="X" />
+                <Field name="Y" />
+                <Field name="Iteration" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="X" source="TextInput:" type="Byte" />
+            <Field name="Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="161">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.ControlParam.ControlParam">
+        <Position x="90" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>Iteration</Name>
+          <DefaultAnnotationText>Iteration</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="162" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>Iteration</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-14 22:06:18</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-12-14 22:06:18</StartDate>
+              <EndDate>2021-12-14 22:06:18</EndDate>
+              <Operand>1</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Iteration] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="X" source="TextInput:" type="Byte" />
+            <Field name="Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="X" source="TextInput:" type="Byte" />
+            <Field name="Y" source="TextInput:" type="Byte" />
+            <Field name="Iteration" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="114" y="120" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Update Value</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="140" Connection="Output" />
+      <Destination ToolID="141" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="140" Connection="Output" />
+      <Destination ToolID="148" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="141" Connection="Output" />
+      <Destination ToolID="142" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="142" Connection="Output" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="145" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="145" Connection="Output" />
+      <Destination ToolID="150" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="147" Connection="Output" />
+      <Destination ToolID="149" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="148" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="150" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="149" Connection="Unique" />
+      <Destination ToolID="154" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="154" Connection="Output" />
+      <Destination ToolID="157" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="157" Connection="Output" />
+      <Destination ToolID="158" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="158" Connection="Output" />
+      <Destination ToolID="155" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="163" Connection="Action" />
+      <Destination ToolID="162" Connection="Action" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="161" Connection="Question" />
+      <Destination ToolID="163" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="162" Connection="True" />
+      <Destination ToolID="140" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>ControlParam.Iteration</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (155)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DrawPaper</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="7ce734e9-4f8e-431c-bdde-61991bdc6ac2" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="7ce734e9-4f8e-431c-bdde-61991bdc6ac2" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="163" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="False" />
+              <Destination>162/Simple/Operands/Operand</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (159)</Name>
+          <ToolId value="159" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (160)</Name>
+              <ToolId value="160" />
+            </Question>
+            <Question>
+              <Type>ControlParam</Type>
+              <Description>Iteration</Description>
+              <Name>Iteration</Name>
+              <ToolId value="161" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (155)</Name>
+              <ToolId value="155" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAFFxJREFUeF7tnQ20HGV5xzchyd15Z3N3Z2ZvboJprcopQosIKCDK1ykiWqkfPaFHi6e2eKJAow1J7p139uasrSIR6mmLIKDV2hYKFW1R2tIKoRjtQSscvlv5KJCA8iUfgfARklz6f2afnX33fs/O7N6Zu8/vnOfkZp6Z2Xef97/vvPN+FgRBEARBEARBEARBEPqHVYW68paPHVix9Vsq9sghbmnkILGpzbFHfmO4sMHm0Am9xCn6H/FU8LRn631ic7Vgr6uCJ107uNaz9CdXlc6pcjiFLrHItfxPI/i7EfzXxBKYCp6FeDdLidsVvrWfZ/mfQ6D3Tgq8WMfm2vqW4YHaGzjIQnLWDbhKX4ISdbwVaL3HU3pnFHTlb3Pt2kliE0z5Jzu2Ps0rBWchXl9GaXpfK4YcOzv4uVfSb+ZgC50yXLjAxiPr6vbg6pcR9D9CRtwUHcc5fIkwI/UlrqU/PEm0St9dLvsOnyTEZfly30OJunVCUHeWLf1B8sP3n63jItY4NGIb3NAe2+BCdgtxcK2R1RDjLWYw8f8nqqXacXyKiDUhg4X1rqf8e4wYvyzVgZi4pbGDIMQJj6ngoSE1eiifEiJiTU6lqI/lpq0wjqhinc8uYTZcyz8KwXs0EiEFUAV3lQf8N/IpESLWNKgvRnyjqhb+/l8cXNTwCdPiDPinoE76TCTARvC22bYe5lPaELGmA0rTz0TxtvUrK0t6iF3CVFRs//chzF2R+ChwSl/jOKNlPmUSItZ0cFTtFCPue6tq8xHsEiawiH7ZsLZeKcfWX19dWG/xOVMiYk0Hb0CfaMR+3LX9k9gltFizn2fpz6OOavRK6XHX0lsKhbVL+aRpEbGmg2sFR7biH+zF/49ml9Bg3QBEeZn5Joq/93jK30gi5pNmRMSaDiLWGfC8Tcshru8gMFH3qWsHL7nK/0O45/wmKmJNBxHrNJRK9SpepG40gkNCe86z/N+BO1aTiYg1HUSsU+AUR38VL1K3GoEhkT1ODdN8Six6IdZhu74C9x7FZ12Fasu1yMjsmNLfww//K66qnVwovNZx2yjuJWI1odHqCGxbrxSE+yCN9OdTYtNtsVbV2GGoRz9kpjmbpvegCnURDaPkpMdCxGpAXz4chmYEGMK9I+k4ym6KlabNII1tYxOybeGMgI9y8mMhYmUc5b/PU/pZIxgQlv6BUhtX8ikd002xlu3RE5D5rfGzKrgHP7jr8HdmDD+mrYhBqyNF6es5+bEQsQJk9ukI5otGIGbtlYpDN8Xq2P45UZpt/Yq3LIujkV6jDpW/a6UzeIwdsehzsYZBXA+bMFdq9l6pOHRTrBVLn928Nz7nlyumGZ8w37i2f34UA1s/wodj0cdipblSwbkI3B4jiOMQ7paDC/VlfFIqdFmsZzbvjc95KsNi/WIUAzvYzodj0ZdiPWCKXimIdA/qrXPulYqDiFXE2hFDQ/WSZ/vtvVKq2StVX8ynpYqIVcQam+l6pSrWWOxeqTiIWEWssQh7paz2XikI9/Fqh71ScRCxiljnTKNXqn2uFP6fqFcqDiJWEeucoC80qVfKDm4v93B1DxGriHVWGr1SQdtcKU/523qdoSJWEeuMQJQfQ+Z1rVcqDiJWEes0NHqlvC73SsVBxCpinYJv7QdRfgE2qVeqkHKvVBxErCLWNqbulQpe7VavVBxErCLWiHCulD1hrlTUK9X5yPS0ELGKWENKpXOoV2riCn7PVdTY++Ged6ESIlYR69S9UnbwGI6/i0/JBBDRD6P0KX0NH04FEWsOmKZX6gHaEYVPyQxI152tdOrr+HAqiFgzjlP03zG5V0rf1steqblSKukhiOiJKJ1Kf4ldqSBizTBVFawyM58MddabplvBb36pL0NaLzbT6qjgvexMBRFrhnGUTyvJmW/990PAv10t6WOzZHjcn4603dDWlIb69fBwulvk5EasliFW1SdirUCYRoLzYyrYWe3CcETH1huan4Gq0QvlgdFfY1emwA/pkiidKnicD8dCxNoDo8yh0h/JT70prWyNfsj4rHF81pWwOsQxlhmzg/Nc5T8cxcPWt3LyY5E7sVKmGwnOslFVZTuEc1GlWHs9Jz916AUOVY225eKzboiJ5uTHIvdipWGAjU18s2Oetfnt9Dj2CpuWc7K7ilesfQyl1ctmXDJrKvhxuVyvcNJjkXuxZrG5qvfQSDP/JAjh+yi1nmyUtHpHVozShOrAz/CDuiDJhmsi1gVFfTGJwXXrg+F4iYwYpSmN4ZkiViE3iFiF3CBiFXKDiFXIDSJWITeIWIXcIGIVcoOIVcgNIlYhN4hYhdwgYhVyg4hVyA0iViE3iFiF3CBiFXKDiFXoOuHKOSqoebb+LT7UESJWoavQFBZPBXdQXrl28JJr+UexKzZ9Kta1S4cK9ZLYzJZ8Tdtwuo2xDWYwDoH9Ljtj03didYqb34lf+j14JNE8JbEZDI/ue2lCJocuNk5x5Ji2iYwquIumubA7Nn0nVlfpa8zrxWY2CPZHHLpYDBc22J7SP4nuYwevuHbtJHZ3RP+J1fbPw3Wt/fnFZjRaTZxDF4dFrvLxQmXcRwVfoeMNd2f0nVhfX6gXK7b+KErYgN5QxWa0j3ey9kG4doLSO5t5hFg/SItxsLtj+k6sQnehwgDiNFYi13tQOn+Y3YkQsQqpAnGejXwxVnnU/5DWbuMiViE1hgb9A/D4f6qZN66tf+EUa7/C7sSIWIWUWLsUL1X/bOTNXqrzsjMVRKxCKuCl6nRUAYw9yPS/4vG/hN2pIGIVEgPRvA5CfSTKF6Wf9pZtOpDdqSFiFRISbkH6t6080fvw9v8ZdqaKiFVIRMUKToVAo71yUU/dhsd/kd2pImIVOmZVuLtjay8yCPV55M/h7E4dEavQIfXFngouNPJi3LH0Z9nZFUSsQkd4A6Mn4I3/lWY+4O9bG8MKu4eIVYgNrawNcd7WzAMaVF0t1o5jd9cQsQpxWeRZ+s/MPHCU/gv2dZWyCt5qfC6J9Uh2ZRMR6/ziWZvehpeqF5rxx98/Gxysu+zuKkNDZ5Xo8/iz/6/TXV96hoh1/lhVqCuIJdqO3rP1btpEj909AT+W/VGyf9C1RlbzoewiYp0/HHs02nqT7RtpjahakIhY5we3NHYQStVnotgrvZ1KOXYLUyFinQ/qy/DIv64Vd73HsWsfYacwHSLW3oMS9Qzq84/irvzvpD2iakEiYu0ttAeta+vHmvF2VfBEecB/I7uFmRCx9pL6EpSqV7Xirfc5VvApdgqzIWLtHW7JXwOB7o3irfT1VH9ltzAbItbesMLWw4jvQ1GslX7WsfVvsluYCyLWXlBf7Nn+V1tx1uMQq89OYa6IWLuPo0beA4HubsYYJerN1HvFbmGuiFi7S7nsO42F6xrxxQvWrsyPbsoqItZuEi5R+UUjvuOurbewMzNU7LFDKF34EdHymYnWz+oqItbu4RT1OyGCF5uxdZV/l1MYLbM7E9CaWUjb9kYa9aue5b+dXdlDxNodaPgdMt9YolK/DHs3uzMCSn5LX9bKf42SfyRjaTQQsXaFRaibBmZc8fb/KMR6vmfVzm40Wa3Zj8+dNyDOE2HRTFr8fXOm232TijVc5NbSZ1JG5N0cFWwaUhtX8lfrmIoaPRTi3IkXqyiu7aZ3w//t+SwYGosTN/YmIKOpNJ4VvI3d2SSpWPGF/9K8Pvemgu9Tuyh/vdgcjJIJddObprz3JNPby12caj0TKPnHzLRAB3/OruySXKz6n8zrc29K331E4bKl/PViU7FGPwAhtEZUhab3oOT+Of7dgX9fNn2uCu617Q0r+PKeQNUQpNGYShPc7zhbMvXiNyVJxVpVo4fhi/8XrqU3ylwbhHQ7HoWn8leLTWPhX/+nuFdLjBBpY6oKrapSX1JVY4c5Sl9vngMRf4FvAahU7+ZwwbVL6elhfPaeJN+5pyQVq9ACdV7qqTLGqQb3OMXaMeyOoOYr/MBbolZhibsO51+NuuMt+Ps23Off6VHtlvTB9NbOlyYGpejH8Znm4sRX4XB221ZNRKypQS0A0c41EMWTiO0q9k0Cwv6EGffpDMJ9Efe6qFxIPvPUs+r7436/iO6t9FO0WyG7s4+INR2GVH0lSsanDSFczK4pqSj//WbcZzd9a7JVr2kwjf6mcb9xasVhZz4QsaaDa9FY1UgI+1zbn3GPKoj5S2bcYbSy9b04frlr6a+havAT3Cca/BKaCn5ETU58i1igLn0y7mesTqh/QPVXducDEWs64PG6JRICPWpn2EKosV5AcG90vgqeh3jOQOlnNMjXF1eK+lj4orZQ2Dhezkb4hDlDuxBS/bn1efpFWo2F3flBxJoOeKT+SxTHcE3VmagvwXk8u1XvdtToJ9gxicYO2PrB1r31w6tWxRpeSMsTfT66Pny5MlsfcoSINQ0gPtpHlWNYtYNL2TEt1LbqlfSZnr151m3Y8Qj/g1Ye6X3V4uicF22j3jR6SYuuV/p/Otk4LhOIWJPDTVE7mjHEo3szu1IhfHmzg1eN+18K0fn4gYw6RX0a8nDKVodGb1pwY3Qd7uGo2inszh8i1uTQeAII57lmDKlZil2pMDi43oU4o+0wJ5nSz8L+av/lvseXhODx/0nzPAj379mVT0SsyRkc8A+gx3MzhtQsxa5UmLCO6gymb2s2b9G/EOeTTR+qAo/lfnkiEWtynKL/jlYMqf1yc6oDmFFCGu2j4WfsQ0n+y9DahvhR6al/uLqw3sK/l5vn4/9n8O3yi4g1OSj5PtSMH0qzl6rL/F9nVwrQwhjBf0f3RwlJ00/CenIhXDH73ebLXePHEm5NFK1PgOtvoPvwDfOLiDU5nhV8KoohSjtaI4BdqYA68FqUjKiXBjuo7ZUPR4SPfKMb1TRc98KCWZ9AxJociOGzrRjqR+kxzK7UsGmRjBmanFyrbWJi08aRv3U+Jf+IWJPjKv/SKIZK382HewqqBp8287GRluDOTrtnM4mINTkQa7R7NR67W/lwD6kvNtPA6dg92/iE3CFiTQ5K05tbIgmu4MM9Y/ly30MpGu2hxem4nN0LBxFrMg4orBtAKdbc8YSqATfjhesDjQb69AZNz4RrjRwdtgK08vER5Ou0Y2lzi4g1GcP2hhUQ61NmDENT+mlH6W9Ts1Y3643hGAPq748+m5Z816exe1aQ/4cj/WPU8cCHsouINRmuVV+NzG4NFJnC4L8Pj+lRelzzZangOOGYhK1tn2Xpr1Edlk+ZkcECdeNSxwKuVcEzNAaBXdlExJoMr6TfbD6CUVd8Hv+2FgxuM5prFfxxGiVtozvVv8G8v2vrn9LYVT5lVmidAON62Q5zoVMp1Y5rxU/vc5bXjsG/J+LR/GUcewRm1iVDg6hucS3/KFzeQZ22voRGWuH+j7bdU+n74+5NQI9+4x4i1oUO1Q+bsUOpumtwYOOb2FVw3XWDENEZOH6HWfryuS9R1SDG1JJFPN//u5PvpR/wlo8dyOfNGRFrn4FScl0zdhDNU7QqH7siGusJ1CBaY8R/aHocor1ytj1T6Z74nAvox9B+fUDX39hpnolY+wzHDs414rcdj+lpFzYrlc6pQlzU2xUNpCYjwa0q1at8mkG92Jiy3RrYbVzzPOqcn6OmMz45NiLWPsOx9NebsUPpdzsfngFaZrK2BmJrvIU3TembW4KtL64WNx9Px9rOCU3vxrWXl8vJ80nE2meg3tlaiidc1G1uVGz9FogumuFKhv/fwMevgCjbxqni//sciLdS0sfzLRIjYu0zUJre2owdRPaPfHhODCPWEPjdZvxJlO3/D4/toBe1tOf5i1j7ivoys/eIXoLYMWfoLR4ij6afmIbju3DP89PuTGgiYu0jePrIfc3YQVwxZrW+tojW78c11LA/oS1W78F9v9tYlK179KVYaVDw4EDtTTRxLs9G2wDFGXzSaJLSRr1zbotHQBSvw3WXoNRsXx4obIrSdzrKf18vBsH0nVhphBH1K5v3yKuhlKOG+k381eZAuNjZ7dH1Yb/89ITLBtl6/VSPfTrmWv6fdGOWwXT0n1ht/W/m9fk3/QAtDsFfb1YgvmjZIFf5tGzQFCXi2qXhwm1KT3iZwjW0i4uqXYJ86PmQvv4Tq6ptpDqWeY/8Gr2J62/yV5sTjh38afN6lI67qOmJXWFJyk+ebbjvxHopTY/eOp/7TvWdWBuN3CNHo551St6tWtLHx+0RamS4bi3tY+uHIcKLIdwrcXxSz1N4jgrur9q135vv7YX6UKz9zpr9IPSrzRhOa0rvrFj+eXGG8XUTEWsfwrMFaBOQScMB6Vj48kR7bVkjq/mSTCBi7VNozVRaCM2x9X/QYx7ipE0s/sYt1dbQUEE+LVOIWIXcIGIVcoOIVcgNIlYhN7SLVedPrO6y7g6eELJDpWhOdgw3xph1f4N5xbNHT2gklMWa9V+XkBquqp3czHcYStZwxm12oem7rmr1wODXdTq7hAWOY+w54NrBK3jKZn3JofoSl9abbyZaBVfiYE/WaBLmFdpr9nvNfEch9XAvhiUmBon9RiRWO9iV7jLjQhYZWjp6KAQajadFIXURu7INreOJBLeWvLH0dTRlg93CAqMxw8HfFuU3zUzIen3VBFUB45FAJax/aSHBnHQhm/C+sVe05fU8rCmbiBVlvGgZdVf+EjdW7JFD4JY6bO6hoZzBkZ7SPzbzmOqqudwfi8ZzQrATlm/Ur6Iee61XCs5yVPBeapsrq41vpT1BxbJrtOt12CxpBaciT9eHA70nTvNW+tmqCg7n7M8fTmn0XfhSbSvUiS08g4AfrKqxwzjb8wuNu0QF/Ep8qWnWGRXLr+ndjuX/9copFpDLNVXlH4FH/4V4hDyELwrhRvOI6F+x7BuJk+aV7eXJiue6pZGDOHsXLrQzc1VtOhwl7smV4uZjaac7sSxb7TgUNO+pLB05ZKhQL3E2CoIgCIIgCIIgCIIgdJVC4f8BaSiPyFLqCecAAAAASUVORK5CYII=</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <BatchMacro>
+        <OutputMode>AllSame</OutputMode>
+        <ControlParams>
+          <ControlParam>
+            <Name>Iteration</Name>
+            <Description>Iteration</Description>
+          </ControlParam>
+        </ControlParams>
+      </BatchMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="155" Selected="True" />
+        <Tool ToolId="160" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

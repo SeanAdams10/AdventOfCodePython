@@ -1,0 +1,735 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="IterNo" selected="False" />
+            <SelectField field="MapID" selected="False" />
+            <SelectField field="Tile_SequenceNum" selected="False" />
+            <SelectField field="Xmin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Xmax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Ymin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Ymax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Zmin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Zmax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="366" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_ActionID" selected="False" input="Source_" />
+                <SelectField field="Source_Xmin" selected="True" rename="Source_Xmin" input="Source_" />
+                <SelectField field="Source_Xmax" selected="True" rename="Source_Xmax" input="Source_" />
+                <SelectField field="Source_Ymin" selected="True" rename="Source_Ymin" input="Source_" />
+                <SelectField field="Source_Ymax" selected="True" rename="Source_Ymax" input="Source_" />
+                <SelectField field="Source_Zmin" selected="True" rename="Source_Zmin" input="Source_" />
+                <SelectField field="Source_Zmax" selected="True" rename="Source_Zmax" input="Source_" />
+                <SelectField field="Source_OnOff" selected="True" rename="Source_OnOff" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+            <Field name="Source_Xmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Xmax" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymin" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymax" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmax" source="TextInput:" type="Byte" />
+            <Field name="Source_OnOff" size="2" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="462" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="([Xmin]&gt;= [Source_Xmin])&#xA;and ([Ymin] &gt;= [Source_Ymin])&#xA;and ([Zmin] &gt;= [Source_Zmin])&#xA;&#xA;and ([Xmax] &lt;= [Source_Xmax])&#xA;and ([Ymax] &lt;= [Source_Ymax])&#xA;and ([Zmax] &lt;= [Source_Zmax])" field="Contained" size="1" type="Bool" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Contained = ([Xmin]&gt;= [Source_Xmin])
+and ([Ymin] &gt;= [Source_Ymin])
+and ([Zmin] &gt;...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+            <Field name="Source_Xmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Xmax" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymin" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymax" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmax" source="TextInput:" type="Byte" />
+            <Field name="Source_OnOff" size="2" source="TextInput:" type="String" />
+            <Field name="Contained" source="Formula: ([Xmin]&gt;= [Source_Xmin])&#xA;and ([Ymin] &gt;= [Source_Ymin])&#xA;and ([Zmin] &gt;= [Source_Zmin])&#xA;&#xA;and ([Xmax] &lt;= [Source_Xmax])&#xA;and ([Ymax] &lt;= [Source_Ymax])&#xA;and ([Zmax] &lt;= [Source_Zmax])" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="558" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>Contained</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-01-01 08:37:05</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2022-01-01 08:37:05</StartDate>
+              <EndDate>2022-01-01 08:37:05</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Contained] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+            <Field name="Source_Xmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Xmax" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymin" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymax" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmax" source="TextInput:" type="Byte" />
+            <Field name="Source_OnOff" size="2" source="TextInput:" type="String" />
+            <Field name="Contained" source="Formula: ([Xmin]&gt;= [Source_Xmin])&#xA;and ([Ymin] &gt;= [Source_Ymin])&#xA;and ([Zmin] &gt;= [Source_Zmin])&#xA;&#xA;and ([Xmax] &lt;= [Source_Xmax])&#xA;and ([Ymax] &lt;= [Source_Ymax])&#xA;and ([Zmax] &lt;= [Source_Zmax])" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+            <Field name="Source_Xmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Xmax" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymin" source="TextInput:" type="Byte" />
+            <Field name="Source_Ymax" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmin" source="TextInput:" type="Byte" />
+            <Field name="Source_Zmax" source="TextInput:" type="Byte" />
+            <Field name="Source_OnOff" size="2" source="TextInput:" type="String" />
+            <Field name="Contained" source="Formula: ([Xmin]&gt;= [Source_Xmin])&#xA;and ([Ymin] &gt;= [Source_Ymin])&#xA;and ([Zmin] &gt;= [Source_Zmin])&#xA;&#xA;and ([Xmax] &lt;= [Source_Xmax])&#xA;and ([Ymax] &lt;= [Source_Ymax])&#xA;and ([Zmax] &lt;= [Source_Zmax])" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="654" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Xmin" selected="True" />
+            <SelectField field="Xmax" selected="True" />
+            <SelectField field="Ymin" selected="True" />
+            <SelectField field="Ymax" selected="True" />
+            <SelectField field="Zmin" selected="True" />
+            <SelectField field="Zmax" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="654" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>OnOff</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-01-01 08:37:56</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>on</Operand>
+              <StartDate>2022-01-01 08:37:56</StartDate>
+              <EndDate>2022-01-01 08:37:56</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[OnOff] = "on"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ActionID" source="TextInput:" type="Byte" />
+            <Field name="Xmin" source="TextInput:" type="Byte" />
+            <Field name="Xmax" source="TextInput:" type="Byte" />
+            <Field name="Ymin" source="TextInput:" type="Byte" />
+            <Field name="Ymax" source="TextInput:" type="Byte" />
+            <Field name="Zmin" source="TextInput:" type="Byte" />
+            <Field name="Zmax" source="TextInput:" type="Byte" />
+            <Field name="OnOff" size="2" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ActionID" source="TextInput:" type="Byte" />
+            <Field name="Xmin" source="TextInput:" type="Byte" />
+            <Field name="Xmax" source="TextInput:" type="Byte" />
+            <Field name="Ymin" source="TextInput:" type="Byte" />
+            <Field name="Ymax" source="TextInput:" type="Byte" />
+            <Field name="Zmin" source="TextInput:" type="Byte" />
+            <Field name="Zmax" source="TextInput:" type="Byte" />
+            <Field name="OnOff" size="2" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="750" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Xmin" selected="True" />
+            <SelectField field="Xmax" selected="True" />
+            <SelectField field="Ymin" selected="True" />
+            <SelectField field="Ymax" selected="True" />
+            <SelectField field="Zmin" selected="True" />
+            <SelectField field="Zmax" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="Byte" />
+            <Field name="Xmax" source="TextInput:" type="Byte" />
+            <Field name="Ymin" source="TextInput:" type="Byte" />
+            <Field name="Ymax" source="TextInput:" type="Byte" />
+            <Field name="Zmin" source="TextInput:" type="Byte" />
+            <Field name="Zmax" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="858" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>New</Name>
+          <Abbrev>N</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="ActionID" />
+                <Field name="Xmin" />
+                <Field name="Xmax" />
+                <Field name="Ymin" />
+                <Field name="Ymax" />
+                <Field name="Zmin" />
+                <Field name="Zmax" />
+                <Field name="OnOff" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>15</c>
+                  <c>5</c>
+                  <c>15</c>
+                  <c>5</c>
+                  <c>15</c>
+                  <c>on</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>N Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ActionID" source="TextInput:" type="Byte" />
+            <Field name="Xmin" source="TextInput:" type="Byte" />
+            <Field name="Xmax" source="TextInput:" type="Byte" />
+            <Field name="Ymin" source="TextInput:" type="Byte" />
+            <Field name="Ymax" source="TextInput:" type="Byte" />
+            <Field name="Zmin" source="TextInput:" type="Byte" />
+            <Field name="Zmax" source="TextInput:" type="Byte" />
+            <Field name="OnOff" size="2" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Existing</Name>
+          <Abbrev>E</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="8" />
+              <Fields>
+                <Field name="Xmin" />
+                <Field name="Xmax" />
+                <Field name="Ymin" />
+                <Field name="Ymax" />
+                <Field name="Zmin" />
+                <Field name="Zmax" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>10</c>
+                  <c>15</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>16</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>10</c>
+                  <c>15</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>16</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>10</c>
+                  <c>15</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>16</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>10</c>
+                  <c>15</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>16</c>
+                  <c>20</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>E Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="Byte" />
+            <Field name="Xmax" source="TextInput:" type="Byte" />
+            <Field name="Ymin" source="TextInput:" type="Byte" />
+            <Field name="Ymax" source="TextInput:" type="Byte" />
+            <Field name="Zmin" source="TextInput:" type="Byte" />
+            <Field name="Zmax" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1050" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output3</Name>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="954" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Xmin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Xmax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Ymin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Ymax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Zmin" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="Zmax" selected="True" type="int64" size="4" forced="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Xmin" source="TextInput:" type="int64" />
+            <Field name="Xmax" source="TextInput:" type="int64" />
+            <Field name="Ymin" source="TextInput:" type="int64" />
+            <Field name="Ymax" source="TextInput:" type="int64" />
+            <Field name="Zmin" source="TextInput:" type="int64" />
+            <Field name="Zmax" source="TextInput:" type="int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="11" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="11" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="False" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="True" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>OverlappingJoin</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="14c3c5f8-60cb-4cb1-a051-6ce9bb1885b4" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="14c3c5f8-60cb-4cb1-a051-6ce9bb1885b4" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (18)</Name>
+          <ToolId value="18" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (19)</Name>
+              <ToolId value="19" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (20)</Name>
+              <ToolId value="20" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (21)</Name>
+              <ToolId value="21" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="19" Selected="True" />
+        <Tool ToolId="20" Selected="True" />
+        <Tool ToolId="21" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

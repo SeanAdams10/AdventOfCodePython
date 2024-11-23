@@ -1,0 +1,3752 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="726" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Cell" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Cell" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Cell" selected="False" input="Left_" />
+                <SelectField field="Right_Cell" selected="True" input="Right_" />
+                <SelectField field="Right_CellValue" selected="True" input="Right_" />
+                <SelectField field="Right_MinRisk" selected="True" input="Right_" />
+                <SelectField field="Left_NeighbourDir" selected="False" input="Left_" />
+                <SelectField field="Left_NeighbourCell" selected="True" input="Left_" />
+                <SelectField field="Right_ShortestPath" selected="True" rename="Cell_ShortestPath" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Find neighbours</AnnotationText>
+          <DefaultAnnotationText>Find neighbours</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+            <Field name="NeighbourDir" size="5" source="TextInput:" type="String" />
+            <Field name="NeighbourCell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cell" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="NeighbourCell" size="10" source="TextInput:" type="String" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cell" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="222" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>All Nodes (dynamic)</AnnotationText>
+          <DefaultAnnotationText>All Nodes</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>All vertices (static)</AnnotationText>
+          <DefaultAnnotationText>All vertices</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+            <Field name="NeighbourDir" size="5" source="TextInput:" type="String" />
+            <Field name="NeighbourCell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="846" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="NeighbourCell" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Cell" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CellValue" selected="True" rename="Cell_value" input="Left_" />
+                <SelectField field="Left_MinRisk" selected="True" rename="Cell_MinRisk" input="Left_" />
+                <SelectField field="Left_NeighbourCell" selected="False" input="Left_" />
+                <SelectField field="Right_Cell" selected="True" rename="Neighbour_Cell" input="Right_" />
+                <SelectField field="Right_CellValue" selected="True" rename="Neighbour_CellValue" input="Right_" />
+                <SelectField field="Right_MinRisk" selected="True" rename="Neighbour_MinRisk" input="Right_" />
+                <SelectField field="Right_ShortestPath" selected="True" rename="Neighbour_ShortestPath" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Enrich Neighbours</AnnotationText>
+          <DefaultAnnotationText>Enrich Neighbours</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="NeighbourCell" size="10" source="TextInput:" type="String" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="NeighbourCell" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Cell_value" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Cell_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Neighbour_Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Neighbour_CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Neighbour_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Neighbour_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cell" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="942" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Neighbour_MinRisk] &gt; [Cell_MinRisk]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Neighbour_MinRisk] &gt; [Cell_MinRisk]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Cell_value" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Cell_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Neighbour_Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Neighbour_CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Neighbour_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Neighbour_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Cell_value" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Cell_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Neighbour_Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Neighbour_CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Neighbour_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Neighbour_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1062" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Cell_MinRisk]+[Neighbour_CellValue]" field="Neighbour_MinRisk" size="4" type="Int32" />
+            <FormulaField expression="[Cell_ShortestPath]+&quot;-&quot;+[Neighbour_Cell]" field="Neighbour_ShortestPath" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Neighbour_MinRisk = [Cell_MinRisk]+[Neighbour_CellValue]
+Neighbour_ShortestPath ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Cell_value" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Cell_MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Cell_ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Neighbour_Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="Neighbour_CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="Neighbour_MinRisk" source="Formula: [Cell_MinRisk]+[Neighbour_CellValue]" type="Int32" />
+            <Field name="Neighbour_ShortestPath" size="1073741823" source="Formula: [Cell_ShortestPath]+&quot;-&quot;+[Neighbour_Cell]" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1158" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Neighbour_Cell" selected="True" rename="Cell" />
+            <SelectField field="Neighbour_CellValue" selected="True" rename="CellValue" />
+            <SelectField field="Neighbour_MinRisk" selected="True" rename="MinRisk" />
+            <SelectField field="Neighbour_ShortestPath" selected="True" rename="ShortestPath" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: [Cell_MinRisk]+[Neighbour_CellValue]" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: [Cell_ShortestPath]+&quot;-&quot;+[Neighbour_Cell]" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1254" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1350" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="Cell" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Cell" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Cell" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1446" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Cell" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Cell - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="1566" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">.\Map.yxdb</File>
+          <Passwords />
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Map.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1158" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Neighbour_Cell" selected="True" rename="Cell" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Focus Nodes</AnnotationText>
+          <DefaultAnnotationText>Focus Nodes</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="630" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Cell" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Cell" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Cell" selected="True" input="Left_" />
+                <SelectField field="Left_CellValue" selected="True" input="Left_" />
+                <SelectField field="Left_MinRisk" selected="True" input="Left_" />
+                <SelectField field="Left_ShortestPath" selected="True" input="Left_" />
+                <SelectField field="Right_Cell" selected="False" rename="Right_Cell" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Focus Nodes</AnnotationText>
+          <DefaultAnnotationText>Focus Nodes</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cell" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Cell" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Cell" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Vertices (static)</Name>
+          <Abbrev>V</Abbrev>
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="360" />
+              <Fields>
+                <Field name="Cell" />
+                <Field name="NeighbourDir" />
+                <Field name="NeighbourCell" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>(002, 005)</c>
+                  <c>Left</c>
+                  <c>(002, 004)</c>
+                </r>
+                <r>
+                  <c>(002, 005)</c>
+                  <c>Right</c>
+                  <c>(002, 006)</c>
+                </r>
+                <r>
+                  <c>(002, 005)</c>
+                  <c>Up</c>
+                  <c>(001, 005)</c>
+                </r>
+                <r>
+                  <c>(002, 005)</c>
+                  <c>Down</c>
+                  <c>(003, 005)</c>
+                </r>
+                <r>
+                  <c>(009, 002)</c>
+                  <c>Left</c>
+                  <c>(009, 001)</c>
+                </r>
+                <r>
+                  <c>(009, 002)</c>
+                  <c>Right</c>
+                  <c>(009, 003)</c>
+                </r>
+                <r>
+                  <c>(009, 002)</c>
+                  <c>Up</c>
+                  <c>(008, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 002)</c>
+                  <c>Down</c>
+                  <c>(010, 002)</c>
+                </r>
+                <r>
+                  <c>(002, 010)</c>
+                  <c>Left</c>
+                  <c>(002, 009)</c>
+                </r>
+                <r>
+                  <c>(002, 010)</c>
+                  <c>Up</c>
+                  <c>(001, 010)</c>
+                </r>
+                <r>
+                  <c>(002, 010)</c>
+                  <c>Down</c>
+                  <c>(003, 010)</c>
+                </r>
+                <r>
+                  <c>(006, 010)</c>
+                  <c>Left</c>
+                  <c>(006, 009)</c>
+                </r>
+                <r>
+                  <c>(006, 010)</c>
+                  <c>Up</c>
+                  <c>(005, 010)</c>
+                </r>
+                <r>
+                  <c>(006, 010)</c>
+                  <c>Down</c>
+                  <c>(007, 010)</c>
+                </r>
+                <r>
+                  <c>(005, 008)</c>
+                  <c>Left</c>
+                  <c>(005, 007)</c>
+                </r>
+                <r>
+                  <c>(005, 008)</c>
+                  <c>Right</c>
+                  <c>(005, 009)</c>
+                </r>
+                <r>
+                  <c>(005, 008)</c>
+                  <c>Up</c>
+                  <c>(004, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 008)</c>
+                  <c>Down</c>
+                  <c>(006, 008)</c>
+                </r>
+                <r>
+                  <c>(010, 007)</c>
+                  <c>Left</c>
+                  <c>(010, 006)</c>
+                </r>
+                <r>
+                  <c>(010, 007)</c>
+                  <c>Right</c>
+                  <c>(010, 008)</c>
+                </r>
+                <r>
+                  <c>(010, 007)</c>
+                  <c>Up</c>
+                  <c>(009, 007)</c>
+                </r>
+                <r>
+                  <c>(004, 010)</c>
+                  <c>Left</c>
+                  <c>(004, 009)</c>
+                </r>
+                <r>
+                  <c>(004, 010)</c>
+                  <c>Up</c>
+                  <c>(003, 010)</c>
+                </r>
+                <r>
+                  <c>(004, 010)</c>
+                  <c>Down</c>
+                  <c>(005, 010)</c>
+                </r>
+                <r>
+                  <c>(010, 008)</c>
+                  <c>Left</c>
+                  <c>(010, 007)</c>
+                </r>
+                <r>
+                  <c>(010, 008)</c>
+                  <c>Right</c>
+                  <c>(010, 009)</c>
+                </r>
+                <r>
+                  <c>(010, 008)</c>
+                  <c>Up</c>
+                  <c>(009, 008)</c>
+                </r>
+                <r>
+                  <c>(003, 003)</c>
+                  <c>Left</c>
+                  <c>(003, 002)</c>
+                </r>
+                <r>
+                  <c>(003, 003)</c>
+                  <c>Right</c>
+                  <c>(003, 004)</c>
+                </r>
+                <r>
+                  <c>(003, 003)</c>
+                  <c>Up</c>
+                  <c>(002, 003)</c>
+                </r>
+                <r>
+                  <c>(003, 003)</c>
+                  <c>Down</c>
+                  <c>(004, 003)</c>
+                </r>
+                <r>
+                  <c>(007, 004)</c>
+                  <c>Left</c>
+                  <c>(007, 003)</c>
+                </r>
+                <r>
+                  <c>(007, 004)</c>
+                  <c>Right</c>
+                  <c>(007, 005)</c>
+                </r>
+                <r>
+                  <c>(007, 004)</c>
+                  <c>Up</c>
+                  <c>(006, 004)</c>
+                </r>
+                <r>
+                  <c>(007, 004)</c>
+                  <c>Down</c>
+                  <c>(008, 004)</c>
+                </r>
+                <r>
+                  <c>(004, 005)</c>
+                  <c>Left</c>
+                  <c>(004, 004)</c>
+                </r>
+                <r>
+                  <c>(004, 005)</c>
+                  <c>Right</c>
+                  <c>(004, 006)</c>
+                </r>
+                <r>
+                  <c>(004, 005)</c>
+                  <c>Up</c>
+                  <c>(003, 005)</c>
+                </r>
+                <r>
+                  <c>(004, 005)</c>
+                  <c>Down</c>
+                  <c>(005, 005)</c>
+                </r>
+                <r>
+                  <c>(003, 004)</c>
+                  <c>Left</c>
+                  <c>(003, 003)</c>
+                </r>
+                <r>
+                  <c>(003, 004)</c>
+                  <c>Right</c>
+                  <c>(003, 005)</c>
+                </r>
+                <r>
+                  <c>(003, 004)</c>
+                  <c>Up</c>
+                  <c>(002, 004)</c>
+                </r>
+                <r>
+                  <c>(003, 004)</c>
+                  <c>Down</c>
+                  <c>(004, 004)</c>
+                </r>
+                <r>
+                  <c>(009, 003)</c>
+                  <c>Left</c>
+                  <c>(009, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 003)</c>
+                  <c>Right</c>
+                  <c>(009, 004)</c>
+                </r>
+                <r>
+                  <c>(009, 003)</c>
+                  <c>Up</c>
+                  <c>(008, 003)</c>
+                </r>
+                <r>
+                  <c>(009, 003)</c>
+                  <c>Down</c>
+                  <c>(010, 003)</c>
+                </r>
+                <r>
+                  <c>(010, 001)</c>
+                  <c>Right</c>
+                  <c>(010, 002)</c>
+                </r>
+                <r>
+                  <c>(010, 001)</c>
+                  <c>Up</c>
+                  <c>(009, 001)</c>
+                </r>
+                <r>
+                  <c>(010, 002)</c>
+                  <c>Left</c>
+                  <c>(010, 001)</c>
+                </r>
+                <r>
+                  <c>(010, 002)</c>
+                  <c>Right</c>
+                  <c>(010, 003)</c>
+                </r>
+                <r>
+                  <c>(010, 002)</c>
+                  <c>Up</c>
+                  <c>(009, 002)</c>
+                </r>
+                <r>
+                  <c>(003, 010)</c>
+                  <c>Left</c>
+                  <c>(003, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 010)</c>
+                  <c>Up</c>
+                  <c>(002, 010)</c>
+                </r>
+                <r>
+                  <c>(003, 010)</c>
+                  <c>Down</c>
+                  <c>(004, 010)</c>
+                </r>
+                <r>
+                  <c>(002, 004)</c>
+                  <c>Left</c>
+                  <c>(002, 003)</c>
+                </r>
+                <r>
+                  <c>(002, 004)</c>
+                  <c>Right</c>
+                  <c>(002, 005)</c>
+                </r>
+                <r>
+                  <c>(002, 004)</c>
+                  <c>Up</c>
+                  <c>(001, 004)</c>
+                </r>
+                <r>
+                  <c>(002, 004)</c>
+                  <c>Down</c>
+                  <c>(003, 004)</c>
+                </r>
+                <r>
+                  <c>(001, 007)</c>
+                  <c>Left</c>
+                  <c>(001, 006)</c>
+                </r>
+                <r>
+                  <c>(001, 007)</c>
+                  <c>Right</c>
+                  <c>(001, 008)</c>
+                </r>
+                <r>
+                  <c>(001, 007)</c>
+                  <c>Down</c>
+                  <c>(002, 007)</c>
+                </r>
+                <r>
+                  <c>(006, 007)</c>
+                  <c>Left</c>
+                  <c>(006, 006)</c>
+                </r>
+                <r>
+                  <c>(006, 007)</c>
+                  <c>Right</c>
+                  <c>(006, 008)</c>
+                </r>
+                <r>
+                  <c>(006, 007)</c>
+                  <c>Up</c>
+                  <c>(005, 007)</c>
+                </r>
+                <r>
+                  <c>(006, 007)</c>
+                  <c>Down</c>
+                  <c>(007, 007)</c>
+                </r>
+                <r>
+                  <c>(006, 004)</c>
+                  <c>Left</c>
+                  <c>(006, 003)</c>
+                </r>
+                <r>
+                  <c>(006, 004)</c>
+                  <c>Right</c>
+                  <c>(006, 005)</c>
+                </r>
+                <r>
+                  <c>(006, 004)</c>
+                  <c>Up</c>
+                  <c>(005, 004)</c>
+                </r>
+                <r>
+                  <c>(006, 004)</c>
+                  <c>Down</c>
+                  <c>(007, 004)</c>
+                </r>
+                <r>
+                  <c>(009, 005)</c>
+                  <c>Left</c>
+                  <c>(009, 004)</c>
+                </r>
+                <r>
+                  <c>(009, 005)</c>
+                  <c>Right</c>
+                  <c>(009, 006)</c>
+                </r>
+                <r>
+                  <c>(009, 005)</c>
+                  <c>Up</c>
+                  <c>(008, 005)</c>
+                </r>
+                <r>
+                  <c>(009, 005)</c>
+                  <c>Down</c>
+                  <c>(010, 005)</c>
+                </r>
+                <r>
+                  <c>(009, 006)</c>
+                  <c>Left</c>
+                  <c>(009, 005)</c>
+                </r>
+                <r>
+                  <c>(009, 006)</c>
+                  <c>Right</c>
+                  <c>(009, 007)</c>
+                </r>
+                <r>
+                  <c>(009, 006)</c>
+                  <c>Up</c>
+                  <c>(008, 006)</c>
+                </r>
+                <r>
+                  <c>(009, 006)</c>
+                  <c>Down</c>
+                  <c>(010, 006)</c>
+                </r>
+                <r>
+                  <c>(008, 006)</c>
+                  <c>Left</c>
+                  <c>(008, 005)</c>
+                </r>
+                <r>
+                  <c>(008, 006)</c>
+                  <c>Right</c>
+                  <c>(008, 007)</c>
+                </r>
+                <r>
+                  <c>(008, 006)</c>
+                  <c>Up</c>
+                  <c>(007, 006)</c>
+                </r>
+                <r>
+                  <c>(008, 006)</c>
+                  <c>Down</c>
+                  <c>(009, 006)</c>
+                </r>
+                <r>
+                  <c>(001, 005)</c>
+                  <c>Left</c>
+                  <c>(001, 004)</c>
+                </r>
+                <r>
+                  <c>(001, 005)</c>
+                  <c>Right</c>
+                  <c>(001, 006)</c>
+                </r>
+                <r>
+                  <c>(001, 005)</c>
+                  <c>Down</c>
+                  <c>(002, 005)</c>
+                </r>
+                <r>
+                  <c>(007, 005)</c>
+                  <c>Left</c>
+                  <c>(007, 004)</c>
+                </r>
+                <r>
+                  <c>(007, 005)</c>
+                  <c>Right</c>
+                  <c>(007, 006)</c>
+                </r>
+                <r>
+                  <c>(007, 005)</c>
+                  <c>Up</c>
+                  <c>(006, 005)</c>
+                </r>
+                <r>
+                  <c>(007, 005)</c>
+                  <c>Down</c>
+                  <c>(008, 005)</c>
+                </r>
+                <r>
+                  <c>(002, 007)</c>
+                  <c>Left</c>
+                  <c>(002, 006)</c>
+                </r>
+                <r>
+                  <c>(002, 007)</c>
+                  <c>Right</c>
+                  <c>(002, 008)</c>
+                </r>
+                <r>
+                  <c>(002, 007)</c>
+                  <c>Up</c>
+                  <c>(001, 007)</c>
+                </r>
+                <r>
+                  <c>(002, 007)</c>
+                  <c>Down</c>
+                  <c>(003, 007)</c>
+                </r>
+                <r>
+                  <c>(009, 009)</c>
+                  <c>Left</c>
+                  <c>(009, 008)</c>
+                </r>
+                <r>
+                  <c>(009, 009)</c>
+                  <c>Right</c>
+                  <c>(009, 010)</c>
+                </r>
+                <r>
+                  <c>(009, 009)</c>
+                  <c>Up</c>
+                  <c>(008, 009)</c>
+                </r>
+                <r>
+                  <c>(009, 009)</c>
+                  <c>Down</c>
+                  <c>(010, 009)</c>
+                </r>
+                <r>
+                  <c>(007, 008)</c>
+                  <c>Left</c>
+                  <c>(007, 007)</c>
+                </r>
+                <r>
+                  <c>(007, 008)</c>
+                  <c>Right</c>
+                  <c>(007, 009)</c>
+                </r>
+                <r>
+                  <c>(007, 008)</c>
+                  <c>Up</c>
+                  <c>(006, 008)</c>
+                </r>
+                <r>
+                  <c>(007, 008)</c>
+                  <c>Down</c>
+                  <c>(008, 008)</c>
+                </r>
+                <r>
+                  <c>(008, 009)</c>
+                  <c>Left</c>
+                  <c>(008, 008)</c>
+                </r>
+                <r>
+                  <c>(008, 009)</c>
+                  <c>Right</c>
+                  <c>(008, 010)</c>
+                </r>
+                <r>
+                  <c>(008, 009)</c>
+                  <c>Up</c>
+                  <c>(007, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 009)</c>
+                  <c>Down</c>
+                  <c>(009, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 002)</c>
+                  <c>Left</c>
+                  <c>(008, 001)</c>
+                </r>
+                <r>
+                  <c>(008, 002)</c>
+                  <c>Right</c>
+                  <c>(008, 003)</c>
+                </r>
+                <r>
+                  <c>(008, 002)</c>
+                  <c>Up</c>
+                  <c>(007, 002)</c>
+                </r>
+                <r>
+                  <c>(008, 002)</c>
+                  <c>Down</c>
+                  <c>(009, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 008)</c>
+                  <c>Left</c>
+                  <c>(009, 007)</c>
+                </r>
+                <r>
+                  <c>(009, 008)</c>
+                  <c>Right</c>
+                  <c>(009, 009)</c>
+                </r>
+                <r>
+                  <c>(009, 008)</c>
+                  <c>Up</c>
+                  <c>(008, 008)</c>
+                </r>
+                <r>
+                  <c>(009, 008)</c>
+                  <c>Down</c>
+                  <c>(010, 008)</c>
+                </r>
+                <r>
+                  <c>(007, 006)</c>
+                  <c>Left</c>
+                  <c>(007, 005)</c>
+                </r>
+                <r>
+                  <c>(007, 006)</c>
+                  <c>Right</c>
+                  <c>(007, 007)</c>
+                </r>
+                <r>
+                  <c>(007, 006)</c>
+                  <c>Up</c>
+                  <c>(006, 006)</c>
+                </r>
+                <r>
+                  <c>(007, 006)</c>
+                  <c>Down</c>
+                  <c>(008, 006)</c>
+                </r>
+                <r>
+                  <c>(006, 006)</c>
+                  <c>Left</c>
+                  <c>(006, 005)</c>
+                </r>
+                <r>
+                  <c>(006, 006)</c>
+                  <c>Right</c>
+                  <c>(006, 007)</c>
+                </r>
+                <r>
+                  <c>(006, 006)</c>
+                  <c>Up</c>
+                  <c>(005, 006)</c>
+                </r>
+                <r>
+                  <c>(006, 006)</c>
+                  <c>Down</c>
+                  <c>(007, 006)</c>
+                </r>
+                <r>
+                  <c>(004, 001)</c>
+                  <c>Right</c>
+                  <c>(004, 002)</c>
+                </r>
+                <r>
+                  <c>(004, 001)</c>
+                  <c>Up</c>
+                  <c>(003, 001)</c>
+                </r>
+                <r>
+                  <c>(004, 001)</c>
+                  <c>Down</c>
+                  <c>(005, 001)</c>
+                </r>
+                <r>
+                  <c>(003, 007)</c>
+                  <c>Left</c>
+                  <c>(003, 006)</c>
+                </r>
+                <r>
+                  <c>(003, 007)</c>
+                  <c>Right</c>
+                  <c>(003, 008)</c>
+                </r>
+                <r>
+                  <c>(003, 007)</c>
+                  <c>Up</c>
+                  <c>(002, 007)</c>
+                </r>
+                <r>
+                  <c>(003, 007)</c>
+                  <c>Down</c>
+                  <c>(004, 007)</c>
+                </r>
+                <r>
+                  <c>(010, 006)</c>
+                  <c>Left</c>
+                  <c>(010, 005)</c>
+                </r>
+                <r>
+                  <c>(010, 006)</c>
+                  <c>Right</c>
+                  <c>(010, 007)</c>
+                </r>
+                <r>
+                  <c>(010, 006)</c>
+                  <c>Up</c>
+                  <c>(009, 006)</c>
+                </r>
+                <r>
+                  <c>(004, 007)</c>
+                  <c>Left</c>
+                  <c>(004, 006)</c>
+                </r>
+                <r>
+                  <c>(004, 007)</c>
+                  <c>Right</c>
+                  <c>(004, 008)</c>
+                </r>
+                <r>
+                  <c>(004, 007)</c>
+                  <c>Up</c>
+                  <c>(003, 007)</c>
+                </r>
+                <r>
+                  <c>(004, 007)</c>
+                  <c>Down</c>
+                  <c>(005, 007)</c>
+                </r>
+                <r>
+                  <c>(002, 002)</c>
+                  <c>Left</c>
+                  <c>(002, 001)</c>
+                </r>
+                <r>
+                  <c>(002, 002)</c>
+                  <c>Right</c>
+                  <c>(002, 003)</c>
+                </r>
+                <r>
+                  <c>(002, 002)</c>
+                  <c>Up</c>
+                  <c>(001, 002)</c>
+                </r>
+                <r>
+                  <c>(002, 002)</c>
+                  <c>Down</c>
+                  <c>(003, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 001)</c>
+                  <c>Right</c>
+                  <c>(009, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 001)</c>
+                  <c>Up</c>
+                  <c>(008, 001)</c>
+                </r>
+                <r>
+                  <c>(009, 001)</c>
+                  <c>Down</c>
+                  <c>(010, 001)</c>
+                </r>
+                <r>
+                  <c>(005, 004)</c>
+                  <c>Left</c>
+                  <c>(005, 003)</c>
+                </r>
+                <r>
+                  <c>(005, 004)</c>
+                  <c>Right</c>
+                  <c>(005, 005)</c>
+                </r>
+                <r>
+                  <c>(005, 004)</c>
+                  <c>Up</c>
+                  <c>(004, 004)</c>
+                </r>
+                <r>
+                  <c>(005, 004)</c>
+                  <c>Down</c>
+                  <c>(006, 004)</c>
+                </r>
+                <r>
+                  <c>(001, 009)</c>
+                  <c>Left</c>
+                  <c>(001, 008)</c>
+                </r>
+                <r>
+                  <c>(001, 009)</c>
+                  <c>Right</c>
+                  <c>(001, 010)</c>
+                </r>
+                <r>
+                  <c>(001, 009)</c>
+                  <c>Down</c>
+                  <c>(002, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 008)</c>
+                  <c>Left</c>
+                  <c>(003, 007)</c>
+                </r>
+                <r>
+                  <c>(003, 008)</c>
+                  <c>Right</c>
+                  <c>(003, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 008)</c>
+                  <c>Up</c>
+                  <c>(002, 008)</c>
+                </r>
+                <r>
+                  <c>(003, 008)</c>
+                  <c>Down</c>
+                  <c>(004, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 006)</c>
+                  <c>Left</c>
+                  <c>(005, 005)</c>
+                </r>
+                <r>
+                  <c>(005, 006)</c>
+                  <c>Right</c>
+                  <c>(005, 007)</c>
+                </r>
+                <r>
+                  <c>(005, 006)</c>
+                  <c>Up</c>
+                  <c>(004, 006)</c>
+                </r>
+                <r>
+                  <c>(005, 006)</c>
+                  <c>Down</c>
+                  <c>(006, 006)</c>
+                </r>
+                <r>
+                  <c>(003, 006)</c>
+                  <c>Left</c>
+                  <c>(003, 005)</c>
+                </r>
+                <r>
+                  <c>(003, 006)</c>
+                  <c>Right</c>
+                  <c>(003, 007)</c>
+                </r>
+                <r>
+                  <c>(003, 006)</c>
+                  <c>Up</c>
+                  <c>(002, 006)</c>
+                </r>
+                <r>
+                  <c>(003, 006)</c>
+                  <c>Down</c>
+                  <c>(004, 006)</c>
+                </r>
+                <r>
+                  <c>(006, 003)</c>
+                  <c>Left</c>
+                  <c>(006, 002)</c>
+                </r>
+                <r>
+                  <c>(006, 003)</c>
+                  <c>Right</c>
+                  <c>(006, 004)</c>
+                </r>
+                <r>
+                  <c>(006, 003)</c>
+                  <c>Up</c>
+                  <c>(005, 003)</c>
+                </r>
+                <r>
+                  <c>(006, 003)</c>
+                  <c>Down</c>
+                  <c>(007, 003)</c>
+                </r>
+                <r>
+                  <c>(006, 008)</c>
+                  <c>Left</c>
+                  <c>(006, 007)</c>
+                </r>
+                <r>
+                  <c>(006, 008)</c>
+                  <c>Right</c>
+                  <c>(006, 009)</c>
+                </r>
+                <r>
+                  <c>(006, 008)</c>
+                  <c>Up</c>
+                  <c>(005, 008)</c>
+                </r>
+                <r>
+                  <c>(006, 008)</c>
+                  <c>Down</c>
+                  <c>(007, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 010)</c>
+                  <c>Left</c>
+                  <c>(005, 009)</c>
+                </r>
+                <r>
+                  <c>(005, 010)</c>
+                  <c>Up</c>
+                  <c>(004, 010)</c>
+                </r>
+                <r>
+                  <c>(005, 010)</c>
+                  <c>Down</c>
+                  <c>(006, 010)</c>
+                </r>
+                <r>
+                  <c>(007, 003)</c>
+                  <c>Left</c>
+                  <c>(007, 002)</c>
+                </r>
+                <r>
+                  <c>(007, 003)</c>
+                  <c>Right</c>
+                  <c>(007, 004)</c>
+                </r>
+                <r>
+                  <c>(007, 003)</c>
+                  <c>Up</c>
+                  <c>(006, 003)</c>
+                </r>
+                <r>
+                  <c>(007, 003)</c>
+                  <c>Down</c>
+                  <c>(008, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 006)</c>
+                  <c>Left</c>
+                  <c>(004, 005)</c>
+                </r>
+                <r>
+                  <c>(004, 006)</c>
+                  <c>Right</c>
+                  <c>(004, 007)</c>
+                </r>
+                <r>
+                  <c>(004, 006)</c>
+                  <c>Up</c>
+                  <c>(003, 006)</c>
+                </r>
+                <r>
+                  <c>(004, 006)</c>
+                  <c>Down</c>
+                  <c>(005, 006)</c>
+                </r>
+                <r>
+                  <c>(009, 007)</c>
+                  <c>Left</c>
+                  <c>(009, 006)</c>
+                </r>
+                <r>
+                  <c>(009, 007)</c>
+                  <c>Right</c>
+                  <c>(009, 008)</c>
+                </r>
+                <r>
+                  <c>(009, 007)</c>
+                  <c>Up</c>
+                  <c>(008, 007)</c>
+                </r>
+                <r>
+                  <c>(009, 007)</c>
+                  <c>Down</c>
+                  <c>(010, 007)</c>
+                </r>
+                <r>
+                  <c>(007, 002)</c>
+                  <c>Left</c>
+                  <c>(007, 001)</c>
+                </r>
+                <r>
+                  <c>(007, 002)</c>
+                  <c>Right</c>
+                  <c>(007, 003)</c>
+                </r>
+                <r>
+                  <c>(007, 002)</c>
+                  <c>Up</c>
+                  <c>(006, 002)</c>
+                </r>
+                <r>
+                  <c>(007, 002)</c>
+                  <c>Down</c>
+                  <c>(008, 002)</c>
+                </r>
+                <r>
+                  <c>(009, 004)</c>
+                  <c>Left</c>
+                  <c>(009, 003)</c>
+                </r>
+                <r>
+                  <c>(009, 004)</c>
+                  <c>Right</c>
+                  <c>(009, 005)</c>
+                </r>
+                <r>
+                  <c>(009, 004)</c>
+                  <c>Up</c>
+                  <c>(008, 004)</c>
+                </r>
+                <r>
+                  <c>(009, 004)</c>
+                  <c>Down</c>
+                  <c>(010, 004)</c>
+                </r>
+                <r>
+                  <c>(010, 009)</c>
+                  <c>Left</c>
+                  <c>(010, 008)</c>
+                </r>
+                <r>
+                  <c>(010, 009)</c>
+                  <c>Right</c>
+                  <c>(010, 010)</c>
+                </r>
+                <r>
+                  <c>(010, 009)</c>
+                  <c>Up</c>
+                  <c>(009, 009)</c>
+                </r>
+                <r>
+                  <c>(009, 010)</c>
+                  <c>Left</c>
+                  <c>(009, 009)</c>
+                </r>
+                <r>
+                  <c>(009, 010)</c>
+                  <c>Up</c>
+                  <c>(008, 010)</c>
+                </r>
+                <r>
+                  <c>(009, 010)</c>
+                  <c>Down</c>
+                  <c>(010, 010)</c>
+                </r>
+                <r>
+                  <c>(001, 004)</c>
+                  <c>Left</c>
+                  <c>(001, 003)</c>
+                </r>
+                <r>
+                  <c>(001, 004)</c>
+                  <c>Right</c>
+                  <c>(001, 005)</c>
+                </r>
+                <r>
+                  <c>(001, 004)</c>
+                  <c>Down</c>
+                  <c>(002, 004)</c>
+                </r>
+                <r>
+                  <c>(006, 009)</c>
+                  <c>Left</c>
+                  <c>(006, 008)</c>
+                </r>
+                <r>
+                  <c>(006, 009)</c>
+                  <c>Right</c>
+                  <c>(006, 010)</c>
+                </r>
+                <r>
+                  <c>(006, 009)</c>
+                  <c>Up</c>
+                  <c>(005, 009)</c>
+                </r>
+                <r>
+                  <c>(006, 009)</c>
+                  <c>Down</c>
+                  <c>(007, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 010)</c>
+                  <c>Left</c>
+                  <c>(008, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 010)</c>
+                  <c>Up</c>
+                  <c>(007, 010)</c>
+                </r>
+                <r>
+                  <c>(008, 010)</c>
+                  <c>Down</c>
+                  <c>(009, 010)</c>
+                </r>
+                <r>
+                  <c>(005, 001)</c>
+                  <c>Right</c>
+                  <c>(005, 002)</c>
+                </r>
+                <r>
+                  <c>(005, 001)</c>
+                  <c>Up</c>
+                  <c>(004, 001)</c>
+                </r>
+                <r>
+                  <c>(005, 001)</c>
+                  <c>Down</c>
+                  <c>(006, 001)</c>
+                </r>
+                <r>
+                  <c>(007, 007)</c>
+                  <c>Left</c>
+                  <c>(007, 006)</c>
+                </r>
+                <r>
+                  <c>(007, 007)</c>
+                  <c>Right</c>
+                  <c>(007, 008)</c>
+                </r>
+                <r>
+                  <c>(007, 007)</c>
+                  <c>Up</c>
+                  <c>(006, 007)</c>
+                </r>
+                <r>
+                  <c>(007, 007)</c>
+                  <c>Down</c>
+                  <c>(008, 007)</c>
+                </r>
+                <r>
+                  <c>(003, 001)</c>
+                  <c>Right</c>
+                  <c>(003, 002)</c>
+                </r>
+                <r>
+                  <c>(003, 001)</c>
+                  <c>Up</c>
+                  <c>(002, 001)</c>
+                </r>
+                <r>
+                  <c>(003, 001)</c>
+                  <c>Down</c>
+                  <c>(004, 001)</c>
+                </r>
+                <r>
+                  <c>(010, 004)</c>
+                  <c>Left</c>
+                  <c>(010, 003)</c>
+                </r>
+                <r>
+                  <c>(010, 004)</c>
+                  <c>Right</c>
+                  <c>(010, 005)</c>
+                </r>
+                <r>
+                  <c>(010, 004)</c>
+                  <c>Up</c>
+                  <c>(009, 004)</c>
+                </r>
+                <r>
+                  <c>(003, 002)</c>
+                  <c>Left</c>
+                  <c>(003, 001)</c>
+                </r>
+                <r>
+                  <c>(003, 002)</c>
+                  <c>Right</c>
+                  <c>(003, 003)</c>
+                </r>
+                <r>
+                  <c>(003, 002)</c>
+                  <c>Up</c>
+                  <c>(002, 002)</c>
+                </r>
+                <r>
+                  <c>(003, 002)</c>
+                  <c>Down</c>
+                  <c>(004, 002)</c>
+                </r>
+                <r>
+                  <c>(010, 003)</c>
+                  <c>Left</c>
+                  <c>(010, 002)</c>
+                </r>
+                <r>
+                  <c>(010, 003)</c>
+                  <c>Right</c>
+                  <c>(010, 004)</c>
+                </r>
+                <r>
+                  <c>(010, 003)</c>
+                  <c>Up</c>
+                  <c>(009, 003)</c>
+                </r>
+                <r>
+                  <c>(010, 005)</c>
+                  <c>Left</c>
+                  <c>(010, 004)</c>
+                </r>
+                <r>
+                  <c>(010, 005)</c>
+                  <c>Right</c>
+                  <c>(010, 006)</c>
+                </r>
+                <r>
+                  <c>(010, 005)</c>
+                  <c>Up</c>
+                  <c>(009, 005)</c>
+                </r>
+                <r>
+                  <c>(005, 003)</c>
+                  <c>Left</c>
+                  <c>(005, 002)</c>
+                </r>
+                <r>
+                  <c>(005, 003)</c>
+                  <c>Right</c>
+                  <c>(005, 004)</c>
+                </r>
+                <r>
+                  <c>(005, 003)</c>
+                  <c>Up</c>
+                  <c>(004, 003)</c>
+                </r>
+                <r>
+                  <c>(005, 003)</c>
+                  <c>Down</c>
+                  <c>(006, 003)</c>
+                </r>
+                <r>
+                  <c>(010, 010)</c>
+                  <c>Left</c>
+                  <c>(010, 009)</c>
+                </r>
+                <r>
+                  <c>(010, 010)</c>
+                  <c>Up</c>
+                  <c>(009, 010)</c>
+                </r>
+                <r>
+                  <c>(002, 001)</c>
+                  <c>Right</c>
+                  <c>(002, 002)</c>
+                </r>
+                <r>
+                  <c>(002, 001)</c>
+                  <c>Up</c>
+                  <c>(001, 001)</c>
+                </r>
+                <r>
+                  <c>(002, 001)</c>
+                  <c>Down</c>
+                  <c>(003, 001)</c>
+                </r>
+                <r>
+                  <c>(005, 009)</c>
+                  <c>Left</c>
+                  <c>(005, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 009)</c>
+                  <c>Right</c>
+                  <c>(005, 010)</c>
+                </r>
+                <r>
+                  <c>(005, 009)</c>
+                  <c>Up</c>
+                  <c>(004, 009)</c>
+                </r>
+                <r>
+                  <c>(005, 009)</c>
+                  <c>Down</c>
+                  <c>(006, 009)</c>
+                </r>
+                <r>
+                  <c>(005, 002)</c>
+                  <c>Left</c>
+                  <c>(005, 001)</c>
+                </r>
+                <r>
+                  <c>(005, 002)</c>
+                  <c>Right</c>
+                  <c>(005, 003)</c>
+                </r>
+                <r>
+                  <c>(005, 002)</c>
+                  <c>Up</c>
+                  <c>(004, 002)</c>
+                </r>
+                <r>
+                  <c>(005, 002)</c>
+                  <c>Down</c>
+                  <c>(006, 002)</c>
+                </r>
+                <r>
+                  <c>(004, 004)</c>
+                  <c>Left</c>
+                  <c>(004, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 004)</c>
+                  <c>Right</c>
+                  <c>(004, 005)</c>
+                </r>
+                <r>
+                  <c>(004, 004)</c>
+                  <c>Up</c>
+                  <c>(003, 004)</c>
+                </r>
+                <r>
+                  <c>(004, 004)</c>
+                  <c>Down</c>
+                  <c>(005, 004)</c>
+                </r>
+                <r>
+                  <c>(002, 009)</c>
+                  <c>Left</c>
+                  <c>(002, 008)</c>
+                </r>
+                <r>
+                  <c>(002, 009)</c>
+                  <c>Right</c>
+                  <c>(002, 010)</c>
+                </r>
+                <r>
+                  <c>(002, 009)</c>
+                  <c>Up</c>
+                  <c>(001, 009)</c>
+                </r>
+                <r>
+                  <c>(002, 009)</c>
+                  <c>Down</c>
+                  <c>(003, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 009)</c>
+                  <c>Left</c>
+                  <c>(003, 008)</c>
+                </r>
+                <r>
+                  <c>(003, 009)</c>
+                  <c>Right</c>
+                  <c>(003, 010)</c>
+                </r>
+                <r>
+                  <c>(003, 009)</c>
+                  <c>Up</c>
+                  <c>(002, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 009)</c>
+                  <c>Down</c>
+                  <c>(004, 009)</c>
+                </r>
+                <r>
+                  <c>(003, 005)</c>
+                  <c>Left</c>
+                  <c>(003, 004)</c>
+                </r>
+                <r>
+                  <c>(003, 005)</c>
+                  <c>Right</c>
+                  <c>(003, 006)</c>
+                </r>
+                <r>
+                  <c>(003, 005)</c>
+                  <c>Up</c>
+                  <c>(002, 005)</c>
+                </r>
+                <r>
+                  <c>(003, 005)</c>
+                  <c>Down</c>
+                  <c>(004, 005)</c>
+                </r>
+                <r>
+                  <c>(002, 003)</c>
+                  <c>Left</c>
+                  <c>(002, 002)</c>
+                </r>
+                <r>
+                  <c>(002, 003)</c>
+                  <c>Right</c>
+                  <c>(002, 004)</c>
+                </r>
+                <r>
+                  <c>(002, 003)</c>
+                  <c>Up</c>
+                  <c>(001, 003)</c>
+                </r>
+                <r>
+                  <c>(002, 003)</c>
+                  <c>Down</c>
+                  <c>(003, 003)</c>
+                </r>
+                <r>
+                  <c>(007, 001)</c>
+                  <c>Right</c>
+                  <c>(007, 002)</c>
+                </r>
+                <r>
+                  <c>(007, 001)</c>
+                  <c>Up</c>
+                  <c>(006, 001)</c>
+                </r>
+                <r>
+                  <c>(007, 001)</c>
+                  <c>Down</c>
+                  <c>(008, 001)</c>
+                </r>
+                <r>
+                  <c>(006, 005)</c>
+                  <c>Left</c>
+                  <c>(006, 004)</c>
+                </r>
+                <r>
+                  <c>(006, 005)</c>
+                  <c>Right</c>
+                  <c>(006, 006)</c>
+                </r>
+                <r>
+                  <c>(006, 005)</c>
+                  <c>Up</c>
+                  <c>(005, 005)</c>
+                </r>
+                <r>
+                  <c>(006, 005)</c>
+                  <c>Down</c>
+                  <c>(007, 005)</c>
+                </r>
+                <r>
+                  <c>(001, 010)</c>
+                  <c>Left</c>
+                  <c>(001, 009)</c>
+                </r>
+                <r>
+                  <c>(001, 010)</c>
+                  <c>Down</c>
+                  <c>(002, 010)</c>
+                </r>
+                <r>
+                  <c>(008, 008)</c>
+                  <c>Left</c>
+                  <c>(008, 007)</c>
+                </r>
+                <r>
+                  <c>(008, 008)</c>
+                  <c>Right</c>
+                  <c>(008, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 008)</c>
+                  <c>Up</c>
+                  <c>(007, 008)</c>
+                </r>
+                <r>
+                  <c>(008, 008)</c>
+                  <c>Down</c>
+                  <c>(009, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 005)</c>
+                  <c>Left</c>
+                  <c>(005, 004)</c>
+                </r>
+                <r>
+                  <c>(005, 005)</c>
+                  <c>Right</c>
+                  <c>(005, 006)</c>
+                </r>
+                <r>
+                  <c>(005, 005)</c>
+                  <c>Up</c>
+                  <c>(004, 005)</c>
+                </r>
+                <r>
+                  <c>(005, 005)</c>
+                  <c>Down</c>
+                  <c>(006, 005)</c>
+                </r>
+                <r>
+                  <c>(001, 006)</c>
+                  <c>Left</c>
+                  <c>(001, 005)</c>
+                </r>
+                <r>
+                  <c>(001, 006)</c>
+                  <c>Right</c>
+                  <c>(001, 007)</c>
+                </r>
+                <r>
+                  <c>(001, 006)</c>
+                  <c>Down</c>
+                  <c>(002, 006)</c>
+                </r>
+                <r>
+                  <c>(002, 008)</c>
+                  <c>Left</c>
+                  <c>(002, 007)</c>
+                </r>
+                <r>
+                  <c>(002, 008)</c>
+                  <c>Right</c>
+                  <c>(002, 009)</c>
+                </r>
+                <r>
+                  <c>(002, 008)</c>
+                  <c>Up</c>
+                  <c>(001, 008)</c>
+                </r>
+                <r>
+                  <c>(002, 008)</c>
+                  <c>Down</c>
+                  <c>(003, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 007)</c>
+                  <c>Left</c>
+                  <c>(005, 006)</c>
+                </r>
+                <r>
+                  <c>(005, 007)</c>
+                  <c>Right</c>
+                  <c>(005, 008)</c>
+                </r>
+                <r>
+                  <c>(005, 007)</c>
+                  <c>Up</c>
+                  <c>(004, 007)</c>
+                </r>
+                <r>
+                  <c>(005, 007)</c>
+                  <c>Down</c>
+                  <c>(006, 007)</c>
+                </r>
+                <r>
+                  <c>(007, 009)</c>
+                  <c>Left</c>
+                  <c>(007, 008)</c>
+                </r>
+                <r>
+                  <c>(007, 009)</c>
+                  <c>Right</c>
+                  <c>(007, 010)</c>
+                </r>
+                <r>
+                  <c>(007, 009)</c>
+                  <c>Up</c>
+                  <c>(006, 009)</c>
+                </r>
+                <r>
+                  <c>(007, 009)</c>
+                  <c>Down</c>
+                  <c>(008, 009)</c>
+                </r>
+                <r>
+                  <c>(002, 006)</c>
+                  <c>Left</c>
+                  <c>(002, 005)</c>
+                </r>
+                <r>
+                  <c>(002, 006)</c>
+                  <c>Right</c>
+                  <c>(002, 007)</c>
+                </r>
+                <r>
+                  <c>(002, 006)</c>
+                  <c>Up</c>
+                  <c>(001, 006)</c>
+                </r>
+                <r>
+                  <c>(002, 006)</c>
+                  <c>Down</c>
+                  <c>(003, 006)</c>
+                </r>
+                <r>
+                  <c>(007, 010)</c>
+                  <c>Left</c>
+                  <c>(007, 009)</c>
+                </r>
+                <r>
+                  <c>(007, 010)</c>
+                  <c>Up</c>
+                  <c>(006, 010)</c>
+                </r>
+                <r>
+                  <c>(007, 010)</c>
+                  <c>Down</c>
+                  <c>(008, 010)</c>
+                </r>
+                <r>
+                  <c>(006, 001)</c>
+                  <c>Right</c>
+                  <c>(006, 002)</c>
+                </r>
+                <r>
+                  <c>(006, 001)</c>
+                  <c>Up</c>
+                  <c>(005, 001)</c>
+                </r>
+                <r>
+                  <c>(006, 001)</c>
+                  <c>Down</c>
+                  <c>(007, 001)</c>
+                </r>
+                <r>
+                  <c>(001, 001)</c>
+                  <c>Right</c>
+                  <c>(001, 002)</c>
+                </r>
+                <r>
+                  <c>(001, 001)</c>
+                  <c>Down</c>
+                  <c>(002, 001)</c>
+                </r>
+                <r>
+                  <c>(001, 008)</c>
+                  <c>Left</c>
+                  <c>(001, 007)</c>
+                </r>
+                <r>
+                  <c>(001, 008)</c>
+                  <c>Right</c>
+                  <c>(001, 009)</c>
+                </r>
+                <r>
+                  <c>(001, 008)</c>
+                  <c>Down</c>
+                  <c>(002, 008)</c>
+                </r>
+                <r>
+                  <c>(008, 004)</c>
+                  <c>Left</c>
+                  <c>(008, 003)</c>
+                </r>
+                <r>
+                  <c>(008, 004)</c>
+                  <c>Right</c>
+                  <c>(008, 005)</c>
+                </r>
+                <r>
+                  <c>(008, 004)</c>
+                  <c>Up</c>
+                  <c>(007, 004)</c>
+                </r>
+                <r>
+                  <c>(008, 004)</c>
+                  <c>Down</c>
+                  <c>(009, 004)</c>
+                </r>
+                <r>
+                  <c>(006, 002)</c>
+                  <c>Left</c>
+                  <c>(006, 001)</c>
+                </r>
+                <r>
+                  <c>(006, 002)</c>
+                  <c>Right</c>
+                  <c>(006, 003)</c>
+                </r>
+                <r>
+                  <c>(006, 002)</c>
+                  <c>Up</c>
+                  <c>(005, 002)</c>
+                </r>
+                <r>
+                  <c>(006, 002)</c>
+                  <c>Down</c>
+                  <c>(007, 002)</c>
+                </r>
+                <r>
+                  <c>(001, 003)</c>
+                  <c>Left</c>
+                  <c>(001, 002)</c>
+                </r>
+                <r>
+                  <c>(001, 003)</c>
+                  <c>Right</c>
+                  <c>(001, 004)</c>
+                </r>
+                <r>
+                  <c>(001, 003)</c>
+                  <c>Down</c>
+                  <c>(002, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 008)</c>
+                  <c>Left</c>
+                  <c>(004, 007)</c>
+                </r>
+                <r>
+                  <c>(004, 008)</c>
+                  <c>Right</c>
+                  <c>(004, 009)</c>
+                </r>
+                <r>
+                  <c>(004, 008)</c>
+                  <c>Up</c>
+                  <c>(003, 008)</c>
+                </r>
+                <r>
+                  <c>(004, 008)</c>
+                  <c>Down</c>
+                  <c>(005, 008)</c>
+                </r>
+                <r>
+                  <c>(004, 003)</c>
+                  <c>Left</c>
+                  <c>(004, 002)</c>
+                </r>
+                <r>
+                  <c>(004, 003)</c>
+                  <c>Right</c>
+                  <c>(004, 004)</c>
+                </r>
+                <r>
+                  <c>(004, 003)</c>
+                  <c>Up</c>
+                  <c>(003, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 003)</c>
+                  <c>Down</c>
+                  <c>(005, 003)</c>
+                </r>
+                <r>
+                  <c>(008, 005)</c>
+                  <c>Left</c>
+                  <c>(008, 004)</c>
+                </r>
+                <r>
+                  <c>(008, 005)</c>
+                  <c>Right</c>
+                  <c>(008, 006)</c>
+                </r>
+                <r>
+                  <c>(008, 005)</c>
+                  <c>Up</c>
+                  <c>(007, 005)</c>
+                </r>
+                <r>
+                  <c>(008, 005)</c>
+                  <c>Down</c>
+                  <c>(009, 005)</c>
+                </r>
+                <r>
+                  <c>(008, 003)</c>
+                  <c>Left</c>
+                  <c>(008, 002)</c>
+                </r>
+                <r>
+                  <c>(008, 003)</c>
+                  <c>Right</c>
+                  <c>(008, 004)</c>
+                </r>
+                <r>
+                  <c>(008, 003)</c>
+                  <c>Up</c>
+                  <c>(007, 003)</c>
+                </r>
+                <r>
+                  <c>(008, 003)</c>
+                  <c>Down</c>
+                  <c>(009, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 002)</c>
+                  <c>Left</c>
+                  <c>(004, 001)</c>
+                </r>
+                <r>
+                  <c>(004, 002)</c>
+                  <c>Right</c>
+                  <c>(004, 003)</c>
+                </r>
+                <r>
+                  <c>(004, 002)</c>
+                  <c>Up</c>
+                  <c>(003, 002)</c>
+                </r>
+                <r>
+                  <c>(004, 002)</c>
+                  <c>Down</c>
+                  <c>(005, 002)</c>
+                </r>
+                <r>
+                  <c>(001, 002)</c>
+                  <c>Left</c>
+                  <c>(001, 001)</c>
+                </r>
+                <r>
+                  <c>(001, 002)</c>
+                  <c>Right</c>
+                  <c>(001, 003)</c>
+                </r>
+                <r>
+                  <c>(001, 002)</c>
+                  <c>Down</c>
+                  <c>(002, 002)</c>
+                </r>
+                <r>
+                  <c>(008, 001)</c>
+                  <c>Right</c>
+                  <c>(008, 002)</c>
+                </r>
+                <r>
+                  <c>(008, 001)</c>
+                  <c>Up</c>
+                  <c>(007, 001)</c>
+                </r>
+                <r>
+                  <c>(008, 001)</c>
+                  <c>Down</c>
+                  <c>(009, 001)</c>
+                </r>
+                <r>
+                  <c>(004, 009)</c>
+                  <c>Left</c>
+                  <c>(004, 008)</c>
+                </r>
+                <r>
+                  <c>(004, 009)</c>
+                  <c>Right</c>
+                  <c>(004, 010)</c>
+                </r>
+                <r>
+                  <c>(004, 009)</c>
+                  <c>Up</c>
+                  <c>(003, 009)</c>
+                </r>
+                <r>
+                  <c>(004, 009)</c>
+                  <c>Down</c>
+                  <c>(005, 009)</c>
+                </r>
+                <r>
+                  <c>(008, 007)</c>
+                  <c>Left</c>
+                  <c>(008, 006)</c>
+                </r>
+                <r>
+                  <c>(008, 007)</c>
+                  <c>Right</c>
+                  <c>(008, 008)</c>
+                </r>
+                <r>
+                  <c>(008, 007)</c>
+                  <c>Up</c>
+                  <c>(007, 007)</c>
+                </r>
+                <r>
+                  <c>(008, 007)</c>
+                  <c>Down</c>
+                  <c>(009, 007)</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>V Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+            <Field name="NeighbourDir" size="5" source="TextInput:" type="String" />
+            <Field name="NeighbourCell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Map (fake)</Name>
+          <Abbrev>M</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="100" />
+              <Fields>
+                <Field name="Cell" />
+                <Field name="CellValue" />
+                <Field name="MinRisk" />
+                <Field name="ShortestPath" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>(002, 005)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 002)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 010)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 010)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 008)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 007)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 010)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 008)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 003)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 004)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 005)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 004)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 003)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 001)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 002)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 010)</c>
+                  <c>8</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 004)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 007)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 007)</c>
+                  <c>8</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 004)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 005)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 006)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 006)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 005)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 005)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 007)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 009)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 008)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 009)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 002)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 008)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 006)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 006)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 001)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 007)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 006)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 007)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 002)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 001)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 004)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 009)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 008)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 006)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 006)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 003)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 008)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 010)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 003)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 006)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 007)</c>
+                  <c>8</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 002)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 004)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 009)</c>
+                  <c>8</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(009, 010)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 004)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 009)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 010)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 001)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 007)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 001)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 004)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 002)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 003)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 005)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 003)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(010, 010)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 001)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 009)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 002)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 004)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 009)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 009)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(003, 005)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 003)</c>
+                  <c>8</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 001)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 005)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 010)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 008)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 005)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 006)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 008)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(005, 007)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 009)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(002, 006)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(007, 010)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 001)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 001)</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>(001, 001)</c>
+                </r>
+                <r>
+                  <c>(001, 008)</c>
+                  <c>7</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 004)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(006, 002)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 003)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 008)</c>
+                  <c>5</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 003)</c>
+                  <c>9</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 005)</c>
+                  <c>4</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 003)</c>
+                  <c>2</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 002)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(001, 002)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 001)</c>
+                  <c>3</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(004, 009)</c>
+                  <c>6</c>
+                  <c>999</c>
+                  <c />
+                </r>
+                <r>
+                  <c>(008, 007)</c>
+                  <c>1</c>
+                  <c>999</c>
+                  <c />
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>M Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+            <Field name="CellValue" source="TextInput:" type="Byte" />
+            <Field name="MinRisk" source="TextInput:" type="Int16" />
+            <Field name="ShortestPath" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Focus Nodes</Name>
+          <Abbrev>F</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="Cell" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>(001, 001)</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>F Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1614" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1638" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Map</Name>
+          <Abbrev>M</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>M Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="1326" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Numeric Up Down (171)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1350" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[[Engine.IterationNumber] < [#1]
+]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[[Engine.IterationNumber] < [#1]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="150" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\map.yxdb</File>
+          <FormatSpecificOptions />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>map.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1254" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>1</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>1 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1446" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>2</Name>
+          <Abbrev>2</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>2 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1110" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>3</Name>
+          <Abbrev>3</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>3 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1566" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="Iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="822" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>a</Name>
+          <Abbrev>a</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>a Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="726" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="Iteration" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+            <Field name="CellValue" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="MinRisk" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="ShortestPath" size="1073741823" source="Formula: (Multiple Sources)" type="V_WString" />
+            <Field name="Iteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Cell" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings>
+        <Position x="294" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings>
+        <Position x="294" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">-100</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="10" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1278" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1506" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="Cell" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Cell - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Cell" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="35" Connection="Join" />
+      <Destination ToolID="38" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="38" Connection="Right" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="48" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="48" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="35" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Join" />
+      <Destination ToolID="35" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Join" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="True" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Unique" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="58" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Join" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="54" Connection="Question" />
+      <Destination ToolID="55" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="True" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="True" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="57" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (49)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (50)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (51)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (52)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (53)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (54)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (58)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (59)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (60)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (62)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>TestIter</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="b487cee2-4099-4806-a5d6-a54a781e7383" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="b487cee2-4099-4806-a5d6-a54a781e7383" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (49)</Name>
+              <ToolId value="49" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (50)</Name>
+              <ToolId value="50" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (51)</Name>
+              <ToolId value="51" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (169)</Description>
+              <Name>Macro Output (52)</Name>
+              <ToolId value="52" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (170)</Description>
+              <Name>Macro Output (53)</Name>
+              <ToolId value="53" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Iterations</Description>
+              <Name>Numeric Up Down (54)</Name>
+              <ToolId value="54" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="0" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (58)</Description>
+              <Name>Macro Output (58)</Name>
+              <ToolId value="58" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (59)</Description>
+              <Name>Macro Output (59)</Name>
+              <ToolId value="59" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (60)</Description>
+              <Name>Macro Output (60)</Name>
+              <ToolId value="60" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (62)</Description>
+              <Name>Macro Output (62)</Name>
+              <ToolId value="62" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Focus Nodes</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="45" Selected="True" />
+        <Tool ToolId="49" Selected="True" />
+        <Tool ToolId="50" Selected="True" />
+        <Tool ToolId="51" Selected="True" />
+        <Tool ToolId="52" Selected="True" />
+        <Tool ToolId="53" Selected="True" />
+        <Tool ToolId="58" Selected="True" />
+        <Tool ToolId="59" Selected="True" />
+        <Tool ToolId="60" Selected="True" />
+        <Tool ToolId="62" Selected="True" />
+        <Tool ToolId="64" Selected="True" />
+        <Tool ToolId="65" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

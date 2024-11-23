@@ -1,0 +1,758 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input1</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="5" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>8 9 1 2 3</c>
+                </r>
+                <r>
+                  <c>9 1 2 3 4</c>
+                </r>
+                <r>
+                  <c>1 2 3 4 5</c>
+                </r>
+                <r>
+                  <c>2 3 4 5 6</c>
+                </r>
+                <r>
+                  <c>3 4 5 6 7</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Test DAta</AnnotationText>
+          <DefaultAnnotationText>Test DAta
+Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="data" size="9" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="258" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RowID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="9" source="Formula: [_CurrentField_]" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="354" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>data</Field>
+          <RegExExpression value="(.)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseSimple</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="True" />
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="RegExOut1" type="V_WString" size="254" />
+          </ParseComplex>
+          <Match>
+            <Field>data_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="9" source="Formula: [_CurrentField_]" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="450" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="RowID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" size="9" source="Formula: [_CurrentField_]" type="String" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings>
+        <Position x="150" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"data"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">True</Value>
+          <Value name="Check Box (122)">True</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output26">
+          <RecordInfo>
+            <Field name="data" size="9" source="Formula: [_CurrentField_]" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="642" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>VertSection</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>VertSection &lt;= max(toNumber([#1])-1,1)</Expression_Cond>
+          <Expression_Loop>VertSection + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="690" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Numeric Up Down (13)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="834" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[VertSection] + [ColSection]" field="AddMult" size="4" type="Int32" />
+            <FormulaField expression="data + [AddMult]" field="data" size="4" type="Int32" />
+            <FormulaField expression="mod([data]-1,9)+1" field="data" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>AddMult = [VertSection] + [ColSection]
+data = data + [AddMult]
+data = mod([data]...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: mod([data]-1,9)+1" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+            <Field name="ColSection" type="Int32" />
+            <Field name="AddMult" source="Formula: [VertSection] + [ColSection]" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="738" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>ColSection</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>ColSection &lt;= max(toNumber([#1])-1,1)</Expression_Cond>
+          <Expression_Loop>ColSection + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+            <Field name="ColSection" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="546" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="data" selected="True" type="Int32" size="4" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="ColID" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: [_CurrentField_]" type="Int32" />
+            <Field name="ColID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RowID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="930" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="VertSection" order="Ascending" />
+            <Field field="RowID" order="Ascending" />
+            <Field field="ColID" order="Ascending" />
+            <Field field="ColSection" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>VertSection - Ascending
+RowID - Ascending
+ColID - Ascending
+ColSection - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: mod([data]-1,9)+1" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+            <Field name="ColSection" type="Int32" />
+            <Field name="AddMult" source="Formula: [VertSection] + [ColSection]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="642" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="RowID" action="Max" rename="Max_RowID" />
+            <SummarizeField field="ColID" action="Max" rename="Max_ColID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1026" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: mod([data]-1,9)+1" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+            <Field name="ColSection" type="Int32" />
+            <Field name="AddMult" source="Formula: [VertSection] + [ColSection]" type="Int32" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1110" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[RowID] + [Max_RowID]*[VertSection]" field="NewRowID" size="4" type="Int32" />
+            <FormulaField expression="[ColID] + [Max_ColID]*[ColSection]" field="NewColID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>NewRowID = [RowID] + [Max_RowID]*[VertSection]
+NewColID = [ColID] + [Max_ColID]*...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="data" source="Formula: mod([data]-1,9)+1" type="Int32" />
+            <Field name="ColID" type="Int32" />
+            <Field name="VertSection" type="Int32" />
+            <Field name="ColSection" type="Int32" />
+            <Field name="AddMult" source="Formula: [VertSection] + [ColSection]" type="Int32" />
+            <Field name="Max_RowID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Max_ColID" type="Int32" />
+            <Field name="NewRowID" source="Formula: [RowID] + [Max_RowID]*[VertSection]" type="Int32" />
+            <Field name="NewColID" source="Formula: [ColID] + [Max_ColID]*[ColSection]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1194" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="NewRowID" selected="True" rename="RowID" />
+            <SelectField field="NewColID" selected="True" rename="ColumnID" />
+            <SelectField field="data" selected="True" rename="CellValue" />
+            <SelectField field="RowID" selected="False" />
+            <SelectField field="ColID" selected="False" />
+            <SelectField field="VertSection" selected="False" />
+            <SelectField field="ColSection" selected="False" />
+            <SelectField field="AddMult" selected="False" />
+            <SelectField field="Max_RowID" selected="False" />
+            <SelectField field="Max_ColID" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="Formula: [RowID] + [Max_RowID]*[VertSection]" type="Int32" />
+            <Field name="ColumnID" source="Formula: [ColID] + [Max_ColID]*[ColSection]" type="Int32" />
+            <Field name="CellValue" source="Formula: mod([data]-1,9)+1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1278" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="'(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " field="Cell" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Cell = '(' + right("000" + ToString([RowID]),3) + ', ' + right("000" + tostring(...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RowID" source="Formula: [RowID] + [Max_RowID]*[VertSection]" type="Int32" />
+            <Field name="ColumnID" source="Formula: [ColID] + [Max_ColID]*[ColSection]" type="Int32" />
+            <Field name="CellValue" source="Formula: mod([data]-1,9)+1" type="Int32" />
+            <Field name="Cell" size="1073741823" source="Formula: '(' + right(&quot;000&quot; + ToString([RowID]),3) + ', ' + right(&quot;000&quot; + tostring([ColumnID]),3) + ')' " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1362" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output23</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="7" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output26" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="13" Connection="Question" />
+      <Destination ToolID="15" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="13" Connection="Question" />
+      <Destination ToolID="8" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="19" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="19" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (13)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (23)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (1)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>MapMultiplier</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="9500b8e0-220a-4c7b-baaf-78a049bca60d" />
+      <Telemetry>
+        <PreviousWorkflowId value="aa467464-e035-4018-985a-269054f8eda1" />
+        <OriginWorkflowId value="3f5cad1a-5133-49c0-920b-0f150636ae65" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (12)</Name>
+          <ToolId value="12" />
+          <Questions>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Multiplier</Description>
+              <Name>Numeric Up Down (13)</Name>
+              <ToolId value="13" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="5" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (23)</Description>
+              <Name>Macro Output (23)</Name>
+              <ToolId value="23" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (1)</Name>
+              <ToolId value="1" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAE2BJREFUeF7tnQlsFVUXx3EXEakbqOACStwrRE0U3MWdIIhGWURcQhWiKGhdMCSoxAWjBiQuiQQUrIhLwYiiooBCWRRQWgwqKCjKIlpEQUC9X343c/pN581ry+O9mbnvnX9y8ubduTOd6fzembufRkalckQKq8oZKawqZ6SwqpyRwqpyRgqryhkprCpnpLCqnJHCqnJGCqvKGSmsKmeksKqckcKqckYKq8oZKawqZ6SwqpyRwqpyRgqryhkprCpnpLCqnJHCqnJGCquqRlu2bLGWVCmsKqsXXnjBNG3a1NoTTzzhpSZLCqvKvPrqq6ZRo0Zml112qbFrrrnGLFu2zPz3339ervilsBa4/v33X3PFFVdYWMV23XVX+3nGGWeYTz/91MsZvxRWlenVq1ctWDHxsEVFRdbzJkEKq8pUVlaaNm3a1HjUoFGOffjhh011dbV3RDxSWAtclEmxr776ylx88cUWziC04mV79OhhvvvuO+/I6KWwqmq0evVqc+ONN1ow/bD67bTTTjPz58/3johWCqsqRY8//rg58MADQ2HFjjzySDNt2jSzbds274hopLDmWBs3bjTl5eXmxRdfdMquvvpqs9tuu4XCiu2xxx62HLtu3brImrcU1hzqt99+M1dddZX1Uo0bN3bK9tlnnzqLA9iee+5p+vfvH1nFS2HNkfA2o0ePNnvvvXfog84nmzFjhnfXuZXCmiPhbegFqs875YO9/vrr3l3nVgprjvT555+b/fbbL+9hPeSQQ8zChQu9u86tFNYcadCgQSkPFnApC7pge+21V8r1B23fffe1LQfbt2/37jq3UlhzoB9//DH04Z599tmmqqrKLF68ONHGW6F3795m9913T7kH6TAoLi42EydO9O44GimsOZB4VSkCyAMeN26clyN5+ueff+znDz/8YC677DLTpEmTtEUYeroWLVpk80cphTXLWrVqlTnqqKNqPVw8FD0/cXZVNkRLly41J598cq1rF5MfXOfOnW3bcRxSWLMohtuNGjXKtlP6HzSN63jbqHt8Giq86htvvGGOP/74Wtftt8MOO8wMGzasxgPHIYU1i/r111/NlVdemfKg999/f1NR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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="1" Selected="True" />
+        <Tool ToolId="7" Selected="True" />
+        <Tool ToolId="23" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

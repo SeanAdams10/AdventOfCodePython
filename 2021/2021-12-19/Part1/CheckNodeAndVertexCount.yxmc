@@ -1,0 +1,733 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="294" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+            <SummarizeField field="BeaconID" action="Count" rename="Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="Count" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="378" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Count]*([Count]-1) /2" field="VertexCount" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[VertexCount = [Count]*([Count]-1) /2
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="Count" source="Summarize: Count" type="Int64" />
+            <Field name="VertexCount" source="Formula: [Count]*([Count]-1) /2" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="294" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+            <SummarizeField field="VertexID" action="Count" rename="Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="Count" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="570" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_BeaconCount" selected="True" rename="NodeCountActual" input="Left_" />
+                <SelectField field="Left_VertexCount" selected="True" rename="VertexCountActual" input="Left_" />
+                <SelectField field="Right_ScannerID" selected="False" rename="Right_ScannerID" input="Right_" />
+                <SelectField field="Right_Count" selected="True" rename="NodeCountExpected" input="Right_" />
+                <SelectField field="Right_VertexCount" selected="True" rename="VertexCountExpected" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="BeaconCount" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+            <Field name="VertexCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="NodeCountActual" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+            <Field name="VertexCountActual" source="Summarize: Count" type="Int64" />
+            <Field name="NodeCountExpected" source="Summarize: Count" type="Int64" />
+            <Field name="VertexCountExpected" source="Formula: [Count]*([Count]-1) /2" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="Count" source="Summarize: Count" type="Int64" />
+            <Field name="VertexCount" source="Formula: [Count]*([Count]-1) /2" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Arrange.Arrange">
+        <Position x="294" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <KeyFields orderChanged="False">
+            <Field name="ScannerID" />
+          </KeyFields>
+          <OutputFields>
+            <Columns>
+              <Column name="BeaconID" type="combobox" />
+            </Columns>
+            <Data>
+              <r>
+                <c>BeaconID</c>
+              </r>
+              <r>
+                <c>BeaconID2</c>
+              </r>
+            </Data>
+          </OutputFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxArrange" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="378" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+            <SummarizeField field="BeaconID" action="CountDistinct" rename="DistinctBeaconCount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="DistinctBeaconCount" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="666" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[NodeCountActual]!=[NodeCountExpected]</Filter>
+          <Type>Error</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Wrong Node Count:  Actual: " + tostring([NodeCountActual]) + " Expected: " + tostring([NodeCountExpected])</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="NodeCountActual" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+            <Field name="VertexCountActual" source="Summarize: Count" type="Int64" />
+            <Field name="NodeCountExpected" source="Summarize: Count" type="Int64" />
+            <Field name="VertexCountExpected" source="Formula: [Count]*([Count]-1) /2" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="762" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>[VertexCountActual]!=[VertexCountExpected]</Filter>
+          <Type>Error</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Wrong Vertex Count:  Actual: " + tostring([VertexCountActual]) + " Expected: " + tostring([VertexCountExpected])</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="NodeCountActual" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+            <Field name="VertexCountActual" source="Summarize: Count" type="Int64" />
+            <Field name="NodeCountExpected" source="Summarize: Count" type="Int64" />
+            <Field name="VertexCountExpected" source="Formula: [Count]*([Count]-1) /2" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input3</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>0</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>-1</c>
+                  <c>-1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>-5</c>
+                  <c>0</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>-2</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+              </Data>
+              <NumRows value="6" />
+              <Fields>
+                <Field name="UBid" />
+                <Field name="ScannerID" />
+                <Field name="BeaconID" />
+                <Field name="x" />
+                <Field name="y" />
+                <Field name="z" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UBid" source="TextInput:" type="Byte" />
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="150" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <Abbrev />
+          <Name>Input16</Name>
+          <TextInput>
+            <Configuration>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>17</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>5</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>-1</c>
+                  <c>-1</c>
+                  <c>1</c>
+                  <c>5</c>
+                  <c>2</c>
+                  <c>-5</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>17</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>-5</c>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>6</c>
+                  <c>3</c>
+                  <c>-2</c>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>10</c>
+                  <c>2</c>
+                </r>
+              </Data>
+              <NumRows value="4" />
+              <Fields>
+                <Field name="UBid" />
+                <Field name="ScannerID" />
+                <Field name="BeaconID" />
+                <Field name="x" />
+                <Field name="y" />
+                <Field name="z" />
+                <Field name="UBID2" />
+                <Field name="BeaconID2" />
+                <Field name="x2" />
+                <Field name="y2" />
+                <Field name="z2" />
+                <Field name="VertexLength" />
+                <Field name="VertexID" />
+              </Fields>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UBid" source="TextInput:" type="Byte" />
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="UBID2" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Byte" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+            <Field name="VertexLength" source="TextInput:" type="Byte" />
+            <Field name="VertexID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="858" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output23</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="474" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_DistinctBeaconCount" selected="True" rename="BeaconCount" input="Left_" />
+                <SelectField field="Right_ScannerID" selected="False" rename="Right_ScannerID" input="Right_" />
+                <SelectField field="Right_Count" selected="True" rename="VertexCount" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="DistinctBeaconCount" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="BeaconCount" source="Summarize: CountDistinct - BeaconID" type="Int64" />
+            <Field name="VertexCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Byte" />
+            <Field name="Count" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="18" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Join" />
+      <Destination ToolID="18" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="30" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="30" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Join" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>CheckNodeAndVertexCount</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="92b8d7ba-be61-4e54-b704-cc33408fa2e0" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="92b8d7ba-be61-4e54-b704-cc33408fa2e0" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (26)</Name>
+          <ToolId value="26" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (27)</Name>
+              <ToolId value="27" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (28)</Name>
+              <ToolId value="28" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (29)</Name>
+              <ToolId value="29" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="27" Selected="True" />
+        <Tool ToolId="28" Selected="True" />
+        <Tool ToolId="29" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,2401 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Iterative</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">day16part2.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>day16part2.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="138" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>RecordID</UpdateField_Name>
+          <CreateField_Name>New Field</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="402" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[number of subpackets]&gt;0</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[number of subpackets]&gt;0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="474" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="New Field" action="GroupBy" rename="New Field" />
+            <SummarizeField field="New Field" action="Count" rename="Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Summarize: GroupBy - New Field" type="Int32" />
+            <Field name="Count" source="Summarize: Count - New Field" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="558" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="New Field" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_New Field" selected="False" rename="Right_New Field" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="Summarize: Count - New Field" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Summarize: GroupBy - New Field" type="Int32" />
+            <Field name="Count" source="Summarize: Count - New Field" type="Int64" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="New Field" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="666" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Count]&gt;=[number of subpackets]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Count]&gt;=[number of subpackets]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="Summarize: Count - New Field" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="Summarize: Count - New Field" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="858" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\user\AppData\Local\Temp\Engine_11780_c4c62f2404e04940aa89625f4f6e855e_\Engine_13344_ae2e08dce5094b258bf44967cd399a06_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="330" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>RecordID</UpdateField_Name>
+          <CreateField_Name>Counter</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>If isempty([Row-1:Counter]) then 0 else
+[Row-1:Counter]+1 endif</Expression>
+          <GroupByFields>
+            <Field field="New Field" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>If isempty([Row-1:Counter]) then 0 else
+[Row-1:Counter]+1 endif</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="762" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="number of subpackets" action="GroupBy" rename="number of subpackets" />
+            <SummarizeField field="Type ID" action="GroupBy" rename="Type ID" />
+            <SummarizeField field="RecordID" action="GroupBy" rename="RecordID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="number of subpackets" source="Summarize: GroupBy - number of subpackets" type="Int32" />
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="number of subpackets" order="Asc" />
+            <Field field="Type ID" order="Asc" />
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="846" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="New Field" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RecordID" selected="True" rename="Right_RecordID" input="Right_" />
+                <SelectField field="Right_Type ID" selected="True" rename="Right_Type ID" input="Right_" />
+                <SelectField field="Right_number of subpackets" selected="False" rename="Right_number of subpackets" input="Right_" />
+                <SelectField field="Right_New Field" selected="False" rename="Right_New Field" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="number of subpackets" source="Summarize: GroupBy - number of subpackets" type="Int32" />
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="number of subpackets" source="Summarize: GroupBy - number of subpackets" type="Int32" />
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="New Field" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1002" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\user\AppData\Local\Temp\Engine_11780_c4c62f2404e04940aa89625f4f6e855e_\Engine_13344_97aac53060724cd8a5f491f30912938c_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="942" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Counter]&lt;=[number of subpackets]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Counter]&lt;=[number of subpackets]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="number of subpackets" source="Summarize: GroupBy - number of subpackets" type="Int32" />
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="number of subpackets" source="Summarize: GroupBy - number of subpackets" type="Int32" />
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1206" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Type ID] IN (0,2,3)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Type ID] IN (0,2,3)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1326" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Type ID" action="GroupBy" rename="Type ID" />
+            <SummarizeField field="Value" action="Sum" rename="Sum_Value" />
+            <SummarizeField field="Value" action="Min" rename="Min_Value" />
+            <SummarizeField field="Value" action="Max" rename="Max_Value" />
+            <SummarizeField field="RecordID" action="GroupBy" rename="RecordID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Summarize: GroupBy - Type ID" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Type ID" order="Asc" />
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1434" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="switch([Type ID],-1,0,[Sum_Value],2,[Min_Value],3,[Max_Value])" field="Value" size="8" type="Int64" />
+            <FormulaField expression="4" field="Type ID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Value = switch([Type ID],-1,0,[Sum_Value],2,[Min_Value],3,[Max_Value])
+Type ID =...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: 4" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+            <Field name="Value" source="Formula: switch([Type ID],-1,0,[Sum_Value],2,[Min_Value],3,[Max_Value])" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1638" y="1026" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1734" y="1038" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2022" y="1050" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Sum_Value" selected="False" />
+            <SelectField field="Min_Value" selected="False" />
+            <SelectField field="Max_Value" selected="False" />
+            <SelectField field="1" selected="False" />
+            <SelectField field="2" selected="False" />
+            <SelectField field="Right_RecordID" selected="False" />
+            <SelectField field="Right_Type ID" selected="False" />
+            <SelectField field="Counter" selected="False" />
+            <SelectField field="Count" selected="False" />
+            <SelectField field="New Field" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1194" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Type ID] IN (5,6,7)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Type ID] IN (5,6,7)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="1290" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="Type ID" />
+            <Field field="RecordID" />
+          </GroupFields>
+          <HeaderField field="Counter" />
+          <DataField field="Value" />
+          <Methods>
+            <Method method="Sum" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="CrossTab:Group:Sum:" type="Int32" />
+            <Field name="RecordID" source="CrossTab:Group:Sum:" type="Int32" />
+            <Field name="1" source="CrossTab:Header:Counter:1:Sum:" type="Int64" />
+            <Field name="2" source="CrossTab:Header:Counter:2:Sum:" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Type ID" order="Asc" />
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1482" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="switch([Type ID],-1,&#xA;5,if [1]&gt;[2] then 1 else 0 endif,&#xA;6,if [1]&lt;[2] then 1 else 0 endif,&#xA;7,if [1]==[2] then 1 else 0 endif)" field="Value" size="8" type="Int64" />
+            <FormulaField expression="4" field="Type ID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Value = switch([Type ID],-1,
+5,if [1]&gt;[2] then 1 else 0 endif,
+6,if [1]&lt;[2] then...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: 4" type="Int32" />
+            <Field name="RecordID" source="CrossTab:Group:Sum:" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Value" source="Formula: switch([Type ID],-1,&#xA;5,if [1]&gt;[2] then 1 else 0 endif,&#xA;6,if [1]&lt;[2] then 1 else 0 endif,&#xA;7,if [1]==[2] then 1 else 0 endif)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1254" y="450" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Type ID] IN (1)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Type ID] IN (1)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="1350" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>Value</UpdateField_Name>
+          <CreateField_Name>New Field</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>NULL</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif</Expression>
+          <GroupByFields>
+            <Field field="RecordID" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[V...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" name="Value" source="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="1374" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Last</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False">
+            <Field name="RecordID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Last 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" name="Value" source="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1446" y="666" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="4" field="Type ID" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Type ID = 4
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="Formula: 4" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" name="Value" source="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2118" y="1050" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Itertice</Name>
+          <Abbrev>I</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>I Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="474" y="498" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[MAX_RecordID]&gt;0</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[MAX_RecordID]&gt;0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="558" y="486" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>RecordID</UpdateField_Name>
+          <CreateField_Name>RowCount</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <Expression_Init>[RecordID]+1</Expression_Init>
+          <Expression_Cond>[RecordID]&lt;=[MAX_RecordID]</Expression_Cond>
+          <Expression_Loop>[RecordID]+1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="654" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_RecordID" selected="True" rename="Right_RecordID" input="Right_" />
+                <SelectField field="Right_Type ID" selected="True" rename="Right_Type ID" input="Right_" />
+                <SelectField field="Right_Value" selected="True" rename="Right_Value" input="Right_" />
+                <SelectField field="Right_number of subpackets" selected="True" rename="Right_number of subpackets" input="Right_" />
+                <SelectField field="Right_MAX_RecordID" selected="True" rename="Right_MAX_RecordID" input="Right_" />
+                <SelectField field="Right_New Field" selected="True" rename="Right_New Field" input="Right_" />
+                <SelectField field="Right_Counter" selected="True" rename="Right_Counter" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Right_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Right_number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="Right_MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="Right_New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Right_Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="942" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\user\AppData\Local\Temp\Engine_11780_c4c62f2404e04940aa89625f4f6e855e_\Engine_13344_c365eba0fe704a38be757fed32475a54_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="750" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Type ID]!=4</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Type ID]!=4</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Right_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Right_number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="Right_MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="Right_New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Right_Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Right_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Right_number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="Right_MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="Right_New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Right_Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="846" y="462" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Right_New Field" action="GroupBy" rename="RecordID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="RecordID" source="Summarize: GroupBy - Right_New Field" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Right_New Field" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="918" y="630" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_RecordID" selected="False" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="RecordID" source="Summarize: GroupBy - Right_New Field" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1002" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\user\AppData\Local\Temp\Engine_11780_c4c62f2404e04940aa89625f4f6e855e_\Engine_13344_e1e6c0fb6d1f40d7877d935a164ef6da_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1002" y="726" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="New Field" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="New Field" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Value" selected="False" input="Left_" />
+                <SelectField field="Left_number of subpackets" selected="False" input="Left_" />
+                <SelectField field="Left_New Field" selected="False" input="Left_" />
+                <SelectField field="Left_Counter" selected="False" input="Left_" />
+                <SelectField field="Right_RecordID" selected="True" rename="Right_RecordID" input="Right_" />
+                <SelectField field="Right_Type ID" selected="True" rename="Right_Type ID" input="Right_" />
+                <SelectField field="Right_MAX_RecordID" selected="False" input="Right_" />
+                <SelectField field="Right_New Field" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="New Field" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" name="New Field" source="Formula: If [Type ID]=4 Then [Row-1:New Field] else [RecordID] endif" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="New Field" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1194" y="726" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\user\AppData\Local\Temp\Engine_11780_c4c62f2404e04940aa89625f4f6e855e_\Engine_13344_a014cdc34fc74f888935bcac6ac50450_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1062" y="798" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Right_RecordID]&lt;=[MAX_RecordID]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Right_RecordID]&lt;=[MAX_RecordID]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1062" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="number of subpackets" source="(Multiple Sources)" type="Int32" />
+            <Field name="Type ID" source="(Multiple Sources)" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1506" y="762" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="number of subpackets" selected="False" />
+            <SelectField field="MAX_RecordID" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: 4" type="Int32" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" name="Value" source="Formula: if isempty([Row-1:Value]) then [Value] else [Row-1:Value] *[Value] endif" type="Int64" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings>
+        <Position x="1794" y="1110" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1830" y="1050" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1926" y="1050" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>count &gt;1</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>count &gt;1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Type ID" source="Formula: (Multiple Sources)" type="Int32" />
+            <Field name="Sum_Value" source="Summarize: Sum - Value" type="Int64" />
+            <Field name="Min_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="Max_Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="RecordID" source="(Multiple Sources)" type="Int32" />
+            <Field name="Value" source="Formula: (Multiple Sources)" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+            <Field name="Right_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Right_Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field description="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" name="Counter" source="Formula: If isempty([Row-1:Counter]) then 0 else&#xA;[Row-1:Counter]+1 endif" type="Int32" />
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2010" y="1098" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output60</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1386" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Type ID" source="CrossTab:Group:Sum:" type="Int32" />
+            <Field name="RecordID" source="CrossTab:Group:Sum:" type="Int32" />
+            <Field name="1" source="(Multiple Sources)" type="Int64" />
+            <Field name="2" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="1290" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="0" />
+          <Fields>
+            <Field name="1" />
+            <Field name="2" />
+          </Fields>
+          <Data />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" size="1073741823" source="TextInput:" type="V_WString" />
+            <Field name="2" size="1073741823" source="TextInput:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1350" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="1" selected="True" type="Int64" size="8" />
+            <SelectField field="2" selected="True" type="Int64" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="1" source="TextInput:" type="Int64" />
+            <Field name="2" source="TextInput:" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1998" y="1002" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output64</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1254" y="762" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="RecordID" action="GroupBy" rename="RecordID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: GroupBy - RecordID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1266" y="942" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Right_RecordID" action="GroupBy" rename="RecordID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: GroupBy - Right_RecordID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Right_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1398" y="966" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: (Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1338" y="1134" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="RecordID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_RecordID" selected="False" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RecordID" source="Summarize: (Multiple Sources)" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Type ID" source="Formula: bintoint(Substring([Concat_Field2],3,3))" type="Int32" />
+            <Field name="Value" source="Formula: BinToInt(&quot;+&quot;+[RegExOut1])" type="Int64" />
+            <Field name="number of subpackets" source="Formula: If [length type id]=1 then BinToInt(substring([Concat_Field2],7,11)) else null() endif " type="Int32" />
+            <Field name="MAX_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="RecordID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2093" y="701" width="152" height="149" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 36</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2118" y="750" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">day16part2.yxdb</File>
+              <Passwords />
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>day16part2.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="69" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="68" Connection="Output" />
+      <Destination ToolID="69" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="False" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="True" />
+      <Destination ToolID="9" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="False" />
+      <Destination ToolID="15" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="15" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="False" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Join" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="True" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="39" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="39" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Join" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="51" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="50" Connection="True" />
+      <Destination ToolID="51" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="True" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection name="#5">
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection name="#6">
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="69" Connection="Right" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="57" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="58" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="57" Connection="Output9" />
+      <Destination ToolID="58" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="True" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="True" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="True" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="True" />
+      <Destination ToolID="44" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="44" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="False" />
+      <Destination ToolID="46" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Right" />
+      <Destination ToolID="46" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Join" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="True" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Right" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Join" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="True" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="True" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="False" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="True" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="False" />
+    <ZoomLevel value="-4" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (34)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (60)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (64)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>day16part2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="4e3c82c2-1896-4f0d-84dd-e3442061701f" />
+      <Telemetry>
+        <PreviousWorkflowId value="24ce0230-edf5-4740-8718-984347cbb3bb" />
+        <OriginWorkflowId value="24ce0230-edf5-4740-8718-984347cbb3bb" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (4)</Name>
+          <ToolId value="4" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (5)</Description>
+              <Name>Macro Input (5)</Name>
+              <ToolId value="5" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (34)</Description>
+              <Name>Macro Output (34)</Name>
+              <ToolId value="34" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (60)</Description>
+              <Name>Macro Output (60)</Name>
+              <ToolId value="60" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (64)</Description>
+              <Name>Macro Output (64)</Name>
+              <ToolId value="64" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="True" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Iterative</Input>
+        <Output>Itertice</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AutoByName</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="5" Selected="True" />
+        <Tool ToolId="11" Selected="False" />
+        <Tool ToolId="16" Selected="False" />
+        <Tool ToolId="34" Selected="True" />
+        <Tool ToolId="41" Selected="False" />
+        <Tool ToolId="45" Selected="False" />
+        <Tool ToolId="48" Selected="False" />
+        <Tool ToolId="57" Selected="True" />
+        <Tool ToolId="60" Selected="True" />
+        <Tool ToolId="64" Selected="True" />
+        <Tool ToolId="35" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

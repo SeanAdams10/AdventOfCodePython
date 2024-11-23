@@ -1,0 +1,580 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="240" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Iterat</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">day21.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>day21.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Space" source="TextInput:" type="Int32" />
+            <Field name="P2Space" source="TextInput:" type="Int32" />
+            <Field name="P1Score" source="Formula: 0" type="Int32" />
+            <Field name="P2Score" source="Formula: 0" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Formula: &quot;P1&quot;" type="V_String" />
+            <Field name="Number" source="Formula: 1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="7" />
+          <Fields>
+            <Field name="Roll" />
+            <Field name="Times" />
+          </Fields>
+          <Data>
+            <r>
+              <c>3</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>4</c>
+              <c>3</c>
+            </r>
+            <r>
+              <c>5</c>
+              <c>6</c>
+            </r>
+            <r>
+              <c>6</c>
+              <c>7</c>
+            </r>
+            <r>
+              <c>7</c>
+              <c>6</c>
+            </r>
+            <r>
+              <c>8</c>
+              <c>3</c>
+            </r>
+            <r>
+              <c>9</c>
+              <c>1</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Roll" source="TextInput:" type="Byte" />
+            <Field name="Times" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="239" y="185" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Roll" source="TextInput:" type="Byte" />
+            <Field name="Times" source="TextInput:" type="Byte" />
+            <Field name="P1Space" source="TextInput:" type="Int32" />
+            <Field name="P2Space" source="TextInput:" type="Int32" />
+            <Field name="P1Score" source="Formula: 0" type="Int32" />
+            <Field name="P2Score" source="Formula: 0" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Formula: &quot;P1&quot;" type="V_String" />
+            <Field name="Number" source="Formula: 1" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="344" y="185" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="If Turn=&quot;P1&quot; then&#xA;Mod([P1Space]+Roll-1,10)+1&#xA;else [P1Space] endif" field="P1Space" size="4" type="Int32" />
+            <FormulaField expression="If Turn=&quot;P1&quot; then&#xA;[P1Score]+[P1Space]&#xA;else [P1Score] endif" field="P1Score" size="4" type="Int32" />
+            <FormulaField expression="If Turn=&quot;P2&quot; then&#xA;Mod([P2Space]+Roll-1,10)+1&#xA;else [P2Space] endif" field="P2Space" size="4" type="Int32" />
+            <FormulaField expression="If Turn=&quot;P2&quot; then&#xA;[P2Score]+[P2Space]&#xA;else [P2Score] endif" field="P2Score" size="4" type="Int32" />
+            <FormulaField expression="[Number]*[Times]" field="Number" size="8" type="Int64" />
+            <FormulaField expression="If [Turn]=&quot;P1&quot; Then &quot;P2&quot; else &quot;P1&quot; endif" field="Turn" size="2147483647" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P1Space = If Turn="P1" then
+Mod([P1Space]+Roll-1,10)+1
+else [P1Space] endif
+P1Sc...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Roll" source="TextInput:" type="Byte" />
+            <Field name="Times" source="TextInput:" type="Byte" />
+            <Field name="P1Space" source="Formula: If Turn=&quot;P1&quot; then&#xA;Mod([P1Space]+Roll-1,10)+1&#xA;else [P1Space] endif" type="Int32" />
+            <Field name="P2Space" source="Formula: If Turn=&quot;P2&quot; then&#xA;Mod([P2Space]+Roll-1,10)+1&#xA;else [P2Space] endif" type="Int32" />
+            <Field name="P1Score" source="Formula: If Turn=&quot;P1&quot; then&#xA;[P1Score]+[P1Space]&#xA;else [P1Score] endif" type="Int32" />
+            <Field name="P2Score" source="Formula: If Turn=&quot;P2&quot; then&#xA;[P2Score]+[P2Space]&#xA;else [P2Score] endif" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Formula: If [Turn]=&quot;P1&quot; Then &quot;P2&quot; else &quot;P1&quot; endif" type="V_String" />
+            <Field name="Number" source="Formula: [Number]*[Times]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="546" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[P1Score]&gt;([#1]-1) Or [P2Score]&gt;([#1]-1)</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[P1Score]&gt;([#1]-1) Or [P2Score]&gt;([#1]-1)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="P1Space" source="Summarize: GroupBy - P1Space" type="Int32" />
+            <Field name="P2Space" source="Summarize: GroupBy - P2Space" type="Int32" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Int32" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Summarize: GroupBy - Turn" type="V_String" />
+            <Field name="Number" source="Summarize: Sum - Number" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Space" order="Asc" />
+            <Field field="P2Space" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+            <Field field="Turn" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="P1Space" source="Summarize: GroupBy - P1Space" type="Int32" />
+            <Field name="P2Space" source="Summarize: GroupBy - P2Space" type="Int32" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Int32" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Summarize: GroupBy - Turn" type="V_String" />
+            <Field name="Number" source="Summarize: Sum - Number" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Space" order="Asc" />
+            <Field field="P2Space" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+            <Field field="Turn" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="786" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output8</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="744" y="235" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Iterat</Name>
+          <Abbrev>I</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>I Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="644" y="225" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="P1Space" selected="True" />
+            <SelectField field="P2Space" selected="True" />
+            <SelectField field="P1Score" selected="True" />
+            <SelectField field="P2Score" selected="True" />
+            <SelectField field="Turn" selected="True" />
+            <SelectField field="Number" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Space" source="Summarize: GroupBy - P1Space" type="Int32" />
+            <Field name="P2Space" source="Summarize: GroupBy - P2Space" type="Int32" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Int32" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Summarize: GroupBy - Turn" type="V_String" />
+            <Field name="Number" source="Summarize: Sum - Number" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Space" order="Asc" />
+            <Field field="P2Space" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+            <Field field="Turn" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="444" y="185" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="P1Space" action="GroupBy" rename="P1Space" />
+            <SummarizeField field="P2Space" action="GroupBy" rename="P2Space" />
+            <SummarizeField field="P1Score" action="GroupBy" rename="P1Score" />
+            <SummarizeField field="P2Score" action="GroupBy" rename="P2Score" />
+            <SummarizeField field="Turn" action="GroupBy" rename="Turn" />
+            <SummarizeField field="Number" action="Sum" rename="Number" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Space" source="Summarize: GroupBy - P1Space" type="Int32" />
+            <Field name="P2Space" source="Summarize: GroupBy - P2Space" type="Int32" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Int32" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Summarize: GroupBy - Turn" type="V_String" />
+            <Field name="Number" source="Summarize: Sum - Number" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Space" order="Asc" />
+            <Field field="P2Space" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+            <Field field="Turn" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="450" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Numeric Up Down (107)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="678" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="If [P1Score]&gt;=[#1] then &quot;P1&quot; else &quot;P2&quot; endif" field="Winner" size="2147483647" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Winner = If [P1Score]>=[#1] then "P1" else "P2" endif
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Space" source="Summarize: GroupBy - P1Space" type="Int32" />
+            <Field name="P2Space" source="Summarize: GroupBy - P2Space" type="Int32" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Int32" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Int32" />
+            <Field name="Turn" size="2147483647" source="Summarize: GroupBy - Turn" type="V_String" />
+            <Field name="Number" source="Summarize: Sum - Number" type="Int64" />
+            <Field name="Winner" size="2147483647" source="Formula: If [P1Score]&gt;=[#1] then &quot;P1&quot; else &quot;P2&quot; endif" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Space" order="Asc" />
+            <Field field="P2Space" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+            <Field field="Turn" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="5" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="5" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="False" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="True" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="15" Connection="Question" />
+      <Destination ToolID="20" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="15" Connection="Question" />
+      <Destination ToolID="7" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="False" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (8)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (9)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (15)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Day21</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="8ac73049-7fb0-4b5b-9607-802929a13561" />
+      <Telemetry>
+        <PreviousWorkflowId value="ccb77121-306e-4515-bc32-cffd7427308f" />
+        <OriginWorkflowId value="ccb77121-306e-4515-bc32-cffd7427308f" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (2)</Description>
+              <Name>Macro Input (2)</Name>
+              <ToolId value="2" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (8)</Description>
+              <Name>Macro Output (8)</Name>
+              <ToolId value="8" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (9)</Description>
+              <Name>Macro Output (9)</Name>
+              <ToolId value="9" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>ScoreCeiling</Description>
+              <Name>Numeric Up Down (15)</Name>
+              <ToolId value="15" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="21" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Iterat</Input>
+        <Output>Iterat</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AutoByName</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="2" Selected="True" />
+        <Tool ToolId="8" Selected="True" />
+        <Tool ToolId="9" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

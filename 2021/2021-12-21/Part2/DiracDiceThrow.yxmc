@@ -1,0 +1,855 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="80" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input90</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="P1Spot" />
+                <Field name="P1Score" />
+                <Field name="P2Spot" />
+                <Field name="P2Score" />
+                <Field name="UniverseCount" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>4</c>
+                  <c>0</c>
+                  <c>8</c>
+                  <c>0</c>
+                  <c>1</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="TextInput:" type="Byte" />
+            <Field name="P1Score" source="TextInput:" type="Byte" />
+            <Field name="P2Spot" source="TextInput:" type="Byte" />
+            <Field name="P2Score" source="TextInput:" type="Byte" />
+            <Field name="UniverseCount" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="102">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="704" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression><![CDATA[[P1Score] < [#1] AND
+[P2Score] < [#1] ]]></Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[[P1Score] < [#1] AND
+[P2Score] < [#1] ]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="P1Spot" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P1Spot]&#xA;endif" type="Byte" />
+            <Field name="P1Score" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then [P1Spot] + [P1Score]&#xA;else&#xA; [P1Score]&#xA;endif" type="Byte" />
+            <Field name="P2Spot" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P2Spot]&#xA;endif" type="Byte" />
+            <Field name="P2Score" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then [P2Spot] + [P2Score]&#xA;else&#xA; [P2Score]&#xA;endif" type="Byte" />
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+            <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+            <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="P1Spot" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P1Spot]&#xA;endif" type="Byte" />
+            <Field name="P1Score" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then [P1Spot] + [P1Score]&#xA;else&#xA; [P1Score]&#xA;endif" type="Byte" />
+            <Field name="P2Spot" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P2Spot]&#xA;endif" type="Byte" />
+            <Field name="P2Score" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then [P2Spot] + [P2Score]&#xA;else&#xA; [P2Score]&#xA;endif" type="Byte" />
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+            <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+            <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1088" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1088" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="800" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="P1Spot" selected="True" />
+            <SelectField field="P1Score" selected="True" />
+            <SelectField field="P2Spot" selected="True" />
+            <SelectField field="P2Score" selected="True" />
+            <SelectField field="UniverseCount" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P1Spot]&#xA;endif" type="Byte" />
+            <Field name="P1Score" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then [P1Spot] + [P1Score]&#xA;else&#xA; [P1Score]&#xA;endif" type="Byte" />
+            <Field name="P2Spot" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P2Spot]&#xA;endif" type="Byte" />
+            <Field name="P2Score" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then [P2Spot] + [P2Score]&#xA;else&#xA; [P2Score]&#xA;endif" type="Byte" />
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="884" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="UniverseCount" selected="True" />
+            <SelectField field="Winner" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+            <Field name="Winner" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;then 1 &#xA;else 2&#xA;endif" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="702" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Numeric Up Down (107)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="500" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Source_D1" selected="False" input="Source_" />
+                <SelectField field="Source_D2" selected="False" input="Source_" />
+                <SelectField field="Source_D3" selected="False" input="Source_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="TextInput:" type="Byte" />
+            <Field name="P1Score" source="TextInput:" type="Byte" />
+            <Field name="P2Spot" source="TextInput:" type="Byte" />
+            <Field name="P2Score" source="TextInput:" type="Byte" />
+            <Field name="UniverseCount" source="TextInput:" type="Int64" />
+            <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+            <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="584" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA;	then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA;	[P1Spot]&#xA;endif" field="P1Spot" size="1" type="Byte" />
+            <FormulaField expression="if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA;	then [P1Spot] + [P1Score]&#xA;else&#xA;	[P1Score]&#xA;endif" field="P1Score" size="1" type="Byte" />
+            <FormulaField expression="if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA;	then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA;	[P2Spot]&#xA;endif" field="P2Spot" size="1" type="Byte" />
+            <FormulaField expression="if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA;	then [P2Spot] + [P2Score]&#xA;else&#xA;	[P2Score]&#xA;endif" field="P2Score" size="1" type="Byte" />
+            <FormulaField expression="[UniverseCount] * [DiceCount]" field="UniverseCount" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>P1Spot = if mod([Engine.IterationNumber],2) = 0
+//player 1's turn
+	then mod(([P1...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P1Spot]&#xA;endif" type="Byte" />
+            <Field name="P1Score" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then [P1Spot] + [P1Score]&#xA;else&#xA; [P1Score]&#xA;endif" type="Byte" />
+            <Field name="P2Spot" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P2Spot]&#xA;endif" type="Byte" />
+            <Field name="P2Score" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then [P2Spot] + [P2Score]&#xA;else&#xA; [P2Score]&#xA;endif" type="Byte" />
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+            <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+            <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="800" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if mod([Engine.IterationNumber],2) = 0&#xA;then 1 &#xA;else 2&#xA;endif" field="Winner" size="1" type="Byte" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Winner = if mod([Engine.IterationNumber],2) = 0
+then 1 
+else 2
+endif
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then mod(([P1Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P1Spot]&#xA;endif" type="Byte" />
+            <Field name="P1Score" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;//player 1's turn&#xA; then [P1Spot] + [P1Score]&#xA;else&#xA; [P1Score]&#xA;endif" type="Byte" />
+            <Field name="P2Spot" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then mod(([P2Spot] + [TotalDice])-1,10)+1&#xA;else&#xA; [P2Spot]&#xA;endif" type="Byte" />
+            <Field name="P2Score" source="Formula: if mod([Engine.IterationNumber],2) = 1&#xA;//player 1's turn&#xA; then [P2Spot] + [P2Score]&#xA;else&#xA; [P2Score]&#xA;endif" type="Byte" />
+            <Field name="UniverseCount" source="Formula: [UniverseCount] * [DiceCount]" type="Int64" />
+            <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+            <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+            <Field name="Winner" source="Formula: if mod([Engine.IterationNumber],2) = 0&#xA;then 1 &#xA;else 2&#xA;endif" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="118">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="980" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Winner" action="GroupBy" rename="Winner" />
+            <SummarizeField field="UniverseCount" action="Sum" rename="Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Winner" source="Summarize: GroupBy - Winner" type="Byte" />
+            <Field name="Count" source="Summarize: Sum - UniverseCount" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Winner" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="980" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="P1Spot" action="GroupBy" rename="P1Spot" />
+            <SummarizeField field="P1Score" action="GroupBy" rename="P1Score" />
+            <SummarizeField field="P2Spot" action="GroupBy" rename="P2Spot" />
+            <SummarizeField field="P2Score" action="GroupBy" rename="P2Score" />
+            <SummarizeField field="UniverseCount" action="Sum" rename="UniverseCount" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="Summarize: GroupBy - P1Spot" type="Byte" />
+            <Field name="P1Score" source="Summarize: GroupBy - P1Score" type="Byte" />
+            <Field name="P2Spot" source="Summarize: GroupBy - P2Spot" type="Byte" />
+            <Field name="P2Score" source="Summarize: GroupBy - P2Score" type="Byte" />
+            <Field name="UniverseCount" source="Summarize: Sum - UniverseCount" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="P1Spot" order="Asc" />
+            <Field field="P1Score" order="Asc" />
+            <Field field="P2Spot" order="Asc" />
+            <Field field="P2Score" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="121">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="164" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="UniverseCount" selected="True" type="Int64" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="P1Spot" source="TextInput:" type="Byte" />
+            <Field name="P1Score" source="TextInput:" type="Byte" />
+            <Field name="P2Spot" source="TextInput:" type="Byte" />
+            <Field name="P2Score" source="TextInput:" type="Byte" />
+            <Field name="UniverseCount" source="TextInput:" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="233" width="410" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Generate Dice Throws</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="109">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="79" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>D1</CreateField_Name>
+              <CreateField_Type>Byte</CreateField_Type>
+              <CreateField_Size>1</CreateField_Size>
+              <Expression_Init>1</Expression_Init>
+              <Expression_Cond>D1 &lt;= 3</Expression_Cond>
+              <Expression_Loop>D1 + 1</Expression_Loop>
+              <RecordCount value="3" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+              <RecordCount value="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="D1" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="110">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="152" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>D2</CreateField_Name>
+              <CreateField_Type>Byte</CreateField_Type>
+              <CreateField_Size>1</CreateField_Size>
+              <Expression_Init>1</Expression_Init>
+              <Expression_Cond>D2 &lt;= 3</Expression_Cond>
+              <Expression_Loop>D2 + 1</Expression_Loop>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="D1" type="Byte" />
+                <Field name="D2" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="111">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="224" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>D3</CreateField_Name>
+              <CreateField_Type>Byte</CreateField_Type>
+              <CreateField_Size>1</CreateField_Size>
+              <Expression_Init>1</Expression_Init>
+              <Expression_Cond>D3 &lt;= 3</Expression_Cond>
+              <Expression_Loop>D3 + 1</Expression_Loop>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="D1" type="Byte" />
+                <Field name="D2" type="Byte" />
+                <Field name="D3" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="112">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="308" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[D1]+[D2]+[D3]" field="TotalDice" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[TotalDice = [D1]+[D2]+[D3]
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="D1" type="Byte" />
+                <Field name="D2" type="Byte" />
+                <Field name="D3" type="Byte" />
+                <Field name="TotalDice" source="Formula: [D1]+[D2]+[D3]" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="120">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="380" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="TotalDice" action="GroupBy" rename="TotalDice" />
+                <SummarizeField field="TotalDice" action="Count" rename="DiceCount" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TotalDice" source="Summarize: GroupBy - TotalDice" type="Byte" />
+                <Field name="DiceCount" source="Summarize: Count - TotalDice" type="Int64" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TotalDice" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="121" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="True" />
+      <Destination ToolID="105" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="False" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="119" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="106" Connection="Output" />
+      <Destination ToolID="118" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="107" Connection="Question" />
+      <Destination ToolID="102" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="114" Connection="Output" />
+      <Destination ToolID="102" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="114" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="117" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="118" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output" />
+      <Destination ToolID="103" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="121" Connection="Output" />
+      <Destination ToolID="113" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="120" Connection="Output" />
+      <Destination ToolID="113" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="Output" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="120" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (107)</Name>
+        <Value>4</Value>
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>DiracDiceThrow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="f9a2b94e-5e85-46ab-bade-54ce94572295" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="f9a2b94e-5e85-46ab-bade-54ce94572295" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (92)</Name>
+          <ToolId value="92" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (93)</Name>
+              <ToolId value="93" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (103)</Description>
+              <Name>Macro Output (103)</Name>
+              <ToolId value="103" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (104)</Description>
+              <Name>Macro Output (104)</Name>
+              <ToolId value="104" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>ScoreCeiling</Description>
+              <Name>Numeric Up Down (107)</Name>
+              <ToolId value="107" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="3" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input90</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="9999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="93" Selected="True" />
+        <Tool ToolId="103" Selected="True" />
+        <Tool ToolId="104" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,859 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="91">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="294" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="LatestIteration" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>LatestIteration - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Int32" />
+            <Field name="TotalScore" source="TextInput:" type="Int32" />
+            <Field name="LatestIteration" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="92">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="93">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input90</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="PlayerID" />
+                <Field name="StartingSpot" />
+                <Field name="TotalScore" />
+                <Field name="LatestIteration" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>0</c>
+                  <c>-2</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>8</c>
+                  <c>0</c>
+                  <c>-1</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Byte" />
+            <Field name="TotalScore" source="TextInput:" type="Byte" />
+            <Field name="LatestIteration" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="94">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="486" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" field="DiceThrow" size="4" type="Int32" />
+            <FormulaField expression="mod(([StartingSpot] + [DiceThrow])-1,10)+1" field="StartingSpot" size="4" type="Int32" />
+            <FormulaField expression="[TotalScore]+[StartingSpot]" field="TotalScore" size="4" type="Int32" />
+            <FormulaField expression="[Engine.IterationNumber]" field="LatestIteration" size="4" type="Int32" />
+            <FormulaField expression="mod([Engine.IterationNumber] *3 + 1,100)&#xA;" field="d1" size="4" type="Int32" />
+            <FormulaField expression="mod([Engine.IterationNumber] *3 + 2,100)&#xA;" field="d2" size="4" type="Int32" />
+            <FormulaField expression="mod([Engine.IterationNumber] *3 + 3,100)" field="d3" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>DiceThrow = mod([Engine.IterationNumber] *3 + 1,100) +
+mod([Engine.IterationNumb...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="Formula: mod(([StartingSpot] + [DiceThrow])-1,10)+1" type="Int32" />
+            <Field name="TotalScore" source="Formula: [TotalScore]+[StartingSpot]" type="Int32" />
+            <Field name="LatestIteration" source="Formula: [Engine.IterationNumber]" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="95">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="390" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>First</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>First 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Int32" />
+            <Field name="TotalScore" source="TextInput:" type="Int32" />
+            <Field name="LatestIteration" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="96">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="390" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Last</Mode>
+          <N>1</N>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Last 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Int32" />
+            <Field name="TotalScore" source="TextInput:" type="Int32" />
+            <Field name="LatestIteration" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="98">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="198" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="StartingSpot" selected="True" type="Int32" size="4" />
+            <SelectField field="TotalScore" selected="True" type="Int32" size="4" />
+            <SelectField field="LatestIteration" selected="True" type="Int32" size="4" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Int32" />
+            <Field name="TotalScore" source="TextInput:" type="Int32" />
+            <Field name="LatestIteration" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="99">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="606" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="100">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="690" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="TotalScore" action="Max" rename="Max_TotalScore" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_TotalScore" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="101">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="774" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+            <Field name="Max_TotalScore" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="102">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="882" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&lt;</Operator>
+            <Field>Max_TotalScore</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-28 22:44:30</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-12-28 22:44:30</StartDate>
+              <EndDate>2021-12-28 22:44:30</EndDate>
+              <Operand>1000</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Max_TotalScore] &lt; 1000</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+            <Field name="Max_TotalScore" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+            <Field name="Max_TotalScore" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1074" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1074" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="978" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PlayerID" selected="True" />
+            <SelectField field="StartingSpot" selected="True" />
+            <SelectField field="TotalScore" selected="True" />
+            <SelectField field="LatestIteration" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="978" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PlayerID" selected="True" />
+            <SelectField field="StartingSpot" selected="True" />
+            <SelectField field="TotalScore" selected="True" />
+            <SelectField field="LatestIteration" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="366" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>1</Name>
+          <Abbrev>1</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>1 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="894" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>2</Name>
+          <Abbrev>2</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>2 Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="109">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="174" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Byte" />
+            <Field name="TotalScore" source="TextInput:" type="Byte" />
+            <Field name="LatestIteration" source="TextInput:" type="Int16" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="702" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="IterNo" size="4" type="Int32" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[IterNo = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="DiceThrow" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="270" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PlayerID" selected="True" />
+            <SelectField field="StartingSpot" selected="True" type="Int32" size="4" />
+            <SelectField field="TotalScore" selected="True" type="Int32" size="4" />
+            <SelectField field="LatestIteration" selected="True" type="Int32" size="4" />
+            <SelectField field="IterNo" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="TextInput:" type="Int32" />
+            <Field name="TotalScore" source="TextInput:" type="Int32" />
+            <Field name="LatestIteration" source="TextInput:" type="Int32" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="798" y="66" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PlayerID" selected="True" />
+            <SelectField field="StartingSpot" selected="True" />
+            <SelectField field="TotalScore" selected="True" />
+            <SelectField field="LatestIteration" selected="True" />
+            <SelectField field="d1" selected="True" />
+            <SelectField field="d2" selected="True" />
+            <SelectField field="d3" selected="True" />
+            <SelectField field="DiceThrow" selected="True" rename="DiceTotal" />
+            <SelectField field="IterNo" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="PlayerID" source="TextInput:" type="Byte" />
+            <Field name="StartingSpot" source="(Multiple Sources)" type="Int32" />
+            <Field name="TotalScore" source="(Multiple Sources)" type="Int32" />
+            <Field name="LatestIteration" source="(Multiple Sources)" type="Int32" />
+            <Field name="d1" source="Formula: mod([Engine.IterationNumber] *3 + 1,100)&#xA;" type="Int32" />
+            <Field name="d2" source="Formula: mod([Engine.IterationNumber] *3 + 2,100)&#xA;" type="Int32" />
+            <Field name="d3" source="Formula: mod([Engine.IterationNumber] *3 + 3,100)" type="Int32" />
+            <Field name="DiceTotal" source="Formula: mod([Engine.IterationNumber] *3 + 1,100) +&#xA;mod([Engine.IterationNumber] *3 + 2,100) +&#xA;mod([Engine.IterationNumber] *3 + 3,100)&#xA;" type="Int32" />
+            <Field name="IterNo" source="Formula: [Engine.IterationNumber]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="91" Connection="Output" />
+      <Destination ToolID="95" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="91" Connection="Output" />
+      <Destination ToolID="96" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="98" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="93" Connection="Output" />
+      <Destination ToolID="109" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="94" Connection="Output" />
+      <Destination ToolID="99" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="96" Connection="Output" />
+      <Destination ToolID="99" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="95" Connection="Output" />
+      <Destination ToolID="94" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="98" Connection="Output" />
+      <Destination ToolID="91" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="100" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="101" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="100" Connection="Output" />
+      <Destination ToolID="101" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="99" Connection="Output" />
+      <Destination ToolID="110" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="101" Connection="Output" />
+      <Destination ToolID="102" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="True" />
+      <Destination ToolID="105" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="False" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="103" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="106" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="109" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (103)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (104)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (107)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (108)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>diceThrow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="f9a2b94e-5e85-46ab-bade-54ce94572295" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="f9a2b94e-5e85-46ab-bade-54ce94572295" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (92)</Name>
+          <ToolId value="92" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (93)</Name>
+              <ToolId value="93" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (103)</Description>
+              <Name>Macro Output (103)</Name>
+              <ToolId value="103" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (104)</Description>
+              <Name>Macro Output (104)</Name>
+              <ToolId value="104" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (107)</Description>
+              <Name>Macro Output (107)</Name>
+              <ToolId value="107" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (108)</Description>
+              <Name>Macro Output (108)</Name>
+              <ToolId value="108" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input90</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="9999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="93" Selected="True" />
+        <Tool ToolId="103" Selected="True" />
+        <Tool ToolId="104" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="108" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

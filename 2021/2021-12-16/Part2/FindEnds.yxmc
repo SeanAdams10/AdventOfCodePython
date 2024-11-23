@@ -1,0 +1,4193 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="390" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Iteration</UpdateField_Name>
+          <CreateField_Name>PotentialCompress</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression><![CDATA[if [Op] !='Literal' and [Row+1:Op] = 'Literal' 
+//this is a an operator followed by a literal
+    then [NodeID]
+elseif [Op]='Literal'
+    then [Row-1:PotentialCompress]
+else null()
+endif
+]]></Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Identify the candidates for leaf compression</AnnotationText>
+          <DefaultAnnotationText>if [Op] !='Literal' and [Row+1:Op] = 'Literal' 
+//this is a a...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="858" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>RemainingLength</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>if [Op] != 'literal' then [SubPacketLenInt]
+else [Row-1:RemainingLength] - [NodeLength]
+endif</Expression>
+          <GroupByFields>
+            <Field field="PotentialCompress" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Is node at leaf level?</AnnotationText>
+          <DefaultAnnotationText>if [Op] != 'literal' then [SubPacketLenInt]
+else [Row-1:Remai...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="474" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="True" />
+          <UpdateField_Name>LengthTypeID</UpdateField_Name>
+          <CreateField_Name>New Field</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Carry down length type ID</AnnotationText>
+          <DefaultAnnotationText>if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [Len...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field description="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" name="LengthTypeID" source="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="666" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>LengthTypeID</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:25:00</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2021-12-22 13:25:00</StartDate>
+              <EndDate>2021-12-22 13:25:00</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[LengthTypeID] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field description="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" name="LengthTypeID" source="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field description="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" name="LengthTypeID" source="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="762" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="SubPacketCountInt" selected="False" />
+            <SelectField field="LengthTypeID" selected="False" />
+            <SelectField field="EntryIndentLevel" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="954" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;=</Operator>
+            <Field>RemainingLength</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:29:17</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>-10</Operand>
+              <StartDate>2021-12-22 13:29:17</StartDate>
+              <EndDate>2021-12-22 13:29:17</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[RemainingLength] &gt;= -10</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1050" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="PotentialCompress" action="GroupBy" rename="PotentialCompress" />
+            <SummarizeField field="RemainingLength" action="Min" rename="Min_RemainingLength" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Summarize: GroupBy - PotentialCompress" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="Min_RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1146" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="PotentialCompress" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="PotentialCompress" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_NodeID" selected="True" input="Left_" />
+                <SelectField field="Left_Op" selected="True" input="Left_" />
+                <SelectField field="Left_LiteralValue" selected="True" input="Left_" />
+                <SelectField field="Left_SubPacketLenInt" selected="True" input="Left_" />
+                <SelectField field="Left_NodeLength" selected="True" input="Left_" />
+                <SelectField field="Left_PotentialCompress" selected="True" input="Left_" />
+                <SelectField field="Left_RemainingLength" selected="True" input="Left_" />
+                <SelectField field="Right_PotentialCompress" selected="False" rename="Right_PotentialCompress" input="Right_" />
+                <SelectField field="Right_Min_RemainingLength" selected="True" input="Right_" />
+                <SelectField field="Left_EntryTextLen" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="PotentialCompress" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="Min_RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Summarize: GroupBy - PotentialCompress" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="Min_RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="PotentialCompress" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1242" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>Min_RemainingLength</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:30:53</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2021-12-22 13:30:53</StartDate>
+              <EndDate>2021-12-22 13:30:53</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Min_RemainingLength] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="Min_RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" name="Min_RemainingLength" source="Formula: if [Op] != 'literal' then [SubPacketLenInt]&#xA;else [Row-1:RemainingLength] - [NodeLength]&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2694" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Build the code to execute this summary</AnnotationText>
+          <DefaultAnnotationText>Build the code to execute this summary
+R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="858" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>RemainingPackets</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>if [Op] != 'literal' then [SubPacketCountInt]
+else [Row-1:RemainingPackets] - 1
+endif</Expression>
+          <GroupByFields>
+            <Field field="PotentialCompress" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Is node at leaf level?</AnnotationText>
+          <DefaultAnnotationText>if [Op] != 'literal' then [SubPacketCountInt]
+else [Row-1:Rem...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="762" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="SubPacketLenInt" selected="False" />
+            <SelectField field="LengthTypeID" selected="False" />
+            <SelectField field="EntryIndentLevel" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="954" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;=</Operator>
+            <Field>RemainingPackets</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:33:55</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-12-22 13:33:55</StartDate>
+              <EndDate>2021-12-22 13:33:55</EndDate>
+              <Operand>0</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[RemainingPackets] &gt;= 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1050" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="PotentialCompress" action="GroupBy" rename="PotentialCompress" />
+            <SummarizeField field="RemainingPackets" action="Min" rename="Min_RemainingPackets" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Summarize: GroupBy - PotentialCompress" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="Min_RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1146" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="PotentialCompress" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="PotentialCompress" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_NodeID" selected="True" input="Left_" />
+                <SelectField field="Left_Op" selected="True" input="Left_" />
+                <SelectField field="Left_LiteralValue" selected="True" input="Left_" />
+                <SelectField field="Left_NodeLength" selected="True" input="Left_" />
+                <SelectField field="Left_PotentialCompress" selected="True" input="Left_" />
+                <SelectField field="Right_PotentialCompress" selected="False" rename="Right_PotentialCompress" input="Right_" />
+                <SelectField field="Right_Min_RemainingPackets" selected="True" input="Right_" />
+                <SelectField field="Left_EntryTextLen" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="PotentialCompress" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="Min_RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Summarize: GroupBy - PotentialCompress" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="Min_RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="PotentialCompress" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1242" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>Min_RemainingPackets</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:34:30</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2021-12-22 13:34:30</StartDate>
+              <EndDate>2021-12-22 13:34:30</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Min_RemainingPackets] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="Min_RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field description="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" name="Min_RemainingPackets" source="Formula: if [Op] != 'literal' then [SubPacketCountInt]&#xA;else [Row-1:RemainingPackets] - 1&#xA;endif" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="PotentialCompress" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="570" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsNotNull</Operator>
+            <Field>PotentialCompress</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 13:33:38</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2021-12-22 13:33:38</StartDate>
+              <EndDate>2021-12-22 13:33:38</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!IsNull([PotentialCompress])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field description="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" name="LengthTypeID" source="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field description="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" name="LengthTypeID" source="Formula: if isnull([LengthTypeID]) then [Row-1:LengthTypeID] else [LengthTypeID] endif" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="PotentialCompress" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1338" y="121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PotentialCompress" selected="True" rename="RootNode" />
+            <SelectField field="NodeID" selected="True" />
+            <SelectField field="Op" selected="True" />
+            <SelectField field="LiteralValue" selected="True" />
+            <SelectField field="SubPacketLenInt" selected="False" />
+            <SelectField field="EntryTextLen" selected="False" />
+            <SelectField field="NodeLength" selected="True" />
+            <SelectField field="RemainingLength" selected="False" />
+            <SelectField field="Min_RemainingLength" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RootNode" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1350" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="PotentialCompress" selected="True" rename="RootNode" />
+            <SelectField field="NodeID" selected="True" />
+            <SelectField field="Op" selected="True" />
+            <SelectField field="LiteralValue" selected="True" />
+            <SelectField field="EntryTextLen" selected="False" />
+            <SelectField field="NodeLength" selected="True" />
+            <SelectField field="Min_RemainingPackets" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RootNode" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1434" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings>
+        <Position x="2310" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output9">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="CountRecords.yxmc" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="2406" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+            <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+            <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="2418" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.IterationNumber]" field="Iteration" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Iteration = [Engine.IterationNumber]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+            <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+            <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+            <Field name="Iteration" size="1073741823" source="Formula: [Engine.IterationNumber]" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="NodeID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="2502" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;</Operator>
+            <Field>Count</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2021-12-22 14:15:24</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2021-12-22 14:15:24</StartDate>
+              <EndDate>2021-12-22 14:15:24</EndDate>
+              <Operand>1</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Count] &gt; 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+            <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+            <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Count" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+            <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+            <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2598" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Count" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+            <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+            <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+            <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2574" y="265" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>MainOutput</Name>
+          <Abbrev>M</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>M Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Inbound</Name>
+          <Abbrev>I</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="268" />
+              <Fields>
+                <Field name="NodeID" />
+                <Field name="Op" />
+                <Field name="LiteralValue" />
+                <Field name="SubPacketLenInt" />
+                <Field name="SubPacketCountInt" />
+                <Field name="LengthTypeID" />
+                <Field name="NodeLength" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>5439</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>Literal</c>
+                  <c>282</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>4</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>Literal</c>
+                  <c>370297</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>Literal</c>
+                  <c>35</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>Literal</c>
+                  <c>122658904</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>Literal</c>
+                  <c>213232</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>Literal</c>
+                  <c>3214</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c>72</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>Literal</c>
+                  <c>2725347942</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>Literal</c>
+                  <c>14337</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>Literal</c>
+                  <c>113</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>Literal</c>
+                  <c>676445</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>Literal</c>
+                  <c>102004</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>Product</c>
+                  <c />
+                  <c>16</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>Literal</c>
+                  <c>79</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>Literal</c>
+                  <c>42402</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>Literal</c>
+                  <c>104</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>Literal</c>
+                  <c>24762196</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>Literal</c>
+                  <c>2365</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>Literal</c>
+                  <c>2365</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>28</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>29</c>
+                  <c>Literal</c>
+                  <c>192094127</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>30</c>
+                  <c>Literal</c>
+                  <c>18470</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>31</c>
+                  <c>Literal</c>
+                  <c>100</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>32</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>31</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>33</c>
+                  <c>Literal</c>
+                  <c>190487</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>34</c>
+                  <c>Literal</c>
+                  <c>12</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>35</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>36</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c>42</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>37</c>
+                  <c>Literal</c>
+                  <c>3087</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>38</c>
+                  <c>Literal</c>
+                  <c>3087</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>39</c>
+                  <c>Literal</c>
+                  <c>104530938</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>40</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>41</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>42</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>43</c>
+                  <c>Product</c>
+                  <c />
+                  <c>372</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>44</c>
+                  <c>Min</c>
+                  <c />
+                  <c>350</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>45</c>
+                  <c>Max</c>
+                  <c />
+                  <c>328</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>46</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>47</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>48</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>49</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>50</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>51</c>
+                  <c>Product</c>
+                  <c />
+                  <c>216</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>52</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>53</c>
+                  <c>Min</c>
+                  <c />
+                  <c>176</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>54</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>55</c>
+                  <c>Product</c>
+                  <c />
+                  <c>136</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>56</c>
+                  <c>Min</c>
+                  <c />
+                  <c>114</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>57</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>58</c>
+                  <c>Min</c>
+                  <c />
+                  <c>74</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>59</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>60</c>
+                  <c>Literal</c>
+                  <c>778514865480</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>56</c>
+                </r>
+                <r>
+                  <c>61</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>62</c>
+                  <c>Literal</c>
+                  <c>6</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>63</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c>47</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>64</c>
+                  <c>Literal</c>
+                  <c>72</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>65</c>
+                  <c>Literal</c>
+                  <c>826194</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>66</c>
+                  <c>Literal</c>
+                  <c>85</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>67</c>
+                  <c>Product</c>
+                  <c />
+                  <c>32</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>68</c>
+                  <c>Literal</c>
+                  <c>45</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>69</c>
+                  <c>Literal</c>
+                  <c>191</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>70</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>71</c>
+                  <c>Product</c>
+                  <c />
+                  <c>135</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>72</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>73</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>74</c>
+                  <c>Literal</c>
+                  <c>6</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>75</c>
+                  <c>Literal</c>
+                  <c>6</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>76</c>
+                  <c>Literal</c>
+                  <c>3</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>77</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>78</c>
+                  <c>Literal</c>
+                  <c>15</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>79</c>
+                  <c>Literal</c>
+                  <c>3</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>80</c>
+                  <c>Literal</c>
+                  <c>13</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>81</c>
+                  <c>Literal</c>
+                  <c>15</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>82</c>
+                  <c>Literal</c>
+                  <c>244</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>83</c>
+                  <c>Max</c>
+                  <c />
+                  <c>31</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>84</c>
+                  <c>Literal</c>
+                  <c>508140</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>85</c>
+                  <c>Product</c>
+                  <c />
+                  <c>106</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>86</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>87</c>
+                  <c>Literal</c>
+                  <c>192310099</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>88</c>
+                  <c>Literal</c>
+                  <c>22329</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>89</c>
+                  <c>Literal</c>
+                  <c>1441</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>90</c>
+                  <c>Product</c>
+                  <c />
+                  <c>95</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>91</c>
+                  <c>Equal</c>
+                  <c />
+                  <c>52</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>92</c>
+                  <c>Literal</c>
+                  <c>10733978</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>93</c>
+                  <c>Literal</c>
+                  <c>114</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>94</c>
+                  <c>Literal</c>
+                  <c>349</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>95</c>
+                  <c>Literal</c>
+                  <c>60648</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>96</c>
+                  <c>Product</c>
+                  <c />
+                  <c>101</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>97</c>
+                  <c>Equal</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>98</c>
+                  <c>Literal</c>
+                  <c>3919</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>99</c>
+                  <c>Literal</c>
+                  <c>3919</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>100</c>
+                  <c>Literal</c>
+                  <c>97536684</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>101</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>102</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>103</c>
+                  <c>Literal</c>
+                  <c>12</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>104</c>
+                  <c>Literal</c>
+                  <c>4</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>105</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>106</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>107</c>
+                  <c>Literal</c>
+                  <c>15</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>108</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>109</c>
+                  <c>Literal</c>
+                  <c>15</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>110</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>111</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>112</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>113</c>
+                  <c>Literal</c>
+                  <c>8</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>114</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>73</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>115</c>
+                  <c>Literal</c>
+                  <c>25</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>116</c>
+                  <c>Literal</c>
+                  <c>2050</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>117</c>
+                  <c>Literal</c>
+                  <c>10239519</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>118</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>119</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c>110</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>120</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>121</c>
+                  <c>Literal</c>
+                  <c>5</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>122</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>123</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>124</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>125</c>
+                  <c>Literal</c>
+                  <c>13</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>126</c>
+                  <c>Literal</c>
+                  <c>5</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>127</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>128</c>
+                  <c>Literal</c>
+                  <c>108</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>129</c>
+                  <c>Product</c>
+                  <c />
+                  <c>76</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>130</c>
+                  <c>Literal</c>
+                  <c>1384</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>131</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>132</c>
+                  <c>Literal</c>
+                  <c>2943</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>133</c>
+                  <c>Literal</c>
+                  <c>172</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>134</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>135</c>
+                  <c>Literal</c>
+                  <c>148</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>136</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>137</c>
+                  <c>Literal</c>
+                  <c>203</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>138</c>
+                  <c>Literal</c>
+                  <c>8475127</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>139</c>
+                  <c>Literal</c>
+                  <c>1</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>140</c>
+                  <c>Max</c>
+                  <c />
+                  <c>140</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>141</c>
+                  <c>Literal</c>
+                  <c>3488</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>142</c>
+                  <c>Literal</c>
+                  <c>12505547</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>143</c>
+                  <c>Literal</c>
+                  <c>202</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>144</c>
+                  <c>Literal</c>
+                  <c>2001682382</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>145</c>
+                  <c>Literal</c>
+                  <c>1808</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>146</c>
+                  <c>Literal</c>
+                  <c>39841</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>147</c>
+                  <c>Product</c>
+                  <c />
+                  <c>120</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>148</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c>52</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>149</c>
+                  <c>Literal</c>
+                  <c>60591</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>150</c>
+                  <c>Literal</c>
+                  <c>60591</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>151</c>
+                  <c>Literal</c>
+                  <c>2373583704</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>152</c>
+                  <c>Product</c>
+                  <c />
+                  <c>64</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>153</c>
+                  <c>Literal</c>
+                  <c>97</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>154</c>
+                  <c>Literal</c>
+                  <c>43</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>155</c>
+                  <c>Literal</c>
+                  <c>119</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>156</c>
+                  <c>Literal</c>
+                  <c>145</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>157</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>161</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>158</c>
+                  <c>Product</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>159</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>160</c>
+                  <c>Literal</c>
+                  <c>2</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>161</c>
+                  <c>Literal</c>
+                  <c>12</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>162</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>163</c>
+                  <c>Literal</c>
+                  <c>11</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>164</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>165</c>
+                  <c>Literal</c>
+                  <c>11</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>166</c>
+                  <c>Product</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>167</c>
+                  <c>Literal</c>
+                  <c>4</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>168</c>
+                  <c>Literal</c>
+                  <c>3</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>169</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>170</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>171</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>172</c>
+                  <c>Literal</c>
+                  <c>180</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>173</c>
+                  <c>Literal</c>
+                  <c>11581815</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>174</c>
+                  <c>Literal</c>
+                  <c>10900</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>175</c>
+                  <c>Product</c>
+                  <c />
+                  <c>148</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>176</c>
+                  <c>Literal</c>
+                  <c>64</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>177</c>
+                  <c>Equal</c>
+                  <c />
+                  <c>110</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>178</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>179</c>
+                  <c>Literal</c>
+                  <c>13</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>180</c>
+                  <c>Literal</c>
+                  <c>13</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>181</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>182</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>183</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>184</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>185</c>
+                  <c>Literal</c>
+                  <c>10</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>186</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>5</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>187</c>
+                  <c>Literal</c>
+                  <c>49760548</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>188</c>
+                  <c>Literal</c>
+                  <c>327</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>189</c>
+                  <c>Literal</c>
+                  <c>11</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>190</c>
+                  <c>Literal</c>
+                  <c>938663</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>191</c>
+                  <c>Literal</c>
+                  <c>4219801928</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>192</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>5</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>193</c>
+                  <c>Literal</c>
+                  <c>10</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>194</c>
+                  <c>Literal</c>
+                  <c>990092</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>195</c>
+                  <c>Literal</c>
+                  <c>29509</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>196</c>
+                  <c>Literal</c>
+                  <c>220</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>197</c>
+                  <c>Literal</c>
+                  <c>146</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>198</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>199</c>
+                  <c>Literal</c>
+                  <c>45794652998</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>51</c>
+                </r>
+                <r>
+                  <c>200</c>
+                  <c>Equal</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>201</c>
+                  <c>Literal</c>
+                  <c>13</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>202</c>
+                  <c>Literal</c>
+                  <c>3396</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>203</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>204</c>
+                  <c>Literal</c>
+                  <c>227938</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>31</c>
+                </r>
+                <r>
+                  <c>205</c>
+                  <c>Literal</c>
+                  <c>9</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>206</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>4</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>207</c>
+                  <c>Literal</c>
+                  <c>106</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>208</c>
+                  <c>Literal</c>
+                  <c>8</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>209</c>
+                  <c>Literal</c>
+                  <c>3183</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>210</c>
+                  <c>Literal</c>
+                  <c>4</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>211</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>212</c>
+                  <c>Literal</c>
+                  <c>3</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>213</c>
+                  <c>Literal</c>
+                  <c>163142063</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>214</c>
+                  <c>Literal</c>
+                  <c>6758201</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>215</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>216</c>
+                  <c>Literal</c>
+                  <c>370779393</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>217</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>218</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>219</c>
+                  <c>Literal</c>
+                  <c>8</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>220</c>
+                  <c>Literal</c>
+                  <c>10</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>221</c>
+                  <c>Literal</c>
+                  <c>8</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>222</c>
+                  <c>Sum</c>
+                  <c />
+                  <c>33</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>223</c>
+                  <c>Literal</c>
+                  <c>2</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>224</c>
+                  <c>Literal</c>
+                  <c>10</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>225</c>
+                  <c>Literal</c>
+                  <c>3</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>226</c>
+                  <c>Max</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>227</c>
+                  <c>Literal</c>
+                  <c>10240</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>228</c>
+                  <c>Literal</c>
+                  <c>128</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>229</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>230</c>
+                  <c>Literal</c>
+                  <c>83</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>231</c>
+                  <c>Literal</c>
+                  <c>173</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>232</c>
+                  <c>Literal</c>
+                  <c>151</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>233</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>234</c>
+                  <c>Literal</c>
+                  <c>51</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>235</c>
+                  <c>Less Than</c>
+                  <c />
+                  <c>102</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>236</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>237</c>
+                  <c>Literal</c>
+                  <c>10</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>238</c>
+                  <c>Literal</c>
+                  <c>6</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>239</c>
+                  <c>Literal</c>
+                  <c>7</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>240</c>
+                  <c>Sum</c>
+                  <c />
+                  <c />
+                  <c>3</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>241</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>242</c>
+                  <c>Literal</c>
+                  <c>15</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>243</c>
+                  <c>Literal</c>
+                  <c>14</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>244</c>
+                  <c>Min</c>
+                  <c />
+                  <c>194</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>245</c>
+                  <c>Literal</c>
+                  <c>21796</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>246</c>
+                  <c>Literal</c>
+                  <c>6582785760613</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>61</c>
+                </r>
+                <r>
+                  <c>247</c>
+                  <c>Literal</c>
+                  <c>886100718934</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>56</c>
+                </r>
+                <r>
+                  <c>248</c>
+                  <c>Literal</c>
+                  <c>65280071549</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>51</c>
+                </r>
+                <r>
+                  <c>249</c>
+                  <c>Product</c>
+                  <c />
+                  <c>95</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>250</c>
+                  <c>Literal</c>
+                  <c>14581316</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>251</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c>37</c>
+                  <c />
+                  <c>0</c>
+                  <c>22</c>
+                </r>
+                <r>
+                  <c>252</c>
+                  <c>Literal</c>
+                  <c>43005</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>253</c>
+                  <c>Literal</c>
+                  <c>2</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>11</c>
+                </r>
+                <r>
+                  <c>254</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>255</c>
+                  <c>Greater Than</c>
+                  <c />
+                  <c />
+                  <c>2</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>256</c>
+                  <c>Literal</c>
+                  <c>26927</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>257</c>
+                  <c>Literal</c>
+                  <c>26927</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>26</c>
+                </r>
+                <r>
+                  <c>258</c>
+                  <c>Literal</c>
+                  <c>1257</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>21</c>
+                </r>
+                <r>
+                  <c>259</c>
+                  <c>Product</c>
+                  <c />
+                  <c />
+                  <c>5</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>260</c>
+                  <c>Literal</c>
+                  <c>216</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>261</c>
+                  <c>Literal</c>
+                  <c>229</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>262</c>
+                  <c>Literal</c>
+                  <c>67</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>263</c>
+                  <c>Literal</c>
+                  <c>161</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>264</c>
+                  <c>Literal</c>
+                  <c>247</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>265</c>
+                  <c>Literal</c>
+                  <c>109216835</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>266</c>
+                  <c>Min</c>
+                  <c />
+                  <c />
+                  <c>1</c>
+                  <c>1</c>
+                  <c>18</c>
+                </r>
+                <r>
+                  <c>267</c>
+                  <c>Literal</c>
+                  <c>189</c>
+                  <c />
+                  <c />
+                  <c />
+                  <c>16</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>I Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="198" y="133" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="EntryTextLen" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+            <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+            <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1530" y="116" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="NodeID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>NodeID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+            <Field name="NodeID" source="TextInput:" type="Int16" />
+            <Field name="Op" size="12" source="TextInput:" type="V_String" />
+            <Field name="LiteralValue" source="TextInput:" type="Int64" />
+            <Field name="NodeLength" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1613" y="53" width="703" height="178" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Process the operation - reducing the formula</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="37">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1638" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="RootNode" selected="True" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+            <Position x="1734" y="102" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UniqueFields>
+                <Field field="RootNode" />
+              </UniqueFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Unique">
+              <RecordInfo>
+                <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="RootNode" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Duplicates">
+              <RecordInfo>
+                <Field description="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" name="RootNode" source="Formula: if [Op] !='Literal' and [Row+1:Op] = 'Literal' &#xA;//this is a an operator followed by a literal&#xA;    then [NodeID]&#xA;elseif [Op]='Literal'&#xA;    then [Row-1:PotentialCompress]&#xA;else null()&#xA;endif&#xA;" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="RootNode" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="2022" y="116" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="True" />
+              <OutputOrder>
+                <Connection>#1</Connection>
+                <Connection>#2</Connection>
+              </OutputOrder>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+                <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+                <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+                <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+                <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+                <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+                <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+            <Position x="2118" y="116" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>First</Mode>
+              <N>1</N>
+              <GroupFields orderChanged="False">
+                <Field name="NodeID" />
+              </GroupFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>First 1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+                <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+                <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+                <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+                <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+                <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+                <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="NodeID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+        </Node>
+        <Node ToolID="41">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="2214" y="116" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsNotNull</Operator>
+                <Field>Op</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2021-12-22 14:11:23</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>
+                  </Operand>
+                  <StartDate>2021-12-22 14:11:23</StartDate>
+                  <EndDate>2021-12-22 14:11:23</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!IsNull([Op])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+                <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+                <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+                <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+                <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+                <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+                <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="NodeID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="NodeLength" source="(Multiple Sources)" type="Int64" />
+                <Field name="NodeID" source="TextInput: (Multiple Sources)" type="Int16" />
+                <Field name="Op" size="12" source="(Multiple Sources)" type="V_String" />
+                <Field name="LiteralValue" source="(Multiple Sources)" type="Int64" />
+                <Field name="SubPacketLenInt" source="TextInput:" type="Int16" />
+                <Field name="SubPacketCountInt" source="TextInput:" type="Byte" />
+                <Field name="LengthTypeID" source="TextInput:" type="Byte" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="NodeID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="61">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="1926" y="116" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="NodeID" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>NodeID - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NodeLength" source="Summarize: Sum - NodeLength (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+                <Field name="NodeID" source="TextInput: (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int16" />
+                <Field name="Op" size="7" source="Formula: 'Literal' (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="String" />
+                <Field name="LiteralValue" source="DynamicReplace: (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro) (BatchMacro)" type="Int64" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="63">
+          <GuiSettings>
+            <Position x="1830" y="116" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="BatchMacroGroupBy" />
+              <Value name="Input.Input1"><![CDATA[RootNode=RootNode
+NodeID=NodeID
+Op=Op
+LiteralValue=LiteralValue
+NodeLength=NodeLength
+]]></Value>
+              <Value name="ControlParams"><![CDATA[Control Parameter (3)=RootNode
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>PerformOp (35)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro=".\PerformOp.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="False" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="True" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="True" />
+      <Destination ToolID="21" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="21" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Join" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="True" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="True" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="True" />
+      <Destination ToolID="28" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Join" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="True" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="True" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output9" />
+      <Destination ToolID="44" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="True" />
+      <Destination ToolID="44" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="True" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="63" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Unique" />
+      <Destination ToolID="63" Connection="Control" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="True" />
+      <Destination ToolID="43" Connection="Input8" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="True" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="OpOutput" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (23)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (50)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (51)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>FindEnds</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="5b9cd37d-8dad-4a53-80f4-70685c30db1d" />
+      <Telemetry>
+        <PreviousWorkflowId value="6361b365-8f98-4309-92e8-3a227be7c719" />
+        <OriginWorkflowId value="4bd4bf2b-a6df-42d6-b175-25466a178412" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (47)</Name>
+          <ToolId value="47" />
+          <Questions>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (23)</Name>
+              <ToolId value="23" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (50)</Description>
+              <Name>Macro Output (50)</Name>
+              <ToolId value="50" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (51)</Description>
+              <Name>Macro Input (51)</Name>
+              <ToolId value="51" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Inbound</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="500" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="23" Selected="True" />
+        <Tool ToolId="43" Selected="True" />
+        <Tool ToolId="50" Selected="True" />
+        <Tool ToolId="51" Selected="True" />
+        <Tool ToolId="63" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

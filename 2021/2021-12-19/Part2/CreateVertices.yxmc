@@ -1,0 +1,641 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="186" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="ScannerID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_ScannerID" selected="True" input="Left_" />
+                <SelectField field="Left_BeaconID" selected="True" input="Left_" />
+                <SelectField field="Left_x" selected="True" input="Left_" />
+                <SelectField field="Left_y" selected="True" input="Left_" />
+                <SelectField field="Left_z" selected="True" input="Left_" />
+                <SelectField field="Right_ScannerID" selected="False" rename="Right_ScannerID" input="Right_" />
+                <SelectField field="Right_BeaconID" selected="True" rename="BeaconID2" input="Right_" />
+                <SelectField field="Right_x" selected="True" rename="x2" input="Right_" />
+                <SelectField field="Right_y" selected="True" rename="y2" input="Right_" />
+                <SelectField field="Right_z" selected="True" rename="z2" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Int16" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" field="VertexLength" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[VertexLength = pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])
+,2)
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Int16" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="366" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[BeaconID] &lt; [BeaconID2]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[BeaconID] &lt; [BeaconID2]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Int16" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Int16" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="546" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="ScannerID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False">
+            <Field name="ScannerID" />
+          </GroupFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+            <Field name="BeaconID2" source="TextInput:" type="Byte" />
+            <Field name="x2" source="TextInput:" type="Int16" />
+            <Field name="y2" source="TextInput:" type="Int16" />
+            <Field name="z2" source="TextInput:" type="Byte" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="630" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" type="Int32" size="4" />
+            <SelectField field="BeaconID" selected="True" type="Int32" size="4" />
+            <SelectField field="x" selected="True" type="Int32" size="4" />
+            <SelectField field="y" selected="True" type="Int32" size="4" />
+            <SelectField field="z" selected="True" type="Int32" size="4" />
+            <SelectField field="BeaconID2" selected="True" type="Int32" size="4" />
+            <SelectField field="x2" selected="True" type="Int32" size="4" />
+            <SelectField field="y2" selected="True" type="Int32" size="4" />
+            <SelectField field="z2" selected="True" type="Int16" size="2" />
+            <SelectField field="VertexLength" selected="True" type="Int64" forced="True" size="8" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="VertexID" type="Int32" forced="True" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input3</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="6" />
+              <Fields>
+                <Field name="ScannerID" />
+                <Field name="BeaconID" />
+                <Field name="x" />
+                <Field name="y" />
+                <Field name="z" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>-1</c>
+                  <c>-1</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>-5</c>
+                  <c>0</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>-2</c>
+                  <c>1</c>
+                  <c>1</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="822" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output13</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="726" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="ScannerID" />
+            <Field field="VertexLength" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="822" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>First</When>
+          <Filter />
+          <Type>Warning</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>"Duplicate Vertex Length"</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="942" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Duplicates</Name>
+          <Abbrev>D</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>D Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="4" Connection="Join" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="True" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="4" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="4" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Unique" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Duplicates" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (13)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (16)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>CreateVertices</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="66356679-6acc-4690-8c71-4558dcc5c39b" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="66356679-6acc-4690-8c71-4558dcc5c39b" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (11)</Name>
+          <ToolId value="11" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (12)</Name>
+              <ToolId value="12" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (13)</Description>
+              <Name>Macro Output (13)</Name>
+              <ToolId value="13" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (16)</Description>
+              <Name>Macro Output (16)</Name>
+              <ToolId value="16" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="12" Selected="True" />
+        <Tool ToolId="13" Selected="True" />
+        <Tool ToolId="16" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

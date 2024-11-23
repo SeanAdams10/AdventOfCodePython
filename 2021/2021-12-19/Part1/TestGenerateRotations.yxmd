@@ -1,0 +1,1341 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="76" y="677" width="950" height="578" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Test Cases Provided by Challenge</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="101" y="786" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="7" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>--- scanner 0 ---</c>
+                </r>
+                <r>
+                  <c>-1,-1,1</c>
+                </r>
+                <r>
+                  <c>-2,-2,2</c>
+                </r>
+                <r>
+                  <c>-3,-3,3</c>
+                </r>
+                <r>
+                  <c>-2,-3,1</c>
+                </r>
+                <r>
+                  <c>5,6,-4</c>
+                </r>
+                <r>
+                  <c>8,0,7</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings>
+            <Position x="186" y="786" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input6"><![CDATA[data=data
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Cleanup input</AnnotationText>
+              <DefaultAnnotationText>Cleanup input</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings Macro="C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-19\Part1\CleanScannerData.yxmc" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="426" y="726" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+                <SummarizeField field="BeaconID" action="GroupBy" rename="BeaconID" />
+                <SummarizeField field="UBid" action="Count" rename="Count" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="522" y="726" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Count]*24" field="ExpectedRotations" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[ExpectedRotations = [Count]*24
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="29">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="426" y="786" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+                <SummarizeField field="BeaconID" action="GroupBy" rename="BeaconID" />
+                <SummarizeField field="RotationID" action="Count" rename="Count" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="30">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="594" y="750" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ScannerID" />
+                <Field field="BeaconID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ScannerID" />
+                <Field field="BeaconID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ScannerID" selected="False" rename="Right_ScannerID" input="Right_" />
+                    <SelectField field="Right_BeaconID" selected="False" rename="Right_BeaconID" input="Right_" />
+                    <SelectField field="Right_Count" selected="True" rename="ActualRotations" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="32">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+            <Position x="690" y="750" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <When>Filter</When>
+              <Filter>[ExpectedRotations] != [ActualRotations]</Filter>
+              <Type>Error</Type>
+              <Priority>High</Priority>
+              <Transient>False</Transient>
+              <MessageExpression>"Invalid Rotation Count"</MessageExpression>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings>
+            <Position x="282" y="786" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input1"><![CDATA[UBid=UBid
+ScannerID=ScannerID
+BeaconID=BeaconID
+x=x
+y=y
+z=z
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>GenerateRotations (19)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-19\Part1\GenerateRotations.yxmc" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="401" y="1037" width="601" height="193" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Expected vs. Actual</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="23">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="426" y="1122" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="36" />
+                  <Fields>
+                    <Field name="data" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>--- scanner 1 ---</c>
+                    </r>
+                    <r>
+                      <c>-1,-1,1</c>
+                    </r>
+                    <r>
+                      <c>-2,-2,2</c>
+                    </r>
+                    <r>
+                      <c>-3,-3,3</c>
+                    </r>
+                    <r>
+                      <c>-2,-3,1</c>
+                    </r>
+                    <r>
+                      <c>5,6,-4</c>
+                    </r>
+                    <r>
+                      <c>8,0,7</c>
+                    </r>
+                    <r>
+                      <c>--- scanner 2 ---</c>
+                    </r>
+                    <r>
+                      <c>1,-1,1</c>
+                    </r>
+                    <r>
+                      <c>2,-2,2</c>
+                    </r>
+                    <r>
+                      <c>3,-3,3</c>
+                    </r>
+                    <r>
+                      <c>2,-1,3</c>
+                    </r>
+                    <r>
+                      <c>-5,4,-6</c>
+                    </r>
+                    <r>
+                      <c>-8,-7,0</c>
+                    </r>
+                    <r>
+                      <c>--- scanner 3 ---</c>
+                    </r>
+                    <r>
+                      <c>-1,-1,-1</c>
+                    </r>
+                    <r>
+                      <c>-2,-2,-2</c>
+                    </r>
+                    <r>
+                      <c>-3,-3,-3</c>
+                    </r>
+                    <r>
+                      <c>-1,-3,-2</c>
+                    </r>
+                    <r>
+                      <c>4,6,5</c>
+                    </r>
+                    <r>
+                      <c>-7,0,8</c>
+                    </r>
+                    <r>
+                      <c>--- scanner 4 ---</c>
+                    </r>
+                    <r>
+                      <c>1,1,-1</c>
+                    </r>
+                    <r>
+                      <c>2,2,-2</c>
+                    </r>
+                    <r>
+                      <c>3,3,-3</c>
+                    </r>
+                    <r>
+                      <c>1,3,-2</c>
+                    </r>
+                    <r>
+                      <c>-4,-6,5</c>
+                    </r>
+                    <r>
+                      <c>7,0,8</c>
+                    </r>
+                    <r>
+                      <c>--- scanner 5 ---</c>
+                    </r>
+                    <r>
+                      <c>1,1,1</c>
+                    </r>
+                    <r>
+                      <c>2,2,2</c>
+                    </r>
+                    <r>
+                      <c>3,3,3</c>
+                    </r>
+                    <r>
+                      <c>3,1,2</c>
+                    </r>
+                    <r>
+                      <c>-6,-4,-5</c>
+                    </r>
+                    <r>
+                      <c>0,7,-8</c>
+                    </r>
+                    <r>
+                      <c />
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+            <Node ToolID="24">
+              <GuiSettings>
+                <Position x="510" y="1122" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Value name="Input.Input6"><![CDATA[data=data
+]]></Value>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <AnnotationText>Cleanup input</AnnotationText>
+                  <DefaultAnnotationText>Cleanup input</DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+                <Dependencies>
+                  <Implicit />
+                </Dependencies>
+              </Properties>
+              <EngineSettings Macro="C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-19\Part1\CleanScannerData.yxmc" />
+            </Node>
+            <Node ToolID="25">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+                <Position x="702" y="1122" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <FormulaFields>
+                    <FormulaField expression="0" field="ScannerID" size="1" type="Byte" />
+                  </FormulaFields>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText><![CDATA[ScannerID = 0
+]]></DefaultAnnotationText>
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+            </Node>
+            <Node ToolID="26">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+                <Position x="606" y="1122" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="ScannerID" selected="True" rename="RotationID" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+            </Node>
+            <Node ToolID="34">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+                <Position x="810" y="1098" />
+              </GuiSettings>
+              <Properties>
+                <Configuration joinByRecordPos="False">
+                  <JoinInfo connection="Left">
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="x" />
+                    <Field field="y" />
+                    <Field field="z" />
+                  </JoinInfo>
+                  <JoinInfo connection="Right">
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="x" />
+                    <Field field="y" />
+                    <Field field="z" />
+                  </JoinInfo>
+                  <SelectConfiguration>
+                    <Configuration outputConnection="Join">
+                      <OrderChanged value="False" />
+                      <CommaDecimal value="False" />
+                      <SelectFields>
+                        <SelectField field="Right_UBid" selected="True" rename="Right_UBid" input="Right_" />
+                        <SelectField field="Right_RotationID" selected="True" rename="Right_RotationID" input="Right_" />
+                        <SelectField field="Right_BeaconID" selected="True" rename="Right_BeaconID" input="Right_" />
+                        <SelectField field="Right_x" selected="True" rename="Right_x" input="Right_" />
+                        <SelectField field="Right_y" selected="True" rename="Right_y" input="Right_" />
+                        <SelectField field="Right_z" selected="True" rename="Right_z" input="Right_" />
+                        <SelectField field="Right_ScannerID" selected="True" rename="Right_ScannerID" input="Right_" />
+                        <SelectField field="*Unknown" selected="True" />
+                      </SelectFields>
+                    </Configuration>
+                  </SelectConfiguration>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+            </Node>
+            <Node ToolID="40">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="918" y="1146" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Error</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Expected Rotation Missing"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+            <Node ToolID="41">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="918" y="1086" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Warning</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Unexpected Transformation Found"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="401" y="881" width="241" height="133" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Check for duplicate rotations</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="35">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+                <Position x="426" y="930" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <UniqueFields>
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="RotationFormula" />
+                  </UniqueFields>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+            </Node>
+            <Node ToolID="37">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="510" y="930" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Error</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Duplicate Rotation"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+          </ChildNodes>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="76" y="28" width="950" height="566" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Hand Mocked using Rubix Cube</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="43">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="101" y="150" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="data" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>--- scanner 0 ---</c>
+                </r>
+                <r>
+                  <c>1,2,3</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="44">
+          <GuiSettings>
+            <Position x="186" y="149" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input6"><![CDATA[data=data
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Cleanup input</AnnotationText>
+              <DefaultAnnotationText>Cleanup input</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-19\Part1\CleanScannerData.yxmc" />
+        </Node>
+        <Node ToolID="45">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="426" y="77" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+                <SummarizeField field="BeaconID" action="GroupBy" rename="BeaconID" />
+                <SummarizeField field="UBid" action="Count" rename="Count" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="46">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="522" y="78" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Count]*24" field="ExpectedRotations" size="1" type="Byte" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[ExpectedRotations = [Count]*24
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="47">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="426" y="150" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="ScannerID" action="GroupBy" rename="ScannerID" />
+                <SummarizeField field="BeaconID" action="GroupBy" rename="BeaconID" />
+                <SummarizeField field="RotationID" action="Count" rename="Count" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="48">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="594" y="102" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="ScannerID" />
+                <Field field="BeaconID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="ScannerID" />
+                <Field field="BeaconID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_ScannerID" selected="False" rename="Right_ScannerID" input="Right_" />
+                    <SelectField field="Right_BeaconID" selected="False" rename="Right_BeaconID" input="Right_" />
+                    <SelectField field="Right_Count" selected="True" rename="ActualRotations" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="49">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+            <Position x="690" y="101" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <When>Filter</When>
+              <Filter>[ExpectedRotations] != [ActualRotations]</Filter>
+              <Type>Error</Type>
+              <Priority>High</Priority>
+              <Transient>False</Transient>
+              <MessageExpression>"Invalid Rotation Count"</MessageExpression>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+        </Node>
+        <Node ToolID="50">
+          <GuiSettings>
+            <Position x="281" y="150" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Input.Input1"><![CDATA[UBid=UBid
+ScannerID=ScannerID
+BeaconID=BeaconID
+x=x
+y=y
+z=z
+]]></Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="C:\Users\seanb\OneDrive\Documents\Alteryx data\AdventOfCode\2021\2021-12-19\Part1\GenerateRotations.yxmc" />
+        </Node>
+        <Node ToolID="58">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="413" y="389" width="589" height="181" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Expected vs. Actual</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="55">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+                <Position x="810" y="462" />
+              </GuiSettings>
+              <Properties>
+                <Configuration joinByRecordPos="False">
+                  <JoinInfo connection="Left">
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="x" />
+                    <Field field="y" />
+                    <Field field="z" />
+                  </JoinInfo>
+                  <JoinInfo connection="Right">
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="x" />
+                    <Field field="y" />
+                    <Field field="z" />
+                  </JoinInfo>
+                  <SelectConfiguration>
+                    <Configuration outputConnection="Join">
+                      <OrderChanged value="False" />
+                      <CommaDecimal value="False" />
+                      <SelectFields>
+                        <SelectField field="Right_ScannerID" selected="True" rename="Right_ScannerID" input="Right_" />
+                        <SelectField field="Right_BeaconID" selected="True" rename="Right_BeaconID" input="Right_" />
+                        <SelectField field="Right_RotationID" selected="True" rename="Right_RotationID" input="Right_" />
+                        <SelectField field="Right_x" selected="True" rename="Right_x" input="Right_" />
+                        <SelectField field="Right_y" selected="True" rename="Right_y" input="Right_" />
+                        <SelectField field="Right_z" selected="True" rename="Right_z" input="Right_" />
+                        <SelectField field="Right_UBid" selected="True" rename="Right_UBid" input="Right_" />
+                        <SelectField field="*Unknown" selected="True" />
+                      </SelectFields>
+                    </Configuration>
+                  </SelectConfiguration>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+            </Node>
+            <Node ToolID="56">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="918" y="486" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Error</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Expected Rotation Missing"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+            <Node ToolID="57">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="918" y="438" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Error</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Unexpected Transformation Found"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+            <Node ToolID="66">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+                <Position x="438" y="486" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <NumRows value="24" />
+                  <Fields>
+                    <Field name="ScannerID" />
+                    <Field name="BeaconID" />
+                    <Field name="RotationID" />
+                    <Field name="x" />
+                    <Field name="y" />
+                    <Field name="z" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>1</c>
+                      <c>1</c>
+                      <c>2</c>
+                      <c>3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>2</c>
+                      <c>2</c>
+                      <c>-1</c>
+                      <c>3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>3</c>
+                      <c>-1</c>
+                      <c>-2</c>
+                      <c>3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>4</c>
+                      <c>-2</c>
+                      <c>1</c>
+                      <c>3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>5</c>
+                      <c>1</c>
+                      <c>-3</c>
+                      <c>2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>6</c>
+                      <c>-3</c>
+                      <c>-1</c>
+                      <c>2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>7</c>
+                      <c>-1</c>
+                      <c>3</c>
+                      <c>2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>8</c>
+                      <c>3</c>
+                      <c>1</c>
+                      <c>2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>9</c>
+                      <c>1</c>
+                      <c>-2</c>
+                      <c>-3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>10</c>
+                      <c>-2</c>
+                      <c>-1</c>
+                      <c>-3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>11</c>
+                      <c>-1</c>
+                      <c>2</c>
+                      <c>-3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>12</c>
+                      <c>2</c>
+                      <c>1</c>
+                      <c>-3</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>13</c>
+                      <c>1</c>
+                      <c>3</c>
+                      <c>-2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>14</c>
+                      <c>3</c>
+                      <c>-1</c>
+                      <c>-2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>15</c>
+                      <c>-1</c>
+                      <c>-3</c>
+                      <c>-2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>16</c>
+                      <c>-3</c>
+                      <c>1</c>
+                      <c>-2</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>17</c>
+                      <c>3</c>
+                      <c>2</c>
+                      <c>-1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>18</c>
+                      <c>2</c>
+                      <c>-3</c>
+                      <c>-1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>19</c>
+                      <c>-3</c>
+                      <c>-2</c>
+                      <c>-1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>20</c>
+                      <c>-2</c>
+                      <c>3</c>
+                      <c>-1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>21</c>
+                      <c>-3</c>
+                      <c>2</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>22</c>
+                      <c>2</c>
+                      <c>3</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>23</c>
+                      <c>3</c>
+                      <c>-2</c>
+                      <c>1</c>
+                    </r>
+                    <r>
+                      <c>0</c>
+                      <c>1</c>
+                      <c>24</c>
+                      <c>-2</c>
+                      <c>-3</c>
+                      <c>1</c>
+                    </r>
+                  </Data>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="61">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="401" y="245" width="241" height="133" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Check for duplicate rotations</Caption>
+              <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="59">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+                <Position x="426" y="294" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <UniqueFields>
+                    <Field field="ScannerID" />
+                    <Field field="BeaconID" />
+                    <Field field="RotationFormula" />
+                  </UniqueFields>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+            </Node>
+            <Node ToolID="60">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+                <Position x="510" y="294" />
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <When>Filter</When>
+                  <Filter>1=1</Filter>
+                  <Type>Error</Type>
+                  <Priority>High</Priority>
+                  <Transient>False</Transient>
+                  <MessageExpression>"Duplicate Rotation"</MessageExpression>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name />
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+            </Node>
+          </ChildNodes>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="22" Connection="Input6" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output96" />
+      <Destination ToolID="36" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output96" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="30" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="30" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Join" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output5" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output5" />
+      <Destination ToolID="34" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="34" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output5" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="24" Connection="Input6" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output96" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Right" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Left" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Duplicates" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="44" Connection="Input6" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output96" />
+      <Destination ToolID="50" Connection="Input1" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output96" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="48" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output" />
+      <Destination ToolID="48" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Join" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output5" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output5" />
+      <Destination ToolID="55" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="55" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output5" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Right" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Left" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Duplicates" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>TestGenerateRotations</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="632d265f-7e0c-4af0-8e3f-3fec52b6d858" />
+      <Telemetry>
+        <PreviousWorkflowId value="dc7d44fd-2f28-49d8-bd8a-9828dd0a8987" />
+        <OriginWorkflowId value="dc7d44fd-2f28-49d8-bd8a-9828dd0a8987" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,6240 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2021.3">
+  <Nodes>
+    <Node ToolID="185">
+      <GuiSettings>
+        <Position x="282" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input3"><![CDATA[ScannerID=ScannerID
+BeaconID=BeaconID
+x=x
+y=y
+z=z
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>CreateVertices (136)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output13">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+            <Field name="BeaconID2" source="TextInput:" type="Int32" />
+            <Field name="x2" source="TextInput:" type="Int32" />
+            <Field name="y2" source="TextInput:" type="Int32" />
+            <Field name="z2" source="TextInput:" type="Int16" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\CreateVertices.yxmc" />
+    </Node>
+    <Node ToolID="194">
+      <GuiSettings>
+        <Position x="762" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Numeric Up Down (27)">12</Value>
+          <Value name="Input.Source"><![CDATA[ScannerID=ScannerID
+VertexLength=VertexLength
+VertexID=VertexID
+]]></Value>
+          <Value name="Input.Target"><![CDATA[ScannerID=ScannerID
+VertexLength=VertexLength
+VertexID=VertexID
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>ConfirmOverlap (137)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="JoinDetails">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+            <Field name="Min_ScannerID" source="TextInput:" type="Int32" />
+            <Field name="Right_ScannerID" source="TextInput:" type="Int32" />
+            <Field name="Right_VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="Right_VertexID" type="Int32" />
+            <Field name="Right_Min_ScannerID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Right_VertexID" />
+            <Field field="Right_ScannerID" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output22">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="Right_ScannerID" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+            <Field name="MatchCount" source="Summarize: Count" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Summary">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="MatchCount" source="Summarize: Count" type="Int64" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="ScannerID2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\ConfirmOverlap.yxmc" />
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="666" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[ScannerID] = [Min_ScannerID]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ScannerID] = [Min_ScannerID]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+            <Field name="Min_ScannerID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+            <Field name="Min_ScannerID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="139">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="378" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" />
+            <SelectField field="VertexLength" selected="True" />
+            <SelectField field="VertexID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+            <Field field="VertexLength" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="141">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="474" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ScannerID" action="Min" rename="Min_ScannerID" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Min_ScannerID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="142">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="570" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_ScannerID" selected="True" input="Target_" />
+                <SelectField field="Target_VertexLength" selected="True" input="Target_" />
+                <SelectField field="Target_VertexID" selected="True" input="Target_" />
+                <SelectField field="Source_Min_ScannerID" selected="True" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="VertexID" type="Int32" />
+            <Field name="Min_ScannerID" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings>
+        <Position x="990" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Ranges">1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>The one to match this round</AnnotationText>
+          <DefaultAnnotationText>The one to match this round</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="MatchCount" source="Summarize: Count" type="Int64" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="ScannerID2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="SelectRecords.yxmc" />
+    </Node>
+    <Node ToolID="147">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1086" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" rename="S1" />
+            <SelectField field="MatchCount" selected="False" />
+            <SelectField field="ScannerID2" selected="True" rename="S2" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="S1" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="S2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1182" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="S1" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="S2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="151">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1278" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[ScannerID]!= [S1]
+AND [ScannerID] != [S2]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[ScannerID]!= [S1]
+AND [ScannerID] != [S2]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="S1" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="S2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="S1" source="Summarize: GroupBy - ScannerID" type="Int32" />
+            <Field name="NodeCountPerfect" type="Int32" />
+            <Field name="S2" source="Summarize: GroupBy - Right_ScannerID" type="Int32" />
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="152">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1374" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" />
+            <SelectField field="BeaconID" selected="True" />
+            <SelectField field="x" selected="True" />
+            <SelectField field="y" selected="True" />
+            <SelectField field="z" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="191">
+      <GuiSettings>
+        <Position x="1338" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>RotateAndOffset (159)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output44">
+          <RecordInfo>
+            <Field name="UBid" source="RecordID: Starting Value=1" type="Int32" />
+            <Field description="RegEx: Parsed from data" name="ScannerID" source="Formula: IIF(IsNull([_CurrentField_]),0,[_CurrentField_])" type="Int64" />
+            <Field name="BeaconID" source="Tile" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ScannerID" source="Formula: 0" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="x" order="Asc" />
+            <Field field="y" order="Asc" />
+            <Field field="z" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="CorrectRotation">
+          <RecordInfo>
+            <Field name="RotationID" source="Summarize: GroupBy - RotationID" type="Int32" />
+            <Field name="Min_VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="Max_VertexLength" source="Formula: pow(([x]-[x2]),2) + pow(([y]-[y2]),2) + pow(([z]-[z2])&#xA;,2)" type="Int64" />
+            <Field name="Median_VertexLength" source="Summarize: Median - VertexLength" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RotationID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\RotateAndOffset.yxmc" />
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="BeaconID" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="x" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="y" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="z" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="TextInput:" type="Int32" />
+            <Field name="y" source="TextInput:" type="Int32" />
+            <Field name="z" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1494" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1590" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="ScannerID" order="Ascending" />
+            <Field field="x" order="Ascending" />
+            <Field field="y" order="Ascending" />
+            <Field field="z" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>ScannerID - Ascending
+x - Ascending
+y - Ascending
+z - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Tile.Tile">
+        <Position x="1686" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Method>UniqueValue</Method>
+          <UniqueValue>
+            <UniqueFields>
+              <Field field="ScannerID" />
+            </UniqueFields>
+            <DontSort value="False" />
+          </UniqueValue>
+          <GroupFields orderChanged="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="ScannerID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTile" />
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2082" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="BeaconID" />
+            <SelectField field="BeaconID" selected="False" />
+            <SelectField field="x" selected="True" />
+            <SelectField field="y" selected="True" />
+            <SelectField field="z" selected="True" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="distinctScanners" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input135</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="723" />
+              <Fields>
+                <Field name="ScannerID" />
+                <Field name="BeaconID" />
+                <Field name="x" />
+                <Field name="y" />
+                <Field name="z" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                  <c>1</c>
+                  <c>712</c>
+                  <c>493</c>
+                  <c>-580</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>2</c>
+                  <c>-705</c>
+                  <c>-746</c>
+                  <c>944</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>3</c>
+                  <c>-468</c>
+                  <c>-742</c>
+                  <c>927</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>4</c>
+                  <c>-906</c>
+                  <c>-760</c>
+                  <c>-387</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>5</c>
+                  <c>523</c>
+                  <c>612</c>
+                  <c>505</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>6</c>
+                  <c>-973</c>
+                  <c>425</c>
+                  <c>-333</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>7</c>
+                  <c>361</c>
+                  <c>-777</c>
+                  <c>-655</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>8</c>
+                  <c>-172</c>
+                  <c>-143</c>
+                  <c>-8</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>9</c>
+                  <c>403</c>
+                  <c>-606</c>
+                  <c>-574</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>10</c>
+                  <c>-655</c>
+                  <c>761</c>
+                  <c>677</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>11</c>
+                  <c>-670</c>
+                  <c>-738</c>
+                  <c>898</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>12</c>
+                  <c>459</c>
+                  <c>511</c>
+                  <c>-563</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>13</c>
+                  <c>713</c>
+                  <c>-623</c>
+                  <c>478</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>14</c>
+                  <c>-605</c>
+                  <c>714</c>
+                  <c>848</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>15</c>
+                  <c>-18</c>
+                  <c>-8</c>
+                  <c>104</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>16</c>
+                  <c>510</c>
+                  <c>641</c>
+                  <c>739</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>17</c>
+                  <c>-991</c>
+                  <c>515</c>
+                  <c>-523</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>18</c>
+                  <c>556</c>
+                  <c>559</c>
+                  <c>577</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>19</c>
+                  <c>709</c>
+                  <c>-678</c>
+                  <c>647</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>20</c>
+                  <c>789</c>
+                  <c>-632</c>
+                  <c>517</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>21</c>
+                  <c>-976</c>
+                  <c>-761</c>
+                  <c>-391</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>22</c>
+                  <c>-966</c>
+                  <c>491</c>
+                  <c>-435</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>23</c>
+                  <c>-611</c>
+                  <c>679</c>
+                  <c>810</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>24</c>
+                  <c>383</c>
+                  <c>-654</c>
+                  <c>-565</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>25</c>
+                  <c>641</c>
+                  <c>491</c>
+                  <c>-564</c>
+                </r>
+                <r>
+                  <c>0</c>
+                  <c>26</c>
+                  <c>-790</c>
+                  <c>-798</c>
+                  <c>-400</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>1</c>
+                  <c>-286</c>
+                  <c>612</c>
+                  <c>-671</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>2</c>
+                  <c>550</c>
+                  <c>-491</c>
+                  <c>494</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>3</c>
+                  <c>-344</c>
+                  <c>-303</c>
+                  <c>619</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>4</c>
+                  <c>487</c>
+                  <c>-410</c>
+                  <c>518</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>5</c>
+                  <c>973</c>
+                  <c>-373</c>
+                  <c>-692</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>6</c>
+                  <c>110</c>
+                  <c>31</c>
+                  <c>-17</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>7</c>
+                  <c>662</c>
+                  <c>607</c>
+                  <c>-702</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>8</c>
+                  <c>983</c>
+                  <c>-337</c>
+                  <c>-801</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>9</c>
+                  <c>-550</c>
+                  <c>671</c>
+                  <c>606</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>10</c>
+                  <c>-466</c>
+                  <c>-293</c>
+                  <c>710</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>11</c>
+                  <c>793</c>
+                  <c>650</c>
+                  <c>-662</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>12</c>
+                  <c>-506</c>
+                  <c>595</c>
+                  <c>519</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>13</c>
+                  <c>-294</c>
+                  <c>-768</c>
+                  <c>-699</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>14</c>
+                  <c>444</c>
+                  <c>-519</c>
+                  <c>645</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>15</c>
+                  <c>-312</c>
+                  <c>599</c>
+                  <c>-535</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>16</c>
+                  <c>-464</c>
+                  <c>-304</c>
+                  <c>529</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>17</c>
+                  <c>489</c>
+                  <c>802</c>
+                  <c>531</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>18</c>
+                  <c>438</c>
+                  <c>778</c>
+                  <c>402</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>19</c>
+                  <c>831</c>
+                  <c>-342</c>
+                  <c>-707</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>20</c>
+                  <c>-542</c>
+                  <c>513</c>
+                  <c>494</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>21</c>
+                  <c>-301</c>
+                  <c>621</c>
+                  <c>-550</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>22</c>
+                  <c>-445</c>
+                  <c>-677</c>
+                  <c>-708</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>23</c>
+                  <c>560</c>
+                  <c>846</c>
+                  <c>460</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>24</c>
+                  <c>-293</c>
+                  <c>-724</c>
+                  <c>-739</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>25</c>
+                  <c>638</c>
+                  <c>590</c>
+                  <c>-629</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>1</c>
+                  <c>-635</c>
+                  <c>-463</c>
+                  <c>-706</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>2</c>
+                  <c>896</c>
+                  <c>-619</c>
+                  <c>679</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>3</c>
+                  <c>647</c>
+                  <c>295</c>
+                  <c>757</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>4</c>
+                  <c>797</c>
+                  <c>-608</c>
+                  <c>645</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>5</c>
+                  <c>-270</c>
+                  <c>-724</c>
+                  <c>575</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>6</c>
+                  <c>-493</c>
+                  <c>485</c>
+                  <c>466</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>7</c>
+                  <c>-340</c>
+                  <c>466</c>
+                  <c>-635</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>8</c>
+                  <c>931</c>
+                  <c>-698</c>
+                  <c>684</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>9</c>
+                  <c>624</c>
+                  <c>689</c>
+                  <c>-597</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>10</c>
+                  <c>584</c>
+                  <c>235</c>
+                  <c>861</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>11</c>
+                  <c>411</c>
+                  <c>-511</c>
+                  <c>-238</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>12</c>
+                  <c>-577</c>
+                  <c>670</c>
+                  <c>452</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>13</c>
+                  <c>592</c>
+                  <c>614</c>
+                  <c>-699</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>14</c>
+                  <c>69</c>
+                  <c>3</c>
+                  <c>116</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>15</c>
+                  <c>469</c>
+                  <c>-472</c>
+                  <c>-403</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>16</c>
+                  <c>-762</c>
+                  <c>-440</c>
+                  <c>-769</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>17</c>
+                  <c>562</c>
+                  <c>-473</c>
+                  <c>-299</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>18</c>
+                  <c>-426</c>
+                  <c>448</c>
+                  <c>-617</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>19</c>
+                  <c>670</c>
+                  <c>355</c>
+                  <c>931</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>20</c>
+                  <c>683</c>
+                  <c>528</c>
+                  <c>-588</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>21</c>
+                  <c>-378</c>
+                  <c>-620</c>
+                  <c>578</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>22</c>
+                  <c>-535</c>
+                  <c>525</c>
+                  <c>-608</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>23</c>
+                  <c>-6</c>
+                  <c>-191</c>
+                  <c>36</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>24</c>
+                  <c>-647</c>
+                  <c>-428</c>
+                  <c>-727</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>25</c>
+                  <c>-454</c>
+                  <c>-713</c>
+                  <c>576</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>26</c>
+                  <c>-458</c>
+                  <c>625</c>
+                  <c>481</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>1</c>
+                  <c>438</c>
+                  <c>-559</c>
+                  <c>589</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>2</c>
+                  <c>-590</c>
+                  <c>703</c>
+                  <c>724</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>3</c>
+                  <c>451</c>
+                  <c>970</c>
+                  <c>-584</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>4</c>
+                  <c>657</c>
+                  <c>488</c>
+                  <c>518</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>5</c>
+                  <c>620</c>
+                  <c>-539</c>
+                  <c>588</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>6</c>
+                  <c>569</c>
+                  <c>-409</c>
+                  <c>-714</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>7</c>
+                  <c>-654</c>
+                  <c>-497</c>
+                  <c>546</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>8</c>
+                  <c>506</c>
+                  <c>893</c>
+                  <c>-703</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>9</c>
+                  <c>367</c>
+                  <c>-557</c>
+                  <c>605</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>10</c>
+                  <c>-760</c>
+                  <c>743</c>
+                  <c>-517</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>11</c>
+                  <c>299</c>
+                  <c>925</c>
+                  <c>-664</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>12</c>
+                  <c>-802</c>
+                  <c>-444</c>
+                  <c>601</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>13</c>
+                  <c>-760</c>
+                  <c>797</c>
+                  <c>-413</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>14</c>
+                  <c>523</c>
+                  <c>-491</c>
+                  <c>-552</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>15</c>
+                  <c>520</c>
+                  <c>525</c>
+                  <c>466</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>16</c>
+                  <c>47</c>
+                  <c>174</c>
+                  <c>-89</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>17</c>
+                  <c>-554</c>
+                  <c>-293</c>
+                  <c>-909</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>18</c>
+                  <c>-699</c>
+                  <c>577</c>
+                  <c>686</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>19</c>
+                  <c>-563</c>
+                  <c>-244</c>
+                  <c>-847</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>20</c>
+                  <c>710</c>
+                  <c>529</c>
+                  <c>430</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>21</c>
+                  <c>556</c>
+                  <c>-438</c>
+                  <c>-480</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>22</c>
+                  <c>-61</c>
+                  <c>65</c>
+                  <c>25</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>23</c>
+                  <c>-577</c>
+                  <c>-242</c>
+                  <c>-690</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>24</c>
+                  <c>-807</c>
+                  <c>795</c>
+                  <c>-448</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>25</c>
+                  <c>-601</c>
+                  <c>599</c>
+                  <c>763</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>26</c>
+                  <c>-846</c>
+                  <c>-494</c>
+                  <c>561</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>1</c>
+                  <c>519</c>
+                  <c>654</c>
+                  <c>-940</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>2</c>
+                  <c>723</c>
+                  <c>-779</c>
+                  <c>431</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>3</c>
+                  <c>512</c>
+                  <c>259</c>
+                  <c>327</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>4</c>
+                  <c>-614</c>
+                  <c>322</c>
+                  <c>-479</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>5</c>
+                  <c>-1</c>
+                  <c>-73</c>
+                  <c>-119</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>6</c>
+                  <c>807</c>
+                  <c>-942</c>
+                  <c>-373</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>7</c>
+                  <c>410</c>
+                  <c>690</c>
+                  <c>-950</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>8</c>
+                  <c>-660</c>
+                  <c>-720</c>
+                  <c>-524</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>9</c>
+                  <c>-889</c>
+                  <c>427</c>
+                  <c>353</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>10</c>
+                  <c>-582</c>
+                  <c>-558</c>
+                  <c>474</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>11</c>
+                  <c>-505</c>
+                  <c>385</c>
+                  <c>-481</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>12</c>
+                  <c>-827</c>
+                  <c>536</c>
+                  <c>391</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>13</c>
+                  <c>-549</c>
+                  <c>416</c>
+                  <c>-405</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>14</c>
+                  <c>735</c>
+                  <c>-539</c>
+                  <c>388</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>15</c>
+                  <c>638</c>
+                  <c>-629</c>
+                  <c>470</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>16</c>
+                  <c>-609</c>
+                  <c>-834</c>
+                  <c>-559</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>17</c>
+                  <c>472</c>
+                  <c>303</c>
+                  <c>326</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>18</c>
+                  <c>-636</c>
+                  <c>-659</c>
+                  <c>521</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>19</c>
+                  <c>-833</c>
+                  <c>511</c>
+                  <c>409</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>20</c>
+                  <c>-711</c>
+                  <c>-721</c>
+                  <c>-586</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>21</c>
+                  <c>745</c>
+                  <c>-941</c>
+                  <c>-451</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>22</c>
+                  <c>503</c>
+                  <c>350</c>
+                  <c>478</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>23</c>
+                  <c>504</c>
+                  <c>685</c>
+                  <c>-798</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>24</c>
+                  <c>-532</c>
+                  <c>-659</c>
+                  <c>336</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>25</c>
+                  <c>813</c>
+                  <c>-874</c>
+                  <c>-376</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>1</c>
+                  <c>637</c>
+                  <c>-351</c>
+                  <c>-454</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>2</c>
+                  <c>820</c>
+                  <c>833</c>
+                  <c>-269</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>3</c>
+                  <c>487</c>
+                  <c>-374</c>
+                  <c>703</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>4</c>
+                  <c>-451</c>
+                  <c>-657</c>
+                  <c>828</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>5</c>
+                  <c>766</c>
+                  <c>726</c>
+                  <c>370</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>6</c>
+                  <c>-109</c>
+                  <c>-27</c>
+                  <c>-55</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>7</c>
+                  <c>-452</c>
+                  <c>-602</c>
+                  <c>760</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>8</c>
+                  <c>526</c>
+                  <c>-342</c>
+                  <c>910</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>9</c>
+                  <c>833</c>
+                  <c>757</c>
+                  <c>-477</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>10</c>
+                  <c>-647</c>
+                  <c>-678</c>
+                  <c>769</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>11</c>
+                  <c>689</c>
+                  <c>-411</c>
+                  <c>-450</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>12</c>
+                  <c>-845</c>
+                  <c>657</c>
+                  <c>-682</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>13</c>
+                  <c>-560</c>
+                  <c>535</c>
+                  <c>563</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>14</c>
+                  <c>-468</c>
+                  <c>403</c>
+                  <c>553</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>15</c>
+                  <c>6</c>
+                  <c>111</c>
+                  <c>87</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>16</c>
+                  <c>718</c>
+                  <c>-486</c>
+                  <c>-416</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>17</c>
+                  <c>-664</c>
+                  <c>-436</c>
+                  <c>-479</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>18</c>
+                  <c>771</c>
+                  <c>843</c>
+                  <c>-494</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>19</c>
+                  <c>-655</c>
+                  <c>-530</c>
+                  <c>-493</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>20</c>
+                  <c>772</c>
+                  <c>807</c>
+                  <c>513</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>21</c>
+                  <c>672</c>
+                  <c>815</c>
+                  <c>457</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>22</c>
+                  <c>-717</c>
+                  <c>-428</c>
+                  <c>-587</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>23</c>
+                  <c>-797</c>
+                  <c>629</c>
+                  <c>-713</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>24</c>
+                  <c>606</c>
+                  <c>-297</c>
+                  <c>758</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>25</c>
+                  <c>-433</c>
+                  <c>544</c>
+                  <c>520</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>26</c>
+                  <c>-699</c>
+                  <c>752</c>
+                  <c>-723</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>1</c>
+                  <c>-712</c>
+                  <c>-426</c>
+                  <c>681</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>2</c>
+                  <c>398</c>
+                  <c>-239</c>
+                  <c>-616</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>3</c>
+                  <c>-866</c>
+                  <c>737</c>
+                  <c>603</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>4</c>
+                  <c>787</c>
+                  <c>581</c>
+                  <c>-421</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>5</c>
+                  <c>-624</c>
+                  <c>425</c>
+                  <c>-698</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>6</c>
+                  <c>660</c>
+                  <c>636</c>
+                  <c>788</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>7</c>
+                  <c>-641</c>
+                  <c>478</c>
+                  <c>-670</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>8</c>
+                  <c>-855</c>
+                  <c>410</c>
+                  <c>-685</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>9</c>
+                  <c>54</c>
+                  <c>176</c>
+                  <c>135</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>10</c>
+                  <c>-496</c>
+                  <c>-215</c>
+                  <c>-283</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>11</c>
+                  <c>889</c>
+                  <c>500</c>
+                  <c>-360</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>12</c>
+                  <c>479</c>
+                  <c>-258</c>
+                  <c>-539</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>13</c>
+                  <c>765</c>
+                  <c>483</c>
+                  <c>789</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>14</c>
+                  <c>699</c>
+                  <c>635</c>
+                  <c>723</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>15</c>
+                  <c>819</c>
+                  <c>-682</c>
+                  <c>528</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>16</c>
+                  <c>-691</c>
+                  <c>-319</c>
+                  <c>832</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>17</c>
+                  <c>413</c>
+                  <c>-316</c>
+                  <c>-666</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>18</c>
+                  <c>-865</c>
+                  <c>873</c>
+                  <c>502</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>19</c>
+                  <c>-400</c>
+                  <c>-297</c>
+                  <c>-214</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>20</c>
+                  <c>-411</c>
+                  <c>-257</c>
+                  <c>-391</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>21</c>
+                  <c>47</c>
+                  <c>-11</c>
+                  <c>-7</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>22</c>
+                  <c>908</c>
+                  <c>714</c>
+                  <c>-409</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>23</c>
+                  <c>739</c>
+                  <c>-634</c>
+                  <c>430</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>24</c>
+                  <c>-589</c>
+                  <c>-300</c>
+                  <c>721</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>25</c>
+                  <c>-806</c>
+                  <c>911</c>
+                  <c>549</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>26</c>
+                  <c>746</c>
+                  <c>-579</c>
+                  <c>435</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>1</c>
+                  <c>-748</c>
+                  <c>-520</c>
+                  <c>456</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>2</c>
+                  <c>850</c>
+                  <c>883</c>
+                  <c>-684</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>3</c>
+                  <c>720</c>
+                  <c>-714</c>
+                  <c>-439</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>4</c>
+                  <c>734</c>
+                  <c>-633</c>
+                  <c>-369</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>5</c>
+                  <c>892</c>
+                  <c>871</c>
+                  <c>-799</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>6</c>
+                  <c>829</c>
+                  <c>848</c>
+                  <c>-672</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>7</c>
+                  <c>-452</c>
+                  <c>587</c>
+                  <c>-307</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>8</c>
+                  <c>409</c>
+                  <c>-653</c>
+                  <c>665</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>9</c>
+                  <c>422</c>
+                  <c>838</c>
+                  <c>525</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>10</c>
+                  <c>421</c>
+                  <c>-494</c>
+                  <c>564</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>11</c>
+                  <c>-522</c>
+                  <c>703</c>
+                  <c>760</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>12</c>
+                  <c>-724</c>
+                  <c>-450</c>
+                  <c>600</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>13</c>
+                  <c>761</c>
+                  <c>-674</c>
+                  <c>-597</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>14</c>
+                  <c>-356</c>
+                  <c>-656</c>
+                  <c>-802</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>15</c>
+                  <c>-455</c>
+                  <c>691</c>
+                  <c>-415</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>16</c>
+                  <c>-561</c>
+                  <c>613</c>
+                  <c>894</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>17</c>
+                  <c>-321</c>
+                  <c>-533</c>
+                  <c>-753</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>18</c>
+                  <c>526</c>
+                  <c>839</c>
+                  <c>432</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>19</c>
+                  <c>361</c>
+                  <c>800</c>
+                  <c>374</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>20</c>
+                  <c>391</c>
+                  <c>-623</c>
+                  <c>659</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>21</c>
+                  <c>-49</c>
+                  <c>101</c>
+                  <c>-52</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>22</c>
+                  <c>-453</c>
+                  <c>598</c>
+                  <c>-491</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>23</c>
+                  <c>-711</c>
+                  <c>-374</c>
+                  <c>399</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>24</c>
+                  <c>-556</c>
+                  <c>692</c>
+                  <c>859</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>25</c>
+                  <c>90</c>
+                  <c>-64</c>
+                  <c>7</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>26</c>
+                  <c>-445</c>
+                  <c>-561</c>
+                  <c>-815</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>1</c>
+                  <c>711</c>
+                  <c>-456</c>
+                  <c>-414</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>2</c>
+                  <c>290</c>
+                  <c>-741</c>
+                  <c>546</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>3</c>
+                  <c>381</c>
+                  <c>736</c>
+                  <c>-240</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>4</c>
+                  <c>-404</c>
+                  <c>-352</c>
+                  <c>-609</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>5</c>
+                  <c>-512</c>
+                  <c>-394</c>
+                  <c>-694</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>6</c>
+                  <c>-386</c>
+                  <c>-749</c>
+                  <c>593</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>7</c>
+                  <c>-466</c>
+                  <c>-745</c>
+                  <c>599</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>8</c>
+                  <c>-616</c>
+                  <c>687</c>
+                  <c>954</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>9</c>
+                  <c>542</c>
+                  <c>637</c>
+                  <c>568</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>10</c>
+                  <c>352</c>
+                  <c>-724</c>
+                  <c>460</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>11</c>
+                  <c>629</c>
+                  <c>585</c>
+                  <c>653</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>12</c>
+                  <c>560</c>
+                  <c>-563</c>
+                  <c>-393</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>13</c>
+                  <c>303</c>
+                  <c>-949</c>
+                  <c>470</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>14</c>
+                  <c>70</c>
+                  <c>-14</c>
+                  <c>46</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>15</c>
+                  <c>482</c>
+                  <c>600</c>
+                  <c>-239</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>16</c>
+                  <c>-436</c>
+                  <c>-781</c>
+                  <c>432</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>17</c>
+                  <c>-107</c>
+                  <c>31</c>
+                  <c>169</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>18</c>
+                  <c>600</c>
+                  <c>-437</c>
+                  <c>-516</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>19</c>
+                  <c>428</c>
+                  <c>774</c>
+                  <c>-299</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>20</c>
+                  <c>-806</c>
+                  <c>273</c>
+                  <c>-250</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>21</c>
+                  <c>-819</c>
+                  <c>288</c>
+                  <c>-481</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>22</c>
+                  <c>-709</c>
+                  <c>762</c>
+                  <c>937</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>23</c>
+                  <c>-335</c>
+                  <c>-434</c>
+                  <c>-705</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>24</c>
+                  <c>519</c>
+                  <c>574</c>
+                  <c>718</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>25</c>
+                  <c>-791</c>
+                  <c>341</c>
+                  <c>-464</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>26</c>
+                  <c>-669</c>
+                  <c>741</c>
+                  <c>851</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>1</c>
+                  <c>658</c>
+                  <c>667</c>
+                  <c>348</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>2</c>
+                  <c>-507</c>
+                  <c>-411</c>
+                  <c>-746</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>3</c>
+                  <c>489</c>
+                  <c>722</c>
+                  <c>344</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>4</c>
+                  <c>132</c>
+                  <c>158</c>
+                  <c>41</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>5</c>
+                  <c>624</c>
+                  <c>-673</c>
+                  <c>-878</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>6</c>
+                  <c>-644</c>
+                  <c>568</c>
+                  <c>696</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>7</c>
+                  <c>652</c>
+                  <c>-735</c>
+                  <c>-754</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>8</c>
+                  <c>-370</c>
+                  <c>-679</c>
+                  <c>656</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>9</c>
+                  <c>528</c>
+                  <c>713</c>
+                  <c>268</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>10</c>
+                  <c>747</c>
+                  <c>-722</c>
+                  <c>-843</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>11</c>
+                  <c>535</c>
+                  <c>-741</c>
+                  <c>347</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>12</c>
+                  <c>-522</c>
+                  <c>974</c>
+                  <c>-638</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>13</c>
+                  <c>-563</c>
+                  <c>739</c>
+                  <c>654</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>14</c>
+                  <c>-454</c>
+                  <c>-708</c>
+                  <c>560</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>15</c>
+                  <c>456</c>
+                  <c>-673</c>
+                  <c>284</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>16</c>
+                  <c>-600</c>
+                  <c>-335</c>
+                  <c>-744</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>17</c>
+                  <c>-438</c>
+                  <c>-676</c>
+                  <c>659</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>18</c>
+                  <c>-496</c>
+                  <c>-227</c>
+                  <c>-747</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>19</c>
+                  <c>541</c>
+                  <c>680</c>
+                  <c>-475</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>20</c>
+                  <c>639</c>
+                  <c>-751</c>
+                  <c>276</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>21</c>
+                  <c>-554</c>
+                  <c>691</c>
+                  <c>674</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>22</c>
+                  <c>-612</c>
+                  <c>840</c>
+                  <c>-677</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>23</c>
+                  <c>-601</c>
+                  <c>939</c>
+                  <c>-643</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>24</c>
+                  <c>79</c>
+                  <c>50</c>
+                  <c>-113</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>25</c>
+                  <c>611</c>
+                  <c>536</c>
+                  <c>-451</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>26</c>
+                  <c>465</c>
+                  <c>479</c>
+                  <c>-488</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>1</c>
+                  <c>832</c>
+                  <c>700</c>
+                  <c>-495</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>2</c>
+                  <c>-400</c>
+                  <c>854</c>
+                  <c>718</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>3</c>
+                  <c>-24</c>
+                  <c>73</c>
+                  <c>89</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>4</c>
+                  <c>-588</c>
+                  <c>544</c>
+                  <c>-742</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>5</c>
+                  <c>-529</c>
+                  <c>703</c>
+                  <c>-780</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>6</c>
+                  <c>771</c>
+                  <c>-593</c>
+                  <c>-458</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>7</c>
+                  <c>-621</c>
+                  <c>-815</c>
+                  <c>623</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>8</c>
+                  <c>883</c>
+                  <c>676</c>
+                  <c>-366</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>9</c>
+                  <c>877</c>
+                  <c>-621</c>
+                  <c>-609</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>10</c>
+                  <c>528</c>
+                  <c>548</c>
+                  <c>698</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>11</c>
+                  <c>-496</c>
+                  <c>849</c>
+                  <c>685</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>12</c>
+                  <c>-454</c>
+                  <c>-751</c>
+                  <c>-758</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>13</c>
+                  <c>761</c>
+                  <c>744</c>
+                  <c>-424</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>14</c>
+                  <c>683</c>
+                  <c>488</c>
+                  <c>665</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>15</c>
+                  <c>-492</c>
+                  <c>-693</c>
+                  <c>-669</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>16</c>
+                  <c>834</c>
+                  <c>-512</c>
+                  <c>-482</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>17</c>
+                  <c>-335</c>
+                  <c>755</c>
+                  <c>724</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>18</c>
+                  <c>659</c>
+                  <c>505</c>
+                  <c>738</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>19</c>
+                  <c>-806</c>
+                  <c>-766</c>
+                  <c>645</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>20</c>
+                  <c>490</c>
+                  <c>-444</c>
+                  <c>743</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>21</c>
+                  <c>-688</c>
+                  <c>-774</c>
+                  <c>667</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>22</c>
+                  <c>338</c>
+                  <c>-439</c>
+                  <c>837</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>23</c>
+                  <c>-567</c>
+                  <c>601</c>
+                  <c>-646</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>24</c>
+                  <c>-401</c>
+                  <c>-780</c>
+                  <c>-593</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>25</c>
+                  <c>348</c>
+                  <c>-475</c>
+                  <c>728</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>26</c>
+                  <c>66</c>
+                  <c>-68</c>
+                  <c>8</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>1</c>
+                  <c>557</c>
+                  <c>487</c>
+                  <c>481</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>2</c>
+                  <c>-411</c>
+                  <c>-305</c>
+                  <c>476</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>3</c>
+                  <c>-729</c>
+                  <c>705</c>
+                  <c>812</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>4</c>
+                  <c>544</c>
+                  <c>489</c>
+                  <c>-731</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>5</c>
+                  <c>581</c>
+                  <c>-542</c>
+                  <c>-442</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>6</c>
+                  <c>-773</c>
+                  <c>838</c>
+                  <c>730</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>7</c>
+                  <c>-916</c>
+                  <c>955</c>
+                  <c>-691</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>8</c>
+                  <c>-594</c>
+                  <c>-372</c>
+                  <c>-747</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>9</c>
+                  <c>430</c>
+                  <c>444</c>
+                  <c>590</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>10</c>
+                  <c>673</c>
+                  <c>438</c>
+                  <c>-707</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>11</c>
+                  <c>581</c>
+                  <c>550</c>
+                  <c>562</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>12</c>
+                  <c>469</c>
+                  <c>-550</c>
+                  <c>-600</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>13</c>
+                  <c>556</c>
+                  <c>-506</c>
+                  <c>-524</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>14</c>
+                  <c>-31</c>
+                  <c>6</c>
+                  <c>77</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>15</c>
+                  <c>-139</c>
+                  <c>144</c>
+                  <c>-41</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>16</c>
+                  <c>-418</c>
+                  <c>-407</c>
+                  <c>542</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>17</c>
+                  <c>-408</c>
+                  <c>-363</c>
+                  <c>-710</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>18</c>
+                  <c>615</c>
+                  <c>560</c>
+                  <c>-775</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>19</c>
+                  <c>-679</c>
+                  <c>972</c>
+                  <c>-695</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>20</c>
+                  <c>546</c>
+                  <c>-464</c>
+                  <c>375</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>21</c>
+                  <c>-779</c>
+                  <c>876</c>
+                  <c>765</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>22</c>
+                  <c>-478</c>
+                  <c>-359</c>
+                  <c>-709</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>23</c>
+                  <c>456</c>
+                  <c>-344</c>
+                  <c>374</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>24</c>
+                  <c>365</c>
+                  <c>-466</c>
+                  <c>364</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>25</c>
+                  <c>-714</c>
+                  <c>926</c>
+                  <c>-687</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>26</c>
+                  <c>-393</c>
+                  <c>-495</c>
+                  <c>566</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>1</c>
+                  <c>-554</c>
+                  <c>440</c>
+                  <c>781</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>2</c>
+                  <c>620</c>
+                  <c>-665</c>
+                  <c>578</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>3</c>
+                  <c>-484</c>
+                  <c>464</c>
+                  <c>637</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>4</c>
+                  <c>-432</c>
+                  <c>-355</c>
+                  <c>595</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>5</c>
+                  <c>-100</c>
+                  <c>114</c>
+                  <c>-60</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>6</c>
+                  <c>567</c>
+                  <c>665</c>
+                  <c>-581</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>7</c>
+                  <c>658</c>
+                  <c>632</c>
+                  <c>378</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>8</c>
+                  <c>579</c>
+                  <c>627</c>
+                  <c>343</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>9</c>
+                  <c>669</c>
+                  <c>666</c>
+                  <c>477</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>10</c>
+                  <c>-459</c>
+                  <c>-545</c>
+                  <c>-640</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>11</c>
+                  <c>701</c>
+                  <c>-707</c>
+                  <c>749</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>12</c>
+                  <c>-826</c>
+                  <c>574</c>
+                  <c>-834</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>13</c>
+                  <c>-531</c>
+                  <c>-512</c>
+                  <c>-587</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>14</c>
+                  <c>626</c>
+                  <c>-356</c>
+                  <c>-521</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>15</c>
+                  <c>609</c>
+                  <c>-609</c>
+                  <c>-539</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>16</c>
+                  <c>-888</c>
+                  <c>565</c>
+                  <c>-785</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>17</c>
+                  <c>-693</c>
+                  <c>-558</c>
+                  <c>-669</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>18</c>
+                  <c>622</c>
+                  <c>813</c>
+                  <c>-634</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>19</c>
+                  <c>610</c>
+                  <c>-427</c>
+                  <c>-519</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>20</c>
+                  <c>-13</c>
+                  <c>-13</c>
+                  <c>73</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>21</c>
+                  <c>-471</c>
+                  <c>-279</c>
+                  <c>604</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>22</c>
+                  <c>582</c>
+                  <c>857</c>
+                  <c>-584</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>23</c>
+                  <c>-408</c>
+                  <c>477</c>
+                  <c>838</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>24</c>
+                  <c>-669</c>
+                  <c>588</c>
+                  <c>-836</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>25</c>
+                  <c>611</c>
+                  <c>-685</c>
+                  <c>626</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>26</c>
+                  <c>-601</c>
+                  <c>-359</c>
+                  <c>650</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>1</c>
+                  <c>-607</c>
+                  <c>351</c>
+                  <c>-484</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>2</c>
+                  <c>120</c>
+                  <c>23</c>
+                  <c>-52</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>3</c>
+                  <c>454</c>
+                  <c>-521</c>
+                  <c>-469</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>4</c>
+                  <c>841</c>
+                  <c>462</c>
+                  <c>484</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>5</c>
+                  <c>-704</c>
+                  <c>-386</c>
+                  <c>498</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>6</c>
+                  <c>555</c>
+                  <c>817</c>
+                  <c>-561</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>7</c>
+                  <c>-601</c>
+                  <c>431</c>
+                  <c>-488</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>8</c>
+                  <c>-494</c>
+                  <c>549</c>
+                  <c>769</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>9</c>
+                  <c>-768</c>
+                  <c>401</c>
+                  <c>-452</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>10</c>
+                  <c>514</c>
+                  <c>-469</c>
+                  <c>-465</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>11</c>
+                  <c>-492</c>
+                  <c>515</c>
+                  <c>851</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>12</c>
+                  <c>-712</c>
+                  <c>-486</c>
+                  <c>442</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>13</c>
+                  <c>882</c>
+                  <c>550</c>
+                  <c>537</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>14</c>
+                  <c>589</c>
+                  <c>-440</c>
+                  <c>-431</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>15</c>
+                  <c>400</c>
+                  <c>-552</c>
+                  <c>743</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>16</c>
+                  <c>-730</c>
+                  <c>-338</c>
+                  <c>-284</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>17</c>
+                  <c>606</c>
+                  <c>807</c>
+                  <c>-499</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>18</c>
+                  <c>613</c>
+                  <c>750</c>
+                  <c>-424</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>19</c>
+                  <c>-623</c>
+                  <c>-392</c>
+                  <c>355</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>20</c>
+                  <c>845</c>
+                  <c>498</c>
+                  <c>674</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>21</c>
+                  <c>445</c>
+                  <c>-632</c>
+                  <c>895</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>22</c>
+                  <c>-22</c>
+                  <c>-18</c>
+                  <c>68</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>23</c>
+                  <c>-580</c>
+                  <c>552</c>
+                  <c>764</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>24</c>
+                  <c>477</c>
+                  <c>-671</c>
+                  <c>688</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>25</c>
+                  <c>-740</c>
+                  <c>-387</c>
+                  <c>-509</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>26</c>
+                  <c>-654</c>
+                  <c>-325</c>
+                  <c>-492</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>1</c>
+                  <c>695</c>
+                  <c>-578</c>
+                  <c>-741</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>2</c>
+                  <c>-525</c>
+                  <c>-524</c>
+                  <c>908</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>3</c>
+                  <c>627</c>
+                  <c>579</c>
+                  <c>740</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>4</c>
+                  <c>760</c>
+                  <c>-659</c>
+                  <c>787</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>5</c>
+                  <c>-518</c>
+                  <c>-492</c>
+                  <c>-772</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>6</c>
+                  <c>-669</c>
+                  <c>412</c>
+                  <c>783</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>7</c>
+                  <c>756</c>
+                  <c>501</c>
+                  <c>-366</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>8</c>
+                  <c>821</c>
+                  <c>452</c>
+                  <c>-499</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>9</c>
+                  <c>-559</c>
+                  <c>-362</c>
+                  <c>-779</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>10</c>
+                  <c>670</c>
+                  <c>538</c>
+                  <c>749</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>11</c>
+                  <c>-765</c>
+                  <c>875</c>
+                  <c>-491</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>12</c>
+                  <c>710</c>
+                  <c>-615</c>
+                  <c>897</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>13</c>
+                  <c>-139</c>
+                  <c>20</c>
+                  <c>128</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>14</c>
+                  <c>-704</c>
+                  <c>858</c>
+                  <c>-677</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>15</c>
+                  <c>-534</c>
+                  <c>-604</c>
+                  <c>881</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>16</c>
+                  <c>-880</c>
+                  <c>846</c>
+                  <c>-640</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>17</c>
+                  <c>-743</c>
+                  <c>467</c>
+                  <c>748</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>18</c>
+                  <c>705</c>
+                  <c>658</c>
+                  <c>678</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>19</c>
+                  <c>719</c>
+                  <c>447</c>
+                  <c>-365</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>20</c>
+                  <c>774</c>
+                  <c>-787</c>
+                  <c>907</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>21</c>
+                  <c>-573</c>
+                  <c>-549</c>
+                  <c>798</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>22</c>
+                  <c>9</c>
+                  <c>95</c>
+                  <c>-35</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>23</c>
+                  <c>-465</c>
+                  <c>-311</c>
+                  <c>-776</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>24</c>
+                  <c>-654</c>
+                  <c>460</c>
+                  <c>634</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>25</c>
+                  <c>596</c>
+                  <c>-658</c>
+                  <c>-757</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>26</c>
+                  <c>626</c>
+                  <c>-617</c>
+                  <c>-560</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>1</c>
+                  <c>661</c>
+                  <c>511</c>
+                  <c>-766</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>2</c>
+                  <c>458</c>
+                  <c>-453</c>
+                  <c>788</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>3</c>
+                  <c>-435</c>
+                  <c>-460</c>
+                  <c>692</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>4</c>
+                  <c>-325</c>
+                  <c>-841</c>
+                  <c>-621</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>5</c>
+                  <c>643</c>
+                  <c>528</c>
+                  <c>-513</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>6</c>
+                  <c>454</c>
+                  <c>-559</c>
+                  <c>864</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>7</c>
+                  <c>663</c>
+                  <c>527</c>
+                  <c>-695</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>8</c>
+                  <c>685</c>
+                  <c>-911</c>
+                  <c>-473</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>9</c>
+                  <c>-469</c>
+                  <c>-391</c>
+                  <c>561</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>10</c>
+                  <c>-421</c>
+                  <c>650</c>
+                  <c>-613</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>11</c>
+                  <c>-393</c>
+                  <c>-890</c>
+                  <c>-656</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>12</c>
+                  <c>-384</c>
+                  <c>598</c>
+                  <c>-476</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>13</c>
+                  <c>-653</c>
+                  <c>398</c>
+                  <c>485</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>14</c>
+                  <c>-319</c>
+                  <c>-403</c>
+                  <c>608</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>15</c>
+                  <c>-425</c>
+                  <c>686</c>
+                  <c>-423</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>16</c>
+                  <c>506</c>
+                  <c>-909</c>
+                  <c>-564</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>17</c>
+                  <c>663</c>
+                  <c>656</c>
+                  <c>912</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>18</c>
+                  <c>-660</c>
+                  <c>341</c>
+                  <c>560</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>19</c>
+                  <c>729</c>
+                  <c>758</c>
+                  <c>919</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>20</c>
+                  <c>560</c>
+                  <c>-506</c>
+                  <c>926</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>21</c>
+                  <c>639</c>
+                  <c>568</c>
+                  <c>937</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>22</c>
+                  <c>-18</c>
+                  <c>-10</c>
+                  <c>58</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>23</c>
+                  <c>-711</c>
+                  <c>331</c>
+                  <c>622</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>24</c>
+                  <c>-326</c>
+                  <c>-876</c>
+                  <c>-486</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>25</c>
+                  <c>506</c>
+                  <c>-913</c>
+                  <c>-537</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>1</c>
+                  <c>-443</c>
+                  <c>-656</c>
+                  <c>375</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>2</c>
+                  <c>499</c>
+                  <c>-609</c>
+                  <c>-905</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>3</c>
+                  <c>-788</c>
+                  <c>-254</c>
+                  <c>-779</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>4</c>
+                  <c>757</c>
+                  <c>881</c>
+                  <c>-622</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>5</c>
+                  <c>505</c>
+                  <c>-605</c>
+                  <c>-825</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>6</c>
+                  <c>338</c>
+                  <c>-641</c>
+                  <c>-855</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>7</c>
+                  <c>-799</c>
+                  <c>-294</c>
+                  <c>-956</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>8</c>
+                  <c>-558</c>
+                  <c>481</c>
+                  <c>-500</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>9</c>
+                  <c>550</c>
+                  <c>-485</c>
+                  <c>523</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>10</c>
+                  <c>-533</c>
+                  <c>840</c>
+                  <c>544</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>11</c>
+                  <c>-454</c>
+                  <c>-767</c>
+                  <c>309</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>12</c>
+                  <c>860</c>
+                  <c>827</c>
+                  <c>-675</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>13</c>
+                  <c>-575</c>
+                  <c>428</c>
+                  <c>-472</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>14</c>
+                  <c>360</c>
+                  <c>668</c>
+                  <c>836</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>15</c>
+                  <c>-513</c>
+                  <c>730</c>
+                  <c>479</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>16</c>
+                  <c>506</c>
+                  <c>685</c>
+                  <c>731</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>17</c>
+                  <c>-703</c>
+                  <c>-212</c>
+                  <c>-887</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>18</c>
+                  <c>-344</c>
+                  <c>413</c>
+                  <c>-485</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>19</c>
+                  <c>364</c>
+                  <c>629</c>
+                  <c>768</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>20</c>
+                  <c>-532</c>
+                  <c>687</c>
+                  <c>522</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>21</c>
+                  <c>843</c>
+                  <c>902</c>
+                  <c>-582</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>22</c>
+                  <c>562</c>
+                  <c>-418</c>
+                  <c>704</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>23</c>
+                  <c>-460</c>
+                  <c>-772</c>
+                  <c>334</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>24</c>
+                  <c>-108</c>
+                  <c>116</c>
+                  <c>-53</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>25</c>
+                  <c>564</c>
+                  <c>-498</c>
+                  <c>642</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>1</c>
+                  <c>-779</c>
+                  <c>-922</c>
+                  <c>-822</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>2</c>
+                  <c>707</c>
+                  <c>-737</c>
+                  <c>-658</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>3</c>
+                  <c>-353</c>
+                  <c>566</c>
+                  <c>475</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>4</c>
+                  <c>29</c>
+                  <c>-40</c>
+                  <c>-85</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>5</c>
+                  <c>522</c>
+                  <c>297</c>
+                  <c>-805</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>6</c>
+                  <c>631</c>
+                  <c>-650</c>
+                  <c>-614</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>7</c>
+                  <c>-449</c>
+                  <c>566</c>
+                  <c>520</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>8</c>
+                  <c>-505</c>
+                  <c>714</c>
+                  <c>-477</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>9</c>
+                  <c>-468</c>
+                  <c>538</c>
+                  <c>-465</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>10</c>
+                  <c>521</c>
+                  <c>227</c>
+                  <c>-801</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>11</c>
+                  <c>-780</c>
+                  <c>-885</c>
+                  <c>-876</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>12</c>
+                  <c>-710</c>
+                  <c>-766</c>
+                  <c>541</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>13</c>
+                  <c>-646</c>
+                  <c>-987</c>
+                  <c>-871</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>14</c>
+                  <c>789</c>
+                  <c>-762</c>
+                  <c>-622</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>15</c>
+                  <c>849</c>
+                  <c>512</c>
+                  <c>744</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>16</c>
+                  <c>-415</c>
+                  <c>618</c>
+                  <c>312</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>17</c>
+                  <c>560</c>
+                  <c>-718</c>
+                  <c>631</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>18</c>
+                  <c>748</c>
+                  <c>471</c>
+                  <c>588</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>19</c>
+                  <c>836</c>
+                  <c>396</c>
+                  <c>648</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>20</c>
+                  <c>587</c>
+                  <c>-774</c>
+                  <c>579</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>21</c>
+                  <c>-781</c>
+                  <c>-865</c>
+                  <c>647</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>22</c>
+                  <c>521</c>
+                  <c>-732</c>
+                  <c>401</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>23</c>
+                  <c>-654</c>
+                  <c>599</c>
+                  <c>-448</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>24</c>
+                  <c>484</c>
+                  <c>413</c>
+                  <c>-792</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>25</c>
+                  <c>-757</c>
+                  <c>-725</c>
+                  <c>746</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>1</c>
+                  <c>588</c>
+                  <c>452</c>
+                  <c>452</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>2</c>
+                  <c>696</c>
+                  <c>-717</c>
+                  <c>478</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>3</c>
+                  <c>-592</c>
+                  <c>750</c>
+                  <c>399</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>4</c>
+                  <c>720</c>
+                  <c>557</c>
+                  <c>-881</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>5</c>
+                  <c>-919</c>
+                  <c>-583</c>
+                  <c>750</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>6</c>
+                  <c>487</c>
+                  <c>440</c>
+                  <c>611</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>7</c>
+                  <c>627</c>
+                  <c>453</c>
+                  <c>-880</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>8</c>
+                  <c>-99</c>
+                  <c>159</c>
+                  <c>-27</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>9</c>
+                  <c>392</c>
+                  <c>-491</c>
+                  <c>-745</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>10</c>
+                  <c>-485</c>
+                  <c>892</c>
+                  <c>365</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>11</c>
+                  <c>258</c>
+                  <c>-530</c>
+                  <c>-655</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>12</c>
+                  <c>-719</c>
+                  <c>-344</c>
+                  <c>-698</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>13</c>
+                  <c>-647</c>
+                  <c>440</c>
+                  <c>-786</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>14</c>
+                  <c>-669</c>
+                  <c>-300</c>
+                  <c>-658</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>15</c>
+                  <c>-483</c>
+                  <c>732</c>
+                  <c>303</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>16</c>
+                  <c>293</c>
+                  <c>-525</c>
+                  <c>-734</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>17</c>
+                  <c>778</c>
+                  <c>392</c>
+                  <c>-842</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>18</c>
+                  <c>-870</c>
+                  <c>-592</c>
+                  <c>812</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>19</c>
+                  <c>-666</c>
+                  <c>-492</c>
+                  <c>-643</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>20</c>
+                  <c>753</c>
+                  <c>-680</c>
+                  <c>332</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>21</c>
+                  <c>-655</c>
+                  <c>528</c>
+                  <c>-780</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>22</c>
+                  <c>-564</c>
+                  <c>389</c>
+                  <c>-761</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>23</c>
+                  <c>-40</c>
+                  <c>0</c>
+                  <c>-148</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>24</c>
+                  <c>552</c>
+                  <c>-693</c>
+                  <c>408</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>25</c>
+                  <c>493</c>
+                  <c>422</c>
+                  <c>581</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>26</c>
+                  <c>-921</c>
+                  <c>-569</c>
+                  <c>593</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>1</c>
+                  <c>642</c>
+                  <c>-674</c>
+                  <c>-824</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>2</c>
+                  <c>-308</c>
+                  <c>502</c>
+                  <c>851</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>3</c>
+                  <c>-241</c>
+                  <c>-283</c>
+                  <c>729</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>4</c>
+                  <c>-655</c>
+                  <c>743</c>
+                  <c>-775</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>5</c>
+                  <c>-4</c>
+                  <c>173</c>
+                  <c>16</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>6</c>
+                  <c>176</c>
+                  <c>-21</c>
+                  <c>8</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>7</c>
+                  <c>594</c>
+                  <c>-607</c>
+                  <c>443</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>8</c>
+                  <c>-230</c>
+                  <c>440</c>
+                  <c>852</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>9</c>
+                  <c>621</c>
+                  <c>744</c>
+                  <c>-440</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>10</c>
+                  <c>520</c>
+                  <c>-583</c>
+                  <c>-814</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>11</c>
+                  <c>470</c>
+                  <c>735</c>
+                  <c>-349</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>12</c>
+                  <c>-360</c>
+                  <c>-249</c>
+                  <c>678</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>13</c>
+                  <c>640</c>
+                  <c>-493</c>
+                  <c>-813</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>14</c>
+                  <c>-797</c>
+                  <c>728</c>
+                  <c>-744</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>15</c>
+                  <c>639</c>
+                  <c>-574</c>
+                  <c>362</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>16</c>
+                  <c>469</c>
+                  <c>775</c>
+                  <c>-393</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>17</c>
+                  <c>531</c>
+                  <c>512</c>
+                  <c>449</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>18</c>
+                  <c>613</c>
+                  <c>609</c>
+                  <c>539</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>19</c>
+                  <c>-311</c>
+                  <c>-482</c>
+                  <c>-707</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>20</c>
+                  <c>574</c>
+                  <c>524</c>
+                  <c>689</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>21</c>
+                  <c>-374</c>
+                  <c>-458</c>
+                  <c>-626</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>22</c>
+                  <c>777</c>
+                  <c>-571</c>
+                  <c>440</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>23</c>
+                  <c>-233</c>
+                  <c>434</c>
+                  <c>784</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>24</c>
+                  <c>-391</c>
+                  <c>-259</c>
+                  <c>664</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>25</c>
+                  <c>-807</c>
+                  <c>837</c>
+                  <c>-780</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>26</c>
+                  <c>-268</c>
+                  <c>-609</c>
+                  <c>-598</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>1</c>
+                  <c>131</c>
+                  <c>165</c>
+                  <c>-117</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>2</c>
+                  <c>-691</c>
+                  <c>728</c>
+                  <c>707</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>3</c>
+                  <c>-657</c>
+                  <c>524</c>
+                  <c>-685</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>4</c>
+                  <c>-575</c>
+                  <c>-348</c>
+                  <c>-621</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>5</c>
+                  <c>805</c>
+                  <c>543</c>
+                  <c>456</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>6</c>
+                  <c>10</c>
+                  <c>-6</c>
+                  <c>-166</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>7</c>
+                  <c>439</c>
+                  <c>-390</c>
+                  <c>620</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>8</c>
+                  <c>-663</c>
+                  <c>436</c>
+                  <c>-693</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>9</c>
+                  <c>935</c>
+                  <c>-596</c>
+                  <c>-470</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>10</c>
+                  <c>474</c>
+                  <c>-343</c>
+                  <c>618</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>11</c>
+                  <c>-698</c>
+                  <c>-560</c>
+                  <c>526</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>12</c>
+                  <c>-660</c>
+                  <c>-451</c>
+                  <c>400</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>13</c>
+                  <c>-535</c>
+                  <c>-304</c>
+                  <c>-671</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>14</c>
+                  <c>873</c>
+                  <c>-587</c>
+                  <c>-421</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>15</c>
+                  <c>522</c>
+                  <c>746</c>
+                  <c>-748</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>16</c>
+                  <c>426</c>
+                  <c>728</c>
+                  <c>-857</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>17</c>
+                  <c>698</c>
+                  <c>559</c>
+                  <c>303</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>18</c>
+                  <c>-639</c>
+                  <c>732</c>
+                  <c>574</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>19</c>
+                  <c>543</c>
+                  <c>-390</c>
+                  <c>566</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>20</c>
+                  <c>-638</c>
+                  <c>385</c>
+                  <c>-776</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>21</c>
+                  <c>-688</c>
+                  <c>704</c>
+                  <c>525</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>22</c>
+                  <c>711</c>
+                  <c>524</c>
+                  <c>452</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>23</c>
+                  <c>-520</c>
+                  <c>-496</c>
+                  <c>-674</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>24</c>
+                  <c>488</c>
+                  <c>888</c>
+                  <c>-855</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>25</c>
+                  <c>-737</c>
+                  <c>-549</c>
+                  <c>422</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>26</c>
+                  <c>716</c>
+                  <c>-573</c>
+                  <c>-419</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>1</c>
+                  <c>-696</c>
+                  <c>-367</c>
+                  <c>959</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>2</c>
+                  <c>573</c>
+                  <c>-537</c>
+                  <c>-825</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>3</c>
+                  <c>862</c>
+                  <c>-826</c>
+                  <c>707</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>4</c>
+                  <c>-803</c>
+                  <c>630</c>
+                  <c>451</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>5</c>
+                  <c>-616</c>
+                  <c>332</c>
+                  <c>-658</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>6</c>
+                  <c>877</c>
+                  <c>-813</c>
+                  <c>938</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>7</c>
+                  <c>-616</c>
+                  <c>-875</c>
+                  <c>-583</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>8</c>
+                  <c>-662</c>
+                  <c>-818</c>
+                  <c>-516</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>9</c>
+                  <c>376</c>
+                  <c>421</c>
+                  <c>889</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>10</c>
+                  <c>10</c>
+                  <c>-124</c>
+                  <c>158</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>11</c>
+                  <c>651</c>
+                  <c>660</c>
+                  <c>-577</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>12</c>
+                  <c>809</c>
+                  <c>-798</c>
+                  <c>724</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>13</c>
+                  <c>804</c>
+                  <c>661</c>
+                  <c>-682</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>14</c>
+                  <c>706</c>
+                  <c>-549</c>
+                  <c>-704</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>15</c>
+                  <c>-763</c>
+                  <c>545</c>
+                  <c>463</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>16</c>
+                  <c>414</c>
+                  <c>374</c>
+                  <c>948</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>17</c>
+                  <c>-786</c>
+                  <c>-498</c>
+                  <c>923</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>18</c>
+                  <c>-873</c>
+                  <c>714</c>
+                  <c>446</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>19</c>
+                  <c>-673</c>
+                  <c>-745</c>
+                  <c>-566</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>20</c>
+                  <c>550</c>
+                  <c>475</c>
+                  <c>949</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>21</c>
+                  <c>-614</c>
+                  <c>420</c>
+                  <c>-709</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>22</c>
+                  <c>-33</c>
+                  <c>21</c>
+                  <c>30</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>23</c>
+                  <c>-650</c>
+                  <c>-481</c>
+                  <c>895</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>24</c>
+                  <c>-655</c>
+                  <c>443</c>
+                  <c>-679</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>25</c>
+                  <c>652</c>
+                  <c>595</c>
+                  <c>-616</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>26</c>
+                  <c>787</c>
+                  <c>-488</c>
+                  <c>-806</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>1</c>
+                  <c>64</c>
+                  <c>81</c>
+                  <c>54</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>2</c>
+                  <c>-633</c>
+                  <c>524</c>
+                  <c>-715</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>3</c>
+                  <c>-680</c>
+                  <c>-850</c>
+                  <c>-309</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>4</c>
+                  <c>-663</c>
+                  <c>372</c>
+                  <c>613</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>5</c>
+                  <c>-848</c>
+                  <c>-812</c>
+                  <c>430</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>6</c>
+                  <c>788</c>
+                  <c>-328</c>
+                  <c>-489</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>7</c>
+                  <c>842</c>
+                  <c>-431</c>
+                  <c>-542</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>8</c>
+                  <c>738</c>
+                  <c>-714</c>
+                  <c>669</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>9</c>
+                  <c>863</c>
+                  <c>-345</c>
+                  <c>-582</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>10</c>
+                  <c>-640</c>
+                  <c>-736</c>
+                  <c>417</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>11</c>
+                  <c>-648</c>
+                  <c>-689</c>
+                  <c>-259</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>12</c>
+                  <c>-571</c>
+                  <c>473</c>
+                  <c>-725</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>13</c>
+                  <c>569</c>
+                  <c>758</c>
+                  <c>-411</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>14</c>
+                  <c>-623</c>
+                  <c>-822</c>
+                  <c>479</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>15</c>
+                  <c>-701</c>
+                  <c>507</c>
+                  <c>532</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>16</c>
+                  <c>927</c>
+                  <c>523</c>
+                  <c>543</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>17</c>
+                  <c>917</c>
+                  <c>537</c>
+                  <c>574</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>18</c>
+                  <c>602</c>
+                  <c>839</c>
+                  <c>-456</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>19</c>
+                  <c>122</c>
+                  <c>-68</c>
+                  <c>153</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>20</c>
+                  <c>893</c>
+                  <c>472</c>
+                  <c>424</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>21</c>
+                  <c>605</c>
+                  <c>761</c>
+                  <c>-594</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>22</c>
+                  <c>-708</c>
+                  <c>531</c>
+                  <c>-658</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>23</c>
+                  <c>-644</c>
+                  <c>-683</c>
+                  <c>-339</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>24</c>
+                  <c>675</c>
+                  <c>-564</c>
+                  <c>646</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>25</c>
+                  <c>-667</c>
+                  <c>432</c>
+                  <c>561</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>26</c>
+                  <c>686</c>
+                  <c>-629</c>
+                  <c>756</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>1</c>
+                  <c>-489</c>
+                  <c>640</c>
+                  <c>-740</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>2</c>
+                  <c>-739</c>
+                  <c>-813</c>
+                  <c>720</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>3</c>
+                  <c>399</c>
+                  <c>-469</c>
+                  <c>534</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>4</c>
+                  <c>-451</c>
+                  <c>424</c>
+                  <c>514</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>5</c>
+                  <c>-864</c>
+                  <c>-439</c>
+                  <c>-801</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>6</c>
+                  <c>-865</c>
+                  <c>-385</c>
+                  <c>-764</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>7</c>
+                  <c>-458</c>
+                  <c>554</c>
+                  <c>473</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>8</c>
+                  <c>436</c>
+                  <c>-460</c>
+                  <c>348</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>9</c>
+                  <c>451</c>
+                  <c>875</c>
+                  <c>619</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>10</c>
+                  <c>439</c>
+                  <c>341</c>
+                  <c>-733</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>11</c>
+                  <c>546</c>
+                  <c>-647</c>
+                  <c>-529</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>12</c>
+                  <c>-454</c>
+                  <c>373</c>
+                  <c>420</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>13</c>
+                  <c>622</c>
+                  <c>-603</c>
+                  <c>-616</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>14</c>
+                  <c>704</c>
+                  <c>-639</c>
+                  <c>-641</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>15</c>
+                  <c>455</c>
+                  <c>858</c>
+                  <c>856</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>16</c>
+                  <c>437</c>
+                  <c>-456</c>
+                  <c>418</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>17</c>
+                  <c>-473</c>
+                  <c>720</c>
+                  <c>-641</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>18</c>
+                  <c>415</c>
+                  <c>392</c>
+                  <c>-604</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>19</c>
+                  <c>459</c>
+                  <c>829</c>
+                  <c>654</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>20</c>
+                  <c>-590</c>
+                  <c>-784</c>
+                  <c>835</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>21</c>
+                  <c>-553</c>
+                  <c>-796</c>
+                  <c>659</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>22</c>
+                  <c>5</c>
+                  <c>-29</c>
+                  <c>20</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>23</c>
+                  <c>371</c>
+                  <c>463</c>
+                  <c>-675</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>24</c>
+                  <c>-670</c>
+                  <c>679</c>
+                  <c>-671</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>25</c>
+                  <c>-731</c>
+                  <c>-390</c>
+                  <c>-866</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>1</c>
+                  <c>479</c>
+                  <c>813</c>
+                  <c>605</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>2</c>
+                  <c>-421</c>
+                  <c>-402</c>
+                  <c>-375</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>3</c>
+                  <c>444</c>
+                  <c>851</c>
+                  <c>599</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>4</c>
+                  <c>-48</c>
+                  <c>139</c>
+                  <c>125</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>5</c>
+                  <c>-748</c>
+                  <c>529</c>
+                  <c>574</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>6</c>
+                  <c>105</c>
+                  <c>11</c>
+                  <c>84</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>7</c>
+                  <c>647</c>
+                  <c>-560</c>
+                  <c>-465</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>8</c>
+                  <c>-862</c>
+                  <c>612</c>
+                  <c>-634</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>9</c>
+                  <c>546</c>
+                  <c>508</c>
+                  <c>-529</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>10</c>
+                  <c>-785</c>
+                  <c>731</c>
+                  <c>-579</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>11</c>
+                  <c>667</c>
+                  <c>-561</c>
+                  <c>-647</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>12</c>
+                  <c>643</c>
+                  <c>-520</c>
+                  <c>985</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>13</c>
+                  <c>-656</c>
+                  <c>-747</c>
+                  <c>608</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>14</c>
+                  <c>-808</c>
+                  <c>581</c>
+                  <c>578</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>15</c>
+                  <c>-707</c>
+                  <c>-757</c>
+                  <c>670</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>16</c>
+                  <c>733</c>
+                  <c>-330</c>
+                  <c>967</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>17</c>
+                  <c>397</c>
+                  <c>680</c>
+                  <c>649</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>18</c>
+                  <c>-380</c>
+                  <c>-490</c>
+                  <c>-428</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>19</c>
+                  <c>665</c>
+                  <c>-577</c>
+                  <c>-718</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>20</c>
+                  <c>667</c>
+                  <c>-432</c>
+                  <c>960</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>21</c>
+                  <c>517</c>
+                  <c>742</c>
+                  <c>-516</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>22</c>
+                  <c>-417</c>
+                  <c>-438</c>
+                  <c>-565</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>23</c>
+                  <c>-649</c>
+                  <c>-690</c>
+                  <c>533</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>24</c>
+                  <c>-817</c>
+                  <c>692</c>
+                  <c>-786</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>25</c>
+                  <c>599</c>
+                  <c>580</c>
+                  <c>-562</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>26</c>
+                  <c>-673</c>
+                  <c>500</c>
+                  <c>540</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>1</c>
+                  <c>-587</c>
+                  <c>-880</c>
+                  <c>-854</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>2</c>
+                  <c>774</c>
+                  <c>-772</c>
+                  <c>-664</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>3</c>
+                  <c>-665</c>
+                  <c>449</c>
+                  <c>-801</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>4</c>
+                  <c>399</c>
+                  <c>-948</c>
+                  <c>578</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>5</c>
+                  <c>-368</c>
+                  <c>-666</c>
+                  <c>714</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>6</c>
+                  <c>693</c>
+                  <c>243</c>
+                  <c>629</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>7</c>
+                  <c>953</c>
+                  <c>479</c>
+                  <c>-759</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>8</c>
+                  <c>-494</c>
+                  <c>391</c>
+                  <c>634</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>9</c>
+                  <c>963</c>
+                  <c>465</c>
+                  <c>-790</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>10</c>
+                  <c>704</c>
+                  <c>325</c>
+                  <c>429</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>11</c>
+                  <c>929</c>
+                  <c>414</c>
+                  <c>-909</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>12</c>
+                  <c>-812</c>
+                  <c>-870</c>
+                  <c>-903</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>13</c>
+                  <c>442</c>
+                  <c>-751</c>
+                  <c>549</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>14</c>
+                  <c>559</c>
+                  <c>322</c>
+                  <c>560</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>15</c>
+                  <c>-588</c>
+                  <c>493</c>
+                  <c>572</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>16</c>
+                  <c>-604</c>
+                  <c>-794</c>
+                  <c>-916</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>17</c>
+                  <c>155</c>
+                  <c>34</c>
+                  <c>-112</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>18</c>
+                  <c>711</c>
+                  <c>-622</c>
+                  <c>-687</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>19</c>
+                  <c>-399</c>
+                  <c>-694</c>
+                  <c>762</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>20</c>
+                  <c>722</c>
+                  <c>-687</c>
+                  <c>-577</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>21</c>
+                  <c>-358</c>
+                  <c>-789</c>
+                  <c>616</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>22</c>
+                  <c>26</c>
+                  <c>-59</c>
+                  <c>-17</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>23</c>
+                  <c>-631</c>
+                  <c>374</c>
+                  <c>-772</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>24</c>
+                  <c>404</c>
+                  <c>-719</c>
+                  <c>583</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>25</c>
+                  <c>-627</c>
+                  <c>314</c>
+                  <c>-720</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>26</c>
+                  <c>-602</c>
+                  <c>399</c>
+                  <c>581</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>1</c>
+                  <c>-537</c>
+                  <c>-661</c>
+                  <c>-554</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>2</c>
+                  <c>-494</c>
+                  <c>-780</c>
+                  <c>790</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>3</c>
+                  <c>659</c>
+                  <c>-817</c>
+                  <c>588</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>4</c>
+                  <c>784</c>
+                  <c>-534</c>
+                  <c>-350</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>5</c>
+                  <c>-498</c>
+                  <c>-840</c>
+                  <c>738</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>6</c>
+                  <c>725</c>
+                  <c>-513</c>
+                  <c>-546</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>7</c>
+                  <c>609</c>
+                  <c>514</c>
+                  <c>811</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>8</c>
+                  <c>596</c>
+                  <c>485</c>
+                  <c>577</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>9</c>
+                  <c>-569</c>
+                  <c>365</c>
+                  <c>639</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>10</c>
+                  <c>-458</c>
+                  <c>481</c>
+                  <c>-780</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>11</c>
+                  <c>-631</c>
+                  <c>-763</c>
+                  <c>-616</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>12</c>
+                  <c>33</c>
+                  <c>-53</c>
+                  <c>121</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>13</c>
+                  <c>-66</c>
+                  <c>64</c>
+                  <c>-29</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>14</c>
+                  <c>564</c>
+                  <c>545</c>
+                  <c>-271</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>15</c>
+                  <c>596</c>
+                  <c>614</c>
+                  <c>-439</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>16</c>
+                  <c>-523</c>
+                  <c>-755</c>
+                  <c>-563</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>17</c>
+                  <c>-525</c>
+                  <c>447</c>
+                  <c>506</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>18</c>
+                  <c>-550</c>
+                  <c>528</c>
+                  <c>-756</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>19</c>
+                  <c>-460</c>
+                  <c>-705</c>
+                  <c>819</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>20</c>
+                  <c>-656</c>
+                  <c>535</c>
+                  <c>-823</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>21</c>
+                  <c>714</c>
+                  <c>-894</c>
+                  <c>707</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>22</c>
+                  <c>518</c>
+                  <c>578</c>
+                  <c>-478</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>23</c>
+                  <c>866</c>
+                  <c>-849</c>
+                  <c>627</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>24</c>
+                  <c>716</c>
+                  <c>-589</c>
+                  <c>-351</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>25</c>
+                  <c>642</c>
+                  <c>567</c>
+                  <c>739</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>26</c>
+                  <c>-519</c>
+                  <c>412</c>
+                  <c>468</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>1</c>
+                  <c>-85</c>
+                  <c>-16</c>
+                  <c>64</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>2</c>
+                  <c>418</c>
+                  <c>478</c>
+                  <c>-378</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>3</c>
+                  <c>-513</c>
+                  <c>623</c>
+                  <c>709</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>4</c>
+                  <c>814</c>
+                  <c>736</c>
+                  <c>845</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>5</c>
+                  <c>-632</c>
+                  <c>-710</c>
+                  <c>-855</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>6</c>
+                  <c>557</c>
+                  <c>-666</c>
+                  <c>-807</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>7</c>
+                  <c>-594</c>
+                  <c>452</c>
+                  <c>667</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>8</c>
+                  <c>-556</c>
+                  <c>252</c>
+                  <c>-630</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>9</c>
+                  <c>-592</c>
+                  <c>-760</c>
+                  <c>-811</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>10</c>
+                  <c>-604</c>
+                  <c>-645</c>
+                  <c>429</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>11</c>
+                  <c>-588</c>
+                  <c>-647</c>
+                  <c>358</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>12</c>
+                  <c>783</c>
+                  <c>728</c>
+                  <c>850</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>13</c>
+                  <c>-647</c>
+                  <c>-707</c>
+                  <c>-663</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>14</c>
+                  <c>52</c>
+                  <c>-66</c>
+                  <c>-100</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>15</c>
+                  <c>849</c>
+                  <c>608</c>
+                  <c>807</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>16</c>
+                  <c>-603</c>
+                  <c>500</c>
+                  <c>687</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>17</c>
+                  <c>-635</c>
+                  <c>217</c>
+                  <c>-625</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>18</c>
+                  <c>834</c>
+                  <c>-623</c>
+                  <c>651</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>19</c>
+                  <c>358</c>
+                  <c>501</c>
+                  <c>-552</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>20</c>
+                  <c>836</c>
+                  <c>-802</c>
+                  <c>587</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>21</c>
+                  <c>298</c>
+                  <c>564</c>
+                  <c>-448</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>22</c>
+                  <c>746</c>
+                  <c>-733</c>
+                  <c>-810</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>23</c>
+                  <c>609</c>
+                  <c>-713</c>
+                  <c>-817</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>24</c>
+                  <c>832</c>
+                  <c>-802</c>
+                  <c>560</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>25</c>
+                  <c>-605</c>
+                  <c>-665</c>
+                  <c>611</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>26</c>
+                  <c>-120</c>
+                  <c>-179</c>
+                  <c>-120</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>27</c>
+                  <c>-545</c>
+                  <c>351</c>
+                  <c>-664</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Byte" />
+            <Field name="BeaconID" source="TextInput:" type="Byte" />
+            <Field name="x" source="TextInput:" type="Int16" />
+            <Field name="y" source="TextInput:" type="Int16" />
+            <Field name="z" source="TextInput:" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="169">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2166" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Duplicates</Name>
+          <Abbrev>D</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>D Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2178" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>R Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="171">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2178" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Answer</Name>
+          <Abbrev>A</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>A Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="173">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1890" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="distinctScanners" source="Summarize: CountDistinct - ScannerID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="174">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1794" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ScannerID" action="CountDistinct" rename="distinctScanners" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="distinctScanners" source="Summarize: CountDistinct - ScannerID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="176">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1986" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>&gt;=</Operator>
+            <Field>distinctScanners</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-01-10 15:00:19</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2022-01-10 15:00:19</StartDate>
+              <EndDate>2022-01-10 15:00:19</EndDate>
+              <Operand>2</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[distinctScanners] &gt;= 2</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="distinctScanners" source="Summarize: CountDistinct - ScannerID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+            <Field name="Tile_Num" type="Int32" />
+            <Field name="Tile_SequenceNum" type="Int32" />
+            <Field name="distinctScanners" source="Summarize: CountDistinct - ScannerID" type="Int64" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="177">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2082" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" />
+            <SelectField field="Tile_SequenceNum" selected="True" rename="BeaconID" />
+            <SelectField field="BeaconID" selected="False" />
+            <SelectField field="x" selected="True" />
+            <SelectField field="y" selected="True" />
+            <SelectField field="z" selected="True" />
+            <SelectField field="Tile_Num" selected="False" />
+            <SelectField field="distinctScanners" selected="False" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="(Multiple Sources)" type="Int32" />
+            <Field name="BeaconID" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="178">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1770" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ScannerID" selected="True" type="Int32" size="4" />
+            <SelectField field="BeaconID" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="x" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="y" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="z" selected="True" type="Int32" forced="True" size="4" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ScannerID" source="TextInput:" type="Int32" />
+            <Field name="BeaconID" source="TextInput:" type="Int32" />
+            <Field name="x" source="(Multiple Sources)" type="Int32" />
+            <Field name="y" source="(Multiple Sources)" type="Int32" />
+            <Field name="z" source="(Multiple Sources)" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="x" order="Asc" />
+            <Field field="y" order="Asc" />
+            <Field field="z" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="185" Connection="Output13" />
+      <Destination ToolID="139" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="185" Connection="Output13" />
+      <Destination ToolID="191" Connection="Vertex Details" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="194" Connection="JoinDetails" />
+      <Destination ToolID="191" Connection="Vertex Matches" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="147" Connection="Output" />
+      <Destination ToolID="191" Connection="Scanners to Merge" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="191" Connection="Beacon Details" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="185" Connection="Output13" />
+      <Destination ToolID="194" Connection="AllVertices" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="138" Connection="True" />
+      <Destination ToolID="194" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="138" Connection="False" />
+      <Destination ToolID="194" Connection="Target" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="194" Connection="Summary" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="141" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="139" Connection="Output" />
+      <Destination ToolID="142" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="141" Connection="Output" />
+      <Destination ToolID="142" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="142" Connection="Output" />
+      <Destination ToolID="138" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="147" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="147" Connection="Output" />
+      <Destination ToolID="150" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="150" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="150" Connection="Output" />
+      <Destination ToolID="151" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="151" Connection="True" />
+      <Destination ToolID="152" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="152" Connection="Output" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="191" Connection="Unique" />
+      <Destination ToolID="162" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="191" Connection="Output44" />
+      <Destination ToolID="178" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="160" Connection="Output" />
+      <Destination ToolID="185" Connection="Input3" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="162" Connection="Output" />
+      <Destination ToolID="164" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="164" Connection="Output" />
+      <Destination ToolID="165" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="174" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="173" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="174" Connection="Output" />
+      <Destination ToolID="173" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="166" Connection="Output" />
+      <Destination ToolID="170" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Output" />
+      <Destination ToolID="160" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="173" Connection="Output" />
+      <Destination ToolID="176" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="176" Connection="True" />
+      <Destination ToolID="166" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="176" Connection="False" />
+      <Destination ToolID="177" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="177" Connection="Output" />
+      <Destination ToolID="171" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="178" Connection="Output" />
+      <Destination ToolID="169" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>IterativeCompressBeaconsyxmc</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="895437e2-dff7-41f6-9a4e-4bea13807270" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="895437e2-dff7-41f6-9a4e-4bea13807270" />
+      </Telemetry>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (167)</Name>
+          <ToolId value="167" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (168)</Name>
+              <ToolId value="168" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (169)</Name>
+              <ToolId value="169" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (170)</Name>
+              <ToolId value="170" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (171)</Description>
+              <Name>Macro Output (171)</Name>
+              <ToolId value="171" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input135</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="100" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="185" Selected="True" />
+        <Tool ToolId="143" Selected="True" />
+        <Tool ToolId="191" Selected="True" />
+        <Tool ToolId="168" Selected="True" />
+        <Tool ToolId="169" Selected="True" />
+        <Tool ToolId="170" Selected="True" />
+        <Tool ToolId="171" Selected="True" />
+        <Tool ToolId="194" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
