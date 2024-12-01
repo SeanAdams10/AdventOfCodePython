@@ -27,12 +27,12 @@ def test_day_12_parse_part2(test_input, expected):
 
 
 def test_part1():
-    with open('Part1Input.txt','r', encoding='ascii') as file:
+    with open('.\\2015\Day12\Part1Input.txt','r', encoding='ascii') as file:
         json_str = file.read()
         assert sum(day_12.parse_numbers(json_str)) == 111754
 
 def test_part2():
-    with open('Part1Input.txt','r', encoding='ascii') as file:
+    with open('.\\2015\Day12\Part1Input.txt','r', encoding='ascii') as file:
         json_str = file.read()
         assert sum(day_12.parse_numbers(json_str,'red')) == 65402
 

@@ -147,7 +147,7 @@ def test_part1_sample(search_depth, expected):
 
 
 def test_part1_full():
-    with open(r'2015/Day15/Part1Input.txt') as f:
+    with open(r'2015/Day15/Part1Input.txt', 'r', encoding='UTF-8') as f:
         inputs = f.readlines()
     parsed, _, _ = day_15.parse(inputs)
     expected = 18965440

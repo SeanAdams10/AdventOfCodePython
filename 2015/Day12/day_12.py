@@ -22,7 +22,7 @@ def parse_numbers(json_doc: str,ignore_str=None)->list:
 
 print(parse_numbers('[1,2,3]')) # [1,2,3]
 
-with open('Part1Input.txt','r', encoding='ascii') as file:
+with open('.\\2015\Day12\Part1Input.txt','r', encoding='ascii') as file:
     json_str = file.read()
     print(f'Part 1: {sum(parse_numbers(json_str))}') 
     print(f'Part 2: {sum(parse_numbers(json_str,"red"))}') 

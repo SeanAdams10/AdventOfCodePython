@@ -38,7 +38,7 @@ def test_distance_calc(time, expected):
     
 
 def test_part_1():
-    with open("Part1Input.txt",'r', encoding='ascii') as f:
+    with open(".\\2015\Day14\Part1Input.txt",'r', encoding='ascii') as f:
         input_data = f.readlines()
     
     pd = day_14.parse_data(input_data)
@@ -52,7 +52,7 @@ def test_part_2_sample():
    assert day_14.part_2_scoring(parsed_data, 1000) == [312, 689]
       
 def test_part_2():
-    with open("Part1Input.txt",'r', encoding='ascii') as f:
+    with open(".\\2015\Day14\Part1Input.txt",'r', encoding='ascii') as f:
         input_data = f.readlines()
     
     pd = day_14.parse_data(input_data)

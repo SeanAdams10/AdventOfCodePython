@@ -101,13 +101,13 @@ def test_part_1_sample():
     
     
 def test_part_1():
-    with open("Part1Input.txt",'r',encoding='ascii') as f:
+    with open(".\\2015\Day13\Part1Input.txt",'r',encoding='ascii') as f:
         happiness_changes = f.readlines()
         best, table = day_13.find_best_combo(day_13.parse_input(happiness_changes))
         assert best == 733
     
 def test_part_2():
-    with open("Part1Input.txt",'r',encoding='ascii') as f:
+    with open(".\\2015\Day13\Part1Input.txt",'r',encoding='ascii') as f:
         happiness_changes = f.readlines()
         happiness_details = day_13.parse_input(happiness_changes)
         
