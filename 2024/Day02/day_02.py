@@ -13,6 +13,8 @@ def check_safety_single(report: list) -> bool:
     return all(flags_asc) or all(flags_desc)
 
 
+
+
 def safety_check(in_data: list, tolerance: int = 0) -> list:
     """ checks a list of reports for safety - if tolerance > 0 then it knocks out one number at a time
     """
