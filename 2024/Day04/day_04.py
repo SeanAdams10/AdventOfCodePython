@@ -2,6 +2,8 @@ from collections import namedtuple
 from itertools import groupby
 import re
 
+grid_cell = namedtuple("grid_cell", ['row', 'col', 'val', 'l_diag', 'r_diag'])
+
 
 def getinput(sample: int = 0) -> list:
 
@@ -27,25 +29,25 @@ def extract_rows_and_cols(data: list) -> tuple:
     return rows, cols
 
 
-# TODO:  change to namedtuple
 def create_cell_list(rows):
     cell_list = []
     for r_id, row in enumerate(rows):
         for c_id, cell in enumerate(row):
-            cell_list.append((r_id, c_id, cell, r_id+c_id, r_id-c_id))
+            this_cell = grid_cell(r_id, c_id, cell, r_id+c_id, r_id-c_id)
+            cell_list.append(this_cell)
     return cell_list
 
 
 def extract_diagonals(cell_list):
-    l_diag_sorted = sorted(cell_list, key=lambda x: (x[3], x[0], x[1]))
+    l_diag_sorted = sorted(cell_list, key=lambda x: (x.l_diag, x.row, x.col))
     l_diag_list = []
-    for key, group in groupby(l_diag_sorted, key=lambda x: x[3]):
-        l_diag_list.append("".join([x[2] for x in group]))
+    for _, group in groupby(l_diag_sorted, key=lambda x: x.l_diag):
+        l_diag_list.append("".join([x.val for x in group]))
 
-    r_diag_sorted = sorted(cell_list, key=lambda x: (x[4], x[1], x[0]))
+    r_diag_sorted = sorted(cell_list, key=lambda x: (x.r_diag, x.col, x.row))
     r_diag_list = []
-    for key, group in groupby(r_diag_sorted, key=lambda x: x[4]):
-        r_diag_list.append("".join([x[2] for x in group]))
+    for _, group in groupby(r_diag_sorted, key=lambda x: x.r_diag):
+        r_diag_list.append("".join([x.val for x in group]))
 
     return l_diag_list, r_diag_list
 
