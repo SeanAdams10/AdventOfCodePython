@@ -1,0 +1,836 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="270" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>FieldOrder</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <Expression_Init>1</Expression_Init>
+          <Expression_Cond>[FieldOrder] &lt;= [number_cnt]</Expression_Cond>
+          <Expression_Loop>[FieldOrder] + 1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>explode out to check each number</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="342" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" field="BreakPoint" size="4" type="Int32" enabled="true" />
+            <FormulaField expression="if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" field="BreakPoint+1" size="4" type="Int32" enabled="true" />
+            <FormulaField expression="if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" field="Left" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" field="Current" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" field="Right" size="1073741823" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>BreakPoint = if [FieldOrder]==1 then -1
+else
+FindNth([Field_1], ',', [FieldOrder...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="438" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Before" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Current" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_ReportID" selected="True" input="Right_" />
+                <SelectField field="Right_Field_1" selected="True" input="Right_" />
+                <SelectField field="Right_number_cnt" selected="True" input="Right_" />
+                <SelectField field="Left_Before" selected="True" input="Left_" />
+                <SelectField field="Left_After" selected="True" input="Left_" />
+                <SelectField field="Right_RowCount" selected="True" input="Right_" />
+                <SelectField field="Right_BreakPoint" selected="False" input="Right_" />
+                <SelectField field="Right_BreakPoint+1" selected="False" input="Right_" />
+                <SelectField field="Right_Left" selected="True" input="Right_" />
+                <SelectField field="Right_Current" selected="True" input="Right_" />
+                <SelectField field="Right_Right" selected="True" input="Right_" />
+                <SelectField field="Left_Field_1" selected="False" input="Left_" />
+                <SelectField field="Right_FieldOrder" selected="True" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>join to rules</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="642" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" field="FailFlag" size="4" type="Int32" enabled="true" />
+            <FormulaField expression="if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" field="mid_val" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>FailFlag = if isnull([after]) 
+then 0
+elseif contains([left], [after],1) 
+then 
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="FailFlag" source="Formula: if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" type="Int32" />
+            <Field name="mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="738" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="ReportID" action="GroupBy" rename="ReportID" />
+            <SummarizeField field="number_cnt" action="GroupBy" rename="number_cnt" />
+            <SummarizeField field="FailFlag" action="Sum" rename="Sum_FailFlag" />
+            <SummarizeField field="mid_val" action="Max" rename="Max_mid_val" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="Summarize: GroupBy - ReportID" type="Int32" />
+            <Field name="number_cnt" source="Summarize: GroupBy - number_cnt" type="Int32" />
+            <Field name="Sum_FailFlag" source="Summarize: Sum - FailFlag" type="Int64" />
+            <Field name="Max_mid_val" source="Formula: if [RowCount]==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="834" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>Sum_FailFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2024-12-05 16:27:53</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>0</Operand>
+              <StartDate>2024-12-05 16:27:53</StartDate>
+              <EndDate>2024-12-05 16:27:53</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Sum_FailFlag] = 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ReportID" source="Summarize: GroupBy - ReportID" type="Int32" />
+            <Field name="number_cnt" source="Summarize: GroupBy - number_cnt" type="Int32" />
+            <Field name="Sum_FailFlag" source="Summarize: Sum - FailFlag" type="Int64" />
+            <Field name="Max_mid_val" source="Formula: if [RowCount]==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ReportID" source="Summarize: GroupBy - ReportID" type="Int32" />
+            <Field name="number_cnt" source="Summarize: GroupBy - number_cnt" type="Int32" />
+            <Field name="Sum_FailFlag" source="Summarize: Sum - FailFlag" type="Int64" />
+            <Field name="Max_mid_val" source="Formula: if [RowCount]==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="546" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="750" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>FailFlag</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2024-12-08 08:25:43</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2024-12-08 08:25:43</StartDate>
+              <EndDate>2024-12-08 08:25:43</EndDate>
+              <Operand>1</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[FailFlag] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="FailFlag" source="Formula: if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" type="Int32" />
+            <Field name="mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="FailFlag" source="Formula: if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" type="Int32" />
+            <Field name="mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="834" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="ReportID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="FailFlag" source="Formula: if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" type="Int32" />
+            <Field name="mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+            <Field name="FieldOrder" source="GenerateRows" type="Int32" />
+            <Field name="BreakPoint" source="Formula: if [FieldOrder]==1 then -1&#xA;else&#xA;FindNth([Field_1], ',', [FieldOrder]-1)&#xA;endif" type="Int32" />
+            <Field name="BreakPoint+1" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;    Length([Field_1])+1&#xA;else &#xA;    FindNth([Field_1], ',', [FieldOrder])&#xA;endif" type="Int32" />
+            <Field name="FailFlag" source="Formula: if isnull([after]) &#xA;then 0&#xA;elseif contains([left], [after],1) &#xA;then &#xA;1&#xA;else 0&#xA;endif" type="Int32" />
+            <Field name="mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Before" selected="True" size="2147483647" />
+            <SelectField field="After" selected="True" size="2147483647" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ReportID" selected="True" />
+            <SelectField field="Field_1" selected="True" />
+            <SelectField field="number_cnt" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Data</Name>
+          <Abbrev>D</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="6" />
+              <Fields>
+                <Field name="ReportID" />
+                <Field name="Field_1" />
+                <Field name="number_cnt" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>75,47,61,53,29</c>
+                  <c>5</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>97,61,53,29,13</c>
+                  <c>5</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>75,29,13</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>75,97,47,61,53</c>
+                  <c>5</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>61,13,29</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>97,13,75,29,47</c>
+                  <c>5</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Rules</Name>
+          <Abbrev>R</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\itf_checker_rules.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>itf_checker_rules.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1026" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Good</Name>
+          <Abbrev>G</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1038" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Bad</Name>
+          <Abbrev>B</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="942" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ReportID" selected="True" />
+            <SelectField field="Field_1" selected="True" />
+            <SelectField field="number_cnt" selected="True" />
+            <SelectField field="Before" selected="True" />
+            <SelectField field="After" selected="True" />
+            <SelectField field="Left" selected="True" />
+            <SelectField field="Current" selected="True" />
+            <SelectField field="Right" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="TextInput:" type="Int32" />
+            <Field name="Field_1" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="number_cnt" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="9" Connection="Left" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="9" Connection="Join" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="9" Connection="Right" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="True" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Unique" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Checker</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="30c05a03-94bc-4f48-8ef8-e50915915d2d" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="30c05a03-94bc-4f48-8ef8-e50915915d2d" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (38)</Name>
+          <ToolId value="38" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (39)</Name>
+              <ToolId value="39" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (40)</Name>
+              <ToolId value="40" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (41)</Name>
+              <ToolId value="41" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description />
+              <Name>Macro Output (42)</Name>
+              <ToolId value="42" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="39" Selected="True" />
+        <Tool ToolId="40" Selected="True" />
+        <Tool ToolId="41" Selected="True" />
+        <Tool ToolId="42" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

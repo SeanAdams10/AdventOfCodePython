@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="',' + [left] + ','" field="Left" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="Replace([left],',' + [after] + ',', ',' + [before]+ ',')" field="Left" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="[after]" field="Current" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="substring([left],1,length([left])-2)" field="Left" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="[left] + ','+ [current] + &#xA;if length([Right])==0 then '' else ',' + [right] endif" field="Field_1" size="254" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Swap Values</AnnotationText>
+          <DefaultAnnotationText>Left = ',' + [left] + ','
+Left = Replace([left],',' + [after] + ',', ',' + [befo...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Field_1" size="254" source="Formula: [left] + ','+ [current] + &#xA;if length([Right])==0 then '' else ',' + [right] endif" type="V_WString" />
+            <Field name="number_cnt" source="Formula: REGEX_CountMatches([Field_1], ',') + 1" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: substring([left],1,length([left])-2)" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: [after]" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Field_1" size="254" source="File: D:\OneDrive\Documents\SeanDev\AdventOfCodePython\2024\Day05\Alteryx\sample.txt" type="V_WString" />
+            <Field name="number_cnt" source="Formula: REGEX_CountMatches([Field_1], ',') + 1" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings>
+        <Position x="570" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Data"><![CDATA[ReportID=ReportID
+Field_1=Field_1
+number_cnt=number_cnt
+]]></Value>
+          <Value name="Input.Rules"><![CDATA[Before=Before
+After=After
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Checker (45)</Name>
+          <AnnotationText>checker</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Good">
+          <RecordInfo>
+            <Field name="ReportID" source="Summarize: GroupBy - ReportID" type="Int32" />
+            <Field name="number_cnt" source="Summarize: GroupBy - number_cnt" type="Int32" />
+            <Field name="Sum_FailFlag" source="Summarize: Sum - FailFlag" type="Int64" />
+            <Field name="Max_mid_val" source="Formula: if [FieldOrder] ==CEIL([number_cnt]/2) &#xA;then tonumber([Current])&#xA;else&#xA;0&#xA;endif" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Bad">
+          <RecordInfo>
+            <Field name="ReportID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Field_1" size="254" source="Formula: [left] + ','+ [current] + ',' + [right]" type="V_WString" />
+            <Field name="number_cnt" source="Formula: REGEX_CountMatches([Field_1], ',') + 1" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\Checker.yxmc" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="258" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="438" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ReportID" selected="True" />
+            <SelectField field="Field_1" selected="True" />
+            <SelectField field="number_cnt" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Field_1" size="254" source="Formula: [left] + ','+ [current] + ',' + [right]" type="V_WString" />
+            <Field name="number_cnt" source="Formula: REGEX_CountMatches([Field_1], ',') + 1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Rules</Name>
+          <Abbrev>R</Abbrev>
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\itf_checker_rules.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>itf_checker_rules.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="14" source="RegEx: Parsed from Field_1" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input47</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\inf_fixer_data.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>inf_fixer_data.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ReportID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Field_1" size="254" source="File: D:\OneDrive\Documents\SeanDev\AdventOfCodePython\2024\Day05\Alteryx\sample.txt" type="V_WString" />
+            <Field name="number_cnt" source="Formula: REGEX_CountMatches([Field_1], ',') + 1" type="Int32" />
+            <Field description="RegEx: Parsed from Field_1" name="Before" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field description="RegEx: Parsed from Field_1" name="After" size="2147483647" source="RegEx: Parsed from Field_1" type="V_String" />
+            <Field name="Left" size="1073741823" source="Formula: if [FieldOrder] == 1&#xA;then &quot;&quot;&#xA;else &#xA;     left([Field_1], FindNth([Field_1], ',', [FieldOrder]-1))&#xA;endif&#xA;" type="V_WString" />
+            <Field name="Current" size="1073741823" source="Formula: substring([Field_1],[BreakPoint]+1, [BreakPoint+1]-[BreakPoint]-1)" type="V_WString" />
+            <Field name="Right" size="1073741823" source="Formula: if [FieldOrder] &gt; [number_cnt]-1&#xA;then &#xA;     &quot;&quot;&#xA;else&#xA;     right([Field_1], length([Field_1])-[BreakPoint+1]-1)&#xA;endif" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="762" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Result</Name>
+          <Abbrev>O</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="762" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rewrork</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Good" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Bad" />
+      <Destination ToolID="54" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="46" Connection="Rules" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="46" Connection="Data" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (53)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (54)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>fixer</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="02c7168c-57eb-4176-9238-2d05e4a41737" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="02c7168c-57eb-4176-9238-2d05e4a41737" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (50)</Name>
+          <ToolId value="50" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (51)</Name>
+              <ToolId value="51" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (52)</Name>
+              <ToolId value="52" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (53)</Description>
+              <Name>Macro Output (53)</Name>
+              <ToolId value="53" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (54)</Description>
+              <Name>Macro Output (54)</Name>
+              <ToolId value="54" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input47</Input>
+        <Output>Rewrork</Output>
+        <IterationLimit value="999999" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="46" Selected="True" />
+        <Tool ToolId="51" Selected="True" />
+        <Tool ToolId="52" Selected="True" />
+        <Tool ToolId="53" Selected="True" />
+        <Tool ToolId="54" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
