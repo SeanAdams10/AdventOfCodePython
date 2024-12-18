@@ -1,0 +1,659 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="210" y="299" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="330" y="215" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r" source="TextInput:" type="Int32" />
+            <Field name="c" source="TextInput:" type="Int32" />
+            <Field name="addgrid" size="1073741823" source="Formula: ';' + ToString([r]) + ',' + ToString([c]) + ',#'" type="V_WString" />
+            <Field name="cells" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="414" y="215" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[cells] + [addgrid]" field="cells" size="2147483647" type="V_String" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[cells = [cells] + [addgrid]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r" source="TextInput:" type="Int32" />
+            <Field name="c" source="TextInput:" type="Int32" />
+            <Field name="addgrid" size="1073741823" source="Formula: ';' + ToString([r]) + ',' + ToString([c]) + ',#'" type="V_WString" />
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings>
+        <Position x="606" y="215" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Input.Input26"><![CDATA[cells=cells
+curr_c=curr_c
+curr_r=curr_r
+curr_dir_id=curr_dir_id
+Max_c=Max_c
+Max_r=Max_r
+VisitHistory=VisitHistory
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>gridwalk (57)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Test">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Loops">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="TotalSteps">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Rework">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="curr_c" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_r" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_dir_id" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro=".\gridwalk.yxmc" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="299" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input26</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="cells" />
+                <Field name="curr_c" />
+                <Field name="curr_r" />
+                <Field name="curr_dir_id" />
+                <Field name="Max_c" />
+                <Field name="Max_r" />
+                <Field name="VisitHistory" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1,5,#;2,10,#;4,3,#;5,8,#;7,2,#;8,9,#;9,1,#;10,7,#</c>
+                  <c>5</c>
+                  <c>7</c>
+                  <c>0</c>
+                  <c>10</c>
+                  <c>10</c>
+                  <c>7,5,0</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.ControlParam.ControlParam">
+        <Position x="54" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Control Parameter (63)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="r" />
+            <Field name="c" />
+          </Fields>
+          <Data>
+            <r>
+              <c>8</c>
+              <c>8</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r" source="TextInput:" type="Int32" />
+            <Field name="c" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="54" y="138" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="510" y="215" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="cells" selected="True" />
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="Max_c" selected="True" />
+            <SelectField field="Max_r" selected="True" />
+            <SelectField field="VisitHistory" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="68">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="606" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">.\itf_walk_path.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>True</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>itf_walk_path.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="70">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="150" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="';' + ToString([r]) + ',' + ToString([c]) + ',#'" field="addgrid" size="1073741823" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[addgrid = ';' + ToString([r]) + ',' + ToString([c]) + ',#'
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r" source="TextInput:" type="Int32" />
+            <Field name="c" source="TextInput:" type="Int32" />
+            <Field name="addgrid" size="1073741823" source="Formula: ';' + ToString([r]) + ',' + ToString([c]) + ',#'" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="702" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="isLoop" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="798" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="r" source="TextInput:" type="Int32" />
+            <Field name="c" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="73">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="894" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>result</Name>
+          <Abbrev>r</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="55" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="70" Connection="Output" />
+      <Destination ToolID="55" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="66" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Loops" />
+      <Destination ToolID="71" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="63" Connection="Question" />
+      <Destination ToolID="65" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="72" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="71" Connection="Output" />
+      <Destination ToolID="72" Connection="Targets" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="65" Connection="Action" />
+      <Destination ToolID="64" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="69" Connection="Input26" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="68" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="72" Connection="Output" />
+      <Destination ToolID="73" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>ControlParam.Control Parameter (63)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (73)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>findblockers</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="e414295e-b785-4334-8bac-9e24bb5f6bf4" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="e414295e-b785-4334-8bac-9e24bb5f6bf4" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="65" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>64/Data/r[1]/c[1]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	1</DynamicConfiguration>
+              <DefaultConfiguration value="True" />
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (60)</Name>
+          <ToolId value="60" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (61)</Name>
+              <ToolId value="61" />
+            </Question>
+            <Question>
+              <Type>ControlParam</Type>
+              <Description>AddGridVal</Description>
+              <Name>Control Parameter (63)</Name>
+              <ToolId value="63" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (73)</Description>
+              <Name>Macro Output (73)</Name>
+              <ToolId value="73" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <BatchMacro>
+        <OutputMode>AllSame</OutputMode>
+        <ControlParams>
+          <ControlParam>
+            <Name>Control Parameter (63)</Name>
+            <Description>AddGridVal</Description>
+          </ControlParam>
+        </ControlParams>
+      </BatchMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="73" Selected="True" />
+        <Tool ToolId="61" Selected="True" />
+        <Tool ToolId="68" Selected="True" />
+        <Tool ToolId="69" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

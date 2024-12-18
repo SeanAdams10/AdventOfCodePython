@@ -1,0 +1,2053 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="174" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="4" />
+          <Fields>
+            <Field name="r_delta" />
+            <Field name="c_delta" />
+            <Field name="direction" />
+            <Field name="dir_id" />
+          </Fields>
+          <Data>
+            <r>
+              <c>-1</c>
+              <c>0</c>
+              <c>N</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>0</c>
+              <c>1</c>
+              <c>E</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>1</c>
+              <c>0</c>
+              <c>S</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>0</c>
+              <c>-1</c>
+              <c>W</c>
+              <c>3</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Directions</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="174" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="Max_c" selected="True" />
+            <SelectField field="Max_r" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="570" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="next_r" />
+            <Field field="next_c" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="r" />
+            <Field field="c" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Max_c" selected="True" rename="Right_Max_c" input="Right_" />
+                <SelectField field="Right_Max_r" selected="True" rename="Right_Max_r" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>join for blockers</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="378" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="curr_dir_id" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="dir_id" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_curr_c" selected="True" input="Left_" />
+                <SelectField field="Left_curr_r" selected="True" input="Left_" />
+                <SelectField field="Left_curr_dir_id" selected="True" input="Left_" />
+                <SelectField field="Left_Max_c" selected="True" input="Left_" />
+                <SelectField field="Left_Max_r" selected="True" input="Left_" />
+                <SelectField field="Right_r_delta" selected="True" input="Right_" />
+                <SelectField field="Right_c_delta" selected="True" input="Right_" />
+                <SelectField field="Right_direction" selected="True" input="Right_" />
+                <SelectField field="Right_dir_id" selected="False" rename="Right_dir_id" input="Right_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="474" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[curr_r] + [r_delta]" field="next_r" size="4" type="Int32" enabled="true" />
+            <FormulaField expression="[curr_c]+ [c_delta]" field="next_c" size="4" type="Int32" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[next_r = [curr_r] + [r_delta]
+next_c = [curr_c]+ [c_delta]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="174" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="cells" selected="True" />
+            <SelectField field="Max_c" selected="True" />
+            <SelectField field="Max_r" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>grid cells</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="270" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="654" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="954" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " field="isOnGrid" size="1" type="Bool" enabled="true" />
+            <FormulaField expression="not(isnull([dir_id_hist]))" field="isLoop" size="1" type="Bool" enabled="true" />
+            <FormulaField expression="not(isnull([cell]))" field="isBlocked" size="1" type="Bool" enabled="true" />
+            <FormulaField expression="isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" field="isGoodRow" size="1" type="Bool" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>isOnGrid = between([next_r],0,[max_r]) AND
+between([next_c],0,[max_c]) 
+isLoop =...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="True" />
+          <Name>Input26</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <FileInput>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\itf_walk_path.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+          </FileInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Input</AnnotationText>
+          <DefaultAnnotationText>itf_walk_path.yxdb</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="246" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>VisitHistory</Field>
+          <Delimeters value=";" />
+          <NumFields value="1" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="174" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="VisitHistory" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>history</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="330" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>VisitHistory</Field>
+          <RegExExpression value="(\d*),(\d*),(\d)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>VisitHistory</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="r_hist" type="Int32" size="4" />
+            <Field field="c_hist" type="Int32" size="4" />
+            <Field field="dir_id_hist" type="Int32" size="4" />
+          </ParseComplex>
+          <Match>
+            <Field>cell_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="762" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="next_r" />
+            <Field field="next_c" />
+            <Field field="curr_dir_id" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="r_hist" />
+            <Field field="c_hist" />
+            <Field field="dir_id_hist" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>join for loops</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="858" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="r_delta" source="TextInput:" type="Int32" />
+            <Field name="c_delta" source="TextInput:" type="Int32" />
+            <Field name="direction" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Right_Max_c" source="TextInput:" type="Int32" />
+            <Field name="Right_Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1302" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>isLoop</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2024-12-08 12:12:29</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2024-12-08 12:12:29</StartDate>
+              <EndDate>2024-12-08 12:12:29</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[isLoop] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1302" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[isBlocked]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[isBlocked]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1302" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>IsTrue</Operator>
+            <Field>isGoodRow</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2024-12-08 12:13:35</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>
+              </Operand>
+              <StartDate>2024-12-08 12:13:35</StartDate>
+              <EndDate>2024-12-08 12:13:35</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[isGoodRow] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1290" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>not([isOnGrid])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>not([isOnGrid])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1398" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="mod([curr_dir_id]+1,4)" field="curr_dir_id" size="2" type="Int16" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[curr_dir_id = mod([curr_dir_id]+1,4)
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="Formula: mod([curr_dir_id]+1,4)" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="246" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>cells</Field>
+          <Delimeters value=";" />
+          <NumFields value="1" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+        <Position x="330" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>cells</Field>
+          <RegExExpression value="(\d*),(\d*),(.*)" />
+          <CaseInsensitve value="True" />
+          <Method>ParseComplex</Method>
+          <Replace expression="">
+            <CopyUnmatched value="True" />
+          </Replace>
+          <ParseSimple>
+            <SplitToRows value="False" />
+            <RootName>cells</RootName>
+            <NumFields value="3" />
+            <ErrorHandling>Warn</ErrorHandling>
+          </ParseSimple>
+          <ParseComplex>
+            <Field field="r" type="Int32" size="4" />
+            <Field field="c" type="Int32" size="4" />
+            <Field field="cell" type="String" size="1" />
+          </ParseComplex>
+          <Match>
+            <Field>cell_Matched</Field>
+            <ErrorUnmatched value="False" />
+          </Match>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from cells" name="cells" size="2147483647" source="TextToColumns: Parsed from cells" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="r" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="c" source="RegEx: Parsed from cells" type="Int32" />
+            <Field description="RegEx: Parsed from cells" name="cell" size="1" source="RegEx: Parsed from cells" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1038" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="next_r" selected="True" />
+            <SelectField field="next_c" selected="True" />
+            <SelectField field="isOnGrid" selected="True" />
+            <SelectField field="isLoop" selected="True" />
+            <SelectField field="isBlocked" selected="True" />
+            <SelectField field="isGoodRow" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1398" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Loops</Name>
+          <Abbrev>L</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1482" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="Formula: mod([curr_dir_id]+1,4)" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1398" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="False" />
+            <SelectField field="curr_r" selected="False" />
+            <SelectField field="next_r" selected="True" rename="curr_r" />
+            <SelectField field="next_c" selected="True" rename="curr_c" />
+            <SelectField field="dir_id" selected="False" />
+            <SelectField field="isOnGrid" selected="False" />
+            <SelectField field="isLoop" selected="False" />
+            <SelectField field="isBlocked" selected="False" />
+            <SelectField field="isGoodRow" selected="False" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="curr_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1398" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="next_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="next_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="isOnGrid" source="Formula: between([next_r],0,[max_r]) AND&#xA;between([next_c],0,[max_c]) " type="Bool" />
+            <Field name="isLoop" source="Formula: not(isnull([dir_id_hist]))" type="Bool" />
+            <Field name="isBlocked" source="Formula: not(isnull([cell]))" type="Bool" />
+            <Field name="isGoodRow" source="Formula: isOnGrid &#xA;AND not(isLoop)&#xA;and not([isblocked])&#xA;&#xA;" type="Bool" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1590" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>TotalSteps</Name>
+          <Abbrev>T</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1482" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="c_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="r_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="dir_id_hist" source="(Multiple Sources)" type="Int32" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1398" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="True" rename="c_hist" />
+            <SelectField field="curr_r" selected="True" rename="r_hist" />
+            <SelectField field="curr_dir_id" selected="True" rename="dir_id_hist" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="c_hist" source="TextInput:" type="Int32" />
+            <Field name="r_hist" source="TextInput:" type="Int32" />
+            <Field name="dir_id_hist" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1746" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="hist_sum" action="Concat" rename="VisitHistory">
+              <Concat_Start />
+              <Separator>;</Separator>
+              <Concat_End />
+            </SummarizeField>
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="VisitHistory" size="1073741823" source="Summarize: Concat - hist_sum" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1554" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="ToString([r_hist]) + ',' + ToString([c_hist]) + ',' + toString([dir_id_hist])" field="hist_sum" size="1073741823" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>hist_sum = ToString([r_hist]) + ',' + ToString([c_hist]) + ',' + toString([dir_i...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="c_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="r_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="dir_id_hist" source="(Multiple Sources)" type="Int32" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field name="hist_sum" size="1073741823" source="Formula: ToString([r_hist]) + ',' + ToString([c_hist]) + ',' + toString([dir_id_hist])" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="2034" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_r" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_dir_id" source="(Multiple Sources)" type="Int32" />
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2226" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Rework</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1650" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="c_hist" />
+            <Field field="r_hist" />
+            <Field field="dir_id_hist" />
+            <Field field="hist_sum" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="c_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="r_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="dir_id_hist" source="(Multiple Sources)" type="Int32" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field name="hist_sum" size="1073741823" source="Formula: ToString([r_hist]) + ',' + ToString([c_hist]) + ',' + toString([dir_id_hist])" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="c_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="r_hist" source="(Multiple Sources)" type="Int32" />
+            <Field name="dir_id_hist" source="(Multiple Sources)" type="Int32" />
+            <Field description="TextToColumns: Parsed from VisitHistory" name="VisitHistory" size="2147483647" source="TextToColumns: Parsed from VisitHistory" type="V_String" />
+            <Field name="hist_sum" size="1073741823" source="Formula: ToString([r_hist]) + ',' + ToString([c_hist]) + ',' + toString([dir_id_hist])" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1602" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_curr_c" selected="True" input="Target_" />
+                <SelectField field="Target_curr_r" selected="True" input="Target_" />
+                <SelectField field="Target_curr_dir_id" selected="True" input="Target_" />
+                <SelectField field="Source_cells" selected="True" input="Source_" />
+                <SelectField field="Source_Max_c" selected="True" input="Source_" />
+                <SelectField field="Source_Max_r" selected="True" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="Formula: mod([curr_dir_id]+1,4)" type="Int32" />
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1698" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="Formula: mod([curr_dir_id]+1,4)" type="Int32" />
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="60">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1830" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="curr_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="1073741823" source="Summarize: Concat - hist_sum" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1914" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Allow</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Target_curr_r" selected="True" input="Target_" />
+                <SelectField field="Target_curr_c" selected="True" input="Target_" />
+                <SelectField field="Target_curr_dir_id" selected="True" input="Target_" />
+                <SelectField field="Target_VisitHistory" selected="True" input="Target_" />
+                <SelectField field="Source_cells" selected="True" input="Source_" />
+                <SelectField field="Source_Max_c" selected="True" input="Source_" />
+                <SelectField field="Source_Max_r" selected="True" input="Source_" />
+                <SelectField field="*Unknown" selected="False" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_r" source="Formula: [curr_r] + [r_delta]" type="Int32" />
+            <Field name="curr_c" source="Formula: [curr_c]+ [c_delta]" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="1073741823" source="Summarize: Concat - hist_sum" type="V_WString" />
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2118" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="cells" selected="True" />
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="Max_c" selected="True" />
+            <SelectField field="Max_r" selected="True" />
+            <SelectField field="VisitHistory" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="cells" size="2147483647" source="Formula: [cells] + [addgrid]" type="V_String" />
+            <Field name="curr_c" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_r" source="(Multiple Sources)" type="Int32" />
+            <Field name="curr_dir_id" source="(Multiple Sources)" type="Int32" />
+            <Field name="Max_c" source="TextInput:" type="Int32" />
+            <Field name="Max_r" source="TextInput:" type="Int32" />
+            <Field name="VisitHistory" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="378" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Test</Name>
+          <Abbrev>X</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Output</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="270" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="curr_c" selected="True" />
+            <SelectField field="curr_r" selected="True" />
+            <SelectField field="curr_dir_id" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="curr_c" source="TextInput:" type="Int32" />
+            <Field name="curr_r" source="TextInput:" type="Int32" />
+            <Field name="curr_dir_id" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1494" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="r_hist" selected="True" />
+            <SelectField field="c_hist" selected="True" />
+            <SelectField field="dir_id_hist" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="RegEx: Parsed from VisitHistory" name="r_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="c_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+            <Field description="RegEx: Parsed from VisitHistory" name="dir_id_hist" source="RegEx: Parsed from VisitHistory" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2237" y="341" width="153" height="165" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 39</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2262" y="390" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File FileFormat="19" MaxRecords="">.\itf_walk_path.yxdb</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <NoSpatialIndex>False</NoSpatialIndex>
+                <SaveSource>True</SaveSource>
+                <WriteCompatibleVersion>False</WriteCompatibleVersion>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>itf_walk_path.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="19" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="19" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="16" Connection="Join" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="16" Connection="Left" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Join" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="16" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="16" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="58" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="58" Connection="Targets" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="61" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="61" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="31" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="31" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="59" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="59" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="46" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="True" />
+      <Destination ToolID="46" Connection="Targets" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="31" Connection="Join" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="31" Connection="Left" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="True" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="True" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="True" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="True" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="60" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="60" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="62" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="57" Connection="Unique" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="62" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="64" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (63)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>gridwalk</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="bef45c3a-3716-488b-827d-a83c80f1c087" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="bef45c3a-3716-488b-827d-a83c80f1c087" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (25)</Name>
+          <ToolId value="25" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description />
+              <Name>Macro Input (26)</Name>
+              <ToolId value="26" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (43)</Description>
+              <Name>Macro Output (43)</Name>
+              <ToolId value="43" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (47)</Description>
+              <Name>Macro Output (47)</Name>
+              <ToolId value="47" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (56)</Description>
+              <Name>Macro Output (56)</Name>
+              <ToolId value="56" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (63)</Description>
+              <Name>Macro Output (63)</Name>
+              <ToolId value="63" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <IterativeMacro>
+        <Input>Input26</Input>
+        <Output>Rework</Output>
+        <IterationLimit value="10000000" />
+        <LimitBehavior>Error</LimitBehavior>
+        <OutputMode>AllSame</OutputMode>
+      </IterativeMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="26" Selected="True" />
+        <Tool ToolId="43" Selected="True" />
+        <Tool ToolId="47" Selected="True" />
+        <Tool ToolId="56" Selected="True" />
+        <Tool ToolId="63" Selected="True" />
+        <Tool ToolId="38" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
