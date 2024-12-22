@@ -1,5 +1,9 @@
 from time import perf_counter
-from functools import lru_cache
+from itertools import product
+from collections import defaultdict
+from shapely.geometry import Polygon
+
+GroupCount = defaultdict(list)
 
 def get_input_data(year: int, day: int, sample: int = 0) -> list:
     """
@@ -31,63 +35,144 @@ def timing_decorator(func):
         return result
     return wrapper
 
+class GridCell():
+    def __init__(self, cell, value):
+        self.cell = cell
+        self.value = value
+        self.borders = 4
+        self.area = 1
+        n_delta = product([cell], [(-1,0), (1,0), (0,1), (0,-1)])
+        self.neighbours = [(x[0][0] + x[1][0], x[0][1] + x[1][1]) for x in n_delta]
+        self.group = None
+        self.group_neighbours = set()
+
+    def clean_offgrid_neighbours(self, grid):
+        self.neighbours = [n for n in self.neighbours if n in grid.keys()]
+
+    def __repr__(self):
+        return f'{self.cell}: {self.value}'
+
+
 def read_input(data) -> list:
     """
     placeholder for the parser needed for this day's puzzle
     """
-    result = [n for d in data for n in d.split()]
+    result = dict()
+    for r,row_data in enumerate(data):
+        for c, cell_data in enumerate(row_data):
+            result[(r,c)] = GridCell((r,c), cell_data)
     return result
 
-@lru_cache(maxsize=None)
-def move_stones(cells, moves):
-    result = []
-    for _ in range(moves):
-        current_cell = 0
-        while current_cell < len(cells):
-            if cells[current_cell] == '0':
-                cells[current_cell] = '1'
-                current_cell += 1
-            elif len(cells[current_cell])%2 == 0:
-                tmp_cell = cells[current_cell]
-                cells[current_cell] = str(int(tmp_cell[:len(tmp_cell)//2]))
-                cells.insert(current_cell+1, str(int(tmp_cell[len(tmp_cell)//2:])) )
-                current_cell += 2
-            else:
-                cells[current_cell] = str(int(cells[current_cell])*2024)
-                current_cell += 1
-        result.append(len(cells))
-    
-    return result, cells
 
-@lru_cache(maxsize=None)
-def move_stones_2(cell, moves):
-    if moves == 0:
-        return 1
-    if cell == '0':
-        return move_stones_2('1',moves-1)
-    if len(cell)%2 == 0:
-        left_part = str(int(cell[:len(cell)//2]))
-        right_part = str(int(cell[len(cell)//2:]))
-        return move_stones_2(left_part, moves-1) + move_stones_2(right_part, moves-1)
-    else:
-        return move_stones_2(str(int(cell)*2024), moves-1)
-
-@timing_decorator
-def solve_part_1(data,moves):
-    result = 0
-    for d in data:
-        result += move_stones_2(d, moves)
         
-    return result
+
+# def clean_offgrid(grid):
+#     for grid_c in grid:
+#         grid_c.clean_offgrid_neighbours(grid)
+
+
+
+def make_groups(grid):
+
+    def recurse_group(inner_grid, cell, group, value):
+        if inner_grid[cell.cell].value != value:
+            return False
+        else:
+            inner_grid[cell.cell].group = group
+            for c in cell.neighbours:
+                new_cell = inner_grid[c]
+                if not(new_cell.group):
+                    if recurse_group(inner_grid, new_cell, group, value):
+                        cell.group_neighbours.add(new_cell.cell)
+
+            return True
+
+
+    for cell in grid.values():
+        if cell.group is None:
+            recurse_group(grid, cell, cell.cell, cell.value)
+
+
+def simplify_poly(poly):
+    """
+    Returns a new Polygon with consecutive collinear vertices removed.
+    """
+    # Work on the exterior ring (assuming a single-ring polygon).
+    coords = list(poly.exterior.coords)
     
+    # We will build a new list of coords that removes collinear points
+    new_coords = [coords[0]]
+    
+    for i in range(1, len(coords) - 1):
+        p_prev = coords[i - 1]
+        p_curr = coords[i]
+        p_next = coords[i + 1]
+        
+        # Only keep p_curr if it's not collinear
+        if not are_collinear(p_prev, p_curr, p_next):
+            new_coords.append(p_curr)
+    
+    # Add the last point (which should be same as the first for a closed ring)
+    new_coords.append(coords[-1])
+    
+    return Polygon(new_coords)
+
+
+
+
+def are_collinear(p1, p2, p3):
+    x1, y1 = p1
+    x2, y2 = p2
+    x3, y3 = p3
+    return (y1 - y2) * (x1 - x3) == (y1 - y3) * (x1 - x2)
+
+
+def do_part_1(grid):
+    groups={}
+
+    # Add up the groups
+    for cell in grid.values():
+        if cell.group in groups.keys():
+            groups[cell.group]+=1
+        else:
+            groups[cell.group] =1
+       
+    for key,value in groups.items():
+        print(grid[key].value, key, value)
+
+    group_count = GroupCount
+    for key,grid_cell in grid.items():
+        borders = 4
+        for n in grid_cell.neighbours:
+            if n in grid.keys() and grid[n].value == grid_cell.value:
+                borders -=1
+        grid_cell.borders = borders
+        #print(f'cell {grid_cell.cell}: has {borders} borders')
+        group_count[grid_cell.group].append(borders)
+
+    print(group_count)
+   
+    total_price = 0
+    for key, value in group_count.items():
+        area = len(value)
+        perim = sum(value)
+        price = area*perim
+        total_price += price
+        print(f'A region of {key} plants with price {area} * {perim} = {price}.')
+
+    print(f'Part 1: {total_price}')
 
 
 def main():
-    data = get_input_data(2024, 11, sample=0)
-    cells = read_input(data)
+    data = get_input_data(2024, 12, sample=7)
+    grid = read_input(data)
+    for cell in grid.values():
+        cell.clean_offgrid_neighbours(grid)
     
-    result = solve_part_1(cells, 75)
-    print(f'Part 1: {result}')
+    make_groups(grid)
+
+    do_part_1(grid)
+    
 
 if __name__ == "__main__":
     main()
