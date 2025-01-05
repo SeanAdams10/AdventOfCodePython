@@ -134,7 +134,7 @@ def update_gap_set(match_sizes, matches, gap_sets):
         differences = list({y - x for x, y in pairwise(all_values)})
         differences.sort()
         gap_sets[size] = set(differences)
-    
+
     gap_sets[2].add(1) #the gaps for the first match group always has to include 1
 
 
@@ -264,52 +264,28 @@ def get_starting_point(match_sizes, matches):
     if not match_sizes:
         raise ValueError("Match sizes must be provided")
 
-    all_values = matches[match_sizes[0]]
+    all_values = set(matches[match_sizes[0]])
     if not all_values:
         all_values.add(8**15-1)
 
     return max(all_values)
 
 
-# def open_all_files(match_sizes):
-#     """This function opens all the files for writing the matches
-#     :param match_sizes: A list of integers indicating the length of the match in the program
-#     :return: A dictionary of file objects
-#     """
-
-#     file_dict = {}
-#     if not match_sizes:
-#         raise ValueError("Match sizes must be provided")
-
-#     for size in match_sizes:
-#         f = open(f'2024/Day17/match_{size}.csv', 'a', encoding='utf-8')
-#         file_dict[size] = f
-
-#     return file_dict
-
-# def close_all_files(file_dict):
-#     """This function closes all the files that were opened
-#     :param file_dict: A dictionary of file objects
-#     :return: None
-#     """
-#     for file in file_dict.values():
-#         file.close()
-
-
 
 def set_work_queue(match_size, min_value, attempted, matches, gaps):
     if not isinstance(match_size, int):
         raise ValueError("Match size must be an integer")
-    
+
     work_queue = set()
-    
+
     update_gap_set([match_size], matches, gaps)
 
     min_value = get_starting_point([match_size], matches)
     # current_matches = set(read_all_matches([match_size]) + [min_value])
     current_matches = matches[match_size]
+    current_gaps = gaps[match_size]
 
-    potential_matches = set([match + gap for gap in gaps for match in current_matches])
+    potential_matches = set([match + gap for gap in current_gaps for match in current_matches])
     potential_matches2 = potential_matches.difference(current_matches).difference(attempted[match_size])
     if not potential_matches2:
         potential_matches2.add(min_value)
@@ -320,38 +296,31 @@ def set_work_queue(match_size, min_value, attempted, matches, gaps):
 
 
 
-def Part_2(data, itercount, timeout, attempted,match_sets,gap_sets):
+def Part_2(data, itercount, timeout, attempted,match_sets,gap_sets, iter_no):
     registers, program = read_input(data)
     pr_str = ','.join([str(x) for x in program])
     a_val = 0
-    checked = 0
-    found = 0
     min_value = 0
-    match_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
-    all_match_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
+    match_size_l = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32]
 
     timeout_flag = False
     success = False
 
-    for i in range(len(match_sizes)):
-        #todo: rather than popping the elements - rather keep it as it is and just reference it with slicers
+    for k,match_size_c in enumerate(match_size_l):
         iteration_start_time = perf_counter()
-        found = 0
-        # file_dict = open_all_files(match_sizes)
-        match_size_c = match_sizes[0]
         work_queue, gap_sets = set_work_queue(match_size_c, min_value, attempted, match_sets, gap_sets)
-        print(f'match_size: {match_size_c} attempted: {len(attempted[match_size_c])} gaps: {len(gap_sets[match_size_c])} current_matches: {len(match_sets[match_sizes[0]])} work_queue: {len(work_queue)}')
+        print(f'Open : match_size: {match_size_c:2} attempted: {len(attempted[match_size_c]):7} gaps: {len(gap_sets[match_size_c]):5} current_matches: {len(match_sets[match_size_c]):7} work_queue: {len(work_queue):7}')
 
-        checked = 0
         while work_queue:
             # Update the work queue
             a_val = min(work_queue)
             work_queue.remove(a_val)
-            if a_val in attempted[match_sizes[0]]:
+            if a_val in attempted[match_size_c]:
                 continue
-            if len(work_queue) == 0:
-                work_queue.update([a_val + gap for gap in gap_sets[match_sizes[0]]])
+            if len(work_queue) == 0 and match_size_c == 2:
                 work_queue.add(a_val+1)
+
+            work_queue = set(sorted(list(work_queue))[:itercount*10])
 
             #run the program to check the result
             a, b, c = a_val, registers['B'], registers['C']
@@ -362,22 +331,19 @@ def Part_2(data, itercount, timeout, attempted,match_sets,gap_sets):
                 timeout_flag = True
                 break
 
-            # Output the matches
-            if len(output) == len(pr_str):
-                for size in match_sets:
-                    #todo: should we add to all matches or only the forward looking ones?
-                    if output[:size] == pr_str[:size]:
-                        match_sets[size].add(a_val)
-                        if size == match_size_c: found += 1
-                        work_queue.update([a_val + gap for gap in gap_sets[size]])
+            for size in match_size_l[k:]:
+                if output[:size] == pr_str[:size]:
+                    match_sets[size].add(a_val)
+                    work_queue.update([a_val + gap for gap in gap_sets[size]])
 
-            if found > itercount:
+            if output == pr_str:
+                print(f"Match found: {a_val}")
+
+            attempted[match_size_c].add(a_val)
+            if len(match_sets[match_size_c])>=(iter_no+1)*itercount: #we've hit our target
                 break
 
-            checked += 1
-            attempted[match_sizes[0]].add(a_val)
-
-        match_sizes.pop(0)
+        print(f'Close: match_size: {match_size_c:2} attempted: {len(attempted[match_size_c]):7} gaps: {len(gap_sets[match_size_c]):5} current_matches: {len(match_sets[match_size_c]):7} work_queue: {len(work_queue):7}')
 
         if timeout_flag:
             break
@@ -386,7 +352,7 @@ def Part_2(data, itercount, timeout, attempted,match_sets,gap_sets):
         print(f"Part 2: {a_val}")
         print()
 
-    write_all_matches(all_match_sizes, match_sets)    
+    write_all_matches(match_size_l, match_sets)    
 
 
 
@@ -402,7 +368,7 @@ def summarize_results(iter_no, match_sets, gap_sets):
 
     with open('2024/Day17/summary.csv', 'a', encoding='utf-8') as f:
         for k,m in enumerate(match_sizes):
-            print(f"Summarizing Match size: {m}")
+            # print(f"Summarizing Match size: {m}")
             all_values = match_sets[m]
             update_gap_set(match_sizes[k:k+1], match_sets, gap_sets)
             this_gap_set = gap_sets[m]
@@ -411,7 +377,7 @@ def summarize_results(iter_no, match_sets, gap_sets):
             max_value = max(all_values) if all_values else 0
             min_gap = min(this_gap_set) if this_gap_set else 0
             max_gap = max(this_gap_set) if this_gap_set else 0
-            f.write(f'{iter_no}, {match_sizes[m]}, {len(all_values)}, {min_value}, {max_value}, {len(this_gap_set)}, {min_gap}, {max_gap}\n')
+            f.write(f'{iter_no}, {m}, {len(all_values)}, {min_value}, {max_value}, {len(this_gap_set)}, {min_gap}, {max_gap}\n')
 
 
 def clean_all_files():
@@ -425,6 +391,15 @@ def clean_all_files():
     if os.path.exists(os.path.join(folder, 'summary.csv')):
         os.remove(os.path.join(folder, 'summary.csv'))
 
+def initialize_matches():
+    match_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22,
+                   24, 26, 28, 30, 32]
+    attempted = {x: set() for x in match_sizes}
+    matches = {x: set() for x in match_sizes}
+    gaps = {x: set() for x in match_sizes}
+    return match_sizes,attempted,matches,gaps
+
+
 def main():
     """This is the main function that runs the program."""
 
@@ -435,22 +410,22 @@ def main():
     print(f"Part 1: {output}")
 
     clean_all_files()
-    batch_size = 50
-    total_target = 20000
+    batch_size = 2000
+    total_target = 100000
+    time_limit = 240
     iter_count = total_target // batch_size
 
-    match_sizes = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22,
-                   24, 26, 28, 30, 32]
-    attempted = {x: set() for x in match_sizes}
-    matches = {x: set() for x in match_sizes}
-    gaps = {x: set() for x in match_sizes}
+    match_sizes, attempted, matches, gaps = initialize_matches()
+
     for i in range(iter_count):
         print('*'*20)
         print(f'iteration {i}')
         print('*'*20)
-        Part_2(data, batch_size,20, attempted, matches, gaps)
+        Part_2(data, batch_size,time_limit, attempted, matches, gaps, i)
         summarize_results(i, matches, gaps)
         write_all_matches(match_sizes, matches)
+
+
 
 if __name__ == "__main__":
     main()
