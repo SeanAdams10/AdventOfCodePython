@@ -104,7 +104,7 @@ def return_box(grid, cell):
     return cell
 
 def move_one_p2(grid, source_cells,direction):
-    quick_print_grid(grid, source_cells, direction,'Current iteration - direction:')
+    # quick_print_grid(grid, source_cells, direction,'Current iteration - direction:')
 
 
     r_delta, c_delta = ({'>': (0,1), '<': (0,-1), '^': (-1,0), 'v': (1,0)}).get(direction,(0,0)) 
@@ -135,7 +135,7 @@ def move_one_p2(grid, source_cells,direction):
             cell2 = (cell[0]+r_delta, cell[1]+c_delta)
             grid[cell], grid[cell2] = grid[cell2], grid[cell]
         
-        quick_print_grid(grid, source_cells, direction,'Unwind Current iteration - direction:')
+        # quick_print_grid(grid, source_cells, direction,'Unwind Current iteration - direction:')
         return True
     return False
 
@@ -166,16 +166,17 @@ def calc_gps(grid):
             gps += r*100 + c
         if value == '[':
             c2 = max_c - (c+1) 
-            this_gps = r*100 + min(c,c2)
+            # this_gps = r*100 + min(c,c2)
+            this_gps = r*100 + c
             gps += this_gps
-            print('Cell:', r,c, 'Left Dist:',c, 'Right Dist:',c2, 'GPS:', this_gps)
+            # print('Cell:', r,c, 'Left Dist:',c, 'Right Dist:',c2, 'GPS:', this_gps)
 
 
             
     return gps
 
 def main():
-    data = get_input_data(2024, 15, sample=1)
+    data = get_input_data(2024, 15, sample=0)
     grid, steps, r,c, max_r, max_c = read_input(data)
 
     for step in steps:
