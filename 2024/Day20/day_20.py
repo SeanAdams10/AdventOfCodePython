@@ -165,7 +165,7 @@ def part_1():
 
 def find_matches_2(moves:list, max: int) -> list:
     options = list(combinations(range(len(moves)), 2))
-    print(options)
+    # print(options)
     original_dist = len(moves)-1
     matches = {}
     for o in options:
@@ -180,8 +180,8 @@ def find_matches_2(moves:list, max: int) -> list:
     return matches
 
 
-def part_2():
-    data = get_input_data(2024, 20, sample=1)
+def main():
+    data = get_input_data(2024, 20, sample=0)
     grid, data, data_t = read_input(data)
 
     maxr = max([r for r, c in grid.keys()])
@@ -195,10 +195,23 @@ def part_2():
     for current in find_astar_solution(grid, start, end):
         moves.append(current)
 
+
+    # Part 1
     options = find_matches_2(moves,2) 
     distances = Counter(options.values())
     for k in sorted(distances):
+        pass
+        # print(f'There are {distances[k]} cheats that save {k} picoseconds.')
+    in_scope = sum([v for k,v in distances.items() if k>= 100])
+    print(f'Part 1: {in_scope}')
+
+    # # Part 2
+    options = find_matches_2(moves,20) 
+    distances = Counter(options.values())
+    for k in sorted(distances):
         print(f'There are {distances[k]} cheats that save {k} picoseconds.')
+    in_scope = sum([v for k,v in distances.items() if k>= 100])
+    print(f'Part 1: {in_scope}')
 
 
 
@@ -215,6 +228,6 @@ def part_2():
 
 if __name__ == "__main__":
     # part_1()
-    part_2()
+    main()
 
 
