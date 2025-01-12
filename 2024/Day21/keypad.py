@@ -51,14 +51,14 @@ class Keypad():
                 result.extend(step)
         return result    
 
-    @cache
+    # @cache
     def find_shortest(self,start, end)->list:
         candidates = self.find_paths(start, end)
         min_len = min([len(c) for c in candidates])
         shortest = list(filter(lambda x: len(x) == min_len, candidates))
         return shortest
 
-    @cache
+    # @cache
     def create_keypad_moves(self)->dict:
         perms = list(product(self.keypad_dict, repeat = 2))
 
@@ -68,14 +68,48 @@ class Keypad():
         return result
     
     
-    def translate_keyinput(self, keyinput: str)->list:
+    def shortest_list(self, candidates: list) -> list:
+        # print(f'starting length: {len(candidates)}')
+        min_len = min([len(c) for c in candidates])
+        shortest = list(filter(lambda x: len(x) == min_len, candidates))
+        # print(f'ending length: {len(shortest)}')
+        return shortest
+
+    @cache
+    def translate_keyinput_cache(self, start: str, keybatch: str)->list:
         results = ['']
-        keyinput = 'A' + keyinput
-        for i in range(0, len(keyinput)-1):
-            new = product(results, self.find_shortest(keyinput[i], keyinput[i+1]))
+        keybatch = start + keybatch
+        for i in range(0, len(keybatch)-1):
+            new = product(results, self.find_shortest(keybatch[i], keybatch[i+1]))
             results = [a+b for a,b in new]
-            # print(f'From: {keyinput[i]} to: {keyinput[i+1]}',self.find_shortest(keyinput[i], keyinput[i+1]))
+
+        results = self.shortest_list(results)
         return results
+    
+
+
+
+    def translate_keyinput(self, keyinput: str, cache_size = 1)->list:
+        results = ['']
+        # keyinput = 'A' + keyinput
+        current_start = 0
+        while current_start < len(keyinput):
+            current_end = current_start + cache_size
+            if current_end > len(keyinput):
+                current_end = len(keyinput)
+
+            if current_start == 0: 
+                start_char = 'A'
+            else:
+                start_char = keyinput[current_start-1]
+            tmp_list = self.translate_keyinput_cache(start_char, keyinput[current_start:current_end])
+            current_start += cache_size
+            new = product(results, tmp_list)
+            results = [''.join(x) for x in new]
+        return results
+
+            
+
 
 class Dir_Pad(Keypad):
 
