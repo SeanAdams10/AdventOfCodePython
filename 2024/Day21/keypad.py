@@ -1,5 +1,5 @@
 from functools import cache
-from itertools import product
+from itertools import product, groupby
 from aoc_utils import manhattan
 
 
@@ -51,14 +51,27 @@ class Keypad():
                 result.extend(step)
         return result    
 
-    # @cache
+
+    def most_contiguous_repeats(self, strings):
+
+        def max_contiguous_repeats(s):
+            # Group adjacent characters and find the longest group length
+            # return max(len(list(group)) for _, group in groupby(s))
+            groups = [len(list(grp)) for _,grp in groupby(s)]
+            return sum([x for x in groups if x > 1])
+
+        # Return the string with the highest count of contiguous repeats
+        return max(strings, key=max_contiguous_repeats)
+
+
     def find_shortest(self,start, end)->list:
         candidates = self.find_paths(start, end)
         min_len = min([len(c) for c in candidates])
         shortest = list(filter(lambda x: len(x) == min_len, candidates))
+        # final = self.most_contiguous_repeats(shortest)
+
         return shortest
 
-    # @cache
     def create_keypad_moves(self)->dict:
         perms = list(product(self.keypad_dict, repeat = 2))
 
@@ -88,7 +101,7 @@ class Keypad():
     
 
 
-
+    @cache
     def translate_keyinput(self, keyinput: str, cache_size = 1)->list:
         results = ['']
         # keyinput = 'A' + keyinput

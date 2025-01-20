@@ -57,18 +57,20 @@ def main():
             paths1.extend (dp.translate_keyinput(p,cache_size))
         paths1 = shortest_list(paths1)
         print(f'Code: {code} length of Path1: {len(paths1[0])} count: {len(paths1)}')
+        cache_size = len(paths1[0])//2
 
         paths2 = []
         for p in paths1:
             paths2.extend (dp.translate_keyinput(p,cache_size))
         paths2 = shortest_list(paths2)
         print(f'Code: {code} length of Path2: {len(paths2[0])} count: {len(paths2)}')    
+        cache_size = len(paths2[0])//2
 
-        # paths3 = []
-        # for p in paths2[:1]:
-        #     paths3.extend (dp.translate_keyinput(p,cache_size))
-        # paths3 = shortest_list(paths3)
-        # print(f'Code: {code} length of Path3: {len(paths3[0])} count: {len(paths3)}')    
+        paths3 = []
+        for p in paths2:
+            paths3.extend (dp.translate_keyinput(p,cache_size))
+        paths3 = shortest_list(paths3)
+        print(f'Code: {code} length of Path3: {len(paths3[0])} count: {len(paths3)}')    
 
         paths3 = paths2
         answer[code] = len(paths3[0])
