@@ -1,3 +1,6 @@
+from time import perf_counter
+
+
 def get_input_data(year: int, day: int, sample: int = 0) -> list:
     """
     Reads either the sample or the puzzle input data
