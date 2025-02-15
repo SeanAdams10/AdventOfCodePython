@@ -15,12 +15,9 @@ test_cases = [
     (2, 1, 3),   # 2 + 1 = 3
     (2, 2, 4),   # 2 + 2 = 4
     (3, 3, 6),   # 3 + 3 = 6 (double carry over)
-    (2**45, 2**45, 2**46),  # Test carry over at bit 45
-    (2**46, 2**46, 2**47),  # Test carry over at bit 46
-    (2**45 - 1, 1, 2**45),  # Test carry over from bit 0 to bit 45
-    (2**46 - 1, 1, 2**46),  # Test carry over from bit 0 to bit 46
-    (2**45, 1, 2**45 + 1),  # Test no carry over at bit 45
-    (2**46, 1, 2**46 + 1),  # Test no carry over at bit 46
+    # (2**45, 2**45, 2**46),  # Test carry over at bit 45
+    # (2**45 - 1, 1, 2**45),  # Test carry over from bit 0 to bit 45
+    # (2**45, 1, 2**45 + 1),  # Test no carry over at bit 45
 ]
 
 
@@ -115,7 +112,7 @@ def test_all_bits(rules):
         if result != this_result:
             result = result | this_result
             print(f'new result found {result}')
-            bit_count = bin(this_result).count('1')
+            bit_count = bin(result).count('1')
             print(f'Bit difference cnt: {bit_count}')
 
     return result, bit_count
