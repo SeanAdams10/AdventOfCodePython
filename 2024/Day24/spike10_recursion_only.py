@@ -378,7 +378,7 @@ def test_all_bits(rules, start=0, end=999999):
 
         registers = {**x, **y}
         actual, bit_list, success = part_1(rules, deepcopy(registers))
-        if not bit_list: #if the result is not a valid result, skip
+        if not bit_list or not success: #if the result is not a valid result, skip
             is_broken_rule = True   
             continue
 
@@ -408,7 +408,7 @@ def swap_rules(rules, key, newkey):
 
 
 def find_candidates(rules, baseline):
-    all_keys = [x.result for x in rules]    
+    all_keys = [x[3] for x in rules]    
 
     candidates = set()
     counter = 0
@@ -432,161 +432,15 @@ def find_candidates(rules, baseline):
     return candidates
 
 
-
-def phase_2(rules_orig, combinations)-> list:
-
-    counter = 0
-    lowest = 22
-    for k1 in range(len(combinations)):
-        for k2 in range(k1+1, len(combinations)):
-            for k3 in range(k2+1, len(combinations)):
-                for k4 in range(k3+1, len(combinations)):
-
-                    c1 = combinations[k1]
-                    c2 = combinations[k2]
-                    c3 = combinations[k3]
-                    c4 = combinations[k4]
-
-                    #todo: check that none of the elements of the combination are the same
-                    check_dup = set([c1[0],c1[1], c2[0],c2[1], c3[0],c3[1], c4[0],c4[1]])
-                    if len(check_dup) < 8:
-                        continue
-
-                    counter += 1
-                    if counter % 5000 == 0:
-                        print(counter,c1,c2,c3,c4, f'Lowest: {lowest}')
-                        print(counter,k1,k2,k3,k4)
-
-                    rules = deepcopy(rules_orig)
-                    rules = swap_rules(rules, c1[0], c1[1])
-                    rules = swap_rules(rules, c2[0], c2[1])
-                    rules = swap_rules(rules, c3[0], c3[1])
-                    rules = swap_rules(rules, c4[0], c4[1])
-
-                    error_cnt = test_all_bits(rules)[1]
-                    if error_cnt <= lowest:
-                        lowest = error_cnt
-                        print(f"Lowest: {lowest}, {c1}, {c2}, {c3}, {c4}")
-
-                    #todo: check if the valid flag is in errors or positive results
-                    if error_cnt == 0:
-                        print(f"Result found: {c1}, {c2}, {c3}, {c4}")
-                        print (f"Result: {error_cnt}")
-                        return [c1, c2, c3, c4]
-    return [('0','0'),('0','0'),('0','0'),('0','0')]
-
-
-def phase_2_pairs(rules_orig, combinations)-> list:
-
-    counter = 0
-    lowest = 22
-    results = []
-    for k1 in range(len(combinations)):
-        for k2 in range(k1+1, len(combinations)):
-
-            c1 = combinations[k1]
-            c2 = combinations[k2]
-
-            check_dup = set([c1[0],c1[1], c2[0],c2[1]])
-            if len(check_dup) < 4:
-                continue
-
-            counter += 1
-            if counter % 2000 == 0:
-                print(counter,c1,c2, f'Lowest = {lowest}')
-                print(counter,k1,k2)
-
-            rules = deepcopy(rules_orig)
-            rules = swap_rules(rules, c1[0], c1[1])
-            rules = swap_rules(rules, c2[0], c2[1])
-
-            error_cnt = test_all_bits(rules)[1]
-            if error_cnt < c1[2] and error_cnt < c2[2]:
-                results.append((c1, c2, error_cnt),)
-                if error_cnt < lowest:
-                    lowest = error_cnt
-                    print(f"Lowest: {lowest}, {c1}, {c2}")
-    return results
-
-
-
-
-
 def main():
     data = get_input_data(2024, 24, sample=0)
     start_vals, rules = read_input(data)
 
-    # start_time = perf_counter()
-    # for i in range(10000):
-    #     actual = part_1(deepcopy(rules), deepcopy(start_vals))[0]
-    # end_time = perf_counter()
-    # print(f"Time taken: {end_time - start_time} seconds")
-
-    # start_time = perf_counter()
-    # for i in range(10000):
-    #     actual = part_1_recursion(deepcopy(rules), deepcopy(start_vals))[0]
-    # end_time = perf_counter()
-    # print(f"Time taken_Recursion: {end_time - start_time} seconds")
-
-
-    # x,y,expected = get_expected(start_vals)
+    differnece, diff_cnt = test_all_bits(rules)
+    print(f'Bit difference cnt after testing: {diff_cnt}')
     
-    # difference = bin(actual ^ expected)
-    # print (f'({x},{y},{expected})')
-    # print(f"Expected:   {bin(expected).rjust(48)} = {expected}")
-    # print(f"Actual:     {bin(actual).rjust(48)} = {actual}")
-    # print(f"Difference: {difference.rjust(48)} = {int(difference, 2)}")
-    # print(f'Bit difference cnt: {difference.count("1")}')
+    candidates = find_candidates(rules, diff_cnt)
 
-    # print('testing')
-
-    # differnece, diff_cnt = test_all_bits(rules)
-    # print(f'Bit difference cnt after testing: {diff_cnt}')
-    
-    # candidates = find_candidates(rules, diff_cnt)
-
-    # with open('./2024/Day24/candidates.txt','w') as f:
-    #     data = f.writelines([f'{x},{y},{z}\n' for x,y,z in candidates])
-
-
-    # with open('2024/Day24/candidates.txt', 'r') as f:
-    #     data = f.read().splitlines()
-    #     candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
-
-    # candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
-    # candidates = list(set(candidates)) #remove duplicates
-
-    # cutoff = int(input("Enter the cutoff value: "))
-
-    # candidates = filter(lambda x: int(x[2]) < cutoff, candidates) #filter out the ones that don't do much
-    # candidates = sorted(candidates, key=lambda x: x[2]) #then sort in ascending order - most effective first
-
-    # result = phase_2(rules, candidates)
-
-    # if result:
-    #     result = [f'{min(x)},{max(x)}' for x in result]
-    #     result = sorted(result, reverse=False)
-    #     print(','.join(result))
-
-
-    # 2 pairs
-    with open('2024/Day24/candidates.txt', 'r') as f:
-        data = f.read().splitlines()
-        candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
-
-    candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
-    candidates = list(set(candidates)) #remove duplicates
-
-    cutoff = int(input("Enter the cutoff value: "))
-
-    candidates = filter(lambda x: int(x[2]) < cutoff, candidates) #filter out the ones that don't do much
-    candidates = sorted(candidates, key=lambda x: x[2]) #then sort in ascending order - most effective first
-
-    result = phase_2_pairs(rules, candidates)
-
-    with open('./2024/Day24/candidates_2_pair.txt','w') as f:
-        for a,b,c in result:
-            f.writelines(f'{a}:{b}:{c}\n')
 
 if __name__ == "__main__":
     main()

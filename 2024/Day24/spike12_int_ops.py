@@ -289,17 +289,37 @@ def read_input(data) -> list:
     """
     placeholder for the parser needed for this day's puzzle
     """
+
+    opkey = {'AND': 0, 'OR': 1, 'XOR': 2}
+
+    keys = []
     start_vals = {x.split(":")[0].strip(): int(x.split(":")[1].strip())
              for x in data if ":" in x}
+
+    keys.extend(start_vals.keys())
+    start_vals = {keys.index(k):v for k,v in start_vals.items()}
+
     
     rules = []
     for row in data:
         if "->" in row:
             op, res = row.split(' -> ')
             op1, operand, op2 = op.split()
-            rules.append((op1, op2, operand, res),)
 
-    return start_vals, rules
+            if op1 not in keys: keys.append(op1)
+            op1_key = keys.index(op1)
+
+            if op2 not in keys: keys.append(op2)
+            op2_key = keys.index(op2)
+
+            if res not in keys: keys.append(res)
+            res_key = keys.index(res)
+
+            operand_key = opkey[operand]        
+            # rules.append((op1, op2, operand, res),)
+            rules.append((op1_key, op2_key, operand_key, res_key),)
+
+    return start_vals, rules, keys
 
 
 
@@ -310,11 +330,11 @@ def convert_dict_to_int(registers, key) ->int:
         return 0
     return int(x, 2)
 
-def part_1(rules, registers):
+def part_1(rules, registers, keys):
     ops = {
-        'AND': lambda x, y: x & y,
-        'OR': lambda x, y: x | y,
-        'XOR': lambda x, y: x ^ y
+        0: lambda x, y: x & y,
+        1: lambda x, y: x | y,
+        2: lambda x, y: x ^ y
         }
     
     def recurse_answer(key, stack):
@@ -337,7 +357,8 @@ def part_1(rules, registers):
     result = []
     for i in range(46):
         key = f'z{str(i).rjust(2,"0")}'
-        val, success = recurse_answer(key, list())
+        int_key = keys.index(key)
+        val, success = recurse_answer(int_key, list())
         if not success:
             return -1, [], False
         result.append(val)
@@ -377,7 +398,7 @@ def test_all_bits(rules, start=0, end=999999):
         assert t[1] <= 2**46 
 
         registers = {**x, **y}
-        actual, bit_list, success = part_1(rules, deepcopy(registers))
+        actual, bit_list = part_1(rules, deepcopy(registers))
         if not bit_list: #if the result is not a valid result, skip
             is_broken_rule = True   
             continue
@@ -453,8 +474,8 @@ def phase_2(rules_orig, combinations)-> list:
                         continue
 
                     counter += 1
-                    if counter % 5000 == 0:
-                        print(counter,c1,c2,c3,c4, f'Lowest: {lowest}')
+                    if counter % 2000 == 0:
+                        print(counter,c1,c2,c3,c4)
                         print(counter,k1,k2,k3,k4)
 
                     rules = deepcopy(rules_orig)
@@ -476,51 +497,15 @@ def phase_2(rules_orig, combinations)-> list:
     return [('0','0'),('0','0'),('0','0'),('0','0')]
 
 
-def phase_2_pairs(rules_orig, combinations)-> list:
-
-    counter = 0
-    lowest = 22
-    results = []
-    for k1 in range(len(combinations)):
-        for k2 in range(k1+1, len(combinations)):
-
-            c1 = combinations[k1]
-            c2 = combinations[k2]
-
-            check_dup = set([c1[0],c1[1], c2[0],c2[1]])
-            if len(check_dup) < 4:
-                continue
-
-            counter += 1
-            if counter % 2000 == 0:
-                print(counter,c1,c2, f'Lowest = {lowest}')
-                print(counter,k1,k2)
-
-            rules = deepcopy(rules_orig)
-            rules = swap_rules(rules, c1[0], c1[1])
-            rules = swap_rules(rules, c2[0], c2[1])
-
-            error_cnt = test_all_bits(rules)[1]
-            if error_cnt < c1[2] and error_cnt < c2[2]:
-                results.append((c1, c2, error_cnt),)
-                if error_cnt < lowest:
-                    lowest = error_cnt
-                    print(f"Lowest: {lowest}, {c1}, {c2}")
-    return results
-
-
-
-
-
 def main():
     data = get_input_data(2024, 24, sample=0)
-    start_vals, rules = read_input(data)
+    start_vals, rules, keys = read_input(data)
 
-    # start_time = perf_counter()
-    # for i in range(10000):
-    #     actual = part_1(deepcopy(rules), deepcopy(start_vals))[0]
-    # end_time = perf_counter()
-    # print(f"Time taken: {end_time - start_time} seconds")
+    start_time = perf_counter()
+    for i in range(10000):
+        actual = part_1(deepcopy(rules), deepcopy(start_vals), keys)[0]
+    end_time = perf_counter()
+    print(f"Time taken: {end_time - start_time} seconds")
 
     # start_time = perf_counter()
     # for i in range(10000):
@@ -569,24 +554,7 @@ def main():
     #     print(','.join(result))
 
 
-    # 2 pairs
-    with open('2024/Day24/candidates.txt', 'r') as f:
-        data = f.read().splitlines()
-        candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
 
-    candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
-    candidates = list(set(candidates)) #remove duplicates
-
-    cutoff = int(input("Enter the cutoff value: "))
-
-    candidates = filter(lambda x: int(x[2]) < cutoff, candidates) #filter out the ones that don't do much
-    candidates = sorted(candidates, key=lambda x: x[2]) #then sort in ascending order - most effective first
-
-    result = phase_2_pairs(rules, candidates)
-
-    with open('./2024/Day24/candidates_2_pair.txt','w') as f:
-        for a,b,c in result:
-            f.writelines(f'{a}:{b}:{c}\n')
 
 if __name__ == "__main__":
     main()

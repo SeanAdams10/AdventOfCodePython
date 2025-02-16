@@ -1,5 +1,4 @@
 import day_24_v3
-# import spike10_recursion_only
 import pytest
 
 
@@ -31,28 +30,16 @@ def test_create_registers(bitcount, value, prefix, expected):
 
 
 @pytest.mark.parametrize("rules, startkey, endkey, result", [
-    ([(1,1,1,'a'), (2,2,2,'b')],'a','b',
-     [(1,1,1,'b'), (2,2,2,'a')]), 
-    ([(1,1,1,'a'), (2,2,2,'b'), (3,3,3,'c')],'a','c',
-     [(1,1,1,'c'), (2,2,2,'b'), (3,3,3,'a')]), 
+    ([day_24_v3.Rule(1,1,1,'a'), day_24_v3.Rule(2,2,2,'b')],'a','b',
+     [day_24_v3.Rule(1,1,1,'b'), day_24_v3.Rule(2,2,2,'a')]), 
+    ([day_24_v3.Rule(1,1,1,'a'), day_24_v3.Rule(2,2,2,'b'), day_24_v3.Rule(3,3,3,'c')],'a','c',
+     [day_24_v3.Rule(1,1,1,'c'), day_24_v3.Rule(2,2,2,'b'), day_24_v3.Rule(3,3,3,'a')]), 
 
 ])
 
 def test_swap_rules(rules, startkey, endkey, result):
     day_24_v3.swap_rules(rules, startkey, endkey)
     assert rules == result
-
-
-def test_part_1_recursion():
-    registers = {}
-    rules = [('a', 'a', 'AND', 'z00'), ('b', 'b', 'OR', 'a'), ('a', 'a', 'AND', 'b'),]
-    decimal_result, result, success =  day_24_v3.part_1(rules, registers)
-    assert success == False
-    assert decimal_result == -1
-    assert result == []
-
-
-
 
 if __name__ == "__main__":
     pytest.main()

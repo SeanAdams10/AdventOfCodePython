@@ -433,49 +433,6 @@ def find_candidates(rules, baseline):
 
 
 
-def phase_2(rules_orig, combinations)-> list:
-
-    counter = 0
-    lowest = 22
-    for k1 in range(len(combinations)):
-        for k2 in range(k1+1, len(combinations)):
-            for k3 in range(k2+1, len(combinations)):
-                for k4 in range(k3+1, len(combinations)):
-
-                    c1 = combinations[k1]
-                    c2 = combinations[k2]
-                    c3 = combinations[k3]
-                    c4 = combinations[k4]
-
-                    #todo: check that none of the elements of the combination are the same
-                    check_dup = set([c1[0],c1[1], c2[0],c2[1], c3[0],c3[1], c4[0],c4[1]])
-                    if len(check_dup) < 8:
-                        continue
-
-                    counter += 1
-                    if counter % 5000 == 0:
-                        print(counter,c1,c2,c3,c4, f'Lowest: {lowest}')
-                        print(counter,k1,k2,k3,k4)
-
-                    rules = deepcopy(rules_orig)
-                    rules = swap_rules(rules, c1[0], c1[1])
-                    rules = swap_rules(rules, c2[0], c2[1])
-                    rules = swap_rules(rules, c3[0], c3[1])
-                    rules = swap_rules(rules, c4[0], c4[1])
-
-                    error_cnt = test_all_bits(rules)[1]
-                    if error_cnt <= lowest:
-                        lowest = error_cnt
-                        print(f"Lowest: {lowest}, {c1}, {c2}, {c3}, {c4}")
-
-                    #todo: check if the valid flag is in errors or positive results
-                    if error_cnt == 0:
-                        print(f"Result found: {c1}, {c2}, {c3}, {c4}")
-                        print (f"Result: {error_cnt}")
-                        return [c1, c2, c3, c4]
-    return [('0','0'),('0','0'),('0','0'),('0','0')]
-
-
 def phase_2_pairs(rules_orig, combinations)-> list:
 
     counter = 0
@@ -506,10 +463,9 @@ def phase_2_pairs(rules_orig, combinations)-> list:
                 if error_cnt < lowest:
                     lowest = error_cnt
                     print(f"Lowest: {lowest}, {c1}, {c2}")
+            if counter > 1000:
+                break
     return results
-
-
-
 
 
 def main():
@@ -549,27 +505,6 @@ def main():
     #     data = f.writelines([f'{x},{y},{z}\n' for x,y,z in candidates])
 
 
-    # with open('2024/Day24/candidates.txt', 'r') as f:
-    #     data = f.read().splitlines()
-    #     candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
-
-    # candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
-    # candidates = list(set(candidates)) #remove duplicates
-
-    # cutoff = int(input("Enter the cutoff value: "))
-
-    # candidates = filter(lambda x: int(x[2]) < cutoff, candidates) #filter out the ones that don't do much
-    # candidates = sorted(candidates, key=lambda x: x[2]) #then sort in ascending order - most effective first
-
-    # result = phase_2(rules, candidates)
-
-    # if result:
-    #     result = [f'{min(x)},{max(x)}' for x in result]
-    #     result = sorted(result, reverse=False)
-    #     print(','.join(result))
-
-
-    # 2 pairs
     with open('2024/Day24/candidates.txt', 'r') as f:
         data = f.read().splitlines()
         candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
@@ -587,6 +522,7 @@ def main():
     with open('./2024/Day24/candidates_2_pair.txt','w') as f:
         for a,b,c in result:
             f.writelines(f'{a}:{b}:{c}\n')
+
 
 if __name__ == "__main__":
     main()
