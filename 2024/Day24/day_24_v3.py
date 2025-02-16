@@ -360,33 +360,33 @@ def part_1(rules, registers):
     return decimal_result, registers
 
 
-# def part_1(rules, registers):
-#     ops = {
-#         'AND': lambda x, y: x & y,
-#         'OR': lambda x, y: x | y,
-#         'XOR': lambda x, y: x ^ y
-#         }
+def part_1_recursion(rules, registers):
+    ops = {
+        'AND': lambda x, y: x & y,
+        'OR': lambda x, y: x | y,
+        'XOR': lambda x, y: x ^ y
+        }
     
-#     def recurse_answer(key):
-#         if key in registers:
-#             return registers[key]
-#         rule = rules_dict[key]
-#         op1 = recurse_answer(rule.op1)
-#         op2 = recurse_answer(rule.op2)
-#         registers[key] = ops[rule.operand](op1, op2)
-#         return registers[key]
+    def recurse_answer(key):
+        if key in registers:
+            return registers[key]
+        rule = rules_dict[key]
+        op1 = recurse_answer(rule.op1)
+        op2 = recurse_answer(rule.op2)
+        registers[key] = ops[rule.operand](op1, op2)
+        return registers[key]
 
         
-#     rules_dict = {x.result: x for x in rules}
-#     result = []
-#     for i in range(46):
-#         key = f'z{str(i).rjust(2,"0")}'
-#         result.append(recurse_answer(key))
+    rules_dict = {x.result: x for x in rules}
+    result = []
+    for i in range(46):
+        key = f'z{str(i).rjust(2,"0")}'
+        result.append(recurse_answer(key))
 
-#     binary_string = ''.join(map(str, result[::-1]))
-#     decimal_result = int(binary_string, 2)
+    binary_string = ''.join(map(str, result[::-1]))
+    decimal_result = int(binary_string, 2)
 
-#     return decimal_result, result
+    return decimal_result, result
 
 
 def get_expected(registers):
@@ -473,7 +473,6 @@ def find_candidates(rules, baseline):
 
 
 def phase_2(rules_orig, combinations)-> list:
-    rules_orig = {x.result:x for x in rules_orig}
 
     counter = 0
     lowest = 22
@@ -486,8 +485,14 @@ def phase_2(rules_orig, combinations)-> list:
                     c2 = combinations[k2]
                     c3 = combinations[k3]
                     c4 = combinations[k4]
+
+                    #todo: check that none of the elements of the combination are the same
+                    check_dup = set([c1[0],c1[1], c2[0],c2[1], c3[0],c3[1], c4[0],c4[1]])
+                    if len(check_dup) < 8:
+                        continue
+
                     counter += 1
-                    if counter % 1000 == 0:
+                    if counter % 2000 == 0:
                         print(counter,c1,c2,c3,c4)
                         print(counter,k1,k2,k3,k4)
 
@@ -497,44 +502,74 @@ def phase_2(rules_orig, combinations)-> list:
                     rules = swap_rules(rules, c3[0], c3[1])
                     rules = swap_rules(rules, c4[0], c4[1])
 
-                    valid = test_all_bits(rules)[1]
-                    if valid < lowest:
-                        lowest = valid
+                    error_cnt = test_all_bits(rules)[1]
+                    if error_cnt <= lowest:
+                        lowest = error_cnt
                         print(f"Lowest: {lowest}, {c1}, {c2}, {c3}, {c4}")
 
                     #todo: check if the valid flag is in errors or positive results
-                    if sum(valid) == 0:
+                    if error_cnt == 0:
                         print(f"Result found: {c1}, {c2}, {c3}, {c4}")
-                        print (f"Result: {sum(valid)}")
-                        # return [c1, c2, c3, c4]
-    return
+                        print (f"Result: {error_cnt}")
+                        return [c1, c2, c3, c4]
+    return [('0','0'),('0','0'),('0','0'),('0','0')]
 
 
 def main():
     data = get_input_data(2024, 24, sample=0)
     start_vals, rules = read_input(data)
 
-    actual = part_1(deepcopy(rules), deepcopy(start_vals))[0]
-    print(actual)
+    start_time = perf_counter()
+    for i in range(10000):
+        actual = part_1(deepcopy(rules), deepcopy(start_vals))[0]
+    end_time = perf_counter()
+    print(f"Time taken: {end_time - start_time} seconds")
 
-    x,y,expected = get_expected(start_vals)
+    start_time = perf_counter()
+    for i in range(10000):
+        actual = part_1_recursion(deepcopy(rules), deepcopy(start_vals))[0]
+    end_time = perf_counter()
+    print(f"Time taken_Recursion: {end_time - start_time} seconds")
+
+
+    # x,y,expected = get_expected(start_vals)
     
-    difference = bin(actual ^ expected)
-    print (f'({x},{y},{expected})')
-    print(f"Expected:   {bin(expected).rjust(48)} = {expected}")
-    print(f"Actual:     {bin(actual).rjust(48)} = {actual}")
-    print(f"Difference: {difference.rjust(48)} = {int(difference, 2)}")
-    print(f'Bit difference cnt: {difference.count("1")}')
+    # difference = bin(actual ^ expected)
+    # print (f'({x},{y},{expected})')
+    # print(f"Expected:   {bin(expected).rjust(48)} = {expected}")
+    # print(f"Actual:     {bin(actual).rjust(48)} = {actual}")
+    # print(f"Difference: {difference.rjust(48)} = {int(difference, 2)}")
+    # print(f'Bit difference cnt: {difference.count("1")}')
 
-    print('testing')
+    # print('testing')
 
-    differnece, diff_cnt = test_all_bits(rules)
-    print(f'Bit difference cnt after testing: {diff_cnt}')
+    # differnece, diff_cnt = test_all_bits(rules)
+    # print(f'Bit difference cnt after testing: {diff_cnt}')
     
-    candidates = find_candidates(rules, diff_cnt)
+    # candidates = find_candidates(rules, diff_cnt)
 
-    with open('./2024/Day24/candidates.txt','w') as f:
-        data = f.writelines([f'{x},{y},{z}\n' for x,y,z in candidates])
+    # with open('./2024/Day24/candidates.txt','w') as f:
+    #     data = f.writelines([f'{x},{y},{z}\n' for x,y,z in candidates])
+
+
+    # with open('2024/Day24/candidates.txt', 'r') as f:
+    #     data = f.read().splitlines()
+    #     candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
+
+    # candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
+    # candidates = list(set(candidates)) #remove duplicates
+
+    # cutoff = int(input("Enter the cutoff value: "))
+
+    # candidates = filter(lambda x: int(x[2]) < cutoff, candidates) #filter out the ones that don't do much
+    # candidates = sorted(candidates, key=lambda x: x[2]) #then sort in ascending order - most effective first
+
+    # result = phase_2(rules, candidates)
+
+    # if result:
+    #     result = [f'{min(x)},{max(x)}' for x in result]
+    #     result = sorted(result, reverse=False)
+    #     print(','.join(result))
 
 
 
