@@ -1,10 +1,8 @@
-from utils import get_input_data, timing_decorator
+from utils import get_input_data
 from time import perf_counter
 from copy import deepcopy
 from functools import cache
 import pickle
-
-
 
 
 test_cases = [
@@ -298,7 +296,7 @@ def read_input(data) -> list:
         if "->" in row:
             op, res = row.split(' -> ')
             op1, operand, op2 = op.split()
-            rules.append((op1.strip(), op2.strip(), operand.strip(), res.strip()),)
+            rules.append((op1, op2, operand, res),)
 
     return start_vals, rules
 
@@ -354,7 +352,6 @@ def part_1(rules: tuple, registers: tuple, largest_z: int):
     return decimal_result
 
 
-
 def get_expected(registers):
     x = convert_dict_to_int(registers, 'x')
     y = convert_dict_to_int(registers, 'y')
@@ -365,10 +362,52 @@ def get_expected(registers):
 @cache
 def create_registers(bit_count, value, prefix):
     result = dict()
-    for i in range(bit_count+1):
+    for i in range(bit_count):
         key = f"{prefix}" + str(i).rjust(2, "0")
         result[key] = (value >> i) & 1
     return result
+
+def get_lsb_index(n): #get the index of the least significant bit
+    return (n & -n).bit_length() - 1
+
+def test_all_bits(rules, largest_z):
+
+    result = 0
+    bit_count = 0
+    is_broken_rule = False
+
+    test_cases.sort(key=lambda x: x[2])#sort by the result value
+
+    for t in test_cases:
+        if t[2] > 2**largest_z: continue
+
+        x = create_registers(46, t[0], 'x')
+        y = create_registers(46, t[1], 'y')
+
+        registers = {**x, **y}
+        actual = part_1(tuple(rules), tuple(registers.items()), largest_z)
+        if actual < 0: #if the result is not a valid result, skip
+            is_broken_rule = True   
+            break
+
+        this_result = actual ^ t[2]
+        if result != this_result:
+            if result | this_result > result:
+                result = result | this_result
+                # print(f'new result found {result}')
+                bit_count = bin(result).count('1')
+                # print(f'Bit difference cnt: {bit_count}')
+
+    if is_broken_rule:
+        return -1, 0, 0
+
+
+    lsb_index = get_lsb_index(result)
+
+    return result, bit_count, lsb_index
+
+
+
 
 def swap_rules(rules, key, newkey):
     key_rule = next(rule for rule in rules if rule[3] == key)
@@ -382,51 +421,35 @@ def swap_rules(rules, key, newkey):
 
     return rules
 
-@cache
-def find_candidates_one_bit(rules, largest_z, print_padding):
-    assert isinstance(rules, tuple)
-    rules = list(rules)
 
+
+def find_candidates(rules, baseline, largest_z, indent_level):
     all_keys = [x[3] for x in rules]    
 
+    candidates = set()
     counter = 0
     for x in range(len(all_keys)):
-        print('-'* (print_padding*4), f'Outer Loop: {x} :: {all_keys[x]} :: {len(all_keys[x+1:])}')
+        print(f'Outer Loop: {x} :: {all_keys[x]} :: {len(all_keys[x+1:])}')
         for y in range(x+1,len(all_keys)):
             counter += 1
             new_rules = deepcopy(rules)
             new_rules = swap_rules(new_rules, all_keys[x], all_keys[y])
-            _, diff_cnt = test_all_bits(new_rules, largest_z)
-            if diff_cnt == 0:
-                print(' '*(print_padding*4), f'New candidate found: {all_keys[x]} and {all_keys[y]} with {diff_cnt}')
-                candidate = (min(all_keys[x], all_keys[y]), max(all_keys[x], all_keys[y]), diff_cnt)
-                yield candidate
+            _, diff_cnt, lsb_index = test_all_bits(new_rules, largest_z)
+            if diff_cnt < baseline:
+                candidates.add((all_keys[x], all_keys[y], diff_cnt))
+                print(f'{" "*4*indent_level}New candidate found: {all_keys[x]} and {all_keys[y]} with {diff_cnt}')
 
             if counter % 2000 == 0 :
-                print('-'*(print_padding*4), f'Counter: {counter}')
+                print(f'{" "*4*indent_level}Counter: {counter}')
+    return candidates
 
-def get_lsb_index(n): #get the index of the least significant bit
-    return (n & -n).bit_length() - 1
 
-def find_first_broken(rules, largest_z, test_function, print_padding):
-    """
-    Finds the first broken rule in a set of rules by testing against provided test cases.
-    Args:
-        rules (list): A list of rules to be tested.
-        largest_z (int): The largest value of 'z' to be considered in the test cases.
-        test_function (function): A function that takes the rules, registers, and largest_z as input and returns the test result.
-    Returns:
-        tuple: A tuple containing:
-            - int: The index of the first broken rule, or -1 if no broken rule is found.
-            - bool: A boolean indicating whether the rules are valid (True) or broken (False).
-    """
-
+def find_first_broken_bit(rules, largest_z, test_function):
     test_cases.sort(key = lambda x: x[2])
     
     final_test_bits = 0
     for t in test_cases:
         expected = t[2]
-        if expected > 2**largest_z: continue
         x = create_registers(largest_z, t[0], 'x')
         y = create_registers(largest_z, t[1], 'y')
         registers = {**x, **y}
@@ -437,96 +460,104 @@ def find_first_broken(rules, largest_z, test_function, print_padding):
         
         this_test = actual ^ expected #get the bit difference between actual & expected
         final_test_bits = final_test_bits | this_test #combine the bit differences
-
     
-    final_test_bits = final_test_bits & (2**(largest_z+1)-1) #mask the bits to only the first 46 bits
     if final_test_bits < 0: #if the rules are broken, return -1
-        print('-'*(print_padding*4), 'FindBroken: Broken Rule Found')
-        return -1, False
+        return -1, 0, 0
     if final_test_bits == 0:
-        print('-'*(print_padding*4), 'FindBroken: No broken bits found')
-        return -1, True
-    print('-'*(print_padding*4), f'FindBroken: Broken bit {get_lsb_index(final_test_bits)}')
-    return get_lsb_index(final_test_bits), True
+        return 0, 0, 0
+    return final_test_bits, bin(final_test_bits).count('1'), get_lsb_index(final_test_bits)
 
-def test_all_bits(rules, largest_z):
-
-    result = 0
-    bit_count = 0
-    is_broken_rule = False
-    for t in test_cases:
-        if t[2] > 2**largest_z: continue
-
-        x = create_registers(46, t[0], 'x')
-        y = create_registers(46, t[1], 'y')
-
-        registers = {**x, **y}
-        actual = part_1(tuple(rules), tuple(registers.items()), largest_z)
-        if actual < 0: #if the result is not a valid result, skip
-            is_broken_rule = True   
-            break
-
-        this_result = actual ^ t[2]    #This is an XOR because you want to look for differences
-        if result != this_result:
-            if result | this_result > result:
-                result = result | this_result
-                # print(f'new result found {result}')
-                bit_count = bin(result).count('1')
-                # print(f'Bit difference cnt: {bit_count}')
-
-    if is_broken_rule:
-        return int('1'*46, 2), 46
-    return result, bit_count
-
-
-def finder(rules, applied_swaps,max_z, recurse_depth):
-    first_bit, success = find_first_broken(rules, max_z, part_1, recurse_depth)
-    if not success:
-        return -1
-    if first_bit < 0: #i.e. success with a -1 meaning no broken rules
+def finder(rules, applied_swaps):
+    _,_,first_bit = find_first_broken_bit(rules, 45, part_1)
+    if first_bit == 0:
         return applied_swaps
-    if recurse_depth == 4: # if we have not found a solution after 4 swaps then fail
+    if len(applied_swaps) == 4:
         return -1
     
-    for c in find_candidates_one_bit(tuple(rules), first_bit, recurse_depth):
+    candidates = find_candidates(rules, 1, first_bit, len(applied_swaps)*4)
+    for c in candidates:
         new_rules = deepcopy(rules)
         new_rules = swap_rules(new_rules, c[0], c[1])
-        result = finder(new_rules, applied_swaps + [c], max_z, recurse_depth+1)
+        result = finder(new_rules, applied_swaps + [c])
         if result != -1:
-            print('-'*(recurse_depth*4),f'Found a solution at depth {recurse_depth}')
             return result
+        applied_swaps.pop()
+
     return -1
 
-
-
-
 def main():
-    data = get_input_data(2024, 24, sample=8)
+    data = get_input_data(2024, 24, sample=0)
     start_vals, rules = read_input(data)
-    largest_z = max([x[3] for x in rules if x[3].startswith('z')])
-    largest_z_int = int(largest_z[1:])
-
-    a,b = test_all_bits(rules, largest_z_int)
-    print(a,b)
 
 
-    # print(part_1(tuple(rules), tuple(start_vals.items()), largest_z_int))
 
-    print('Now into Find First Broken')
-    print(find_first_broken(rules, largest_z_int, part_1, 0))
-    # candidates = find_candidates(rules, 1, largest_z_int, 0)
-    swaps = finder(rules, [], largest_z_int,0)
-    print(swaps)
+    
+    # Find first broken line
+    result, bit_count, lsb_index = find_first_broken_bit(rules, 45, part_1)
+    print(f'result: {result} :: mismatch count {bit_count} :: lsb_index {lsb_index}')
 
-    for key, swp in enumerate(swaps):
-        print("Swaps: ", key, swp)
-        rules = swap_rules(rules, swp[0], swp[1])
+    candidates = find_candidates(rules, 1, lsb_index, 0)
 
-    print('test if this works')
-    print('-'*50)
-    a,b = test_all_bits(rules, largest_z_int)
-    print(a,b)
-    if b==0: print('Success')
+    print(len(candidates), ' candidates found')
+    # print(candidates)
+
+    # with open('./2024/Day24/candidates_first.pkl', 'wb') as f:
+    #     pickle.dump(candidates, f)
+
+    # del candidates
+
+    # with open('./2024/Day24/candidates_first.pkl', 'rb') as f:
+    #     candidates = pickle.load(f)
+    #     print(candidates)
+
+    # # Find first broken line
+
+    # for row in candidates: #if there are multiple candidates
+    #     x = row[0]
+    #     y = row[1]
+
+    #     tmp_rule = swap_rules(deepcopy(rules), x, y)
+
+    #     for i in range(46):
+    #         result, bit_count = test_all_bits(tmp_rule, i)
+    #         print(f'Bit count: {i} :: mismatch count {bit_count}')
+    #         if bit_count > 0:
+    #             break
+
+
+    
+
+
+    # with open('./2024/Day24/candidates_first.txt', 'r') as f:
+    #     data = f.read().splitlines()
+    #     candidates = [(x.split(',')[0], x.split(',')[1], int(x.split(',')[2])) for x in data]
+    #     candidates = [(min(x[0], x[1]), max(x[0], x[1]), x[2]) for x in candidates] #order the pairs
+    #     candidates = list(set(candidates)) #remove duplicates
+
+
+    
+    # # Find 2nd broken line
+    # good_candidates = set()
+    # for row in candidates: #if there are multiple candidates
+    #     x = row[0]
+    #     y = row[1]
+
+    #     tmp_rule = swap_rules(deepcopy(rules), x, y)
+
+    #     for i in range(46):
+    #         result, bit_count = test_all_bits(tmp_rule, i)
+    #         print(f'Bit count: {i} :: mismatch count {bit_count}')
+
+    #         if bit_count > 0:
+    #             c2 = find_candidates(rules, bit_count, i,1)
+    #             this_candidate = set([(row, x) for x in c2])
+    #             good_candidates= good_candidates.union(this_candidate)
+    #             if len(c2) > 0:
+    #                 print(c2)
+    #             break
+        
+    # print(good_candidates)
+    
 
 
 

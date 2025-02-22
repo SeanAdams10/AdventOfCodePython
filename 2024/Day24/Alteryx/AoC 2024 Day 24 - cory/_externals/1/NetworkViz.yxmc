@@ -1,0 +1,1227 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2024.2">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="467" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Nodes</Name>
+          <Abbrev>N</Abbrev>
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="5" />
+              <Fields>
+                <Field name="id" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>4</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Nodes</Name>
+          <AnnotationText>Nodes</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="id" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="66" y="551" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Edges</Name>
+          <Abbrev>E</Abbrev>
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="5" />
+              <Fields>
+                <Field name="from" />
+                <Field name="to" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>4</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Edges</Name>
+          <AnnotationText>Edges</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="from" source="TextInput:" type="Byte" />
+            <Field name="to" source="TextInput:" type="Byte" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxRPluginGui.R">
+        <Position x="174" y="503" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript>foo = function(x, y, numeric = F){
+  if (x == "") return(y)
+  if (x == "True") return(TRUE)
+  if (x == "False") return(FALSE)
+  if (numeric){x = as.numeric(x)}
+  return(x)
+}
+library(igraph)
+
+get_layout = function(){
+  need_layout = '%Question.need_layout%'
+  if (need_layout == "True"){
+    layout = '%Question.layout_algo%'
+  } else {
+    NULL
+  }
+}
+
+if (AlteryxFullUpdate) {
+  # Output 1
+  write.AlteryxAddFieldMetaInfo(nOutput = 3, name = "html",
+   fieldType = "V_WString", size = 1073741823,
+   source = "R-Data:"
+  )
+} else {
+
+	vertices = read.Alteryx("#1", mode = 'data.frame')
+	edges = read.Alteryx("#2", mode = 'data.frame')
+
+	nodeOptions = list(
+    shape = foo('%Question.node_shape%', NULL),
+	  color = list(
+	    border = '%Question.node_color_border%',
+	    background = '%Question.node_color_background%'
+	  )
+	)
+  edgeOptions = list(
+    color = list(opacity = as.numeric('%Question.edge_color_opacity%'))
+  )
+	options = list(
+	  showLabels = TRUE,
+	  nodes = Filter(Negate(is.null), nodeOptions),
+    edges = Filter(Negate(is.null), edgeOptions),
+	  interaction = list(
+	    selectable = TRUE,
+	    selectConnectedEdges = TRUE,
+	    navigationButtons = TRUE
+	  )
+	)
+	library(AlteryxRviz)
+
+	k &lt;- vis(edges,
+	  directed = '%Question.is_directed%' == "True",
+	  vertices = vertices,
+	  options = options,
+	  width = '100%',
+	  height = 650
+	)
+	#print(paste('Fixed: ', "%Question.size_fixed%"))
+	get_size = function(){
+	  if ("%Question.size_fixed%" == "True"){
+	    s1 = as.numeric("%Question.node_size_fixed%")
+	  } else if ("%Question.size_by_variable%" == "True"){
+	    s1 = "%Question.node_size_by_variable%"
+	  } else {
+	    s1 = "%Question.node_size_by_statistic%"
+	  }
+    return(s1)
+	}
+	s1 = get_size()
+  if (is.function(s1) || s1 != ""){
+		k &lt;- AlteryxRviz::size_by(k, s1,
+     shape = foo('%Question.node_shape%', 'dot')
+    )
+	}
+	get_group = function(){
+	  if ("%Question.group_nodes%" == "True"){
+	    if ("%Question.group_by_variable%" == "True"){
+	      s2 = "%Question.node_group_by_variable%"
+	    } else {
+	      s2 = "%Question.node_group_by_statistic%"
+	    }
+	  } else {
+	    s2 = NULL
+	  }
+	  return(s2)
+	}
+	s2 = get_group()
+	#s2 = '%Question.node_group_by_statistic%'
+	#print(paste("Group: ", s2))
+	if (!is.null(s2)){
+	  k &lt;- AlteryxRviz::group_by(k, s2)
+	}
+
+	g_ &lt;- get_layout()
+	#print(g_)
+	if (!is.null(g_)){
+	  k &lt;-  AlteryxRviz::add_layout(k,  match.fun(g_))
+	}
+
+  g = k$x$graph
+  d = data.frame(
+    betweenness = betweenness(g),
+    degree = degree(g),
+    closeness = closeness(g),
+    pagerank = page.rank(g)$vector,
+    evcent = evcent(g)$vector
+  )
+
+  x &lt;- cbind(get.data.frame(g, what = 'vertices'), d)
+  if ("group" %in% colnames(x)) {
+    # Necessary for Alteryx to understand the data type
+    x$group &lt;- as.numeric(x$group)
+  }
+  write.Alteryx(x, 1)
+
+	#renderInComposer(k, '%Engine.TempFilePath%', 3)
+	#renderInComposer(k, nOutput = 3)
+
+  k1 &lt;- networkVizDashboard(k)
+  renderInComposer(k1, nOutput = 3)
+}</RScript>
+          <UseFullUpdate value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="html" size="1073741823" source="R-Data:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="betweenness" source="R-DATA:" type="Double" />
+            <Field name="degree" source="R-DATA:" type="Double" />
+            <Field name="closeness" source="R-DATA:" type="Double" />
+            <Field name="pagerank" source="R-DATA:" type="Double" />
+            <Field name="evcent" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="270" y="527" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <HeaderMode value="False" />
+          <RawMode value="True" />
+          <ValidatePCXML value="False" />
+          <Message>[html:A]</Message>
+          <RichTextMode value="False" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+\viewkind4\uc1\pard\f0\fs29\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Raw PCXML
+No Text Styling</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="html" size="1073741823" source="R-Data:" type="V_WString" />
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="450" y="527" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Interactive</Name>
+          <Abbrev>I</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="354" y="527" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="Text" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="419" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ramnath\AppData\Local\Temp\Engine_4376_eff22e42b045477697ccdd0eb09badbb_\Engine_2788_c1cc7b1ff8434096bd9c782fdd34cefa_.yxdb</TempFile>
+          <Layout />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="450" y="431" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Data</Name>
+          <Abbrev>D</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="222" y="287" width="139" height="98" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Layout</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="232" y="316" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>need_layout</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="292" y="316" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>layout_algo</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="287" width="151" height="98" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Edge</Caption>
+          <Style TextColor="#314c4a" FillColor="#e2f1f1" BorderColor="#314c4a" Transparency="25" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="34">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="64" y="316" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>edge_color_opacity</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="136" y="316" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>is_directed</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="56" y="54" width="555" height="218" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Node</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="8">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="66" y="83" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>node_color_border</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="66" y="143" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>node_color_background</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="30">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="378" y="83" width="223" height="170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Group</Caption>
+              <Style TextColor="#314c4a" FillColor="#fdfee0" BorderColor="#314c4a" Transparency="25" Margin="10" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="15">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+                <Position x="460" y="184" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>node_group_by_variable</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="16">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+                <Position x="532" y="184" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>node_group_by_statistic</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="17">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+                <Position x="460" y="112" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>group_by_variable</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="18">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+                <Position x="532" y="112" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>group_by_statistic</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="28">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+                <Position x="388" y="112" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>group_nodes</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="138" y="83" width="225" height="172" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Size</Caption>
+              <Style TextColor="#314c4a" FillColor="#fefde0" BorderColor="#314c4a" Transparency="25" Margin="10" />
+              <Disabled value="False" />
+              <Folded value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="13">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+                <Position x="148" y="112" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>size_by_variable</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="14">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+                <Position x="222" y="114" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>size_by_statistic</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="23">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+                <Position x="294" y="114" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>size_fixed</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="11">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+                <Position x="148" y="184" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>node_size_by_variable</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="12">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+                <Position x="222" y="186" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>node_size_by_statistic</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+            <Node ToolID="24">
+              <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+                <Position x="294" y="186" width="59" height="59" />
+              </GuiSettings>
+              <Properties>
+                <Configuration />
+                <Annotation DisplayMode="0">
+                  <Name>node_size_fixed</Name>
+                  <DefaultAnnotationText />
+                  <Left value="False" />
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="66" y="203" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>node_shape</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#1">
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="2" Connection="Question" />
+      <Destination ToolID="11" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="2" Connection="Question" />
+      <Destination ToolID="15" Connection="Question Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="0" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_color_border</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_color_background</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_shape</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_size_fixed</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>size_fixed</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_size_by_variable</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>size_by_variable</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_size_by_statistic</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>size_by_statistic</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_group_by_variable</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>group_by_variable</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>node_group_by_statistic</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>group_by_statistic</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>group_nodes</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>is_directed</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>edge_color_opacity</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>layout_algo</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>need_layout</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Network Analysis</Name>
+      <Description>Generate an interactive visual representation of all the nodes in a network. By mapping names and relationships, this tool provides an easy way to visualize and explore the relationship between the nodes in a network.</Description>
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName>Predictive</CategoryName>
+      <SearchTags>network, graph, social, igraph</SearchTags>
+      <Author>Ramnath Vaidyanathan</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc.</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description>Open Example</Description>
+        <File>12 Predictive\Network Analysis.yxmd</File>
+      </Example>
+      <WorkflowId value="00000000-0000-0000-0000-000000000000" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="00000000-0000-0000-0000-000000000000" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Nodes</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Nodes</Description>
+              <Name>Nodes</Name>
+              <ToolId value="2" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Edges</Description>
+              <Name>Edges</Name>
+              <ToolId value="3" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (41)</Description>
+              <Name>Macro Output (41)</Name>
+              <ToolId value="41" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (6)</Description>
+              <Name>Macro Output (6)</Name>
+              <ToolId value="6" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Border</Description>
+              <Name>node_color_border</Name>
+              <ToolId value="8" />
+              <Default>#2B7CE9</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="True" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description><![CDATA[Background ]]></Description>
+              <Name>node_color_background</Name>
+              <ToolId value="25" />
+              <Default>#D2E5FF</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="True" />
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Shape</Description>
+              <Name>node_shape</Name>
+              <ToolId value="39" />
+              <Multiple value="False" />
+              <Default />
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[dot
+circle
+ellipse
+square
+]]></Manual_Values>
+            </Question>
+            <Question>
+              <Type>LabelGroup</Type>
+              <Description>Size</Description>
+              <Name>LabelGroup (10)</Name>
+              <ToolId value="10" />
+              <Questions>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Fixed</Description>
+                  <Name>size_fixed</Name>
+                  <ToolId value="23" />
+                  <Questions>
+                    <Question>
+                      <Type>NumericUpDown</Type>
+                      <Description>Numeric Size</Description>
+                      <Name>node_size_fixed</Name>
+                      <ToolId value="24" />
+                      <Minimum value="5" />
+                      <Maximum value="100" />
+                      <Increment value="1" />
+                      <Default value="25" />
+                      <Decimals value="0" />
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="True" />
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>By Variable</Description>
+                  <Name>size_by_variable</Name>
+                  <ToolId value="13" />
+                  <Questions>
+                    <Question>
+                      <Type>ListBox</Type>
+                      <Description>Choose Variable</Description>
+                      <Name>node_size_by_variable</Name>
+                      <ToolId value="11" />
+                      <Multiple value="False" />
+                      <Default />
+                      <Mode>MacroField</Mode>
+                      <MacroField_InputTool value="0" />
+                      <Field_IncludeNone value="False" />
+                      <MacroField_FilterTypes>Bool,Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String</MacroField_FilterTypes>
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="True" />
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>By Statistic</Description>
+                  <Name>size_by_statistic</Name>
+                  <ToolId value="14" />
+                  <Questions>
+                    <Question>
+                      <Type>ListBox</Type>
+                      <Description>Choose Statistic</Description>
+                      <Name>node_size_by_statistic</Name>
+                      <ToolId value="12" />
+                      <Multiple value="False" />
+                      <Default />
+                      <Mode>Manual</Mode>
+                      <Manual_Values><![CDATA[Degree5419541n5148905f1n0941f5809degree
+Betweenness5419541n5148905f1n0941f5809betweenness
+Closeness5419541n5148905f1n0941f5809closeness
+Authority5419541n5148905f1n0941f5809authority.score
+Hub5419541n5148905f1n0941f5809hub.score
+]]></Manual_Values>
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="True" />
+                </Question>
+              </Questions>
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Group Nodes</Description>
+              <Name>group_nodes</Name>
+              <ToolId value="28" />
+              <Questions>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Variable</Description>
+                  <Name>group_by_variable</Name>
+                  <ToolId value="17" />
+                  <Questions>
+                    <Question>
+                      <Type>ListBox</Type>
+                      <Description>Choose Variable</Description>
+                      <Name>node_group_by_variable</Name>
+                      <ToolId value="15" />
+                      <Multiple value="False" />
+                      <Default />
+                      <Mode>MacroField</Mode>
+                      <MacroField_InputTool value="0" />
+                      <Field_IncludeNone value="False" />
+                      <MacroField_FilterTypes>Bool,Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String</MacroField_FilterTypes>
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="True" />
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Statistic</Description>
+                  <Name>group_by_statistic</Name>
+                  <ToolId value="18" />
+                  <Questions>
+                    <Question>
+                      <Type>ListBox</Type>
+                      <Description>Choose Statistic</Description>
+                      <Name>node_group_by_statistic</Name>
+                      <ToolId value="16" />
+                      <Multiple value="False" />
+                      <Default />
+                      <Mode>Manual</Mode>
+                      <Manual_Values><![CDATA[fastgreedy.community
+infomap.community
+]]></Manual_Values>
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="True" />
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="True" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Edges</Description>
+          <Name>Tab (35)</Name>
+          <ToolId value="35" />
+          <Questions>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Directed</Description>
+              <Name>is_directed</Name>
+              <ToolId value="36" />
+              <Questions />
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Opacity</Description>
+              <Name>edge_color_opacity</Name>
+              <ToolId value="34" />
+              <Minimum value="0" />
+              <Maximum value="1" />
+              <Increment value="0.1" />
+              <Default value="1" />
+              <Decimals value="1" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Layout</Description>
+          <Name>Tab (22)</Name>
+          <ToolId value="22" />
+          <Questions>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Specify Layout</Description>
+              <Name>need_layout</Name>
+              <ToolId value="20" />
+              <Questions>
+                <Question>
+                  <Type>ListBox</Type>
+                  <Description>Choose Layout Algorithm</Description>
+                  <Name>layout_algo</Name>
+                  <ToolId value="21" />
+                  <Multiple value="False" />
+                  <Default />
+                  <Mode>Manual</Mode>
+                  <Manual_Values><![CDATA[layout.fruchterman.reingold
+layout.drl
+layout.auto
+layout.circle
+layout.spring
+layout.reingold.tilford
+layout.kamada.kawai
+layout.svd
+]]></Manual_Values>
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="True" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:Network_Analysis</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -1,0 +1,1454 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="Day" />
+            <Field name="Year" />
+            <Field name="URL" />
+            <Field name="NotUseCache" />
+            <Field name="cookie" />
+          </Fields>
+          <Data>
+            <r>
+              <c>1</c>
+              <c>2019</c>
+              <c>https://adventofcode.com/[Year]/day/[Day]/input</c>
+              <c>False</c>
+              <c>53616c7465645f5f6380fcb88eb7b544863e5eda948ceed60c35f3317264e61a4ff95656a4ae2a4f79b75689765432c860fd5e584046327bae2f8af07acc34d7</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxConnectorGui.Download.Download">
+        <Position x="342" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <URLField>AccessURL</URLField>
+          <OutputMode>String</OutputMode>
+          <CodePage>65001</CodePage>
+          <EncodeURLs value="True" />
+          <Headers>
+            <NameValues />
+            <Fields orderChanged="False">
+              <Field name="cookie" />
+              <Field name="Day" selected="False" />
+              <Field name="Year" selected="False" />
+              <Field name="URL" selected="False" />
+              <Field name="NotUseCache" selected="False" />
+              <Field name="AccessURL" selected="False" />
+              <Field name="CachePath" selected="False" />
+              <Field name="IsCache" selected="False" />
+              <Field name="CacheSavePath" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </Fields>
+          </Headers>
+          <Payload>
+            <HTTPAction>GET</HTTPAction>
+            <QueryStringBodyMode>Compose</QueryStringBodyMode>
+            <ComposeNameValues />
+            <ComposeFields orderChanged="False">
+              <Field name="Day" selected="False" />
+              <Field name="Year" selected="False" />
+              <Field name="URL" selected="False" />
+              <Field name="NotUseCache" selected="False" />
+              <Field name="cookie" selected="False" />
+              <Field name="AccessURL" selected="False" />
+              <Field name="CachePath" selected="False" />
+              <Field name="IsCache" selected="False" />
+              <Field name="CacheSavePath" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </ComposeFields>
+          </Payload>
+          <numConnections>2</numConnections>
+          <Timeout>600</Timeout>
+          <EnableRPM value="False" />
+          <DcmAdvancedAuth value="False" />
+          <Password />
+          <UserName />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="Formula: &quot;session=&quot;+[cookie]" type="V_String" />
+            <Field name="AccessURL" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" type="V_WString" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxDownload" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="246" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Replace(Replace([URL], &quot;[Day]&quot;, ToString([Day])), &quot;[Year]&quot;, ToString([Year]))&#xA;" field="AccessURL" size="1073741823" type="V_WString" />
+            <FormulaField expression="&quot;session=&quot;+[cookie]" field="cookie" size="256" type="V_String" />
+            <FormulaField expression="FileAddPaths([Engine.WorkflowDirectory], ToString([Year])+&quot;_&quot;+PadLeft(ToString([Day]), 2, &quot;0&quot;)+&quot;_input.yxdb&quot;)&#xA;&#xA;" field="CachePath" size="1073741823" type="V_WString" />
+            <FormulaField expression="IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" field="IsCache" size="1" type="Bool" />
+            <FormulaField expression="IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" field="AccessURL" size="1073741823" type="V_WString" />
+            <FormulaField expression="IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" field="CacheSavePath" size="1073741823" type="V_WString" />
+            <FormulaField expression="IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" field="CachePath" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>AccessURL = Replace(Replace([URL], "[Day]", ToString([Day])), "[Year]", ToString...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="Formula: &quot;session=&quot;+[cookie]" type="V_String" />
+            <Field name="AccessURL" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" type="V_WString" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="150" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="cookie" selected="True" size="256" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="438" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>Filter</When>
+          <Filter>!Contains([DownloadHeaders],"HTTP/1.1 200 OK")</Filter>
+          <Type>ErrorStop</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>[DownloadData]</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="Formula: &quot;session=&quot;+[cookie]" type="V_String" />
+            <Field name="AccessURL" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" type="V_WString" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="54" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>数値増減 (8)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="54" y="294" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>値を更新</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+        <Position x="186" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>数値増減 (12)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="186" y="294" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>値を更新</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="102" width="540" height="48" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Cookie
+ Chrome : Developer tool =&gt; Application =&gt; Strage =&gt; Coolies =&gt; session</Text>
+          <Font name="Meiryo" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1422" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output15</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Output</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="534" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Day" selected="False" />
+            <SelectField field="Year" selected="False" />
+            <SelectField field="URL" selected="False" />
+            <SelectField field="cookie" selected="False" />
+            <SelectField field="AccessURL" selected="False" />
+            <SelectField field="DownloadData" selected="True" rename="Input" />
+            <SelectField field="DownloadHeaders" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="Download" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+        <Position x="342" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>テキストボックス (17)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="342" y="294" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>値を更新</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="630" y="354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File FileFormat="19" MaxRecords="">test.yxdb</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <NoSpatialIndex>False</NoSpatialIndex>
+            <SaveSource>False</SaveSource>
+            <WriteCompatibleVersion>False</WriteCompatibleVersion>
+          </FormatSpecificOptions>
+          <MultiFile value="True" />
+          <MultiFileType>Path</MultiFileType>
+          <MultiFileField>CacheSavePath</MultiFileField>
+          <KeepField value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>test.yxdb</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+        <Position x="498" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>チェックボックス (22)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="750" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NotUseCache" source="(Multiple Sources)" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="DataFrom" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="498" y="294" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>値を更新</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="600" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Advent of Code Input Macro ver.2014</Text>
+          <Font name="Meiryo" size="15.75" style="1" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1038" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="NotUseCache" selected="False" />
+            <SelectField field="CachePath" selected="False" />
+            <SelectField field="IsCache" selected="False" />
+            <SelectField field="CacheSavePath" selected="False" />
+            <SelectField field="DataFrom" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1134" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="Input" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Unique">
+          <RecordInfo>
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Input" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Duplicates">
+          <RecordInfo>
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Input" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="738" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input30</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <Optional value="True" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="3" />
+              <Fields>
+                <Field name="Input" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c />
+                </r>
+                <r>
+                  <c>3</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Input</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Input" source="TextInput:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="1230" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>Input</Field>
+          <Delimeters value="\n" />
+          <NumFields value="1" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from Input" name="Input" size="1073741823" source="TextToColumns: Parsed from Input" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1326" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [Input]=&quot;&quot; THEN Null() ELSE [Input] ENDIF" field="Input" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Input = IF [Input]="" THEN Null() ELSE [Input] ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from Input" name="Input" size="1073741823" source="Formula: IF [Input]=&quot;&quot; THEN Null() ELSE [Input] ENDIF" type="V_WString" />
+          </RecordInfo>
+          <SortInfo>
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="846" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>DataFrom</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-12-01 23:30:32</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>1</Operand>
+              <StartDate>2022-12-01 23:30:32</StartDate>
+              <EndDate>2022-12-01 23:30:32</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[DataFrom] = 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="NotUseCache" source="(Multiple Sources)" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="DataFrom" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="NotUseCache" source="(Multiple Sources)" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="DataFrom" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="630" y="438" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="1" field="DataFrom" size="2" type="Int16" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[DataFrom = 1
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DataFrom" source="Formula: 1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings>
+        <Position x="438" y="522" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="ControlParams"><![CDATA[Control Parameter (8)=CachePath
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output6">
+          <RecordInfo>
+            <Field name="NotUseCache" source="File: C:\MyDoc\AYX\AdventOfCode\2015\Day11\2019_01_input.yxdb" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="File: C:\MyDoc\AYX\AdventOfCode\2015\Day11\2019_01_input.yxdb" type="V_WString" />
+            <Field name="Input" size="1073741823" source="File: C:\MyDoc\AYX\AdventOfCode\2015\Day11\2019_01_input.yxdb" type="V_WString" />
+            <Field name="DataFrom" source="Formula: 1" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="AdventOfCodeInput.yxmcbatch" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="342" y="522" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>FileExists([CachePath])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>FileExists([CachePath])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="Formula: &quot;session=&quot;+[cookie]" type="V_String" />
+            <Field name="AccessURL" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" type="V_WString" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Day" source="TextInput:" type="Int32" />
+            <Field name="Year" source="TextInput:" type="Int32" />
+            <Field name="URL" size="2147483647" source="TextInput:" type="V_String" />
+            <Field name="NotUseCache" source="TextInput:" type="Bool" />
+            <Field name="cookie" size="256" source="Formula: &quot;session=&quot;+[cookie]" type="V_String" />
+            <Field name="AccessURL" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [AccessURL] ENDIF" type="V_WString" />
+            <Field name="CachePath" size="1073741823" source="Formula: IF [NotUseCache] THEN &quot;AdventOfCodeInput.yxdb&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+        <Position x="774" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Radio Button (46)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+        <Position x="930" y="198" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Radio Button (47)</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="846" y="294" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Message.Message">
+        <Position x="942" y="474" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <When>First</When>
+          <Filter />
+          <Type>Message</Type>
+          <Priority>High</Priority>
+          <Transient>False</Transient>
+          <MessageExpression>IF [DataFrom]=1 THEN 
+"Use AoC Input"
+ELSE
+"Use Test Data"
+ENDIF</MessageExpression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="NotUseCache" source="(Multiple Sources)" type="Bool" />
+            <Field name="CachePath" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="IsCache" source="Formula: IF [NotUseCache] THEN &quot;False&quot; ELSE&#xA;FileExists([CachePath]) ENDIF" type="Bool" />
+            <Field name="CacheSavePath" size="1073741823" source="Formula: IF [IsCache] THEN &quot;&quot; ELSE [CachePath] ENDIF" type="V_WString" />
+            <Field name="Input" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+            <Field name="DataFrom" source="(Multiple Sources)" type="Int16" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMessage" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="140" y="704" width="367" height="180" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>From Test Input</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>From Test Input</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="33">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicRename.DynamicRename">
+            <Position x="150" y="738" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <RenameMode>Formula</RenameMode>
+              <Fields orderChanged="False">
+                <Field name="Input" />
+                <Field name="*Unknown" />
+              </Fields>
+              <Expression>"Input"</Expression>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Input" source="TextInput:" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicRename" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="438" y="738" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="Input" action="Concat" rename="Input">
+                  <Concat_Start />
+                  <Separator>\n</Separator>
+                  <Concat_End />
+                </SummarizeField>
+                <SummarizeField field="DataFrom" action="GroupBy" rename="DataFrom" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Input" size="1073741823" source="Summarize: Concat - Input" type="V_WString" />
+                <Field name="DataFrom" source="Summarize: GroupBy - DataFrom" type="Int16" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="DataFrom" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="246" y="738" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Input" selected="True" type="V_WString" size="65535" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Input" size="65535" source="TextInput:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="342" y="738" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="IF IsNull([Input]) THEN &quot;&quot; ELSE [Input] ENDIF" field="Input" size="65535" type="V_WString" />
+                <FormulaField expression="2" field="DataFrom" size="2" type="Int16" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[Input = IF IsNull([Input]) THEN "" ELSE [Input] ENDIF
+DataFrom = 2
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Input" size="65535" source="Formula: IF IsNull([Input]) THEN &quot;&quot; ELSE [Input] ENDIF" type="V_WString" />
+                <Field name="DataFrom" source="Formula: 2" type="Int16" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="8" Connection="Question" />
+      <Destination ToolID="9" Connection="Question" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="9" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="13" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection name="#4">
+      <Origin ToolID="18" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection name="#5">
+      <Origin ToolID="26" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="12" Connection="Question" />
+      <Destination ToolID="13" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="17" Connection="Question" />
+      <Destination ToolID="18" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="22" Connection="Question" />
+      <Destination ToolID="26" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="48" Connection="Action" />
+      <Destination ToolID="36" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Unique" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="33" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="True" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="44" Connection="Output6" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="True" />
+      <Destination ToolID="44" Connection="Control" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="46" Connection="Question" />
+      <Destination ToolID="48" Connection="Question" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="47" Connection="Question" />
+      <Destination ToolID="48" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="932" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>数値増減 (12)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>数値増減 (8)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>テキストボックス (17)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>チェックボックス (22)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Radio Button (46)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Radio Button (47)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>AdventOfCodeInput</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author>Akimasa Kajitani</Author>
+      <Company />
+      <Copyright>Akimasa Kajitani</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="4e7471d1-b615-4179-95f6-3fb684dbdc75" />
+      <Telemetry>
+        <PreviousWorkflowId value="1bcf4eee-f943-42cf-a468-f55b69eb3e43" />
+        <OriginWorkflowId value="1bcf4eee-f943-42cf-a468-f55b69eb3e43" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="9" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>1/Data/r[1]/c[1]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	1</DynamicConfiguration>
+              <DefaultConfiguration value="True" />
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="13" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>1/Data/r[1]/c[2]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	2</DynamicConfiguration>
+              <DefaultConfiguration value="False" />
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="18" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>1/Data/r[1]/c[5]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	5</DynamicConfiguration>
+              <DefaultConfiguration value="False" />
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="26" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>1/Data/r[1]/c[4]</Destination>
+              <Mapping>Update Cell</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration>row	1
+column	4</DynamicConfiguration>
+              <DefaultConfiguration value="False" />
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="48" />
+              <Expression>IF [#1]="True" THEN 2 ELSE 1 ENDIF</Expression>
+              <Destination>36/Simple/Operands/Operand</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>質問</Description>
+          <Name>タブ (7)</Name>
+          <ToolId value="7" />
+          <Questions>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Year</Description>
+              <Name>数値増減 (12)</Name>
+              <ToolId value="12" />
+              <Minimum value="2015" />
+              <Maximum value="10000" />
+              <Increment value="1" />
+              <Default value="2022" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Day</Description>
+              <Name>数値増減 (8)</Name>
+              <ToolId value="8" />
+              <Minimum value="1" />
+              <Maximum value="25" />
+              <Increment value="1" />
+              <Default value="1" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>cookie</Description>
+              <Name>テキストボックス (17)</Name>
+              <ToolId value="17" />
+              <Default />
+              <Password value="True" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>マクロ出力 (15)</Description>
+              <Name>マクロ出力 (15)</Name>
+              <ToolId value="15" />
+            </Question>
+            <Question>
+              <Type>Label</Type>
+              <Description>Cookie</Description>
+              <Name>ラベル (19)</Name>
+              <ToolId value="19" />
+            </Question>
+            <Question>
+              <Type>Label</Type>
+              <Description>Chrome : Developer tool =&gt; Application =&gt; Strage =&gt; Coolies =&gt; session</Description>
+              <Name>ラベル (20)</Name>
+              <ToolId value="20" />
+            </Question>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>マクロ入力 (30)</Description>
+              <Name>マクロ入力 (30)</Name>
+              <ToolId value="30" />
+            </Question>
+            <Question>
+              <Type>LabelGroup</Type>
+              <Description>Input Selector</Description>
+              <Name>LabelGroup (49)</Name>
+              <ToolId value="49" />
+              <Questions>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>AoC Input</Description>
+                  <Name>Radio Button (47)</Name>
+                  <ToolId value="47" />
+                  <Questions />
+                  <Default value="False" />
+                  <Collapsable value="False" />
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Test data</Description>
+                  <Name>Radio Button (46)</Name>
+                  <ToolId value="46" />
+                  <Questions />
+                  <Default value="True" />
+                  <Collapsable value="False" />
+                </Question>
+              </Questions>
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Don't use cache</Description>
+              <Name>チェックボックス (22)</Name>
+              <ToolId value="22" />
+              <Questions />
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAABShJREFUeF7t3TGKJ1UURvEO7HB2IAMiYjbYYOZaJtPARFqYzBWZm2jgHgx1A+7CdoIPDDxB8VGPrnfr/OCkl/+re8Me5kGSJEmSJEmSJEmSJEmSJEkP//z55sNZZaS0xstfb17OKiOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTU+/endy1llpLTG449PL2eVkdIadHRtGSmtQUfXlpHSGnR0bRkprUFH15aR0hp0dG0ZKa1BR9eWkdIadHRtGSmtQUfXlpHSGnR0bRkprUFH15aR0hp0dG0ZKa1BR9eWkdIadHRtGSn95/H56f1pwdHV0fyyPFW7w0MZVp6q3dFyp5Wnane03GnlqdodLXdaeap2R8udVp6q3dFyp5Wnane03GnlqdodLXdaeap2R8udVp6q3dFyp5Wnane03GnlqdodLXdaeap2R8udVp6q3dFyp5Wnane03GnlqXoNnzx/9cdZ/f71Zy9nRYdyhejdbVmBjqKFtP395dvTovnTygp0FH3ENjq6Npo/raxAR9FHbKOja6P508oKdBR9xDY6ujaaP62sQEfRR2yjo2uj+dPKCnQUfcQ2Oro2mj+trEBH0Udso6Nro/nTygp0FH3ENjq6Npo/raxAR9FHbKOja6P508oKdBR9xDY6ujaaP62sQEfRR2yjo2uj+dPKCnQUfcQ2Oro2mj+trEBH0Udso6Nro/nTygp0FH3ENjq6Npo/raxARz0+P/12Vj9/8/nLWdFyLxG8uy0r0GvA5Q4rT9XuaLnTylO1O1rutPJU7Y6WO608Vbuj5U4rT9XuaLnTylO1O1rutPJU7Y6WO608Vbuj5U4rT9XuaLnTylO1O1rutPJU7Y6WO608Vbuj5U4rT9XuaLnTylO1O1rutPJUvYaPC/j1xHDBrx39vWzbx3n07qqsQEd9/Gj/W+606F8itNH8tqxAR9FHnBYdXRvNb8sKdBR9xGnR0bXR/LasQEfRR5wWHV0bzW/LCnQUfcRp0dG10fy2rEBH0UecFh1dG81vywp0FH3EadHRtdH8tqxAR9FHnBYdXRvNb8sKdBR9xGnR0bXR/LasQEfRR5wWHV0bzW/LCnQUfcRp0dG10fy2rEBH0UecFh1dG81vywp0FH3EadHRtdH8tqxAR9FHnBYdXRvNb8sKZnv84endacFHnBb9r9ttNL+O9lGW07gefLjdupzG9dCPtXuX07ge+rF273Ia10M/1u5dTuN66MfavctpXA/9WLt3OY3roR9r9y6ncT30Y+3e5TSuh36s3bucxvXQj7V7l9O4Hvqxdu9yGtdDP9buXU7jeujH2r3LaVwP/Vi7dzmN66Efa/cup3E9j89P76f34fsvXs6K5k8rp6HX8Mu3b1/OKiOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJag46uLSOlNejo2jJSWoOOri0jpTXo6NoyUlqDjq4tI6U16OjaMlJa45fv3n44q4yUJEmSJEmSJEmSJEmSJEm6r4eHfwF/Kc4bxczXywAAAABJRU5ErkJggg==</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
