@@ -51,5 +51,17 @@ def main():
 
     print(f'Matches: {match_cnt}')
 
+
+    # Better way to do this...
+
+
+    # result = sum(
+    #         (1 
+    #             for l in locks 
+    #             for k in keys
+    #             if all([a+b <= 5 for a,b in zip(l,k)]))
+    #         )
+    
+
 if __name__ == "__main__":
     main()
